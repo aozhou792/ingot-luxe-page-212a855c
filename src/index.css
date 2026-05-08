@@ -49,16 +49,41 @@
 
 @layer base {
   * { @apply border-border; }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
   body {
     @apply bg-background text-foreground antialiased;
+    overflow-x: hidden;
     font-family: 'Inter', system-ui, sans-serif;
     background-image:
       radial-gradient(ellipse 60% 40% at 20% 0%, hsl(45 75% 52% / 0.08), transparent 60%),
       radial-gradient(ellipse 50% 50% at 100% 100%, hsl(45 75% 52% / 0.06), transparent 60%);
     background-attachment: fixed;
   }
+  @media (max-width: 768px) {
+    body {
+      background-attachment: scroll;
+    }
+  }
   h1, h2, h3, h4 { font-family: 'Montserrat', 'Inter', sans-serif; letter-spacing: -0.02em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-float,
+  .animate-pulse-glow,
+  .shimmer-text {
+    animation: none !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 @layer utilities {
@@ -77,10 +102,12 @@
     border: 1px solid hsl(45 40% 18%);
     transition: var(--transition-luxe);
   }
-  .luxe-card:hover {
-    border-color: hsl(var(--primary) / 0.8);
-    box-shadow: 0 20px 50px -15px hsl(45 75% 52% / 0.4);
-    transform: translateY(-6px);
+  @media (hover: hover) and (pointer: fine) {
+    .luxe-card:hover {
+      border-color: hsl(var(--primary) / 0.8);
+      box-shadow: 0 20px 50px -15px hsl(45 75% 52% / 0.4);
+      transform: translateY(-6px);
+    }
   }
   .reveal {
     opacity: 0;
