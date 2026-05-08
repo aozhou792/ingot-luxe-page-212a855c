@@ -3,6 +3,7 @@ import { Link, Navigate, useLocation, useNavigate, useParams } from "react-route
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { getProductBySlug, getRelatedProducts } from "@/data/products";
+import { formatAud } from "@/lib/format";
 import { useCart } from "@/context/CartContext";
 import { useReveal } from "@/hooks/use-reveal";
 import { ArrowLeft, Check, ChevronRight, Minus, Package, Plus, Sparkles, Truck } from "lucide-react";
@@ -166,7 +167,9 @@ const ProductPage = () => {
                 </h1>
 
                 <div className="flex flex-wrap items-end gap-2 sm:gap-4 pt-1">
-                  <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-gold tabular-nums">${product.price}</p>
+                  <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-gold tabular-nums">
+                    {formatAud(Number.parseFloat(product.price))}
+                  </p>
                   <span className="text-xs sm:text-sm text-muted-foreground pb-1 sm:pb-1.5 max-w-[12rem] sm:max-w-none leading-snug">
                     per device · incl. smart display
                   </span>
@@ -319,7 +322,9 @@ const ProductPage = () => {
                       <h3 className="text-xs sm:text-sm font-bold leading-snug group-hover:text-primary transition-colors line-clamp-2">
                         {p.name}
                       </h3>
-                      <span className="text-sm sm:text-base text-gold font-bold tabular-nums">${p.price}</span>
+                      <span className="text-sm sm:text-base text-gold font-bold tabular-nums">
+                        {formatAud(Number.parseFloat(p.price))}
+                      </span>
                     </div>
                   </Link>
                 ))}

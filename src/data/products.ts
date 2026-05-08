@@ -181,7 +181,7 @@ export const products: Product[] = [
   {
     slug: "peach-watermelon",
     name: "Peach Watermelon",
-    price: "19.99",
+    price: "26",
     img: peachWatermelon,
     tag: "Fruity",
     excerpt:
@@ -193,7 +193,7 @@ export const products: Product[] = [
   {
     slug: "blackberry-ice",
     name: "Blackberry Ice",
-    price: "19.99",
+    price: "26",
     img: blackberry,
     tag: "Iced",
     excerpt:
@@ -205,7 +205,7 @@ export const products: Product[] = [
   {
     slug: "mango-magic",
     name: "Mango Magic",
-    price: "19.99",
+    price: "26",
     img: mango,
     tag: "Tropical",
     excerpt:
@@ -217,7 +217,7 @@ export const products: Product[] = [
   {
     slug: "california-sunset",
     name: "California Sunset",
-    price: "19.99",
+    price: "26",
     img: california,
     tag: "Citrus",
     excerpt:
@@ -229,7 +229,7 @@ export const products: Product[] = [
   {
     slug: "strawberry-coconut-watermelon",
     name: "Strawberry Coconut Watermelon",
-    price: "19.99",
+    price: "26",
     img: strawberryCoconutWatermelon,
     tag: "Tropical",
     excerpt:
@@ -241,7 +241,7 @@ export const products: Product[] = [
   {
     slug: "grape-ice",
     name: "Grape Ice",
-    price: "19.99",
+    price: "26",
     img: grape,
     tag: "Iced",
     excerpt:
@@ -253,7 +253,7 @@ export const products: Product[] = [
   {
     slug: "rainbow-candy",
     name: "Rainbow Candy",
-    price: "19.99",
+    price: "26",
     img: rainbowCandy,
     tag: "Sweet",
     excerpt:
@@ -265,7 +265,7 @@ export const products: Product[] = [
   {
     slug: "strawberry-watermelon",
     name: "Strawberry Watermelon",
-    price: "19.99",
+    price: "26",
     img: strawberryWatermelon,
     tag: "Fruity",
     excerpt:
@@ -277,7 +277,7 @@ export const products: Product[] = [
   {
     slug: "blueberry-blast",
     name: "Blueberry Blast",
-    price: "19.99",
+    price: "26",
     img: blueberryBlast,
     tag: "Iced",
     excerpt:
@@ -289,7 +289,7 @@ export const products: Product[] = [
   {
     slug: "strawberry-ice",
     name: "Strawberry Ice",
-    price: "19.99",
+    price: "26",
     img: strawberryIce,
     tag: "Iced",
     excerpt:

@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { products, type Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
+import { formatAud } from "@/lib/format";
 import type { ProductLocationState } from "@/types/navigation";
 
 type FlavorCardProps = {
@@ -55,7 +56,7 @@ const FlavorCard = ({ f, revealIndex, goToProduct }: FlavorCardProps) => {
             {f.name}
           </Link>
           <span className="text-sm sm:text-base md:text-lg font-bold text-gold whitespace-nowrap shrink-0 tabular-nums">
-            ${f.price}
+            {formatAud(Number.parseFloat(f.price))}
           </span>
         </div>
         <p className="text-[10px] sm:text-xs text-muted-foreground leading-snug line-clamp-2 min-h-[2lh]">
