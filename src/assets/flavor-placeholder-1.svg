@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Flavor image placeholder 1">
+  <defs>
+    <linearGradient id="ph1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6b5a2e"/>
+      <stop offset="50%" style="stop-color:#d4af37"/>
+      <stop offset="100%" style="stop-color:#6b5a2e"/>
+    </linearGradient>
+    <radialGradient id="ph1g" cx="50%" cy="35%" r="55%">
+      <stop offset="0%" style="stop-color:hsl(45 75% 52% / 0.12)"/>
+      <stop offset="100%" style="stop-color:transparent"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" fill="#070707"/>
+  <rect width="512" height="512" fill="url(#ph1g)"/>
+  <rect x="28" y="28" width="456" height="456" rx="36" fill="none" stroke="url(#ph1)" stroke-width="2" opacity="0.9"/>
+  <text x="256" y="232" text-anchor="middle" fill="#c9a227" font-family="system-ui,Segoe UI,sans-serif" font-size="20" font-weight="700" letter-spacing="0.42em">PLACEHOLDER</text>
+  <text x="256" y="272" text-anchor="middle" fill="#737373" font-family="system-ui,Segoe UI,sans-serif" font-size="13" letter-spacing="0.28em">IMAGE � SLOT 1</text>
+  <text x="256" y="308" text-anchor="middle" fill="#525252" font-family="system-ui,Segoe UI,sans-serif" font-size="11" letter-spacing="0.2em">ALIBARBAR INGOT</text>
+</svg>

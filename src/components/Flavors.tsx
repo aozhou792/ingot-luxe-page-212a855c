@@ -1,69 +1,166 @@
-import coolMint from "@/assets/flavor-cool-mint.png";
-import blackberry from "@/assets/flavor-blackberry.png";
-import california from "@/assets/flavor-california.png";
-import strawberry from "@/assets/flavor-strawberry.png";
-import grape from "@/assets/flavor-grape.png";
-import mango from "@/assets/flavor-mango.png";
+import { Link, useNavigate } from "react-router-dom";
+import { products, type Product } from "@/data/products";
+import { useCart } from "@/context/CartContext";
+import type { ProductLocationState } from "@/types/navigation";
 
-const flavors = [
-  { name: "Cool Mint", price: "19.99", img: coolMint, tag: "Iced" },
-  { name: "Blackberry Ice", price: "19.99", img: blackberry, tag: "Iced" },
-  { name: "Mango Magic", price: "19.99", img: mango, tag: "Tropical" },
-  { name: "California Sunset", price: "19.99", img: california, tag: "Citrus" },
-  { name: "Chupa Strawberry", price: "19.99", img: strawberry, tag: "Sweet" },
-  { name: "Grape Ice", price: "19.99", img: grape, tag: "Iced" },
-];
+type FlavorCardProps = {
+  f: Product;
+  revealIndex: number;
+  goToProduct: (slug: string) => void;
+};
+
+const FlavorCard = ({ f, revealIndex, goToProduct }: FlavorCardProps) => {
+  const navigate = useNavigate();
+  const { addToCart, buyNow } = useCart();
+
+  return (
+    <article
+      className="reveal luxe-card rounded-xl sm:rounded-2xl overflow-hidden group flex flex-col min-w-0"
+      style={{ transitionDelay: `${revealIndex * 80}ms` }}
+    >
+      <Link
+        to={`/product/${f.slug}`}
+        onClick={(e) => {
+          e.preventDefault();
+          goToProduct(f.slug);
+        }}
+        className="relative aspect-square bg-gradient-to-br from-secondary to-background overflow-hidden block text-left cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        aria-label={`View ${f.name} product page`}
+      >
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+          style={{ background: "var(--gradient-gold-soft)" }}
+        />
+        <img
+          src={f.img}
+          alt={`${f.name} Alibarbar Ingot 9000 puffs flavor`}
+          loading="lazy"
+          className="w-full h-full object-contain p-3 sm:p-5 md:p-6 group-hover:scale-110 transition-transform duration-700"
+        />
+        <span className="absolute top-2 left-2 sm:top-3 sm:left-3 text-[8px] sm:text-[10px] uppercase tracking-widest px-2 py-0.5 sm:px-3 sm:py-1 rounded-full border border-gold bg-background/60 backdrop-blur text-primary max-w-[calc(100%-0.75rem)] truncate">
+          {f.tag}
+        </span>
+      </Link>
+
+      <div className="p-2.5 sm:p-4 md:p-6 flex flex-col gap-2 sm:gap-3 md:gap-4 flex-1">
+        <div className="flex flex-col gap-1 min-[480px]:flex-row min-[480px]:items-start min-[480px]:justify-between gap-x-2">
+          <Link
+            to={`/product/${f.slug}`}
+            onClick={(e) => {
+              e.preventDefault();
+              goToProduct(f.slug);
+            }}
+            className="text-sm min-[480px]:text-base sm:text-lg font-bold leading-snug break-words hover:text-primary transition-colors min-w-0 line-clamp-2"
+          >
+            {f.name}
+          </Link>
+          <span className="text-sm sm:text-base md:text-lg font-bold text-gold whitespace-nowrap shrink-0 tabular-nums">
+            ${f.price}
+          </span>
+        </div>
+        <p className="text-[10px] sm:text-xs text-muted-foreground leading-snug line-clamp-2 min-h-[2lh]">
+          9000 puffs · Smart display · Mesh coil
+        </p>
+
+        {f.inStock ? (
+          <div className="mt-auto grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              className="min-h-[40px] sm:min-h-[44px] py-2 sm:py-2.5 rounded-full border border-gold text-primary font-semibold uppercase tracking-tight sm:tracking-wider text-[9px] sm:text-[11px] hover:bg-gold/15 active:bg-gold/25 transition-all"
+              onClick={() =>
+                addToCart({
+                  slug: f.slug,
+                  name: f.name,
+                  price: f.price,
+                  image: f.img,
+                  qty: 1,
+                })
+              }
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              className="min-h-[40px] sm:min-h-[44px] py-2 sm:py-2.5 rounded-full bg-gold text-primary-foreground font-semibold uppercase tracking-tight sm:tracking-wider text-[9px] sm:text-[11px] hover:opacity-95 active:opacity-90 transition-all"
+              onClick={() => {
+                buyNow({
+                  slug: f.slug,
+                  name: f.name,
+                  price: f.price,
+                  image: f.img,
+                  qty: 1,
+                });
+                navigate("/checkout");
+              }}
+            >
+              Buy now
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            disabled
+            className="mt-auto w-full min-h-[40px] sm:min-h-[44px] py-2 sm:py-3 rounded-full border border-gold text-primary font-semibold uppercase tracking-wider sm:tracking-widest text-[10px] sm:text-xs opacity-45 pointer-events-none"
+          >
+            {f.isPlaceholder ? "Coming soon" : "Unavailable"}
+          </button>
+        )}
+      </div>
+    </article>
+  );
+};
 
 export const Flavors = () => {
+  const navigate = useNavigate();
+
+  const goToProduct = (slug: string) => {
+    navigate(`/product/${slug}`, {
+      state: { homeScrollY: window.scrollY } satisfies ProductLocationState,
+    });
+  };
+
+  const regularProducts = products.filter((p) => !p.isPlaceholder);
+  const placeholderProducts = products.filter((p) => p.isPlaceholder);
+
   return (
-    <section id="flavors" className="py-28 relative">
+    <section id="flavors" className="py-16 sm:py-20 md:py-28 relative scroll-mt-20">
       <div className="absolute inset-0 -z-10 opacity-50" style={{ background: "var(--gradient-radial)" }} />
       <div className="container">
-        <div className="text-center max-w-2xl mx-auto mb-16 reveal">
-          <p className="text-xs uppercase tracking-[0.3em] text-primary mb-4">The Collection</p>
-          <h2 className="text-4xl md:text-5xl font-extrabold">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 md:mb-16 reveal px-1">
+          <p className="text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary mb-3 sm:mb-4">
+            The Collection
+          </p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
             Explore Our <span className="text-gold">Signature Flavors</span>
           </h2>
-          <p className="text-muted-foreground mt-4">
-            Six masterful blends. One unforgettable experience.
+          <p className="text-muted-foreground mt-3 sm:mt-4 text-sm sm:text-base px-2">
+            Ten masterful blends. One unforgettable experience.
           </p>
-          <div className="gold-divider mt-8 max-w-xs mx-auto" />
+          <div className="gold-divider mt-6 sm:mt-8 max-w-xs mx-auto" />
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {flavors.map((f, i) => (
-            <article
-              key={f.name}
-              className="reveal luxe-card rounded-2xl overflow-hidden group flex flex-col"
-              style={{ transitionDelay: `${i * 80}ms` }}
-            >
-              <div className="relative aspect-square bg-gradient-to-br from-secondary to-background overflow-hidden">
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "var(--gradient-gold-soft)" }} />
-                <img
-                  src={f.img}
-                  alt={`${f.name} Alibarbar Ingot 9000 puffs flavor`}
-                  loading="lazy"
-                  className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-700"
-                />
-                <span className="absolute top-4 left-4 text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border border-gold bg-background/60 backdrop-blur text-primary">
-                  {f.tag}
-                </span>
-              </div>
-
-              <div className="p-6 flex flex-col gap-4 flex-1">
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="text-xl font-bold">{f.name}</h3>
-                  <span className="text-lg font-bold text-gold whitespace-nowrap">${f.price}</span>
-                </div>
-                <p className="text-sm text-muted-foreground">9000 puffs · Smart display · Mesh coil</p>
-
-                <button className="mt-auto w-full py-3 rounded-full border border-gold text-primary font-semibold uppercase tracking-widest text-xs hover:bg-gold hover:text-primary-foreground transition-all">
-                  Add to Cart
-                </button>
-              </div>
-            </article>
+        {/* In-stock & full listings: 2 cols mobile, 3 cols desktop */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6 lg:gap-8">
+          {regularProducts.map((f, i) => (
+            <FlavorCard key={f.slug} f={f} revealIndex={i} goToProduct={goToProduct} />
           ))}
         </div>
+
+        {/* Placeholders: always their own last row (two cards) */}
+        {placeholderProducts.length > 0 ? (
+          <div className="mt-6 sm:mt-8 md:mt-10">
+            <div className="grid grid-cols-2 gap-3 sm:gap-5 md:gap-6 lg:gap-8 lg:max-w-4xl lg:mx-auto">
+              {placeholderProducts.map((f, i) => (
+                <FlavorCard
+                  key={f.slug}
+                  f={f}
+                  revealIndex={regularProducts.length + i}
+                  goToProduct={goToProduct}
+                />
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
     </section>
   );
