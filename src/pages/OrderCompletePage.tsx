@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Check, Copy, ImagePlus, Loader2, X } from "lucide-react";
+import { Check, Copy, ImagePlus, X } from "lucide-react";
 import { toast } from "sonner";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -366,10 +366,7 @@ const OrderCompletePage = () => {
           </div>
 
           {!paymentDone ? (
-            <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
-              <Loader2 className="h-3.5 w-3.5 animate-spin" />
-              Waiting for your transfer…
-            </div>
+            <p className="text-center text-xs text-muted-foreground">Waiting for your transfer…</p>
           ) : null}
 
           <Button className="w-full" onClick={() => void confirmSent()} disabled={submitting || !receipt}>

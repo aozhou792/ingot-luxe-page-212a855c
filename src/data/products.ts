@@ -13,6 +13,8 @@ export type Product = {
   slug: string;
   name: string;
   price: string;
+  /** Original retail price shown struck-through when on promotion. */
+  originalPrice?: string;
   img: string;
   tag: string;
   /** Short intro under title */
@@ -181,7 +183,8 @@ export const products: Product[] = [
   {
     slug: "peach-watermelon",
     name: "Peach Watermelon",
-    price: "26",
+    price: "30",
+    originalPrice: "60",
     img: peachWatermelon,
     tag: "Fruity",
     excerpt:
@@ -193,7 +196,8 @@ export const products: Product[] = [
   {
     slug: "blackberry-ice",
     name: "Blackberry Ice",
-    price: "26",
+    price: "30",
+    originalPrice: "60",
     img: blackberry,
     tag: "Iced",
     excerpt:
@@ -205,7 +209,8 @@ export const products: Product[] = [
   {
     slug: "mango-magic",
     name: "Mango Magic",
-    price: "26",
+    price: "30",
+    originalPrice: "60",
     img: mango,
     tag: "Tropical",
     excerpt:
@@ -217,7 +222,8 @@ export const products: Product[] = [
   {
     slug: "california-sunset",
     name: "California Sunset",
-    price: "26",
+    price: "30",
+    originalPrice: "60",
     img: california,
     tag: "Citrus",
     excerpt:
@@ -229,7 +235,8 @@ export const products: Product[] = [
   {
     slug: "strawberry-coconut-watermelon",
     name: "Strawberry Coconut Watermelon",
-    price: "26",
+    price: "30",
+    originalPrice: "60",
     img: strawberryCoconutWatermelon,
     tag: "Tropical",
     excerpt:
@@ -241,7 +248,8 @@ export const products: Product[] = [
   {
     slug: "grape-ice",
     name: "Grape Ice",
-    price: "26",
+    price: "30",
+    originalPrice: "60",
     img: grape,
     tag: "Iced",
     excerpt:
@@ -253,7 +261,8 @@ export const products: Product[] = [
   {
     slug: "rainbow-candy",
     name: "Rainbow Candy",
-    price: "26",
+    price: "30",
+    originalPrice: "60",
     img: rainbowCandy,
     tag: "Sweet",
     excerpt:
@@ -265,7 +274,8 @@ export const products: Product[] = [
   {
     slug: "strawberry-watermelon",
     name: "Strawberry Watermelon",
-    price: "26",
+    price: "30",
+    originalPrice: "60",
     img: strawberryWatermelon,
     tag: "Fruity",
     excerpt:
@@ -277,7 +287,8 @@ export const products: Product[] = [
   {
     slug: "blueberry-blast",
     name: "Blueberry Blast",
-    price: "26",
+    price: "30",
+    originalPrice: "60",
     img: blueberryBlast,
     tag: "Iced",
     excerpt:
@@ -289,7 +300,8 @@ export const products: Product[] = [
   {
     slug: "strawberry-ice",
     name: "Strawberry Ice",
-    price: "26",
+    price: "30",
+    originalPrice: "60",
     img: strawberryIce,
     tag: "Iced",
     excerpt:

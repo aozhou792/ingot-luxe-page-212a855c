@@ -57,13 +57,18 @@ export async function fetchOrdersFromBackend(): Promise<StoredOrder[]> {
   return data.orders;
 }
 
-export async function updateOrderStatusOnBackend(orderNumber: string, status: PaymentStatus): Promise<void> {
+export async function updateOrderStatusOnBackend(
+  orderNumber: string,
+  status: PaymentStatus,
+): Promise<StoredOrder> {
   const response = await fetch("/api/orders", {
     method: "PATCH",
     headers: { "Content-Type": "application/json", ...authHeaders() },
     body: JSON.stringify({ orderNumber, paymentStatus: status }),
   });
   if (!response.ok) throw new Error(await parseError(response));
+  const data = (await response.json()) as { order: StoredOrder };
+  return data.order;
 }
 
 export async function fetchReceiptBlobUrl(orderNumber: string): Promise<string> {

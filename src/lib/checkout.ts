@@ -1,10 +1,25 @@
-/** Flat-rate shipping used across cart and checkout, mirroring the storefront's Regular Post rate. */
-export const SHIPPING_FLAT_AUD = 10.95;
+import { formatAud } from "@/lib/format";
+
+/** Flat-rate shipping used across cart and checkout. */
 export const SHIPPING_LABEL = "Regular Post";
 
-/** Order total including flat-rate shipping. Shipping is waived on an empty cart. */
-export function orderTotal(subtotal: number, hasItems: boolean): number {
-  return hasItems ? subtotal + SHIPPING_FLAT_AUD : subtotal;
+/** 5+ devices: $10 AUD; fewer than 5: $20 AUD. */
+export const SHIPPING_5_OR_MORE_AUD = 10;
+export const SHIPPING_UNDER_5_AUD = 20;
+export const SHIPPING_QUANTITY_THRESHOLD = 5;
+
+export function shippingRateHint(): string {
+  return `5+ devices: ${formatAud(SHIPPING_5_OR_MORE_AUD)} shipping · under 5 devices: ${formatAud(SHIPPING_UNDER_5_AUD)}`;
+}
+
+export function shippingAud(itemCount: number): number {
+  if (itemCount <= 0) return 0;
+  return itemCount >= SHIPPING_QUANTITY_THRESHOLD ? SHIPPING_5_OR_MORE_AUD : SHIPPING_UNDER_5_AUD;
+}
+
+/** Order total including quantity-based shipping. */
+export function orderTotal(subtotal: number, itemCount: number): number {
+  return itemCount > 0 ? subtotal + shippingAud(itemCount) : subtotal;
 }
 
 /** Wise (bank transfer) account the storefront collects payment into. */

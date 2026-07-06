@@ -17,7 +17,7 @@ import {
 import { useCart } from "@/context/CartContext";
 import { formatAud } from "@/lib/format";
 import { AU_STATES, DEFAULT_AU_COUNTRY } from "@/data/australia";
-import { SHIPPING_LABEL, SHIPPING_FLAT_AUD, orderTotal, PAYMENT_METHOD_LABEL } from "@/lib/checkout";
+import { SHIPPING_LABEL, orderTotal, PAYMENT_METHOD_LABEL, shippingAud, shippingRateHint } from "@/lib/checkout";
 import { nextOrderNumber } from "@/lib/orders";
 import { fetchNextOrderNumberFromApi } from "@/lib/orders-api";
 import type { OrderDetails } from "@/types/navigation";
@@ -58,12 +58,13 @@ type FieldErrors = Partial<Record<keyof BillingForm, string>>;
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
-  const { lines, subtotal, clearCart } = useCart();
+  const { lines, itemCount, subtotal, clearCart } = useCart();
   const [form, setForm] = useState<BillingForm>(initialForm);
   const [errors, setErrors] = useState<FieldErrors>({});
 
   const hasItems = lines.length > 0;
-  const total = orderTotal(subtotal, hasItems);
+  const shipping = shippingAud(itemCount);
+  const total = orderTotal(subtotal, itemCount);
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -111,7 +112,7 @@ const CheckoutPage = () => {
       date: new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "numeric" }).format(new Date()),
       lines: lines.map((l) => ({ slug: l.slug, name: l.name, qty: l.qty, price: l.price })),
       subtotal,
-      shipping: SHIPPING_FLAT_AUD,
+      shipping,
       total,
       paymentMethod: PAYMENT_METHOD_LABEL,
       billing: {
@@ -336,9 +337,10 @@ const CheckoutPage = () => {
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Shipment</span>
                   <span className="tabular-nums">
-                    {SHIPPING_LABEL}: {formatAud(SHIPPING_FLAT_AUD)}
+                    {SHIPPING_LABEL}: {formatAud(shipping)}
                   </span>
                 </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">{shippingRateHint()}</p>
                 <div className="flex justify-between items-baseline border-t border-border pt-3">
                   <span className="font-medium">Total</span>
                   <span className="text-2xl font-bold text-primary tabular-nums">{formatAud(total)}</span>

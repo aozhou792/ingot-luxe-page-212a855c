@@ -44,6 +44,7 @@ async function readJsonBlob<T>(pathname: string): Promise<T | null> {
 
   const response = await fetch(blob.url, {
     headers: { authorization: `Bearer ${token}` },
+    cache: "no-store",
   });
   if (!response.ok) return null;
   return (await response.json()) as T;
@@ -75,6 +76,7 @@ export async function listOrders(): Promise<StoredOrder[]> {
     jsonBlobs.map(async (blob) => {
       const response = await fetch(blob.url, {
         headers: { authorization: `Bearer ${token}` },
+        cache: "no-store",
       });
       if (!response.ok) return null;
       return (await response.json()) as StoredOrder;

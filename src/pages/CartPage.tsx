@@ -5,12 +5,13 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
 import { formatAud } from "@/lib/format";
-import { SHIPPING_LABEL, SHIPPING_FLAT_AUD, orderTotal } from "@/lib/checkout";
+import { SHIPPING_LABEL, orderTotal, shippingAud, shippingRateHint } from "@/lib/checkout";
 
 const CartPage = () => {
-  const { lines, subtotal, setLineQty, removeLine } = useCart();
+  const { lines, itemCount, subtotal, setLineQty, removeLine } = useCart();
   const hasItems = lines.length > 0;
-  const total = orderTotal(subtotal, hasItems);
+  const shipping = shippingAud(itemCount);
+  const total = orderTotal(subtotal, itemCount);
 
   return (
     <div className="min-h-screen bg-background">
@@ -104,9 +105,10 @@ const CartPage = () => {
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Shipping</span>
                 <span className="tabular-nums">
-                  {SHIPPING_LABEL}: {formatAud(SHIPPING_FLAT_AUD)}
+                  {SHIPPING_LABEL}: {formatAud(shipping)}
                 </span>
               </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">{shippingRateHint()}</p>
               <div className="border-t border-border pt-4 flex justify-between items-baseline">
                 <span className="font-medium">Total</span>
                 <span className="text-xl font-bold text-indigo-900 tabular-nums">{formatAud(total)}</span>

@@ -3,7 +3,7 @@ import { Link, Navigate, useLocation, useNavigate, useParams } from "react-route
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { getProductBySlug, getRelatedProducts } from "@/data/products";
-import { formatAud } from "@/lib/format";
+import { ProductPrice } from "@/components/ProductPrice";
 import { useCart } from "@/context/CartContext";
 import { useReveal } from "@/hooks/use-reveal";
 import { ArrowLeft, Check, ChevronRight, Minus, Package, Plus, Sparkles, Truck } from "lucide-react";
@@ -69,7 +69,6 @@ const ProductPage = () => {
   const handleAddToCart = () => {
     if (!product.inStock) return;
     addToCart({ ...cartItem, qty });
-    navigate("/cart");
   };
 
   const handleBuyNow = () => {
@@ -158,9 +157,12 @@ const ProductPage = () => {
                 </h1>
 
                 <div className="flex flex-wrap items-end gap-2 sm:gap-4 pt-1">
-                  <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-gold tabular-nums">
-                    {formatAud(Number.parseFloat(product.price))}
-                  </p>
+                  <ProductPrice
+                    price={product.price}
+                    originalPrice={product.originalPrice}
+                    priceClassName="text-3xl sm:text-4xl md:text-5xl"
+                    originalClassName="text-lg sm:text-xl pb-1 sm:pb-1.5"
+                  />
                   <span className="text-xs sm:text-sm text-muted-foreground pb-1 sm:pb-1.5 max-w-[12rem] sm:max-w-none leading-snug">
                     per device · incl. smart display
                   </span>
@@ -313,9 +315,7 @@ const ProductPage = () => {
                       <h3 className="text-xs sm:text-sm font-bold leading-snug group-hover:text-primary transition-colors line-clamp-2">
                         {p.name}
                       </h3>
-                      <span className="text-sm sm:text-base text-gold font-bold tabular-nums">
-                        {formatAud(Number.parseFloat(p.price))}
-                      </span>
+                      <ProductPrice price={p.price} originalPrice={p.originalPrice} priceClassName="text-sm sm:text-base" />
                     </div>
                   </Link>
                 ))}

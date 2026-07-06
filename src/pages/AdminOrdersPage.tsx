@@ -220,18 +220,9 @@ const AdminOrdersPage = () => {
   };
 
   const setStatus = async (order: StoredOrder, status: PaymentStatus) => {
-    const confirmedAt = status === "confirmed" ? new Date().toISOString() : undefined;
-    setOrders((prev) =>
-      prev.map((o) =>
-        o.orderNumber === order.orderNumber
-          ? { ...o, paymentStatus: status, paymentConfirmedAt: confirmedAt }
-          : o,
-      ),
-    );
-
     try {
-      await updateOrderStatusOnBackend(order.orderNumber, status);
-      await refresh();
+      const updated = await updateOrderStatusOnBackend(order.orderNumber, status);
+      setOrders((prev) => prev.map((o) => (o.orderNumber === updated.orderNumber ? updated : o)));
       toast.success(
         status === "confirmed"
           ? `${formatOrderReference(order.orderNumber)} 已标记为已确认。`

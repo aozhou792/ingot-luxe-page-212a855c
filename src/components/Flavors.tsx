@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { products, type Product } from "@/data/products";
-import { formatAud } from "@/lib/format";
+import { ProductPrice } from "@/components/ProductPrice";
 import { useCart } from "@/context/CartContext";
 import type { ProductLocationState } from "@/types/navigation";
 
@@ -18,7 +18,6 @@ const FlavorCard = ({ f, revealIndex, goToProduct }: FlavorCardProps) => {
 
   const handleAdd = () => {
     addToCart(cartItem);
-    navigate("/cart");
   };
 
   const handleBuyNow = () => {
@@ -67,9 +66,12 @@ const FlavorCard = ({ f, revealIndex, goToProduct }: FlavorCardProps) => {
           >
             {f.name}
           </Link>
-          <span className="text-sm sm:text-base md:text-lg font-bold text-gold whitespace-nowrap shrink-0 tabular-nums">
-            {formatAud(Number.parseFloat(f.price))}
-          </span>
+          <ProductPrice
+            price={f.price}
+            originalPrice={f.originalPrice}
+            className="shrink-0"
+            priceClassName="text-sm sm:text-base md:text-lg"
+          />
         </div>
         <p className="text-[10px] sm:text-xs text-muted-foreground leading-snug line-clamp-2 min-h-[2lh]">
           9000 puffs · Smart display · Mesh coil
