@@ -60,6 +60,7 @@ export async function nextOrderNumber(): Promise<string> {
     contentType: "application/json",
     token,
     addRandomSuffix: false,
+    allowOverwrite: true,
   });
 
   return String(next);
@@ -98,6 +99,7 @@ export async function saveOrderWithReceipt(
     contentType,
     token,
     addRandomSuffix: false,
+    allowOverwrite: true,
   });
 
   const record: StoredOrder = {
@@ -113,6 +115,7 @@ export async function saveOrderWithReceipt(
     contentType: "application/json",
     token,
     addRandomSuffix: false,
+    allowOverwrite: true,
   });
 
   return record;
@@ -124,12 +127,17 @@ export async function updateOrderStatus(orderNumber: string, status: PaymentStat
   const existing = await readJsonBlob<StoredOrder>(pathname);
   if (!existing) return null;
 
-  const updated: StoredOrder = { ...existing, paymentStatus: status };
+  const updated: StoredOrder = {
+    ...existing,
+    paymentStatus: status,
+    paymentConfirmedAt: status === "confirmed" ? new Date().toISOString() : undefined,
+  };
   await put(pathname, JSON.stringify(updated), {
     access: "private",
     contentType: "application/json",
     token,
     addRandomSuffix: false,
+    allowOverwrite: true,
   });
   return updated;
 }

@@ -37,6 +37,7 @@ export type StoredOrder = OrderDetails & {
   paymentReceiptName?: string;
   paymentSubmittedAt?: string;
   paymentStatus?: PaymentStatus;
+  paymentConfirmedAt?: string;
 };
 
 export type SubmitOrderBody = {

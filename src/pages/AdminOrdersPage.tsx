@@ -29,6 +29,24 @@ function statusOf(order: StoredOrder): PaymentStatus {
   return order.paymentStatus === "confirmed" ? "confirmed" : "pending";
 }
 
+function formatDateTime(value: string): string {
+  return new Date(value).toLocaleString("zh-CN", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+function apiErrorMessage(error: unknown, fallback: string): string {
+  if (!(error instanceof Error)) return fallback;
+  const msg = error.message;
+  if (msg === "Unauthorized") return "管理员密钥无效，请重新登录。";
+  if (msg.startsWith("Request failed")) return fallback;
+  return msg;
+}
+
 const StatusPill = ({ status }: { status: PaymentStatus }) => (
   <span
     className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${
@@ -38,7 +56,7 @@ const StatusPill = ({ status }: { status: PaymentStatus }) => (
     }`}
   >
     {status === "confirmed" ? <CheckCircle2 className="h-3.5 w-3.5" /> : <Clock3 className="h-3.5 w-3.5" />}
-    {status === "confirmed" ? "Confirmed" : "Pending"}
+    {status === "confirmed" ? "已确认" : "待确认"}
   </span>
 );
 
@@ -61,13 +79,13 @@ const ReceiptImage = ({ order }: { order: StoredOrder }) => {
           return;
         }
         if (!order.paymentReceipt) {
-          if (!cancelled) setError("No screenshot uploaded.");
+          if (!cancelled) setError("尚未上传付款截图。");
           return;
         }
         objectUrl = await fetchReceiptBlobUrl(order.orderNumber);
         if (!cancelled) setSrc(objectUrl);
       } catch (err) {
-        if (!cancelled) setError(err instanceof Error ? err.message : "Could not load receipt.");
+        if (!cancelled) setError(apiErrorMessage(err, "无法加载付款截图。"));
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -84,13 +102,13 @@ const ReceiptImage = ({ order }: { order: StoredOrder }) => {
     return (
       <div className="flex items-center justify-center h-40 text-muted-foreground text-sm">
         <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-        Loading receipt…
+        加载截图中…
       </div>
     );
   }
 
   if (error || !src) {
-    return <p className="text-sm text-muted-foreground">{error ?? "No screenshot uploaded."}</p>;
+    return <p className="text-sm text-muted-foreground">{error ?? "尚未上传付款截图。"}</p>;
   }
 
   return (
@@ -99,34 +117,34 @@ const ReceiptImage = ({ order }: { order: StoredOrder }) => {
         type="button"
         onClick={() => setLightboxOpen(true)}
         className="group relative block w-full rounded-lg border border-border bg-black/20 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-        aria-label="View full receipt image"
+        aria-label="查看完整付款截图"
       >
         <img
           src={src}
-          alt={`${formatOrderReference(order.orderNumber)} receipt`}
+          alt={`${formatOrderReference(order.orderNumber)} 付款截图`}
           className="w-full max-h-56 object-contain"
         />
         <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/35 transition-colors">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">
             <ZoomIn className="h-3.5 w-3.5" />
-            點擊放大
+            点击放大
           </span>
         </span>
       </button>
-      <p className="text-xs text-muted-foreground break-words">{order.paymentReceiptName ?? "receipt"}</p>
+      <p className="text-xs text-muted-foreground break-words">{order.paymentReceiptName ?? "付款截图"}</p>
       {order.paymentSubmittedAt ? (
-        <p className="text-xs text-muted-foreground">Submitted: {new Date(order.paymentSubmittedAt).toLocaleString()}</p>
+        <p className="text-xs text-muted-foreground">提交时间：{formatDateTime(order.paymentSubmittedAt)}</p>
       ) : null}
 
       <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
         <DialogContent className="max-w-[min(96vw,1200px)] w-full p-3 sm:p-4 gap-3">
           <DialogHeader className="sr-only">
-            <DialogTitle>{formatOrderReference(order.orderNumber)} receipt</DialogTitle>
-            <DialogDescription>Full-size payment screenshot</DialogDescription>
+            <DialogTitle>{formatOrderReference(order.orderNumber)} 付款截图</DialogTitle>
+            <DialogDescription>付款截图大图</DialogDescription>
           </DialogHeader>
           <img
             src={src}
-            alt={`${formatOrderReference(order.orderNumber)} receipt full size`}
+            alt={`${formatOrderReference(order.orderNumber)} 付款截图大图`}
             className="w-full max-h-[85vh] object-contain rounded-md bg-black/20"
           />
         </DialogContent>
@@ -149,7 +167,7 @@ const AdminOrdersPage = () => {
       const data = await fetchOrdersFromBackend();
       setOrders(data);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Could not load orders.");
+      toast.error(apiErrorMessage(error, "无法加载订单。"));
     } finally {
       setLoading(false);
     }
@@ -161,16 +179,24 @@ const AdminOrdersPage = () => {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return orders;
-    return orders.filter((order) => {
-      const ref = formatOrderReference(order.orderNumber).toLowerCase();
-      const customer = `${order.billing.firstName} ${order.billing.lastName}`.toLowerCase();
-      return (
-        ref.includes(q) ||
-        customer.includes(q) ||
-        order.billing.email.toLowerCase().includes(q) ||
-        order.orderNumber.includes(q)
-      );
+    const list = q
+      ? orders.filter((order) => {
+          const ref = formatOrderReference(order.orderNumber).toLowerCase();
+          const customer = `${order.billing.firstName} ${order.billing.lastName}`.toLowerCase();
+          return (
+            ref.includes(q) ||
+            customer.includes(q) ||
+            order.billing.email.toLowerCase().includes(q) ||
+            order.orderNumber.includes(q)
+          );
+        })
+      : orders;
+
+    return [...list].sort((a, b) => {
+      const aPending = statusOf(a) === "pending" ? 0 : 1;
+      const bPending = statusOf(b) === "pending" ? 0 : 1;
+      if (aPending !== bPending) return aPending - bPending;
+      return Number.parseInt(b.orderNumber, 10) - Number.parseInt(a.orderNumber, 10);
     });
   }, [orders, query]);
 
@@ -179,12 +205,12 @@ const AdminOrdersPage = () => {
 
   const login = () => {
     if (!adminKeyInput.trim()) {
-      toast.error("Enter admin key.");
+      toast.error("请输入管理员密钥。");
       return;
     }
     setAdminKey(adminKeyInput.trim());
     setAuthed(true);
-    toast.success("Admin access granted.");
+    toast.success("登录成功。");
   };
 
   const logout = () => {
@@ -194,27 +220,39 @@ const AdminOrdersPage = () => {
   };
 
   const setStatus = async (order: StoredOrder, status: PaymentStatus) => {
+    const confirmedAt = status === "confirmed" ? new Date().toISOString() : undefined;
+    setOrders((prev) =>
+      prev.map((o) =>
+        o.orderNumber === order.orderNumber
+          ? { ...o, paymentStatus: status, paymentConfirmedAt: confirmedAt }
+          : o,
+      ),
+    );
+
     try {
       await updateOrderStatusOnBackend(order.orderNumber, status);
       await refresh();
       toast.success(
-        `${formatOrderReference(order.orderNumber)} marked ${status === "confirmed" ? "confirmed" : "pending"}.`,
+        status === "confirmed"
+          ? `${formatOrderReference(order.orderNumber)} 已标记为已确认。`
+          : `${formatOrderReference(order.orderNumber)} 已改为待确认。`,
       );
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Could not update status.");
+      await refresh();
+      toast.error(apiErrorMessage(error, "无法更新订单状态。"));
     }
   };
 
   const exportExcel = () => {
     if (filtered.length === 0) {
-      toast.error("No orders to export.");
+      toast.error("没有可导出的订单。");
       return;
     }
     try {
       exportOrdersToExcel(filtered);
-      toast.success(`Exported ${filtered.length} order(s) to Excel.`);
+      toast.success(`已导出 ${filtered.length} 笔订单。`);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Could not export Excel file.");
+      toast.error(apiErrorMessage(error, "无法导出 Excel 文件。"));
     }
   };
 
@@ -224,22 +262,22 @@ const AdminOrdersPage = () => {
         <Navbar />
         <main className="container pt-[calc(6rem+env(safe-area-inset-top))] pb-20 max-w-md">
           <div className="rounded-2xl border border-border bg-card p-8 space-y-4">
-            <h1 className="text-2xl font-semibold">Orders Admin</h1>
-            <p className="text-sm text-muted-foreground">Enter your admin key to view cloud-backed orders and receipts.</p>
+            <h1 className="text-2xl font-semibold">订单管理后台</h1>
+            <p className="text-sm text-muted-foreground">输入管理员密钥，查看云端订单与付款截图。</p>
             <Input
               type="password"
               value={adminKeyInput}
               onChange={(e) => setAdminKeyInput(e.target.value)}
-              placeholder="Admin API key"
+              placeholder="管理员 API 密钥"
               onKeyDown={(e) => {
                 if (e.key === "Enter") login();
               }}
             />
             <Button className="w-full" onClick={login}>
-              Sign in
+              登录
             </Button>
             <Button asChild variant="outline" className="w-full">
-              <Link to="/">Back to store</Link>
+              <Link to="/">返回商店</Link>
             </Button>
           </div>
         </main>
@@ -254,39 +292,39 @@ const AdminOrdersPage = () => {
       <main className="container pt-[calc(5rem+env(safe-area-inset-top))] sm:pt-[calc(6rem+env(safe-area-inset-top))] pb-16 sm:pb-20 max-w-6xl">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <div>
-            <p className="text-xs uppercase tracking-[0.25em] text-primary mb-1">Back Office</p>
-            <h1 className="text-2xl sm:text-3xl font-semibold text-foreground">Orders Admin</h1>
-            <p className="text-sm text-muted-foreground mt-1">Cloud backup from Vercel Blob</p>
+            <p className="text-xs uppercase tracking-[0.25em] text-primary mb-1">后台管理</p>
+            <h1 className="text-2xl sm:text-3xl font-semibold text-foreground">订单管理</h1>
+            <p className="text-sm text-muted-foreground mt-1">云端备份</p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
             <Button type="button" variant="outline" onClick={exportExcel} disabled={filtered.length === 0}>
               <Download className="h-4 w-4 mr-2" />
-              導出 Excel
+              导出 Excel
             </Button>
             <Button type="button" variant="outline" onClick={() => void refresh()} disabled={loading}>
               <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
-              Refresh
+              刷新
             </Button>
             <Button type="button" variant="outline" onClick={logout}>
-              Sign out
+              退出登录
             </Button>
             <Button asChild>
-              <Link to="/">Back to store</Link>
+              <Link to="/">返回商店</Link>
             </Button>
           </div>
         </div>
 
         <div className="grid sm:grid-cols-3 gap-3 mb-6">
           <div className="rounded-xl border border-border bg-card p-4">
-            <p className="text-xs text-muted-foreground">Visible orders</p>
+            <p className="text-xs text-muted-foreground">显示订单</p>
             <p className="text-2xl font-semibold">{filtered.length}</p>
           </div>
           <div className="rounded-xl border border-border bg-card p-4">
-            <p className="text-xs text-muted-foreground">Pending payment checks</p>
+            <p className="text-xs text-muted-foreground">待确认付款</p>
             <p className="text-2xl font-semibold text-amber-600 dark:text-amber-400">{pendingCount}</p>
           </div>
           <div className="rounded-xl border border-border bg-card p-4">
-            <p className="text-xs text-muted-foreground">Confirmed payments</p>
+            <p className="text-xs text-muted-foreground">已标记确认</p>
             <p className="text-2xl font-semibold text-emerald-600 dark:text-emerald-400">{confirmedCount}</p>
           </div>
         </div>
@@ -295,25 +333,45 @@ const AdminOrdersPage = () => {
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by VN #, customer name, or email"
+            placeholder="搜索 VN 单号、客户姓名或邮箱"
           />
         </div>
 
         {loading && orders.length === 0 ? (
           <div className="rounded-xl border border-border bg-card p-8 text-center text-muted-foreground">
             <Loader2 className="h-5 w-5 animate-spin inline-block mr-2" />
-            Loading orders…
+            加载订单中…
           </div>
         ) : filtered.length === 0 ? (
           <div className="rounded-xl border border-border bg-card p-8 text-center">
-            <p className="text-muted-foreground">No submitted receipt orders yet.</p>
+            <p className="text-muted-foreground">暂无已提交付款截图的订单。</p>
           </div>
         ) : (
           <div className="space-y-5">
             {filtered.map((order) => {
               const status = statusOf(order);
+              const isConfirmed = status === "confirmed";
               return (
-                <article key={order.orderNumber} className="rounded-2xl border border-border bg-card p-5 sm:p-6">
+                <article
+                  key={order.orderNumber}
+                  className={`rounded-2xl border p-5 sm:p-6 transition-colors ${
+                    isConfirmed
+                      ? "border-emerald-500/40 bg-emerald-500/[0.04] shadow-sm shadow-emerald-500/5"
+                      : "border-border bg-card"
+                  }`}
+                >
+                  {isConfirmed ? (
+                    <div className="mb-4 flex items-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm font-medium text-emerald-700 dark:text-emerald-300">
+                      <CheckCircle2 className="h-4 w-4 shrink-0" />
+                      <span>此订单已标记确认</span>
+                      {order.paymentConfirmedAt ? (
+                        <span className="text-emerald-600/80 dark:text-emerald-400/80 font-normal">
+                          · 确认时间 {formatDateTime(order.paymentConfirmedAt)}
+                        </span>
+                      ) : null}
+                    </div>
+                  ) : null}
+
                   <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                     <div>
                       <p className="text-lg font-semibold text-foreground">{formatOrderReference(order.orderNumber)}</p>
@@ -325,19 +383,30 @@ const AdminOrdersPage = () => {
                       <StatusPill status={status} />
                       {status === "pending" ? (
                         <Button type="button" size="sm" onClick={() => void setStatus(order, "confirmed")}>
-                          Mark confirmed
+                          标记已确认
                         </Button>
                       ) : (
-                        <Button type="button" size="sm" variant="outline" onClick={() => void setStatus(order, "pending")}>
-                          Set pending
-                        </Button>
+                        <>
+                          <span className="inline-flex items-center gap-1 rounded-md bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white">
+                            <CheckCircle2 className="h-3.5 w-3.5" />
+                            已标记
+                          </span>
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="outline"
+                            onClick={() => void setStatus(order, "pending")}
+                          >
+                            改为待确认
+                          </Button>
+                        </>
                       )}
                     </div>
                   </div>
 
                   <div className="mt-4 grid md:grid-cols-[1.2fr_1fr] gap-5">
                     <div className="rounded-xl border border-border bg-background/30 p-4">
-                      <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Items</p>
+                      <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">商品明细</p>
                       <ul className="space-y-1.5 text-sm">
                         {order.lines.map((line) => (
                           <li key={line.slug} className="flex items-center justify-between gap-4">
@@ -350,22 +419,22 @@ const AdminOrdersPage = () => {
                       </ul>
                       <div className="mt-3 border-t border-border pt-3 text-sm space-y-1.5">
                         <div className="flex justify-between">
-                          <span className="text-muted-foreground">Subtotal</span>
+                          <span className="text-muted-foreground">小计</span>
                           <span className="tabular-nums">{formatAud(order.subtotal)}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-muted-foreground">Shipping</span>
+                          <span className="text-muted-foreground">运费</span>
                           <span className="tabular-nums">{formatAud(order.shipping)}</span>
                         </div>
                         <div className="flex justify-between font-semibold">
-                          <span>Total</span>
+                          <span>合计</span>
                           <span className="tabular-nums">{formatAud(order.total)}</span>
                         </div>
                       </div>
                     </div>
 
                     <div className="rounded-xl border border-border bg-background/30 p-4">
-                      <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Payment Receipt</p>
+                      <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">付款截图</p>
                       <ReceiptImage order={order} />
                     </div>
                   </div>

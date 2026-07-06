@@ -3,15 +3,15 @@ import { formatOrderReference, type StoredOrder } from "@/lib/orders";
 
 const HEADERS = [
   "收件人姓名",
-  "收件人手機",
-  "收件門市 / 地址",
-  "收件門市編號",
-  "訂單金額 TWD",
+  "收件人手机",
+  "收件门市 / 地址",
+  "收件门市编号",
+  "订单金额 TWD",
   "品牌",
-  "名稱 (規格 / 口味)",
-  "數量",
-  "訂單總數量",
-  "備註",
+  "名称 (规格 / 口味)",
+  "数量",
+  "订单总数量",
+  "备注",
 ] as const;
 
 const BRAND_LABEL = "Alibarbar Ingot 9000";
@@ -31,7 +31,7 @@ function orderTotalQty(order: StoredOrder): number {
 
 function orderRemark(order: StoredOrder): string {
   const ref = formatOrderReference(order.orderNumber);
-  const status = order.paymentStatus === "confirmed" ? "已確認" : "待確認";
+  const status = order.paymentStatus === "confirmed" ? "已确认" : "待确认";
   return `${ref} · ${status}`;
 }
 
