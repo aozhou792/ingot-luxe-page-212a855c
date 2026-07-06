@@ -1,19 +1,21 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { CheckCircle2, Clock3, RefreshCw } from "lucide-react";
+import { CheckCircle2, Clock3, Loader2, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { formatAud } from "@/lib/format";
+import { formatOrderReference, type PaymentStatus, type StoredOrder } from "@/lib/orders";
 import {
-  formatOrderReference,
-  getStoredOrders,
-  updateOrderPaymentStatus,
-  type PaymentStatus,
-  type StoredOrder,
-} from "@/lib/orders";
+  clearAdminKey,
+  fetchOrdersFromBackend,
+  fetchReceiptBlobUrl,
+  getAdminKey,
+  setAdminKey,
+  updateOrderStatusOnBackend,
+} from "@/lib/orders-api";
 
 function statusOf(order: StoredOrder): PaymentStatus {
   return order.paymentStatus === "confirmed" ? "confirmed" : "pending";
@@ -32,19 +34,94 @@ const StatusPill = ({ status }: { status: PaymentStatus }) => (
   </span>
 );
 
-const AdminOrdersPage = () => {
-  const [orders, setOrders] = useState<StoredOrder[]>([]);
-  const [query, setQuery] = useState("");
-
-  const refresh = () => {
-    const data = getStoredOrders();
-    const sorted = [...data].sort((a, b) => Number.parseInt(b.orderNumber, 10) - Number.parseInt(a.orderNumber, 10));
-    setOrders(sorted);
-  };
+const ReceiptImage = ({ order }: { order: StoredOrder }) => {
+  const [src, setSrc] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    refresh();
+    let objectUrl: string | null = null;
+    let cancelled = false;
+
+    const load = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        if (order.paymentReceipt?.startsWith("data:")) {
+          if (!cancelled) setSrc(order.paymentReceipt);
+          return;
+        }
+        if (!order.paymentReceipt) {
+          if (!cancelled) setError("No screenshot uploaded.");
+          return;
+        }
+        objectUrl = await fetchReceiptBlobUrl(order.orderNumber);
+        if (!cancelled) setSrc(objectUrl);
+      } catch (err) {
+        if (!cancelled) setError(err instanceof Error ? err.message : "Could not load receipt.");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    void load();
+    return () => {
+      cancelled = true;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, [order.orderNumber, order.paymentReceipt]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-40 text-muted-foreground text-sm">
+        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+        Loading receipt…
+      </div>
+    );
+  }
+
+  if (error || !src) {
+    return <p className="text-sm text-muted-foreground">{error ?? "No screenshot uploaded."}</p>;
+  }
+
+  return (
+    <div className="space-y-3">
+      <img
+        src={src}
+        alt={`${formatOrderReference(order.orderNumber)} receipt`}
+        className="w-full max-h-56 object-contain rounded-lg border border-border bg-black/20"
+      />
+      <p className="text-xs text-muted-foreground break-words">{order.paymentReceiptName ?? "receipt"}</p>
+      {order.paymentSubmittedAt ? (
+        <p className="text-xs text-muted-foreground">Submitted: {new Date(order.paymentSubmittedAt).toLocaleString()}</p>
+      ) : null}
+    </div>
+  );
+};
+
+const AdminOrdersPage = () => {
+  const [adminKeyInput, setAdminKeyInput] = useState("");
+  const [authed, setAuthed] = useState(() => Boolean(getAdminKey()));
+  const [orders, setOrders] = useState<StoredOrder[]>([]);
+  const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const refresh = useCallback(async () => {
+    if (!getAdminKey()) return;
+    setLoading(true);
+    try {
+      const data = await fetchOrdersFromBackend();
+      setOrders(data);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not load orders.");
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    if (authed) void refresh();
+  }, [authed, refresh]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -64,13 +141,63 @@ const AdminOrdersPage = () => {
   const pendingCount = filtered.filter((o) => statusOf(o) === "pending").length;
   const confirmedCount = filtered.length - pendingCount;
 
-  const setStatus = (order: StoredOrder, status: PaymentStatus) => {
-    updateOrderPaymentStatus(order.orderNumber, status);
-    refresh();
-    toast.success(
-      `${formatOrderReference(order.orderNumber)} marked ${status === "confirmed" ? "confirmed" : "pending"}.`,
-    );
+  const login = () => {
+    if (!adminKeyInput.trim()) {
+      toast.error("Enter admin key.");
+      return;
+    }
+    setAdminKey(adminKeyInput.trim());
+    setAuthed(true);
+    toast.success("Admin access granted.");
   };
+
+  const logout = () => {
+    clearAdminKey();
+    setAuthed(false);
+    setOrders([]);
+  };
+
+  const setStatus = async (order: StoredOrder, status: PaymentStatus) => {
+    try {
+      await updateOrderStatusOnBackend(order.orderNumber, status);
+      await refresh();
+      toast.success(
+        `${formatOrderReference(order.orderNumber)} marked ${status === "confirmed" ? "confirmed" : "pending"}.`,
+      );
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not update status.");
+    }
+  };
+
+  if (!authed) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <main className="container pt-[calc(6rem+env(safe-area-inset-top))] pb-20 max-w-md">
+          <div className="rounded-2xl border border-border bg-card p-8 space-y-4">
+            <h1 className="text-2xl font-semibold">Orders Admin</h1>
+            <p className="text-sm text-muted-foreground">Enter your admin key to view cloud-backed orders and receipts.</p>
+            <Input
+              type="password"
+              value={adminKeyInput}
+              onChange={(e) => setAdminKeyInput(e.target.value)}
+              placeholder="Admin API key"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") login();
+              }}
+            />
+            <Button className="w-full" onClick={login}>
+              Sign in
+            </Button>
+            <Button asChild variant="outline" className="w-full">
+              <Link to="/">Back to store</Link>
+            </Button>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -80,11 +207,15 @@ const AdminOrdersPage = () => {
           <div>
             <p className="text-xs uppercase tracking-[0.25em] text-primary mb-1">Back Office</p>
             <h1 className="text-2xl sm:text-3xl font-semibold text-foreground">Orders Admin</h1>
+            <p className="text-sm text-muted-foreground mt-1">Cloud backup from Vercel Blob</p>
           </div>
-          <div className="flex items-center gap-2">
-            <Button type="button" variant="outline" onClick={refresh}>
-              <RefreshCw className="h-4 w-4 mr-2" />
+          <div className="flex items-center gap-2 flex-wrap">
+            <Button type="button" variant="outline" onClick={() => void refresh()} disabled={loading}>
+              <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
               Refresh
+            </Button>
+            <Button type="button" variant="outline" onClick={logout}>
+              Sign out
             </Button>
             <Button asChild>
               <Link to="/">Back to store</Link>
@@ -115,7 +246,12 @@ const AdminOrdersPage = () => {
           />
         </div>
 
-        {filtered.length === 0 ? (
+        {loading && orders.length === 0 ? (
+          <div className="rounded-xl border border-border bg-card p-8 text-center text-muted-foreground">
+            <Loader2 className="h-5 w-5 animate-spin inline-block mr-2" />
+            Loading orders…
+          </div>
+        ) : filtered.length === 0 ? (
           <div className="rounded-xl border border-border bg-card p-8 text-center">
             <p className="text-muted-foreground">No submitted receipt orders yet.</p>
           </div>
@@ -135,11 +271,11 @@ const AdminOrdersPage = () => {
                     <div className="flex items-center gap-2 flex-wrap">
                       <StatusPill status={status} />
                       {status === "pending" ? (
-                        <Button type="button" size="sm" onClick={() => setStatus(order, "confirmed")}>
+                        <Button type="button" size="sm" onClick={() => void setStatus(order, "confirmed")}>
                           Mark confirmed
                         </Button>
                       ) : (
-                        <Button type="button" size="sm" variant="outline" onClick={() => setStatus(order, "pending")}>
+                        <Button type="button" size="sm" variant="outline" onClick={() => void setStatus(order, "pending")}>
                           Set pending
                         </Button>
                       )}
@@ -177,28 +313,7 @@ const AdminOrdersPage = () => {
 
                     <div className="rounded-xl border border-border bg-background/30 p-4">
                       <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Payment Receipt</p>
-                      {order.paymentReceipt ? (
-                        <div className="space-y-3">
-                          <img
-                            src={order.paymentReceipt}
-                            alt={`${formatOrderReference(order.orderNumber)} receipt`}
-                            className="w-full max-h-56 object-contain rounded-lg border border-border bg-black/20"
-                          />
-                          <p className="text-xs text-muted-foreground break-words">{order.paymentReceiptName ?? "receipt"}</p>
-                          {order.paymentSubmittedAt ? (
-                            <p className="text-xs text-muted-foreground">
-                              Submitted: {new Date(order.paymentSubmittedAt).toLocaleString()}
-                            </p>
-                          ) : null}
-                          <Button asChild variant="outline" size="sm" className="w-full">
-                            <a href={order.paymentReceipt} target="_blank" rel="noreferrer">
-                              Open full image
-                            </a>
-                          </Button>
-                        </div>
-                      ) : (
-                        <p className="text-sm text-muted-foreground">No screenshot uploaded.</p>
-                      )}
+                      <ReceiptImage order={order} />
                     </div>
                   </div>
                 </article>

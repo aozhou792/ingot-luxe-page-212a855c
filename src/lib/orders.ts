@@ -52,7 +52,18 @@ export function getStoredOrders(): StoredOrder[] {
   return loadOrders();
 }
 
-/** Persist order + payment screenshot locally (no backend on this storefront). */
+/** Persist order + payment screenshot locally as a cache after cloud backup succeeds. */
+export function cacheOrderLocally(order: StoredOrder): void {
+  try {
+    const existing = loadOrders();
+    const next = [order, ...existing.filter((o) => o.orderNumber !== order.orderNumber)];
+    window.localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(next));
+  } catch {
+    /* ignore local cache failures */
+  }
+}
+
+/** @deprecated Use submitOrderWithReceipt via orders-api for cloud backup. */
 export function saveOrderWithReceipt(
   order: OrderDetails,
   receipt: { dataUrl: string; name: string },

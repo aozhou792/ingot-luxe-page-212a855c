@@ -11,15 +11,14 @@ import { SHIPPING_LABEL, BANK_TRANSFER } from "@/lib/checkout";
 import {
   formatOrderReference,
   readReceiptFile,
-  saveOrderWithReceipt,
+  cacheOrderLocally,
   RECEIPT_ACCEPT,
-  buildPaymentShareText,
 } from "@/lib/orders";
+import { submitOrderToBackend } from "@/lib/orders-api";
 import { AU_STATES } from "@/data/australia";
 import type { OrderAddress, OrderDetails } from "@/types/navigation";
 
 const stateLabel = (value: string) => AU_STATES.find((s) => s.value === value)?.label ?? value;
-const RECEIPT_TARGET_EMAIL = "hxjspacex1@gmail.com";
 
 const AddressBlock = ({ title, address }: { title: string; address: OrderAddress }) => (
   <div>
@@ -105,7 +104,6 @@ const OrderCompletePage = () => {
   }
 
   const reference = formatOrderReference(order.orderNumber);
-  const shareText = buildPaymentShareText(order);
 
   const handleReceiptPick = async (file: File | undefined) => {
     if (!file) return;
@@ -122,20 +120,6 @@ const OrderCompletePage = () => {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const openReceiptEmailDraft = () => {
-    if (!receipt) return;
-    const subject = `Payment receipt ${reference}`;
-    const body = `${shareText}\nReference: ${reference}\n\nPlease find payment screenshot attached.`;
-    const mailto = `mailto:${RECEIPT_TARGET_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.open(mailto, "_blank");
-
-    // Auto-download uploaded screenshot so user can attach it immediately in mail client.
-    const link = document.createElement("a");
-    link.href = receipt.dataUrl;
-    link.download = receipt.name || `receipt-${order.orderNumber}.png`;
-    link.click();
-  };
-
   const confirmSent = async () => {
     if (!receipt) {
       toast.error("Please upload your payment screenshot first.");
@@ -145,12 +129,12 @@ const OrderCompletePage = () => {
 
     setSubmitting(true);
     try {
-      saveOrderWithReceipt(order, receipt);
-      openReceiptEmailDraft();
+      const saved = await submitOrderToBackend(order, receipt);
+      cacheOrderLocally(saved);
       setPaymentDone(true);
       setPayOpen(false);
       toast.success("Payment receipt received.", {
-        description: `Email draft opened to ${RECEIPT_TARGET_EMAIL}.`,
+        description: `We'll confirm transfer ${reference} shortly.`,
       });
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Could not save receipt.");
@@ -278,9 +262,6 @@ const OrderCompletePage = () => {
                 </li>
               ) : null}
             </ul>
-            <Button asChild variant="outline" className="mt-5 w-full bg-background/70">
-              <Link to="/admin/orders">Open Orders Admin</Link>
-            </Button>
           </aside>
         </div>
       </main>

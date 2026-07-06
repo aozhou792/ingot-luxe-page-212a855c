@@ -19,6 +19,7 @@ import { formatAud } from "@/lib/format";
 import { AU_STATES, DEFAULT_AU_COUNTRY } from "@/data/australia";
 import { SHIPPING_LABEL, SHIPPING_FLAT_AUD, orderTotal, PAYMENT_METHOD_LABEL } from "@/lib/checkout";
 import { nextOrderNumber } from "@/lib/orders";
+import { fetchNextOrderNumberFromApi } from "@/lib/orders-api";
 import type { OrderDetails } from "@/types/navigation";
 
 type BillingForm = {
@@ -85,7 +86,7 @@ const CheckoutPage = () => {
     return next;
   };
 
-  const placeOrder = (event: FormEvent) => {
+  const placeOrder = async (event: FormEvent) => {
     event.preventDefault();
     if (!hasItems) return;
 
@@ -98,8 +99,15 @@ const CheckoutPage = () => {
       return;
     }
 
+    let orderNumber: string;
+    try {
+      orderNumber = await fetchNextOrderNumberFromApi();
+    } catch {
+      orderNumber = nextOrderNumber();
+    }
+
     const order: OrderDetails = {
-      orderNumber: nextOrderNumber(),
+      orderNumber,
       date: new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "numeric" }).format(new Date()),
       lines: lines.map((l) => ({ slug: l.slug, name: l.name, qty: l.qty, price: l.price })),
       subtotal,
