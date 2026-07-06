@@ -1,11 +1,18 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { CheckCircle2, Clock3, Loader2, RefreshCw } from "lucide-react";
+import { CheckCircle2, Clock3, Download, Loader2, RefreshCw, ZoomIn } from "lucide-react";
 import { toast } from "sonner";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { formatAud } from "@/lib/format";
 import { formatOrderReference, type PaymentStatus, type StoredOrder } from "@/lib/orders";
 import {
@@ -16,6 +23,7 @@ import {
   setAdminKey,
   updateOrderStatusOnBackend,
 } from "@/lib/orders-api";
+import { exportOrdersToExcel } from "@/lib/export-orders-excel";
 
 function statusOf(order: StoredOrder): PaymentStatus {
   return order.paymentStatus === "confirmed" ? "confirmed" : "pending";
@@ -38,6 +46,7 @@ const ReceiptImage = ({ order }: { order: StoredOrder }) => {
   const [src, setSrc] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
     let objectUrl: string | null = null;
@@ -86,15 +95,42 @@ const ReceiptImage = ({ order }: { order: StoredOrder }) => {
 
   return (
     <div className="space-y-3">
-      <img
-        src={src}
-        alt={`${formatOrderReference(order.orderNumber)} receipt`}
-        className="w-full max-h-56 object-contain rounded-lg border border-border bg-black/20"
-      />
+      <button
+        type="button"
+        onClick={() => setLightboxOpen(true)}
+        className="group relative block w-full rounded-lg border border-border bg-black/20 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        aria-label="View full receipt image"
+      >
+        <img
+          src={src}
+          alt={`${formatOrderReference(order.orderNumber)} receipt`}
+          className="w-full max-h-56 object-contain"
+        />
+        <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/35 transition-colors">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+            <ZoomIn className="h-3.5 w-3.5" />
+            點擊放大
+          </span>
+        </span>
+      </button>
       <p className="text-xs text-muted-foreground break-words">{order.paymentReceiptName ?? "receipt"}</p>
       {order.paymentSubmittedAt ? (
         <p className="text-xs text-muted-foreground">Submitted: {new Date(order.paymentSubmittedAt).toLocaleString()}</p>
       ) : null}
+
+      <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
+        <DialogContent className="max-w-[min(96vw,1200px)] w-full p-3 sm:p-4 gap-3">
+          <DialogHeader className="sr-only">
+            <DialogTitle>{formatOrderReference(order.orderNumber)} receipt</DialogTitle>
+            <DialogDescription>Full-size payment screenshot</DialogDescription>
+          </DialogHeader>
+          <img
+            src={src}
+            alt={`${formatOrderReference(order.orderNumber)} receipt full size`}
+            className="w-full max-h-[85vh] object-contain rounded-md bg-black/20"
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
@@ -169,6 +205,19 @@ const AdminOrdersPage = () => {
     }
   };
 
+  const exportExcel = () => {
+    if (filtered.length === 0) {
+      toast.error("No orders to export.");
+      return;
+    }
+    try {
+      exportOrdersToExcel(filtered);
+      toast.success(`Exported ${filtered.length} order(s) to Excel.`);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not export Excel file.");
+    }
+  };
+
   if (!authed) {
     return (
       <div className="min-h-screen bg-background">
@@ -210,6 +259,10 @@ const AdminOrdersPage = () => {
             <p className="text-sm text-muted-foreground mt-1">Cloud backup from Vercel Blob</p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
+            <Button type="button" variant="outline" onClick={exportExcel} disabled={filtered.length === 0}>
+              <Download className="h-4 w-4 mr-2" />
+              導出 Excel
+            </Button>
             <Button type="button" variant="outline" onClick={() => void refresh()} disabled={loading}>
               <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
               Refresh

@@ -34,7 +34,7 @@ const App = () => (
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/order-complete" element={<OrderCompletePage />} />
-            <Route path="/admin/orders" element={<AdminOrdersPage />} />
+            <Route path="/orders2589" element={<AdminOrdersPage />} />
             <Route path="/whatsapp-qr" element={<WhatsAppQrPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
