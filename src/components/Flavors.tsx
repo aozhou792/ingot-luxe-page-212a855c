@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { products, type Product } from "@/data/products";
-import { useCart } from "@/context/CartContext";
 import { formatAud } from "@/lib/format";
+import { useCart } from "@/context/CartContext";
 import type { ProductLocationState } from "@/types/navigation";
 
 type FlavorCardProps = {
@@ -13,6 +13,18 @@ type FlavorCardProps = {
 const FlavorCard = ({ f, revealIndex, goToProduct }: FlavorCardProps) => {
   const navigate = useNavigate();
   const { addToCart, buyNow } = useCart();
+
+  const cartItem = { slug: f.slug, name: f.name, price: f.price, image: f.img };
+
+  const handleAdd = () => {
+    addToCart(cartItem);
+    navigate("/cart");
+  };
+
+  const handleBuyNow = () => {
+    buyNow(cartItem);
+    navigate("/checkout");
+  };
 
   return (
     <article
@@ -68,31 +80,14 @@ const FlavorCard = ({ f, revealIndex, goToProduct }: FlavorCardProps) => {
             <button
               type="button"
               className="min-h-[40px] sm:min-h-[44px] py-2 sm:py-2.5 rounded-full border border-gold text-primary font-semibold uppercase tracking-tight sm:tracking-wider text-[9px] sm:text-[11px] hover:bg-gold/15 active:bg-gold/25 transition-all"
-              onClick={() =>
-                addToCart({
-                  slug: f.slug,
-                  name: f.name,
-                  price: f.price,
-                  image: f.img,
-                  qty: 1,
-                })
-              }
+              onClick={handleAdd}
             >
               Add
             </button>
             <button
               type="button"
               className="min-h-[40px] sm:min-h-[44px] py-2 sm:py-2.5 rounded-full bg-gold text-primary-foreground font-semibold uppercase tracking-tight sm:tracking-wider text-[9px] sm:text-[11px] hover:opacity-95 active:opacity-90 transition-all"
-              onClick={() => {
-                buyNow({
-                  slug: f.slug,
-                  name: f.name,
-                  price: f.price,
-                  image: f.img,
-                  qty: 1,
-                });
-                navigate("/checkout");
-              }}
+              onClick={handleBuyNow}
             >
               Buy now
             </button>

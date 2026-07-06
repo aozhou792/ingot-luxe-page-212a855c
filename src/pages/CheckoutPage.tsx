@@ -1,13 +1,12 @@
-import { useLayoutEffect, useState, type FormEvent } from "react";
+import { useLayoutEffect, useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ChevronDown, ChevronUp } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -15,112 +14,114 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { useCart } from "@/context/CartContext";
-import { AU_STATES, DEFAULT_AU_COUNTRY } from "@/data/australia";
 import { formatAud } from "@/lib/format";
+import { AU_STATES, DEFAULT_AU_COUNTRY } from "@/data/australia";
+import { SHIPPING_LABEL, SHIPPING_FLAT_AUD, orderTotal, PAYMENT_METHOD_LABEL } from "@/lib/checkout";
+import { nextOrderNumber } from "@/lib/orders";
+import type { OrderDetails } from "@/types/navigation";
 
-const req = <span className="text-red-600">*</span>;
+type BillingForm = {
+  firstName: string;
+  lastName: string;
+  country: string;
+  street: string;
+  apartment: string;
+  suburb: string;
+  state: string;
+  postcode: string;
+  phone: string;
+  email: string;
+  orderNotes: string;
+  createAccount: boolean;
+  shipDifferent: boolean;
+};
+
+const initialForm: BillingForm = {
+  firstName: "",
+  lastName: "",
+  country: DEFAULT_AU_COUNTRY,
+  street: "",
+  apartment: "",
+  suburb: "",
+  state: AU_STATES[0].value,
+  postcode: "",
+  phone: "",
+  email: "",
+  orderNotes: "",
+  createAccount: false,
+  shipDifferent: false,
+};
+
+type FieldErrors = Partial<Record<keyof BillingForm, string>>;
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
-  const { lines, subtotal, itemCount, removeLine, clearCart } = useCart();
-  const [couponOpen, setCouponOpen] = useState(false);
+  const { lines, subtotal, clearCart } = useCart();
+  const [form, setForm] = useState<BillingForm>(initialForm);
+  const [errors, setErrors] = useState<FieldErrors>({});
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [company, setCompany] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("");
-  const [suburb, setSuburb] = useState("");
-  const [state, setState] = useState("NSW");
-  const [postcode, setPostcode] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [newsletter, setNewsletter] = useState(false);
-  const [differentShipping, setDifferentShipping] = useState(false);
-  const [orderNotes, setOrderNotes] = useState("");
-
-  const [shipFirstName, setShipFirstName] = useState("");
-  const [shipLastName, setShipLastName] = useState("");
-  const [shipCompany, setShipCompany] = useState("");
-  const [shipAddress1, setShipAddress1] = useState("");
-  const [shipAddress2, setShipAddress2] = useState("");
-  const [shipSuburb, setShipSuburb] = useState("");
-  const [shipState, setShipState] = useState("NSW");
-  const [shipPostcode, setShipPostcode] = useState("");
-  const [couponCode, setCouponCode] = useState("");
-
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const hasItems = lines.length > 0;
+  const total = orderTotal(subtotal, hasItems);
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const cartSummaryText =
-    lines.length === 0
-      ? "Your cart is empty."
-      : lines
-          .map((l) => `${l.qty} × ${l.name}`)
-          .slice(0, 3)
-          .join(" · ") + (lines.length > 3 ? " · …" : "");
+  const setField = <K extends keyof BillingForm>(key: K, value: BillingForm[K]) => {
+    setForm((prev) => ({ ...prev, [key]: value }));
+    setErrors((prev) => (prev[key] ? { ...prev, [key]: undefined } : prev));
+  };
 
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    setSubmitError(null);
+  const validate = (): FieldErrors => {
+    const next: FieldErrors = {};
+    if (!form.firstName.trim()) next.firstName = "First name is required";
+    if (!form.lastName.trim()) next.lastName = "Last name is required";
+    if (!form.street.trim()) next.street = "Street address is required";
+    if (!form.suburb.trim()) next.suburb = "Suburb is required";
+    if (!form.state) next.state = "State is required";
+    if (!/^\d{4}$/.test(form.postcode.trim())) next.postcode = "Enter a valid 4-digit postcode";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) next.email = "Enter a valid email address";
+    return next;
+  };
 
-    if (lines.length === 0) {
-      setSubmitError("Your cart is empty.");
+  const placeOrder = (event: FormEvent) => {
+    event.preventDefault();
+    if (!hasItems) return;
+
+    const nextErrors = validate();
+    setErrors(nextErrors);
+    if (Object.values(nextErrors).some(Boolean)) {
+      const firstInvalid = document.querySelector<HTMLElement>("[data-invalid='true']");
+      firstInvalid?.scrollIntoView({ behavior: "smooth", block: "center" });
+      firstInvalid?.focus();
       return;
     }
 
-    const need =
-      !firstName.trim() ||
-      !lastName.trim() ||
-      !address1.trim() ||
-      !suburb.trim() ||
-      !postcode.trim() ||
-      !phone.trim() ||
-      !email.trim();
-    if (need) {
-      setSubmitError("Please fill in all required billing fields.");
-      return;
-    }
-
-    if (!/^\d{4}$/.test(postcode.trim())) {
-      setSubmitError("Please enter a valid 4-digit Australian postcode.");
-      return;
-    }
-
-    if (differentShipping) {
-      const shipNeed =
-        !shipFirstName.trim() ||
-        !shipLastName.trim() ||
-        !shipAddress1.trim() ||
-        !shipSuburb.trim() ||
-        !shipPostcode.trim();
-      if (shipNeed) {
-        setSubmitError("Please fill in all required shipping address fields.");
-        return;
-      }
-      if (!/^\d{4}$/.test(shipPostcode.trim())) {
-        setSubmitError("Please enter a valid 4-digit shipping postcode.");
-        return;
-      }
-    }
-
-    const total = subtotal;
-    clearCart();
-    navigate("/order-complete", {
-      replace: true,
-      state: {
-        totalAmount: total,
-        email: email.trim(),
-        itemCount,
-        couponAttempted: couponCode.trim() || undefined,
-        newsletter,
+    const order: OrderDetails = {
+      orderNumber: nextOrderNumber(),
+      date: new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "numeric" }).format(new Date()),
+      lines: lines.map((l) => ({ slug: l.slug, name: l.name, qty: l.qty, price: l.price })),
+      subtotal,
+      shipping: SHIPPING_FLAT_AUD,
+      total,
+      paymentMethod: PAYMENT_METHOD_LABEL,
+      billing: {
+        firstName: form.firstName.trim(),
+        lastName: form.lastName.trim(),
+        street: form.street.trim(),
+        apartment: form.apartment.trim() || undefined,
+        suburb: form.suburb.trim(),
+        state: form.state,
+        postcode: form.postcode.trim(),
+        country: form.country,
+        phone: form.phone.trim() || undefined,
+        email: form.email.trim(),
       },
-    });
+      shipToDifferent: form.shipDifferent,
+    };
+    clearCart();
+    navigate("/order-complete", { state: order });
   };
 
   return (
@@ -132,338 +133,251 @@ const CheckoutPage = () => {
             Shopping Cart
           </Link>
           <span className="mx-2">→</span>
-          <span className="text-foreground font-medium underline underline-offset-4">Checkout</span>
+          <span className="text-foreground font-medium underline underline-offset-4">Checkout Details</span>
           <span className="mx-2">→</span>
           <span>Order Complete</span>
         </nav>
 
-        {lines.length === 0 ? (
-          <div className="rounded-xl border border-border bg-card/50 p-8 text-center max-w-lg mx-auto">
-            <p className="text-muted-foreground mb-6">Your cart is empty. Add products before checkout.</p>
+        {!hasItems ? (
+          <div className="rounded-2xl border border-border bg-card/70 p-8 text-center max-w-lg mx-auto">
+            <h1 className="text-2xl font-semibold text-foreground mb-3">Your cart is empty</h1>
+            <p className="text-muted-foreground mb-6">Add products before checking out.</p>
             <Button asChild>
-              <Link to="/cart">View cart</Link>
+              <Link to="/#flavors">Browse flavours</Link>
             </Button>
           </div>
         ) : (
-          <>
-            <div className="mb-4 rounded-md bg-emerald-600 px-4 py-3 text-sm text-white flex flex-wrap items-center gap-2">
-              <span className="font-medium" aria-hidden>
-                ✓
-              </span>
-              <Link to="/#flavors" className="underline font-medium hover:text-emerald-100">
-                Continue shopping
-              </Link>
-              <span className="opacity-90">— {cartSummaryText}</span>
-            </div>
-
-            <Collapsible open={couponOpen} onOpenChange={setCouponOpen} className="mb-8">
-              <CollapsibleTrigger asChild>
-                <button
-                  type="button"
-                  className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
-                >
-                  Have a coupon?{" "}
-                  <span className="text-indigo-800 font-medium underline underline-offset-2">Click here to enter your code</span>
-                  {couponOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-                </button>
-              </CollapsibleTrigger>
-              <CollapsibleContent className="mt-3">
-                <div className="flex flex-col sm:flex-row gap-2 max-w-md">
-                  <Input
-                    placeholder="Coupon code"
-                    value={couponCode}
-                    onChange={(e) => setCouponCode(e.target.value)}
-                    className="bg-background"
-                  />
-                  <Button type="button" variant="secondary" disabled className="shrink-0">
-                    Apply
-                  </Button>
-                </div>
-                <p className="text-xs text-muted-foreground mt-2">Coupons are not processed in this demo storefront.</p>
-              </CollapsibleContent>
-            </Collapsible>
-
-            <form onSubmit={onSubmit} className="grid lg:grid-cols-[1fr_400px] gap-10 lg:gap-12 items-start">
-              <div className="space-y-10">
-                <section>
-                  <h2 className="text-lg font-semibold text-indigo-950 mb-6">
-                    1. Billing details
-                  </h2>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="firstName">First name {req}</Label>
-                      <Input id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="lastName">Last name {req}</Label>
-                      <Input id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
-                    </div>
-                  </div>
-                  <div className="mt-4 space-y-2">
-                    <Label htmlFor="company">Company name (optional)</Label>
-                    <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} />
-                  </div>
-                  <div className="mt-4 space-y-2">
-                    <Label htmlFor="country">Country / region {req}</Label>
-                    <Input id="country" readOnly value={DEFAULT_AU_COUNTRY} className="bg-muted/50" />
-                  </div>
-                  <div className="mt-4 space-y-2">
-                    <Label htmlFor="address1">Street address {req}</Label>
-                    <Input
-                      id="address1"
-                      placeholder="House number and street name"
-                      value={address1}
-                      onChange={(e) => setAddress1(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="mt-4 space-y-2">
-                    <Label htmlFor="address2" className="text-muted-foreground">
-                      Apartment, suite, unit, etc. (optional)
-                    </Label>
-                    <Input
-                      id="address2"
-                      placeholder="Apartment, suite, unit, etc. (optional)"
-                      value={address2}
-                      onChange={(e) => setAddress2(e.target.value)}
-                    />
-                  </div>
-                  <div className="mt-4 space-y-2">
-                    <Label htmlFor="suburb">Suburb {req}</Label>
-                    <Input id="suburb" value={suburb} onChange={(e) => setSuburb(e.target.value)} required />
-                  </div>
-                  <div className="grid sm:grid-cols-2 gap-4 mt-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="state">State {req}</Label>
-                      <Select value={state} onValueChange={setState} required>
-                        <SelectTrigger id="state">
-                          <SelectValue placeholder="Select state" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {AU_STATES.map((s) => (
-                            <SelectItem key={s.value} value={s.value}>
-                              {s.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="postcode">Postcode {req}</Label>
-                      <Input
-                        id="postcode"
-                        inputMode="numeric"
-                        maxLength={4}
-                        autoComplete="postal-code"
-                        value={postcode}
-                        onChange={(e) => setPostcode(e.target.value.replace(/\D/g, "").slice(0, 4))}
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="grid sm:grid-cols-2 gap-4 mt-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone {req}</Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        autoComplete="tel"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email address {req}</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        autoComplete="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="mt-6 flex flex-col gap-4">
-                    <label className="flex items-start gap-3 text-sm cursor-pointer">
-                      <Checkbox
-                        checked={newsletter}
-                        onCheckedChange={(v) => setNewsletter(v === true)}
-                        className="mt-0.5"
-                      />
-                      <span>Sign me up to receive email updates and news (optional)</span>
-                    </label>
-                    <label className="flex items-start gap-3 text-sm cursor-pointer">
-                      <Checkbox
-                        checked={differentShipping}
-                        onCheckedChange={(v) => setDifferentShipping(v === true)}
-                        className="mt-0.5"
-                      />
-                      <span>Deliver to a different address?</span>
-                    </label>
-                  </div>
-
-                  {differentShipping ? (
-                    <div className="mt-6 rounded-xl border border-dashed border-border p-4 space-y-4 bg-muted/20">
-                      <h3 className="font-medium text-foreground">Shipping address</h3>
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="shipFirstName">First name {req}</Label>
-                          <Input id="shipFirstName" value={shipFirstName} onChange={(e) => setShipFirstName(e.target.value)} />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="shipLastName">Last name {req}</Label>
-                          <Input id="shipLastName" value={shipLastName} onChange={(e) => setShipLastName(e.target.value)} />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="shipCompany">Company name (optional)</Label>
-                        <Input id="shipCompany" value={shipCompany} onChange={(e) => setShipCompany(e.target.value)} />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="shipAddress1">Street address {req}</Label>
-                        <Input
-                          id="shipAddress1"
-                          placeholder="House number and street name"
-                          value={shipAddress1}
-                          onChange={(e) => setShipAddress1(e.target.value)}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="shipAddress2" className="text-muted-foreground">
-                          Apartment, suite, unit, etc. (optional)
-                        </Label>
-                        <Input id="shipAddress2" value={shipAddress2} onChange={(e) => setShipAddress2(e.target.value)} />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="shipSuburb">Suburb {req}</Label>
-                        <Input id="shipSuburb" value={shipSuburb} onChange={(e) => setShipSuburb(e.target.value)} />
-                      </div>
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label>State {req}</Label>
-                          <Select value={shipState} onValueChange={setShipState}>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select state" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {AU_STATES.map((s) => (
-                                <SelectItem key={s.value} value={s.value}>
-                                  {s.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="shipPostcode">Postcode {req}</Label>
-                          <Input
-                            id="shipPostcode"
-                            inputMode="numeric"
-                            maxLength={4}
-                            value={shipPostcode}
-                            onChange={(e) => setShipPostcode(e.target.value.replace(/\D/g, "").slice(0, 4))}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ) : null}
-
-                  <div className="mt-6 space-y-2">
-                    <Label htmlFor="orderNotes">Order notes (optional)</Label>
-                    <Textarea
-                      id="orderNotes"
-                      placeholder="Notes about your order, e.g. special notes for delivery."
-                      rows={4}
-                      value={orderNotes}
-                      onChange={(e) => setOrderNotes(e.target.value)}
-                      className="resize-y min-h-[100px]"
-                    />
-                  </div>
-                </section>
-
-                <section>
-                  <h2 className="text-lg font-semibold text-indigo-950 mb-3">2. Cash on delivery</h2>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Pay with cash when your order is delivered. No card or bank details are collected on this website.
-                  </p>
-                  <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-5">
-                    <li>Our team may contact you by phone or email to confirm delivery details.</li>
-                    <li>Please have the exact amount ready where possible.</li>
-                  </ul>
-                </section>
-
-                {submitError ? (
-                  <p className="text-sm text-destructive" role="alert">
-                    {submitError}
-                  </p>
-                ) : null}
-
-                <Button type="submit" size="lg" className="w-full sm:w-auto min-w-[200px]">
-                  Place order
-                </Button>
+          <form onSubmit={placeOrder} className="grid lg:grid-cols-[1fr_380px] gap-8 lg:gap-12 items-start" noValidate>
+            <section className="space-y-6">
+              <div className="space-y-1 text-sm text-muted-foreground">
+                <p>
+                  Returning customer? <span className="text-primary">Click here to login</span>
+                </p>
+                <p>
+                  Have a coupon? <span className="text-primary">Click here to enter your code</span>
+                </p>
               </div>
 
-              <aside className="lg:sticky lg:top-[calc(6rem+env(safe-area-inset-top))] rounded-xl border border-border bg-muted/50 p-6 space-y-4">
-                <h2 className="text-lg font-semibold text-foreground border-b border-border pb-3">Your order</h2>
-                <div className="text-xs font-medium text-muted-foreground grid grid-cols-[1fr_auto] gap-2 pb-2">
-                  <span>Product</span>
-                  <span className="text-right">Subtotal</span>
+              <div className="rounded-2xl border border-border bg-card/70 p-6 sm:p-8">
+                <h1 className="text-xl sm:text-2xl font-semibold text-foreground mb-6">Billing details</h1>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <Field label="First name" required error={errors.firstName}>
+                    <Input
+                      value={form.firstName}
+                      onChange={(e) => setField("firstName", e.target.value)}
+                      data-invalid={errors.firstName ? "true" : undefined}
+                      autoComplete="given-name"
+                    />
+                  </Field>
+                  <Field label="Last name" required error={errors.lastName}>
+                    <Input
+                      value={form.lastName}
+                      onChange={(e) => setField("lastName", e.target.value)}
+                      data-invalid={errors.lastName ? "true" : undefined}
+                      autoComplete="family-name"
+                    />
+                  </Field>
                 </div>
-                <ul className="space-y-4 text-sm">
-                  {lines.map((line) => {
-                    const lineTotal = line.price * line.qty;
-                    return (
-                      <li key={line.slug} className="grid grid-cols-[1fr_auto] gap-3 items-start">
-                        <div className="flex gap-3 min-w-0">
-                          <button
-                            type="button"
-                            className="text-muted-foreground hover:text-destructive text-lg leading-none px-0.5"
-                            aria-label={`Remove ${line.name}`}
-                            onClick={() => removeLine(line.slug)}
-                          >
-                            ×
-                          </button>
-                          <div className="h-14 w-14 shrink-0 overflow-hidden rounded-md bg-background border">
-                            <img src={line.image} alt="" className="h-full w-full object-cover" />
-                          </div>
-                          <div className="min-w-0">
-                            <p className="font-medium text-foreground leading-snug text-[13px] sm:text-sm">
-                              {line.name} × {line.qty}
-                            </p>
-                          </div>
-                        </div>
-                        <span className="font-semibold text-indigo-900 tabular-nums text-right whitespace-nowrap">
-                          {formatAud(lineTotal)}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-                <div className="border-t border-border pt-3 space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Subtotal</span>
-                    <span className="font-bold text-indigo-900 tabular-nums">{formatAud(subtotal)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Shipment</span>
-                    <span>Free shipping</span>
-                  </div>
-                  <div className="flex justify-between items-baseline pt-2 text-base">
-                    <span className="font-semibold">Total</span>
-                    <span className="text-xl font-bold text-indigo-900 tabular-nums">{formatAud(subtotal)}</span>
-                  </div>
+
+                <div className="mt-4">
+                  <Field label="Country / Region" required>
+                    <Select value={form.country} onValueChange={(v) => setField("country", v)}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value={DEFAULT_AU_COUNTRY}>{DEFAULT_AU_COUNTRY}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </Field>
                 </div>
-              </aside>
-            </form>
-          </>
+
+                <div className="mt-4 grid sm:grid-cols-2 gap-4">
+                  <Field label="Street address" required error={errors.street}>
+                    <Input
+                      value={form.street}
+                      onChange={(e) => setField("street", e.target.value)}
+                      placeholder="House number and street name"
+                      data-invalid={errors.street ? "true" : undefined}
+                      autoComplete="address-line1"
+                    />
+                  </Field>
+                  <Field label="Apartment, suite, unit" hint="optional">
+                    <Input
+                      value={form.apartment}
+                      onChange={(e) => setField("apartment", e.target.value)}
+                      placeholder="Apartment, suite, unit, etc. (optional)"
+                      autoComplete="address-line2"
+                    />
+                  </Field>
+                </div>
+
+                <div className="mt-4">
+                  <Field label="Suburb" required error={errors.suburb}>
+                    <Input
+                      value={form.suburb}
+                      onChange={(e) => setField("suburb", e.target.value)}
+                      data-invalid={errors.suburb ? "true" : undefined}
+                      autoComplete="address-level2"
+                    />
+                  </Field>
+                </div>
+
+                <div className="mt-4 grid sm:grid-cols-2 gap-4">
+                  <Field label="State" required error={errors.state}>
+                    <Select value={form.state} onValueChange={(v) => setField("state", v)}>
+                      <SelectTrigger data-invalid={errors.state ? "true" : undefined}>
+                        <SelectValue placeholder="Select a state" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {AU_STATES.map((s) => (
+                          <SelectItem key={s.value} value={s.value}>
+                            {s.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </Field>
+                  <Field label="Postcode" required error={errors.postcode}>
+                    <Input
+                      value={form.postcode}
+                      inputMode="numeric"
+                      maxLength={4}
+                      onChange={(e) => setField("postcode", e.target.value.replace(/\D/g, ""))}
+                      data-invalid={errors.postcode ? "true" : undefined}
+                      autoComplete="postal-code"
+                    />
+                  </Field>
+                </div>
+
+                <div className="mt-4 grid sm:grid-cols-2 gap-4">
+                  <Field label="Phone" hint="optional">
+                    <Input
+                      value={form.phone}
+                      onChange={(e) => setField("phone", e.target.value)}
+                      type="tel"
+                      autoComplete="tel"
+                    />
+                  </Field>
+                  <Field label="Email address" required error={errors.email}>
+                    <Input
+                      value={form.email}
+                      onChange={(e) => setField("email", e.target.value)}
+                      type="email"
+                      data-invalid={errors.email ? "true" : undefined}
+                      autoComplete="email"
+                    />
+                  </Field>
+                </div>
+
+                <div className="mt-6 space-y-3">
+                  <label className="flex items-center gap-3 text-sm text-foreground cursor-pointer">
+                    <Checkbox
+                      checked={form.createAccount}
+                      onCheckedChange={(c) => setField("createAccount", c === true)}
+                    />
+                    Create an account?
+                  </label>
+                  <label className="flex items-center gap-3 text-sm text-foreground cursor-pointer">
+                    <Checkbox
+                      checked={form.shipDifferent}
+                      onCheckedChange={(c) => setField("shipDifferent", c === true)}
+                    />
+                    Deliver to a different address?
+                  </label>
+                </div>
+
+                <div className="mt-6">
+                  <Field label="Order notes" hint="optional">
+                    <Textarea
+                      value={form.orderNotes}
+                      onChange={(e) => setField("orderNotes", e.target.value)}
+                      placeholder="Notes about your order, e.g. special notes for delivery."
+                      rows={4}
+                    />
+                  </Field>
+                </div>
+              </div>
+            </section>
+
+            <aside className="lg:sticky lg:top-[calc(6rem+env(safe-area-inset-top))] rounded-2xl border border-border bg-muted/40 p-6 space-y-5">
+              <h2 className="text-lg font-semibold text-foreground border-b border-border pb-3">Your order</h2>
+
+              <div className="flex justify-between text-xs uppercase tracking-wider text-muted-foreground">
+                <span>Product</span>
+                <span>Subtotal</span>
+              </div>
+
+              <ul className="space-y-3">
+                {lines.map((line) => (
+                  <li key={line.slug} className="flex justify-between gap-4 text-sm">
+                    <span className="text-foreground leading-snug">
+                      {line.name} <span className="text-muted-foreground">× {line.qty}</span>
+                    </span>
+                    <span className="tabular-nums whitespace-nowrap">{formatAud(line.price * line.qty)}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="border-t border-border pt-4 space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Subtotal</span>
+                  <span className="tabular-nums">{formatAud(subtotal)}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Shipment</span>
+                  <span className="tabular-nums">
+                    {SHIPPING_LABEL}: {formatAud(SHIPPING_FLAT_AUD)}
+                  </span>
+                </div>
+                <div className="flex justify-between items-baseline border-t border-border pt-3">
+                  <span className="font-medium">Total</span>
+                  <span className="text-2xl font-bold text-primary tabular-nums">{formatAud(total)}</span>
+                </div>
+              </div>
+
+              <div className="rounded-lg border border-border bg-background/60 p-4 text-sm text-muted-foreground">
+                <p className="font-medium text-foreground mb-1">Bank Transfer</p>
+                <p>
+                  Please transfer money to our Bank Transfer account. Put your order number to help us process your order
+                  accurately.
+                </p>
+              </div>
+
+              <Button type="submit" size="lg" className="w-full">
+                Place order
+              </Button>
+              <Button asChild variant="outline" className="w-full bg-background">
+                <Link to="/cart">Back to cart</Link>
+              </Button>
+            </aside>
+          </form>
         )}
       </main>
       <Footer />
     </div>
   );
 };
+
+type FieldProps = {
+  label: string;
+  required?: boolean;
+  hint?: string;
+  error?: string;
+  children: ReactNode;
+};
+
+const Field = ({ label, required, hint, error, children }: FieldProps) => (
+  <div className="space-y-1.5">
+    <Label className="text-sm">
+      {label}
+      {required ? <span className="text-destructive"> *</span> : null}
+      {hint ? <span className="text-muted-foreground font-normal"> ({hint})</span> : null}
+    </Label>
+    {children}
+    {error ? <p className="text-xs text-destructive">{error}</p> : null}
+  </div>
+);
 
 export default CheckoutPage;

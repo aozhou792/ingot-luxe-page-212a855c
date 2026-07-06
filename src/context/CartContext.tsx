@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { toast } from "sonner";
 
 export type CartLine = {
@@ -8,6 +8,29 @@ export type CartLine = {
   image: string;
   qty: number;
 };
+
+const STORAGE_KEY = "alibarbar-cart";
+
+function loadLines(): CartLine[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter(
+      (l): l is CartLine =>
+        l &&
+        typeof l.slug === "string" &&
+        typeof l.name === "string" &&
+        typeof l.price === "number" &&
+        typeof l.image === "string" &&
+        typeof l.qty === "number",
+    );
+  } catch {
+    return [];
+  }
+}
 
 type CartContextValue = {
   lines: CartLine[];
@@ -24,7 +47,15 @@ type CartContextValue = {
 const CartContext = createContext<CartContextValue | null>(null);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [lines, setLines] = useState<CartLine[]>([]);
+  const [lines, setLines] = useState<CartLine[]>(loadLines);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(lines));
+    } catch {
+      /* storage unavailable — cart stays in memory only */
+    }
+  }, [lines]);
 
   const addToCart = useCallback(
     (item: { slug: string; name: string; price: string; image: string; qty?: number }) => {

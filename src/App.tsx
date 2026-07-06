@@ -11,6 +11,7 @@ import ProductPage from "./pages/ProductPage.tsx";
 import CartPage from "./pages/CartPage.tsx";
 import CheckoutPage from "./pages/CheckoutPage.tsx";
 import OrderCompletePage from "./pages/OrderCompletePage.tsx";
+import AdminOrdersPage from "./pages/AdminOrdersPage.tsx";
 import WhatsAppQrPage from "./pages/WhatsAppQrPage.tsx";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/order-complete" element={<OrderCompletePage />} />
+            <Route path="/admin/orders" element={<AdminOrdersPage />} />
             <Route path="/whatsapp-qr" element={<WhatsAppQrPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

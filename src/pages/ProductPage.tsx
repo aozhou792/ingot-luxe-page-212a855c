@@ -64,26 +64,17 @@ const ProductPage = () => {
 
   const paragraphs = product.description.split("\n\n").filter(Boolean);
 
-  const onAddToCart = () => {
+  const cartItem = { slug: product.slug, name: product.name, price: product.price, image: product.img };
+
+  const handleAddToCart = () => {
     if (!product.inStock) return;
-    addToCart({
-      slug: product.slug,
-      name: product.name,
-      price: product.price,
-      image: product.img,
-      qty,
-    });
+    addToCart({ ...cartItem, qty });
+    navigate("/cart");
   };
 
-  const onBuyNow = () => {
+  const handleBuyNow = () => {
     if (!product.inStock) return;
-    buyNow({
-      slug: product.slug,
-      name: product.name,
-      price: product.price,
-      image: product.img,
-      qty,
-    });
+    buyNow({ ...cartItem, qty });
     navigate("/checkout");
   };
 
@@ -217,7 +208,7 @@ const ProductPage = () => {
                     <button
                       type="button"
                       disabled={!product.inStock}
-                      onClick={onAddToCart}
+                      onClick={handleAddToCart}
                       className="flex-1 min-h-[52px] px-6 rounded-xl border-2 border-gold bg-transparent text-primary font-bold uppercase tracking-[0.12em] text-sm hover:bg-gold/15 active:scale-[0.99] transition-all disabled:opacity-40 disabled:pointer-events-none"
                     >
                       Add to cart
@@ -225,7 +216,7 @@ const ProductPage = () => {
                     <button
                       type="button"
                       disabled={!product.inStock}
-                      onClick={onBuyNow}
+                      onClick={handleBuyNow}
                       className="flex-1 min-h-[52px] px-6 rounded-xl bg-gold text-primary-foreground font-bold uppercase tracking-[0.12em] text-sm shadow-gold hover:opacity-[0.97] active:scale-[0.99] transition-all disabled:opacity-40 disabled:pointer-events-none"
                     >
                       Buy now
