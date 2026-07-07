@@ -13,18 +13,35 @@ const sizeMap = {
   lg: "w-5 h-5",
 } as const;
 
-/** Read-only star display supporting half-star fills via clip. */
+const filledStar = "fill-primary text-primary";
+const emptyStar = "fill-transparent text-muted-foreground/35";
+
+/** Read-only star display; full stars use solid gold fill. */
 export const StarRating = ({ value, size = "md", className }: StarRatingProps) => {
   const cls = sizeMap[size];
+  const score = Math.max(0, Math.min(5, value));
+
   return (
-    <div className={cn("inline-flex items-center gap-0.5", className)} aria-label={`${value} out of 5 stars`}>
-      {[0, 1, 2, 3, 4].map((i) => {
-        const fill = Math.max(0, Math.min(1, value - i));
+    <div className={cn("inline-flex items-center gap-0.5", className)} aria-label={`${score} out of 5 stars`}>
+      {[1, 2, 3, 4, 5].map((star) => {
+        const fill = Math.max(0, Math.min(1, score - (star - 1)));
+        const isFull = fill >= 1;
+        const isEmpty = fill <= 0;
+
+        if (isFull) {
+          return <Star key={star} className={cn(cls, filledStar)} strokeWidth={1.5} />;
+        }
+
+        if (isEmpty) {
+          return <Star key={star} className={cn(cls, emptyStar)} strokeWidth={1.5} />;
+        }
+
+        // Partial star (e.g. 4.5): clip a filled star over an empty outline.
         return (
-          <span key={i} className="relative inline-block">
-            <Star className={cn(cls, "text-muted-foreground/40")} strokeWidth={1.5} />
+          <span key={star} className="relative inline-flex">
+            <Star className={cn(cls, emptyStar)} strokeWidth={1.5} />
             <span className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
-              <Star className={cn(cls, "text-gold fill-gold")} strokeWidth={1.5} />
+              <Star className={cn(cls, filledStar)} strokeWidth={1.5} />
             </span>
           </span>
         );
@@ -54,7 +71,7 @@ export const StarInput = ({ value, onChange, size = "lg" }: StarInputProps) => {
           className="p-1 transition-transform hover:scale-110"
         >
           <Star
-            className={cn(cls, star <= value ? "text-gold fill-gold" : "text-muted-foreground/50")}
+            className={cn(cls, star <= value ? filledStar : emptyStar)}
             strokeWidth={1.5}
           />
         </button>
