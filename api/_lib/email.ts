@@ -42,7 +42,7 @@ export async function sendOrderNotificationEmail(
   receipt: { dataUrl: string; name: string },
 ): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.ORDER_NOTIFY_EMAIL ?? "hxjspacex1@gmail.com";
+  const to = process.env.ORDER_NOTIFY_EMAIL ?? "wmitch714@gmail.com";
   const from = process.env.ORDER_FROM_EMAIL ?? "Alibarbar Orders <onboarding@resend.dev>";
 
   if (!apiKey) {
