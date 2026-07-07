@@ -73,7 +73,7 @@ const WholesalePage = () => {
                   <p className="text-lg sm:text-xl font-bold text-foreground">{contact.phone}</p>
                   <p className="mt-1 text-sm text-muted-foreground">{contact.name}</p>
                   <a
-                    href={buildWhatsAppUrl("Hi Gavin, I'd like to enquire about wholesale Alibarbar Ingot 9000 pricing.")}
+                    href={buildWhatsAppUrl("Hi, I'd like to enquire about wholesale Alibarbar Ingot 9000 pricing.")}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-5 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#1FBE5C] transition-colors"
@@ -89,7 +89,7 @@ const WholesalePage = () => {
                   <Link to="/whatsapp-qr" className="text-primary font-semibold hover:text-gold">
                     WhatsApp QR page
                   </Link>{" "}
-                  to add Gavin and message us directly.
+                  to add {wholesaleContacts[0].name} and message us directly.
                 </p>
               </li>
             </ul>

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
-import { WHATSAPP_PHONE_DISPLAY, WHATSAPP_QR_IMAGE } from "@/lib/whatsapp";
+import { WHATSAPP_CONTACT_NAME, WHATSAPP_PHONE_DISPLAY, WHATSAPP_QR_IMAGE } from "@/lib/whatsapp";
 
 const WhatsAppQrPage = () => {
   return (
@@ -23,16 +23,16 @@ const WhatsAppQrPage = () => {
 
         <div className="w-full rounded-[2rem] bg-white p-6 shadow-[0_25px_60px_-20px_rgba(0,0,0,0.4)] sm:p-8">
           <div className="flex flex-col items-center text-center">
-            <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-zinc-200 to-zinc-300 text-3xl font-semibold text-zinc-600 ring-4 ring-white">
-              G
+            <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-zinc-200 to-zinc-300 text-3xl font-semibold text-zinc-600 ring-4 ring-white uppercase">
+              {WHATSAPP_CONTACT_NAME.charAt(0)}
             </div>
-            <h1 className="mt-4 text-2xl font-bold text-zinc-900">Gavin</h1>
+            <h1 className="mt-4 text-2xl font-bold text-zinc-900">{WHATSAPP_CONTACT_NAME}</h1>
             <p className="mt-1 text-sm text-zinc-500">{WHATSAPP_PHONE_DISPLAY}</p>
 
             <div className="mt-6 w-full rounded-2xl bg-white p-3 sm:p-4">
               <img
                 src={WHATSAPP_QR_IMAGE}
-                alt="Gavin WhatsApp contact QR code"
+                alt={`${WHATSAPP_CONTACT_NAME} WhatsApp contact QR code`}
                 className="mx-auto block aspect-square w-full max-w-xs object-contain"
                 draggable={false}
               />

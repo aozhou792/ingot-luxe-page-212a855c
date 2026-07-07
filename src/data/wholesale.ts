@@ -24,7 +24,7 @@ export const wholesaleProducts: WholesaleProduct[] = [
     flavours: String(flavourCount),
     nicotine: "Per packaging",
     type: "Disposable",
-    whatsappMessage: "Hi Gavin, I'd like wholesale pricing for Alibarbar Ingot 9000 single units.",
+    whatsappMessage: "Hi, I'd like wholesale pricing for Alibarbar Ingot 9000 single units.",
   },
   {
     name: "3 FLAVOUR CUSTOM PACK",
@@ -33,7 +33,7 @@ export const wholesaleProducts: WholesaleProduct[] = [
     flavours: "3 per pack",
     nicotine: "Per packaging",
     type: "Mixed pack",
-    whatsappMessage: "Hi Gavin, I'd like wholesale pricing for the Alibarbar 3 Flavour Custom Pack.",
+    whatsappMessage: "Hi, I'd like wholesale pricing for the Alibarbar 3 Flavour Custom Pack.",
   },
   {
     name: "5 FLAVOUR CUSTOM PACK",
@@ -42,7 +42,7 @@ export const wholesaleProducts: WholesaleProduct[] = [
     flavours: "5 per pack",
     nicotine: "Per packaging",
     type: "Mixed pack",
-    whatsappMessage: "Hi Gavin, I'd like wholesale pricing for the Alibarbar 5 Flavour Custom Pack.",
+    whatsappMessage: "Hi, I'd like wholesale pricing for the Alibarbar 5 Flavour Custom Pack.",
   },
   {
     name: "10 FLAVOUR CUSTOM PACK",
@@ -51,6 +51,6 @@ export const wholesaleProducts: WholesaleProduct[] = [
     flavours: "10 per pack",
     nicotine: "Per packaging",
     type: "Bulk pack",
-    whatsappMessage: "Hi Gavin, I'd like wholesale pricing for the Alibarbar 10 Flavour Custom Pack.",
+    whatsappMessage: "Hi, I'd like wholesale pricing for the Alibarbar 10 Flavour Custom Pack.",
   },
 ];
