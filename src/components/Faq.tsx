@@ -3,7 +3,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { faqItems } from "@/data/faq";
 
 /** Homepage shows a curated subset; the full list lives on /faq. */
-const HOME_FAQ_COUNT = 8;
+const HOME_FAQ_COUNT = 12;
 
 export const Faq = () => {
   const homeItems = faqItems.slice(0, HOME_FAQ_COUNT);

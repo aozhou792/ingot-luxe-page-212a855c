@@ -274,7 +274,7 @@ const ProductPage = () => {
                           )
                         }
                       >
-                        <SelectTrigger className="bg-background/70">
+                        <SelectTrigger className="bg-background/70 min-h-[44px] text-base md:text-sm">
                           <SelectValue placeholder={`Flavour ${index + 1}`} />
                         </SelectTrigger>
                         <SelectContent>
@@ -305,7 +305,7 @@ const ProductPage = () => {
                     <button
                       type="button"
                       aria-label="Decrease quantity"
-                      className="p-3.5 sm:p-4 hover:bg-primary/15 active:bg-primary/20 transition-colors disabled:opacity-35"
+                      className="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-primary/15 active:bg-primary/20 transition-colors disabled:opacity-35"
                       disabled={qty <= 1}
                       onClick={() => setQty((q) => Math.max(1, q - 1))}
                     >
@@ -315,7 +315,7 @@ const ProductPage = () => {
                     <button
                       type="button"
                       aria-label="Increase quantity"
-                      className="p-3.5 sm:p-4 hover:bg-primary/15 active:bg-primary/20 transition-colors"
+                      className="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-primary/15 active:bg-primary/20 transition-colors"
                       onClick={() => setQty((q) => q + 1)}
                     >
                       <Plus className="w-4 h-4" />

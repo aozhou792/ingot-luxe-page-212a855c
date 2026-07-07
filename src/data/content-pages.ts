@@ -194,6 +194,111 @@ export const contentPages: ContentPage[] = [
     ],
     updated: "2026-07-01",
   },
+  {
+    slug: "why-trust-us",
+    title: "Why Trust Alibarbar Australia",
+    description:
+      "Why adult Australian customers trust Alibarbar Australia for authentic Ingot 9000 devices, transparent policies and independent product information.",
+    intro:
+      "Trust matters when buying vaping products online. This page explains the standards, policies and practices behind Alibarbar Australia.",
+    sections: [
+      {
+        heading: "Authentic products only",
+        paragraphs: [
+          "We specialise exclusively in the Alibarbar Ingot 9000 range and do not mix in unverified grey-market stock. Every device includes the smart LED display, 22ml capacity and up to 9000 puff specification described on our product pages.",
+        ],
+      },
+      {
+        heading: "Transparent policies",
+        paragraphs: [
+          "Pricing is shown in AUD with tiered shipping calculated at checkout. Our shipping, returns, privacy and terms pages are publicly linked from every page footer. We accept bank transfer only and never ask for card details on this site.",
+        ],
+      },
+      {
+        heading: "Independent editorial content",
+        paragraphs: [
+          "Guides, comparisons and reviews are written to inform, not to disparage competitors. See our Editorial Policy for how we research and update content.",
+        ],
+        bullets: [
+          "Comparisons use publicly available competitor specifications",
+          "Reviews disclose flavour strengths and weaknesses honestly",
+          "Guides are updated when product specs or laws change",
+        ],
+      },
+      {
+        heading: "Human support",
+        paragraphs: [
+          `Orders and product questions are handled by email at ${SUPPORT_EMAIL}, usually within one business day.`,
+        ],
+      },
+    ],
+    updated: "2026-07-07",
+  },
+  {
+    slug: "editorial-policy",
+    title: "Editorial Policy",
+    description:
+      "How Alibarbar Australia researches, writes and updates guides, comparisons, reviews and blog articles.",
+    intro:
+      "Our knowledge centre exists to help adult Australian customers make informed decisions. This editorial policy describes how that content is created and maintained.",
+    sections: [
+      {
+        heading: "Purpose",
+        paragraphs: [
+          "Guides explain how the Alibarbar Ingot 9000 works. Comparisons present factual differences between brands. Reviews describe flavour and performance based on structured tasting notes. Blog posts cover broader buying topics relevant to Australian vapers.",
+        ],
+      },
+      {
+        heading: "Accuracy and updates",
+        paragraphs: [
+          "We verify product specifications against manufacturer documentation and our own inventory. Competitor data is sourced from public product listings and may change — comparisons include a disclaimer where specs vary by model.",
+          "Articles show a last-updated date. We revise content when laws, pricing or product lines change.",
+        ],
+      },
+      {
+        heading: "Commercial disclosure",
+        paragraphs: [
+          "Alibarbar Australia sells Alibarbar products. Comparisons and reviews may link to our shop, but we do not claim superiority where evidence does not support it. We list competitor strengths alongside Alibarbar strengths.",
+        ],
+      },
+      {
+        heading: "Corrections",
+        paragraphs: [
+          `If you spot an error, email ${SUPPORT_EMAIL} with the page URL and we will review and correct it promptly.`,
+        ],
+      },
+    ],
+    updated: "2026-07-07",
+  },
+  {
+    slug: "age-verification",
+    title: "Age Verification Policy",
+    description:
+      "How Alibarbar Australia verifies that customers are 18 or older before selling disposable vapes in Australia.",
+    intro:
+      "Vaping products are restricted to adults. Alibarbar Australia operates a strict 18+ policy aligned with Australian state and territory laws.",
+    sections: [
+      {
+        heading: "Who may purchase",
+        paragraphs: [
+          "You must be 18 years or older and of legal age to purchase vaping products where you live. Products are intended only for existing adult smokers or vapers — not for non-smokers, minors, or anyone who is pregnant or breastfeeding.",
+        ],
+      },
+      {
+        heading: "How we verify age",
+        paragraphs: [
+          "Every visitor must confirm they are 18+ via our age gate before browsing the store. At checkout you confirm again that you meet the legal age requirement. We reserve the right to cancel orders where age cannot be verified.",
+        ],
+      },
+      {
+        heading: "Delivery",
+        paragraphs: [
+          "Parcels may require signature or ID check depending on carrier practice in your area. By ordering you accept that proof of age may be requested on delivery.",
+        ],
+      },
+    ],
+    updated: "2026-07-07",
+  },
 ];
 
 export function getContentPageBySlug(slug: string | undefined): ContentPage | undefined {

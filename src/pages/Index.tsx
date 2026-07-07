@@ -10,6 +10,16 @@ import { HomeGuides } from "@/components/HomeGuides";
 import { Faq } from "@/components/Faq";
 import { HomeFiveStarReviews } from "@/components/HomeFiveStarReviews";
 import { Footer } from "@/components/Footer";
+import {
+  HomeCompareHub,
+  HomeIngotExplained,
+  HomeIntroduction,
+  HomeLatestBlog,
+  HomeLatestReviews,
+  HomeProductSpecs,
+  HomeShippingTrust,
+  HomeWhyChoose,
+} from "@/components/home/HomeBrandSections";
 import { Seo, siteJsonLd } from "@/components/Seo";
 import { useReveal } from "@/hooks/use-reveal";
 import type { HomeRestoreState } from "@/types/navigation";
@@ -38,20 +48,28 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="Buy Alibarbar Ingot 9000 Australia | Official Disposable Vape Store"
-        description="Shop authentic Alibarbar Ingot 9000 disposable vapes in Australia. Fast local delivery, premium flavours, secure checkout and custom 5-pack bundles for adults 18+."
+        description="Shop authentic Alibarbar Ingot 9000 disposable vapes in Australia. Guides, comparisons, 28+ FAQs, fast local delivery, premium flavours and custom 3/5/10-pack bundles for adults 18+."
         path="/"
         jsonLd={siteJsonLd}
       />
       <Navbar />
       <main>
         <Hero />
-        <Flavors />
+        <HomeIntroduction />
+        <HomeIngotExplained />
+        <HomeWhyChoose />
         <Features />
+        <Flavors />
+        <HomeProductSpecs />
         <HowItWorks />
+        <HomeCompareHub />
         <CustomerReviews />
         <HomeGuides />
+        <HomeLatestReviews />
+        <HomeLatestBlog />
         <Faq />
         <HomeFiveStarReviews />
+        <HomeShippingTrust />
       </main>
       <Footer />
     </div>

@@ -37,7 +37,7 @@ export const HomeFiveStarReviews = () => (
         <div className="gold-divider mt-6 sm:mt-8 max-w-xs mx-auto" />
       </div>
 
-      <div className="grid sm:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
         {featuredReviews.map((review, index) => (
           <article
             key={review.title}

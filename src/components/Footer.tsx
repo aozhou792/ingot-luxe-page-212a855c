@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Instagram, Twitter, Facebook, Youtube } from "lucide-react";
 import { guides } from "@/data/guides";
+import { SITE_SOCIAL } from "@/data/site";
 
 const shopLinks = [
   { label: "All Flavours", to: "/flavours" },
@@ -23,6 +24,9 @@ const exploreLinks = [
 
 const companyLinks = [
   { label: "About Us", to: "/about" },
+  { label: "Why Trust Us", to: "/why-trust-us" },
+  { label: "Editorial Policy", to: "/editorial-policy" },
+  { label: "Age Verification", to: "/age-verification" },
   { label: "Contact", to: "/contact" },
 ];
 
@@ -48,11 +52,20 @@ export const Footer = () => (
           delivery, and secure checkout for adults 18+.
         </p>
         <div className="flex gap-3 pt-2 justify-center md:justify-start">
-          {[Instagram, Twitter, Facebook, Youtube].map((Icon, i) => (
+          {(
+            [
+              { Icon: Instagram, href: SITE_SOCIAL.instagram, label: "Instagram" },
+              { Icon: Twitter, href: SITE_SOCIAL.x, label: "X (Twitter)" },
+              { Icon: Facebook, href: SITE_SOCIAL.facebook, label: "Facebook" },
+              { Icon: Youtube, href: SITE_SOCIAL.youtube, label: "YouTube" },
+            ] as const
+          ).map(({ Icon, href, label }) => (
             <a
-              key={i}
-              href="#"
-              aria-label="Social"
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
               className="w-11 h-11 sm:w-10 sm:h-10 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 rounded-full border border-gold flex items-center justify-center text-primary hover:bg-gold hover:text-primary-foreground transition-colors"
             >
               <Icon className="w-4 h-4" />

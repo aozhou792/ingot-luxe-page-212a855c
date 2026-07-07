@@ -111,6 +111,12 @@ export const faqItems: FaqItem[] = [
   },
   {
     category: "Product & Usage",
+    question: "What are the 3 and 10 Flavour Custom Packs?",
+    answer:
+      "The 3 Flavour Custom Pack (A$100) and 10 Flavour Custom Pack (A$300) let you choose any three or ten flavours from the current line-up. They are ideal for trying a few options or stocking up with variety.",
+  },
+  {
+    category: "Product & Usage",
     question: "How should I store my Alibarbar Ingot?",
     answer:
       "Store your device in a cool, dry place away from direct sunlight and extreme heat. Avoid leaving it in a hot car, as high temperatures can affect the battery and e-liquid.",
@@ -126,6 +132,12 @@ export const faqItems: FaqItem[] = [
     question: "Are your products authentic?",
     answer:
       "Yes. We only sell genuine ALIBARBAR Ingot 9000 devices with the built-in smart LED display, 22ml e-liquid capacity, and up to 9000 puffs per device.",
+  },
+  {
+    category: "Ordering & Shipping",
+    question: "What is your warranty and returns policy?",
+    answer:
+      "Opened devices cannot be returned for change of mind. Faulty or damaged items reported within 7 days may qualify for a replacement or refund under the Australian Consumer Law. Full details are on our Returns & Refunds page at /returns.",
   },
   {
     category: "Legal & Safety",
@@ -144,6 +156,30 @@ export const faqItems: FaqItem[] = [
     question: "Can I take a disposable vape on a plane?",
     answer:
       "Disposable vapes contain lithium batteries, so airlines generally require them to be carried in your cabin bag, never in checked luggage, and not used or charged in-flight. Always check your airline and destination rules before travelling.",
+  },
+  {
+    category: "Product & Usage",
+    question: "What nicotine strength is in the Alibarbar Ingot 9000?",
+    answer:
+      "Nicotine strength varies by batch and region. Check the packaging on your device for the exact mg/ml rating. If you need help identifying your unit, email orders@ailibarbar.com with your order number.",
+  },
+  {
+    category: "Product & Usage",
+    question: "Is there a warranty on disposable vapes?",
+    answer:
+      "Disposable vapes are consumable products, but if a device arrives damaged or faulty out of the box, contact us within 7 days. Under the Australian Consumer Law you may be entitled to a replacement or refund for products that are not of acceptable quality.",
+  },
+  {
+    category: "Product & Usage",
+    question: "How can I tell if my Alibarbar Ingot is genuine?",
+    answer:
+      "Genuine Alibarbar Ingot 9000 devices have the smart LED display showing battery and e-liquid levels, up to 9000 puffs, 22ml capacity and the ALIBARBAR branding on packaging. Buying from Alibarbar Australia ensures authentic stock — avoid unusually cheap listings on unofficial marketplaces.",
+  },
+  {
+    category: "Product & Usage",
+    question: "Which Alibarbar flavour is best for beginners?",
+    answer:
+      "Mild fruit blends such as Mango Magic, Strawberry Watermelon or Lychee are popular starting points. If you prefer a cooler finish, try Peach Ice or Grape Ice with shorter first puffs until you find your comfortable draw.",
   },
   {
     category: "Legal & Safety",

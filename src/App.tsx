@@ -17,6 +17,7 @@ import OrderCompletePage from "./pages/OrderCompletePage.tsx";
 import AdminOrdersPage from "./pages/AdminOrdersPage.tsx";
 import WhatsAppQrPage from "./pages/WhatsAppQrPage.tsx";
 import ResetPasswordPage from "./pages/ResetPasswordPage.tsx";
+import SearchPage from "./pages/SearchPage.tsx";
 
 // Content/marketing routes are lazy-loaded to keep the initial bundle small.
 const GuidesIndexPage = lazy(() => import("./pages/GuidesIndexPage.tsx"));
@@ -78,11 +79,15 @@ const App = () => (
               <Route path="/faq" element={<FaqPage />} />
               <Route path="/faq/:slug" element={<FaqTopicPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/search" element={<SearchPage />} />
               <Route path="/about" element={<ContentPage />} />
               <Route path="/shipping" element={<ContentPage />} />
               <Route path="/returns" element={<ContentPage />} />
               <Route path="/privacy" element={<ContentPage />} />
               <Route path="/terms" element={<ContentPage />} />
+              <Route path="/why-trust-us" element={<ContentPage />} />
+              <Route path="/editorial-policy" element={<ContentPage />} />
+              <Route path="/age-verification" element={<ContentPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

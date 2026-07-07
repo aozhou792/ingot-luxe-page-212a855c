@@ -61,7 +61,28 @@ const ComparePage = () => {
 
           <section className="mb-10">
             <h2 className="text-xl sm:text-2xl font-bold mb-4">Side-by-side comparison</h2>
-            <div className="overflow-x-auto rounded-2xl border border-gold/25">
+
+            <div className="md:hidden space-y-3">
+              {comparison.rows.map((row) => (
+                <div key={row.feature} className="rounded-2xl border border-gold/25 bg-card/50 p-4 space-y-3">
+                  <p className="font-semibold text-sm">{row.feature}</p>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div className="min-w-0">
+                      <p className="text-[10px] uppercase tracking-wide text-gold mb-1 font-semibold">Alibarbar</p>
+                      <p className="leading-snug">{row.alibarbar}</p>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1 font-semibold">
+                        {comparison.competitor}
+                      </p>
+                      <p className="text-muted-foreground leading-snug">{row.competitor}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="hidden md:block overflow-x-auto rounded-2xl border border-gold/25">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-card/70 text-left">

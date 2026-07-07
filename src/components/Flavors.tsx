@@ -81,22 +81,24 @@ const FlavorCard = ({ f, revealIndex, goToProduct }: FlavorCardProps) => {
             priceClassName="text-sm sm:text-base md:text-lg"
           />
         </div>
-        <p className="text-[10px] sm:text-xs text-muted-foreground leading-snug line-clamp-2 min-h-[2lh]">
-          {f.isCustomPack ? "5 pcs · Choose any 5 flavours" : "9000 puffs · Smart display · Mesh coil"}
+        <p className="text-[11px] sm:text-xs text-muted-foreground leading-snug line-clamp-2 min-h-[2lh]">
+          {f.isCustomPack
+            ? `${f.customPackSize ?? 5} pcs · Choose any ${f.customPackSize ?? 5} flavours`
+            : "9000 puffs · Smart display · Mesh coil"}
         </p>
 
         {f.inStock ? (
           <div className="mt-auto grid grid-cols-2 gap-2">
             <button
               type="button"
-              className="min-h-[40px] sm:min-h-[44px] py-2 sm:py-2.5 rounded-full border border-gold text-primary font-semibold uppercase tracking-tight sm:tracking-wider text-[9px] sm:text-[11px] hover:bg-gold/15 active:bg-gold/25 transition-all"
+              className="min-h-[44px] py-2.5 rounded-full border border-gold text-primary font-semibold uppercase tracking-wide text-[10px] sm:text-xs hover:bg-gold/15 active:bg-gold/25 transition-all"
               onClick={handleAdd}
             >
               {f.isCustomPack ? "Choose" : "Add"}
             </button>
             <button
               type="button"
-              className="min-h-[40px] sm:min-h-[44px] py-2 sm:py-2.5 rounded-full bg-gold text-primary-foreground font-semibold uppercase tracking-tight sm:tracking-wider text-[9px] sm:text-[11px] hover:opacity-95 active:opacity-90 transition-all"
+              className="min-h-[44px] py-2.5 rounded-full bg-gold text-primary-foreground font-semibold uppercase tracking-wide text-[10px] sm:text-xs hover:opacity-95 active:opacity-90 transition-all"
               onClick={handleBuyNow}
             >
               {f.isCustomPack ? "Select" : "Buy now"}
@@ -106,7 +108,7 @@ const FlavorCard = ({ f, revealIndex, goToProduct }: FlavorCardProps) => {
           <button
             type="button"
             disabled
-            className="mt-auto w-full min-h-[40px] sm:min-h-[44px] py-2 sm:py-3 rounded-full border border-gold text-primary font-semibold uppercase tracking-wider sm:tracking-widest text-[10px] sm:text-xs opacity-45 pointer-events-none"
+            className="mt-auto w-full min-h-[44px] py-2.5 rounded-full border border-gold text-primary font-semibold uppercase tracking-wider text-xs opacity-45 pointer-events-none"
           >
             {f.isPlaceholder ? "Coming soon" : "Unavailable"}
           </button>
@@ -140,7 +142,7 @@ export const Flavors = () => {
             Explore Our <span className="text-gold">Signature Flavors</span>
           </h2>
           <p className="text-muted-foreground mt-3 sm:mt-4 text-sm sm:text-base px-2">
-            Ten masterful blends plus a 5-piece custom pack.
+            Ten signature flavours plus 3, 5 and 10-piece custom packs.
           </p>
           <div className="gold-divider mt-6 sm:mt-8 max-w-xs mx-auto" />
         </div>

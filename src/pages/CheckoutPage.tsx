@@ -138,7 +138,7 @@ const CheckoutPage = () => {
         noindex
       />
       <Navbar />
-      <main className="container pt-[calc(5rem+env(safe-area-inset-top))] sm:pt-[calc(6rem+env(safe-area-inset-top))] pb-16 sm:pb-20 max-w-6xl">
+      <main className="container pt-[calc(5rem+env(safe-area-inset-top))] sm:pt-[calc(6rem+env(safe-area-inset-top))] pb-28 lg:pb-20 max-w-6xl">
         <nav className="text-sm text-muted-foreground mb-6" aria-label="Checkout steps">
           <Link to="/cart" className="hover:text-primary transition-colors">
             Shopping Cart
@@ -158,8 +158,8 @@ const CheckoutPage = () => {
             </Button>
           </div>
         ) : (
-          <form onSubmit={placeOrder} className="grid lg:grid-cols-[1fr_380px] gap-8 lg:gap-12 items-start" noValidate>
-            <section className="space-y-6">
+          <form id="checkout-form" onSubmit={placeOrder} className="grid lg:grid-cols-[1fr_380px] gap-8 lg:gap-12 items-start" noValidate>
+            <section className="space-y-6 order-last lg:order-none">
               <div className="space-y-1 text-sm text-muted-foreground">
                 <p>
                   Returning customer? <span className="text-primary">Click here to login</span>
@@ -295,7 +295,7 @@ const CheckoutPage = () => {
               </div>
             </section>
 
-            <aside className="lg:sticky lg:top-[calc(6rem+env(safe-area-inset-top))] rounded-2xl border border-border bg-muted/40 p-6 space-y-5">
+            <aside className="order-first lg:order-none lg:sticky lg:top-[calc(6rem+env(safe-area-inset-top))] rounded-2xl border border-border bg-muted/40 p-5 sm:p-6 space-y-5">
               <h2 className="text-lg font-semibold text-foreground border-b border-border pb-3">Your order</h2>
 
               <div className="flex justify-between text-xs uppercase tracking-wider text-muted-foreground">
@@ -344,7 +344,7 @@ const CheckoutPage = () => {
                 </p>
               </div>
 
-              <Button type="submit" size="lg" className="w-full">
+              <Button type="submit" size="lg" className="w-full min-h-[48px] hidden lg:flex">
                 Place order
               </Button>
               <Button asChild variant="outline" className="w-full bg-background">
@@ -353,6 +353,23 @@ const CheckoutPage = () => {
             </aside>
           </form>
         )}
+
+        {hasItems ? (
+          <div
+            aria-label="Checkout actions"
+            className="lg:hidden fixed bottom-0 inset-x-0 z-40 border-t border-gold/30 bg-background/95 backdrop-blur-xl px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+          >
+            <div className="flex items-center justify-between gap-4 max-w-lg mx-auto">
+              <div className="min-w-0">
+                <p className="text-xs text-muted-foreground">Order total</p>
+                <p className="text-xl font-bold text-primary tabular-nums">{formatAud(total)}</p>
+              </div>
+              <Button type="submit" form="checkout-form" size="lg" className="shrink-0 min-h-[48px] px-6">
+                Place order
+              </Button>
+            </div>
+          </div>
+        ) : null}
       </main>
       <Footer />
     </div>

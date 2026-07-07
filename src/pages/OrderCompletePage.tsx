@@ -197,7 +197,7 @@ const OrderCompletePage = () => {
                 <tbody>
                   {order.lines.map((line) => (
                     <tr key={line.slug} className="border-t border-border">
-                      <td className="px-4 py-3 text-foreground">
+                      <td className="px-4 py-3 text-foreground break-words">
                         {line.name} <span className="text-muted-foreground">× {line.qty}</span>
                       </td>
                       <td className="px-4 py-3 text-right tabular-nums whitespace-nowrap">

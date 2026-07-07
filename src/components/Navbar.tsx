@@ -123,7 +123,7 @@ export const Navbar = () => {
                   <Link
                     to={l.to}
                     onClick={() => setOpen(false)}
-                    className="block py-3 text-sm uppercase tracking-widest text-foreground/80 hover:text-primary active:text-primary"
+                    className="flex min-h-[44px] items-center py-3 text-sm uppercase tracking-widest text-foreground/80 hover:text-primary active:text-primary"
                   >
                     {l.label}
                   </Link>
@@ -137,7 +137,7 @@ export const Navbar = () => {
                       logout();
                       setOpen(false);
                     }}
-                    className="block w-full text-left py-3 text-sm uppercase tracking-widest text-foreground/80 hover:text-primary"
+                    className="flex w-full min-h-[44px] items-center py-3 text-left text-sm uppercase tracking-widest text-foreground/80 hover:text-primary"
                   >
                     Sign out ({user.displayName})
                   </button>
@@ -148,7 +148,7 @@ export const Navbar = () => {
                       setOpen(false);
                       setAuthOpen(true);
                     }}
-                    className="block w-full text-left py-3 text-sm uppercase tracking-widest text-foreground/80 hover:text-primary"
+                    className="flex w-full min-h-[44px] items-center py-3 text-left text-sm uppercase tracking-widest text-foreground/80 hover:text-primary"
                   >
                     Sign in
                   </button>

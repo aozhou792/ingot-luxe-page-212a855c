@@ -23,7 +23,7 @@ const CartPage = () => {
         noindex
       />
       <Navbar />
-      <main className="container pt-[calc(5rem+env(safe-area-inset-top))] sm:pt-[calc(6rem+env(safe-area-inset-top))] pb-16 sm:pb-20">
+      <main className="container pt-[calc(5rem+env(safe-area-inset-top))] sm:pt-[calc(6rem+env(safe-area-inset-top))] pb-28 sm:pb-20 lg:pb-20">
         <nav className="text-sm text-muted-foreground mb-6" aria-label="Checkout steps">
           <span className="text-foreground font-medium underline underline-offset-4">Shopping Cart</span>
           <span className="mx-2">→</span>
@@ -35,6 +35,23 @@ const CartPage = () => {
         </nav>
 
         <h1 className="text-2xl sm:text-3xl font-semibold text-foreground mb-8">Shopping cart</h1>
+
+        {hasItems ? (
+          <div className="lg:hidden rounded-xl border border-border bg-muted/40 p-4 mb-6 space-y-2 text-sm">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Subtotal</span>
+              <span className="font-medium tabular-nums">{formatAud(subtotal)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Shipping ({deviceCount} devices)</span>
+              <span className="tabular-nums">{formatAud(shipping)}</span>
+            </div>
+            <div className="flex justify-between items-baseline border-t border-border pt-2 font-semibold">
+              <span>Total</span>
+              <span className="text-lg text-primary tabular-nums">{formatAud(total)}</span>
+            </div>
+          </div>
+        ) : null}
 
         {lines.length === 0 ? (
           <div className="rounded-xl border border-border bg-card/50 p-8 text-center max-w-lg mx-auto">
@@ -65,7 +82,7 @@ const CartPage = () => {
                             type="button"
                             variant="ghost"
                             size="icon"
-                            className="h-9 w-9 rounded-none shrink-0"
+                            className="h-11 w-11 rounded-none shrink-0"
                             onClick={() => setLineQty(line.slug, line.qty - 1)}
                             aria-label="Decrease quantity"
                           >
@@ -76,7 +93,7 @@ const CartPage = () => {
                             type="button"
                             variant="ghost"
                             size="icon"
-                            className="h-9 w-9 rounded-none shrink-0"
+                            className="h-11 w-11 rounded-none shrink-0"
                             onClick={() => setLineQty(line.slug, line.qty + 1)}
                             aria-label="Increase quantity"
                           >
@@ -87,7 +104,7 @@ const CartPage = () => {
                           type="button"
                           variant="ghost"
                           size="sm"
-                          className="text-destructive hover:text-destructive"
+                          className="min-h-[44px] text-destructive hover:text-destructive"
                           onClick={() => removeLine(line.slug)}
                         >
                           <Trash2 className="h-4 w-4 mr-1" />
@@ -95,7 +112,7 @@ const CartPage = () => {
                         </Button>
                       </div>
                     </div>
-                    <div className="w-full sm:w-auto sm:text-right font-semibold text-indigo-900 tabular-nums">
+                    <div className="w-full sm:w-auto sm:text-right font-semibold text-primary tabular-nums">
                       {formatAud(lineTotal)}
                     </div>
                   </li>
@@ -103,11 +120,11 @@ const CartPage = () => {
               })}
             </ul>
 
-            <aside className="lg:sticky lg:top-[calc(6rem+env(safe-area-inset-top))] rounded-xl border border-border bg-muted/40 p-6 space-y-4">
+            <aside className="hidden lg:block lg:sticky lg:top-[calc(6rem+env(safe-area-inset-top))] rounded-xl border border-border bg-muted/40 p-6 space-y-4">
               <h2 className="text-lg font-semibold">Cart totals</h2>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Subtotal</span>
-                <span className="font-semibold text-indigo-900 tabular-nums">{formatAud(subtotal)}</span>
+                <span className="font-semibold text-primary tabular-nums">{formatAud(subtotal)}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Devices</span>
@@ -122,7 +139,7 @@ const CartPage = () => {
               <p className="text-xs text-muted-foreground leading-relaxed">{shippingRateHint()}</p>
               <div className="border-t border-border pt-4 flex justify-between items-baseline">
                 <span className="font-medium">Total</span>
-                <span className="text-xl font-bold text-indigo-900 tabular-nums">{formatAud(total)}</span>
+                <span className="text-xl font-bold text-primary tabular-nums">{formatAud(total)}</span>
               </div>
               <Button asChild className="w-full" size="lg">
                 <Link to="/checkout">Proceed to checkout</Link>
@@ -133,6 +150,23 @@ const CartPage = () => {
             </aside>
           </div>
         )}
+
+        {hasItems ? (
+          <aside
+            aria-label="Cart summary"
+            className="lg:hidden fixed bottom-0 inset-x-0 z-40 border-t border-gold/30 bg-background/95 backdrop-blur-xl px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+          >
+            <div className="flex items-center justify-between gap-4 max-w-lg mx-auto">
+              <div className="min-w-0">
+                <p className="text-xs text-muted-foreground">Total ({deviceCount} devices)</p>
+                <p className="text-xl font-bold text-primary tabular-nums">{formatAud(total)}</p>
+              </div>
+              <Button asChild size="lg" className="shrink-0 min-h-[48px] px-6">
+                <Link to="/checkout">Checkout</Link>
+              </Button>
+            </div>
+          </aside>
+        ) : null}
       </main>
       <Footer />
     </div>

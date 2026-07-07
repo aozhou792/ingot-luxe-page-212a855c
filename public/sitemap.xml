@@ -198,6 +198,24 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://www.ailibarbar.com/why-trust-us</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.ailibarbar.com/editorial-policy</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.ailibarbar.com/age-verification</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
     <loc>https://www.ailibarbar.com/flavours</loc>
     <lastmod>2026-07-07</lastmod>
     <changefreq>weekly</changefreq>

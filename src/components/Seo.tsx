@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { products } from "@/data/products";
 import { faqItems } from "@/data/faq";
+import { SITE_LOGO_HEIGHT, SITE_LOGO_PATH, SITE_LOGO_WIDTH, SITE_SAME_AS } from "@/data/site";
 
 const SITE_URL = "https://www.ailibarbar.com";
 const SITE_NAME = "Alibarbar Australia";
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
+const LOGO_URL = `${SITE_URL}${SITE_LOGO_PATH}`;
 
 /** Grants Google large image previews and full-length snippets in SERPs. */
 const INDEX_ROBOTS = "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1";
@@ -104,9 +106,12 @@ const organizationNode = {
   url: SITE_URL,
   logo: {
     "@type": "ImageObject",
-    url: `${SITE_URL}/favicon.svg`,
+    url: LOGO_URL,
+    width: SITE_LOGO_WIDTH,
+    height: SITE_LOGO_HEIGHT,
   },
   image: DEFAULT_IMAGE,
+  sameAs: SITE_SAME_AS,
   description:
     "Alibarbar Australia is an online store for authentic Alibarbar Ingot 9000 disposable vapes with fast local delivery.",
   areaServed: { "@type": "Country", name: "Australia" },
@@ -126,7 +131,40 @@ const websiteNode = {
   url: SITE_URL,
   inLanguage: "en-AU",
   publisher: { "@id": `${SITE_URL}/#organization` },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${SITE_URL}/search?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
 };
+
+function productImageUrl(img: string): string {
+  return img.startsWith("http") ? img : `${SITE_URL}${img.startsWith("/") ? img : `/${img}`}`;
+}
+
+function homepageProductNodes() {
+  return products
+    .filter((p) => !p.isPlaceholder)
+    .map((p) => ({
+      "@type": "Product",
+      "@id": `${SITE_URL}/product/${p.slug}#product`,
+      name: `Alibarbar Ingot 9000 ${p.name}`,
+      description: p.excerpt,
+      image: productImageUrl(p.img),
+      brand: { "@type": "Brand", name: "ALIBARBAR" },
+      offers: {
+        "@type": "Offer",
+        url: `${SITE_URL}/product/${p.slug}`,
+        price: p.price,
+        priceCurrency: "AUD",
+        availability: p.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+        seller: { "@id": `${SITE_URL}/#organization` },
+      },
+    }));
+}
 
 export const siteJsonLd = {
   "@context": "https://schema.org",
@@ -138,7 +176,7 @@ export const siteJsonLd = {
       "@id": `${SITE_URL}/#store`,
       name: "Alibarbar Australia",
       url: SITE_URL,
-      logo: `${SITE_URL}/favicon.svg`,
+      logo: LOGO_URL,
       image: DEFAULT_IMAGE,
       currenciesAccepted: "AUD",
       paymentAccepted: "Bank Transfer",
@@ -164,25 +202,8 @@ export const siteJsonLd = {
         areaServed: "AU",
         availableLanguage: ["en"],
       },
-      hasOfferCatalog: {
-        "@type": "OfferCatalog",
-        name: "Alibarbar Ingot 9000 Collection",
-        itemListElement: products
-          .filter((p) => !p.isPlaceholder)
-          .map((p) => ({
-            "@type": "Offer",
-            url: `${SITE_URL}/product/${p.slug}`,
-            price: p.price,
-            priceCurrency: "AUD",
-            availability: p.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-            itemOffered: {
-              "@type": "Product",
-              name: `Alibarbar Ingot 9000 ${p.name}`,
-              image: p.img.startsWith("http") ? p.img : `${SITE_URL}${p.img}`,
-            },
-          })),
-      },
     },
+    ...homepageProductNodes(),
     {
       "@type": "FAQPage",
       "@id": `${SITE_URL}/#faq`,
