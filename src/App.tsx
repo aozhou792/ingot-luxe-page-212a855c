@@ -4,7 +4,6 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { AgeGate } from "@/components/AgeGate";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { AuthProvider } from "@/context/AuthContext";
 import { CartProvider } from "@/context/CartContext";
@@ -93,7 +92,6 @@ const App = () => (
             </Routes>
             </Suspense>
             <WhatsAppFloat />
-            <AgeGate />
           </CartProvider>
         </AuthProvider>
       </BrowserRouter>
