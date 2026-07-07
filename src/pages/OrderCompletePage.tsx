@@ -215,6 +215,16 @@ const OrderCompletePage = () => {
                       {formatAud(order.shipping)} via {SHIPPING_LABEL}
                     </td>
                   </tr>
+                  {order.discountAmount && order.discountAmount > 0 ? (
+                    <tr className="border-t border-border">
+                      <td className="px-4 py-3 text-emerald-500">
+                        Discount{order.discountCode ? ` (${order.discountCode})` : ""}
+                      </td>
+                      <td className="px-4 py-3 text-right tabular-nums text-emerald-500 whitespace-nowrap">
+                        −{formatAud(order.discountAmount)}
+                      </td>
+                    </tr>
+                  ) : null}
                   <tr className="border-t border-border">
                     <td className="px-4 py-3 font-semibold text-foreground">Total</td>
                     <td className="px-4 py-3 text-right font-bold text-foreground tabular-nums">

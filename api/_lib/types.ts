@@ -30,6 +30,9 @@ export type OrderDetails = {
   paymentMethod: string;
   billing: OrderAddress;
   shipToDifferent: boolean;
+  deviceCount: number;
+  discountCode?: string;
+  discountAmount?: number;
 };
 
 export type StoredOrder = OrderDetails & {

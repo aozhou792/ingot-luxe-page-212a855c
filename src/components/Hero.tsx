@@ -48,8 +48,8 @@ export const Hero = () => {
           </h1>
 
           <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed px-1 sm:px-0">
-            Authentic Alibarbar Ingot 9000 Puffs disposable vapes with a smart digital display, premium gold-bar
-            design, and masterfully crafted flavours — fast Australia-wide delivery and secure checkout.
+            Australia&apos;s dedicated Alibarbar Ingot 9000 store — authentic devices, full local compliance, and
+            masterfully crafted flavours with fast Australia-wide delivery and secure checkout.
           </p>
 
           <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center justify-center lg:justify-start">

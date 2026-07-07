@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
+import { TrustBar } from "@/components/TrustBar";
 import { Features } from "@/components/Features";
 import { Flavors } from "@/components/Flavors";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -55,6 +56,7 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
+        <TrustBar />
         <Flavors />
         <HowItWorks />
         <Features />

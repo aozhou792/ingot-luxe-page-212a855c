@@ -10,6 +10,8 @@ export type StoredUser = {
   displayName: string;
   passwordHash: string;
   createdAt: string;
+  marketingOptIn?: boolean;
+  lastMarketingEmailAt?: string;
 };
 
 export type PublicUser = {
@@ -116,4 +118,23 @@ export async function setUserPasswordById(userId: string, nextPassword: string):
   users[index] = updated;
   await writeUsers(users);
   return toPublic(updated);
+}
+
+const MARKETING_INTERVAL_MS = 7 * 24 * 60 * 60 * 1000;
+
+export async function listMarketingRecipients(): Promise<StoredUser[]> {
+  const users = await readUsers();
+  const now = Date.now();
+  return users.filter((u) => {
+    if (!u.lastMarketingEmailAt) return true;
+    return now - new Date(u.lastMarketingEmailAt).getTime() >= MARKETING_INTERVAL_MS;
+  });
+}
+
+export async function markMarketingEmailSent(userId: string): Promise<void> {
+  const users = await readUsers();
+  const index = users.findIndex((u) => u.id === userId);
+  if (index < 0) return;
+  users[index] = { ...users[index], lastMarketingEmailAt: new Date().toISOString() };
+  await writeUsers(users);
 }

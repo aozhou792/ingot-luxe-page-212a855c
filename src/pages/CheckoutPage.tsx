@@ -15,9 +15,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
 import { formatAud } from "@/lib/format";
 import { AU_STATES, DEFAULT_AU_COUNTRY } from "@/data/australia";
-import { SHIPPING_LABEL, orderTotal, PAYMENT_METHOD_LABEL, shippingAud, shippingRateHint } from "@/lib/checkout";
+import {
+  COUPON_MIN_DEVICES,
+  SHIPPING_LABEL,
+  orderTotal,
+  PAYMENT_METHOD_LABEL,
+  shippingAud,
+  shippingRateHint,
+} from "@/lib/checkout";
+import { saveCheckoutDraft, validateCouponCode } from "@/lib/marketing-api";
 import { nextOrderNumber } from "@/lib/orders";
 import { fetchNextOrderNumberFromApi } from "@/lib/orders-api";
 import type { OrderDetails } from "@/types/navigation";
@@ -54,17 +63,29 @@ type FieldErrors = Partial<Record<keyof BillingForm, string>>;
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { lines, deviceCount, subtotal, clearCart } = useCart();
   const [form, setForm] = useState<BillingForm>(initialForm);
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [couponInput, setCouponInput] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState<{ code: string; discountAmount: number } | null>(null);
+  const [couponError, setCouponError] = useState<string | null>(null);
+  const [couponLoading, setCouponLoading] = useState(false);
 
   const hasItems = lines.length > 0;
   const shipping = shippingAud(deviceCount);
-  const total = orderTotal(subtotal, deviceCount);
+  const discountAud = appliedCoupon?.discountAmount ?? 0;
+  const total = orderTotal(subtotal, deviceCount, discountAud);
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useLayoutEffect(() => {
+    if (user?.email && !form.email) {
+      setForm((prev) => ({ ...prev, email: user.email }));
+    }
+  }, [user?.email, form.email]);
 
   const setField = <K extends keyof BillingForm>(key: K, value: BillingForm[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -81,6 +102,43 @@ const CheckoutPage = () => {
     if (!/^\d{4}$/.test(form.postcode.trim())) next.postcode = "Enter a valid 4-digit postcode";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) next.email = "Enter a valid email address";
     return next;
+  };
+
+  const applyCoupon = async () => {
+    setCouponError(null);
+    if (!couponInput.trim()) {
+      setCouponError("Enter a discount code.");
+      return;
+    }
+    if (!form.email.trim()) {
+      setCouponError("Enter your email address first so we can validate the code.");
+      return;
+    }
+    setCouponLoading(true);
+    try {
+      const result = await validateCouponCode({
+        code: couponInput,
+        email: form.email.trim(),
+        deviceCount,
+      });
+      if (!result.valid) {
+        setAppliedCoupon(null);
+        setCouponError(result.error);
+        return;
+      }
+      setAppliedCoupon({ code: result.code, discountAmount: result.discountAmount });
+      setCouponInput(result.code);
+    } catch {
+      setCouponError("Could not validate discount code.");
+    } finally {
+      setCouponLoading(false);
+    }
+  };
+
+  const removeCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponInput("");
+    setCouponError(null);
   };
 
   const placeOrder = async (event: FormEvent) => {
@@ -111,6 +169,9 @@ const CheckoutPage = () => {
       shipping,
       total,
       paymentMethod: PAYMENT_METHOD_LABEL,
+      deviceCount,
+      discountCode: appliedCoupon?.code,
+      discountAmount: appliedCoupon ? discountAud : undefined,
       billing: {
         firstName: form.firstName.trim(),
         lastName: form.lastName.trim(),
@@ -125,6 +186,8 @@ const CheckoutPage = () => {
       },
       shipToDifferent: false,
     };
+
+    void saveCheckoutDraft(order, deviceCount);
     clearCart();
     navigate("/order-complete", { state: order });
   };
@@ -160,13 +223,37 @@ const CheckoutPage = () => {
         ) : (
           <form id="checkout-form" onSubmit={placeOrder} className="grid lg:grid-cols-[1fr_380px] gap-8 lg:gap-12 items-start" noValidate>
             <section className="space-y-6 order-last lg:order-none">
-              <div className="space-y-1 text-sm text-muted-foreground">
-                <p>
-                  Returning customer? <span className="text-primary">Click here to login</span>
+              <div className="rounded-2xl border border-border bg-card/70 p-5 sm:p-6 space-y-3">
+                <h2 className="text-base font-semibold text-foreground">Discount code</h2>
+                <p className="text-xs text-muted-foreground">
+                  Codes require at least {COUPON_MIN_DEVICES} devices in your cart. Abandoned-order codes are sent to
+                  your checkout email.
                 </p>
-                <p>
-                  Have a coupon? <span className="text-primary">Click here to enter your code</span>
-                </p>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <Input
+                    value={couponInput}
+                    onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
+                    placeholder="e.g. AB10-ABC123"
+                    disabled={Boolean(appliedCoupon)}
+                    className="sm:flex-1 uppercase"
+                  />
+                  {appliedCoupon ? (
+                    <Button type="button" variant="outline" onClick={removeCoupon}>
+                      Remove
+                    </Button>
+                  ) : (
+                    <Button type="button" variant="outline" onClick={() => void applyCoupon()} disabled={couponLoading}>
+                      {couponLoading ? "Checking…" : "Apply"}
+                    </Button>
+                  )}
+                </div>
+                {couponError ? <p className="text-xs text-destructive">{couponError}</p> : null}
+                {appliedCoupon ? (
+                  <p className="text-xs text-emerald-500">
+                    Code <span className="font-semibold">{appliedCoupon.code}</span> applied —{" "}
+                    {formatAud(appliedCoupon.discountAmount)} off.
+                  </p>
+                ) : null}
               </div>
 
               <div className="rounded-2xl border border-border bg-card/70 p-6 sm:p-8">
@@ -330,6 +417,12 @@ const CheckoutPage = () => {
                   </span>
                 </div>
                 <p className="text-xs text-muted-foreground leading-relaxed">{shippingRateHint()}</p>
+                {discountAud > 0 ? (
+                  <div className="flex justify-between text-sm text-emerald-500">
+                    <span>Discount ({appliedCoupon?.code})</span>
+                    <span className="tabular-nums">−{formatAud(discountAud)}</span>
+                  </div>
+                ) : null}
                 <div className="flex justify-between items-baseline border-t border-border pt-3">
                   <span className="font-medium">Total</span>
                   <span className="text-2xl font-bold text-primary tabular-nums">{formatAud(total)}</span>

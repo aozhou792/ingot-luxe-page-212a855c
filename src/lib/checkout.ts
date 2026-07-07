@@ -17,10 +17,14 @@ export function shippingAud(deviceCount: number): number {
   return deviceCount < BULK_SHIPPING_THRESHOLD ? SMALL_ORDER_SHIPPING_AUD : BULK_ORDER_SHIPPING_AUD;
 }
 
-/** Order total including device-count shipping. */
-export function orderTotal(subtotal: number, deviceCount: number): number {
-  return deviceCount > 0 ? subtotal + shippingAud(deviceCount) : subtotal;
+/** Order total including device-count shipping and optional discount. */
+export function orderTotal(subtotal: number, deviceCount: number, discountAud = 0): number {
+  if (deviceCount <= 0) return Math.max(0, subtotal - discountAud);
+  return Math.max(0, subtotal + shippingAud(deviceCount) - discountAud);
 }
+
+export const COUPON_MIN_DEVICES = 3;
+export const COUPON_DISCOUNT_AUD = 10;
 
 /** Wise (bank transfer) account the storefront collects payment into. */
 export const BANK_TRANSFER = {

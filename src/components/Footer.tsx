@@ -4,6 +4,7 @@ import { guides } from "@/data/guides";
 import { SITE_SOCIAL } from "@/data/site";
 
 const shopLinks = [
+  { label: "Wholesale", to: "/wholesale" },
   { label: "All Flavours", to: "/flavours" },
   { label: "3 Flavour Custom Pack", to: "/product/custom-3-pack" },
   { label: "5 Flavour Custom Pack", to: "/product/custom-5-pack" },

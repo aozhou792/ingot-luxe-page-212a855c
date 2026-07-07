@@ -23,6 +23,7 @@ const GuidesIndexPage = lazy(() => import("./pages/GuidesIndexPage.tsx"));
 const GuidePage = lazy(() => import("./pages/GuidePage.tsx"));
 const FaqPage = lazy(() => import("./pages/FaqPage.tsx"));
 const ContactPage = lazy(() => import("./pages/ContactPage.tsx"));
+const WholesalePage = lazy(() => import("./pages/WholesalePage.tsx"));
 const ContentPage = lazy(() => import("./pages/ContentPage.tsx"));
 const FlavoursIndexPage = lazy(() => import("./pages/FlavoursIndexPage.tsx"));
 const FlavourPage = lazy(() => import("./pages/FlavourPage.tsx"));
@@ -78,6 +79,7 @@ const App = () => (
               <Route path="/faq" element={<FaqPage />} />
               <Route path="/faq/:slug" element={<FaqTopicPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/wholesale" element={<WholesalePage />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/about" element={<ContentPage />} />
               <Route path="/shipping" element={<ContentPage />} />

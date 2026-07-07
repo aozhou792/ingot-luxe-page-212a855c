@@ -1,5 +1,8 @@
 import { saveOrderWithReceipt } from "./_lib/order-store.js";
 import { sendOrderNotificationEmail } from "./_lib/email.js";
+import { redeemCoupon } from "./_lib/coupon-store.js";
+import { completeCheckoutDraft } from "./_lib/draft-store.js";
+import { assertOrderTotals } from "./_lib/order-totals.js";
 import type { SubmitOrderBody } from "./_lib/types.js";
 
 export async function POST(request: Request): Promise<Response> {
@@ -11,7 +14,18 @@ export async function POST(request: Request): Promise<Response> {
       return Response.json({ error: "Invalid order payload" }, { status: 400 });
     }
 
+    if (typeof order.deviceCount !== "number" || order.deviceCount <= 0) {
+      return Response.json({ error: "Invalid device count" }, { status: 400 });
+    }
+
+    await assertOrderTotals(order);
+
     const saved = await saveOrderWithReceipt(order, receipt);
+
+    if (order.discountCode) {
+      await redeemCoupon(order.discountCode, order.orderNumber);
+    }
+    await completeCheckoutDraft(order.orderNumber);
 
     try {
       await sendOrderNotificationEmail(saved, receipt);
