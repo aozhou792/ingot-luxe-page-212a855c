@@ -171,8 +171,9 @@ export function productJsonLd(product: {
   price: string;
   inStock: boolean;
   path: string;
+  rating?: { average: number; count: number };
 }) {
-  return {
+  const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
@@ -190,4 +191,16 @@ export function productJsonLd(product: {
       availability: product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
     },
   };
+
+  if (product.rating && product.rating.count > 0) {
+    schema.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: product.rating.average,
+      reviewCount: product.rating.count,
+      bestRating: 5,
+      worstRating: 1,
+    };
+  }
+
+  return schema;
 }

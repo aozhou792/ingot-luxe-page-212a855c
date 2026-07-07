@@ -1,7 +1,9 @@
-import { ShoppingCart, Menu, X } from "lucide-react";
+import { ShoppingCart, Menu, X, User, LogOut } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
+import { AuthModal } from "@/components/AuthModal";
 
 const links = [
   { label: "Home", to: "/#home" },
@@ -13,7 +15,9 @@ const links = [
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
   const { itemCount } = useCart();
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -56,6 +60,28 @@ export const Navbar = () => {
         </ul>
 
         <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+          {user ? (
+            <button
+              type="button"
+              onClick={logout}
+              className="hidden sm:inline-flex items-center gap-2 h-11 px-3 rounded-full border border-gold text-primary hover:bg-primary/10 transition-colors text-sm font-medium max-w-[10rem]"
+              aria-label="Sign out"
+              title="Sign out"
+            >
+              <User className="w-4 h-4 shrink-0" />
+              <span className="truncate">{user.displayName}</span>
+              <LogOut className="w-3.5 h-3.5 shrink-0 opacity-70" />
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setAuthOpen(true)}
+              className="hidden sm:inline-flex items-center gap-2 h-11 px-4 rounded-full border border-gold text-primary hover:bg-primary/10 transition-colors text-sm font-medium"
+            >
+              <User className="w-4 h-4" />
+              Sign in
+            </button>
+          )}
           <Link
             to="/cart"
             aria-label="Cart"
@@ -101,10 +127,37 @@ export const Navbar = () => {
                   </Link>
                 </li>
               ))}
+              <li>
+                {user ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      logout();
+                      setOpen(false);
+                    }}
+                    className="block w-full text-left py-3 text-sm uppercase tracking-widest text-foreground/80 hover:text-primary"
+                  >
+                    Sign out ({user.displayName})
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOpen(false);
+                      setAuthOpen(true);
+                    }}
+                    className="block w-full text-left py-3 text-sm uppercase tracking-widest text-foreground/80 hover:text-primary"
+                  >
+                    Sign in
+                  </button>
+                )}
+              </li>
             </ul>
           </div>
         </>
       )}
+
+      <AuthModal open={authOpen} onOpenChange={setAuthOpen} />
     </header>
   );
 };

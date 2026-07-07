@@ -1,9 +1,10 @@
-import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { getProductBySlug, getRelatedProducts, getSelectableFlavorProducts } from "@/data/products";
 import { ProductPrice } from "@/components/ProductPrice";
+import { ProductReviews } from "@/components/reviews/ProductReviews";
 import { Seo, productJsonLd } from "@/components/Seo";
 import { useCart } from "@/context/CartContext";
 import { useReveal } from "@/hooks/use-reveal";
@@ -36,6 +37,10 @@ const ProductPage = () => {
   const { addToCart, buyNow } = useCart();
   const [qty, setQty] = useState(1);
   const [selectedCustomFlavors, setSelectedCustomFlavors] = useState<string[]>(() => Array(CUSTOM_PACK_SIZE).fill(""));
+  const [reviewRating, setReviewRating] = useState<{ average: number; count: number }>({ average: 0, count: 0 });
+  const handleReviewAggregate = useCallback((aggregate: { average: number; count: number }) => {
+    setReviewRating(aggregate);
+  }, []);
 
   const related = useMemo(() => (product ? getRelatedProducts(product.slug) : []), [product]);
   const selectableFlavors = useMemo(() => getSelectableFlavorProducts(), []);
@@ -109,6 +114,7 @@ const ProductPage = () => {
           price: product.price,
           inStock: product.inStock,
           path: productPath,
+          rating: reviewRating,
         })}
       />
       {/* Ambient background — matches landing luxury feel */}
@@ -348,6 +354,8 @@ const ProductPage = () => {
               </div>
             </div>
           </section>
+
+          <ProductReviews slug={product.slug} onAggregate={handleReviewAggregate} />
 
           {related.length > 0 && (
             <section className="mt-12 sm:mt-16 md:mt-20 lg:mt-28">

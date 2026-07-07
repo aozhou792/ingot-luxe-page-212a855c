@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AgeGate } from "@/components/AgeGate";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
+import { AuthProvider } from "@/context/AuthContext";
 import { CartProvider } from "@/context/CartContext";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -23,6 +24,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <AuthProvider>
         <CartProvider>
           <Routes>
             <Route path="/" element={<Index />} />
@@ -43,6 +45,7 @@ const App = () => (
           <WhatsAppFloat />
           <AgeGate />
         </CartProvider>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

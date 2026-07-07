@@ -4,6 +4,7 @@ import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
 import { Flavors } from "@/components/Flavors";
+import { CustomerReviews } from "@/components/CustomerReviews";
 import { Faq } from "@/components/Faq";
 import { Footer } from "@/components/Footer";
 import { Seo, siteJsonLd } from "@/components/Seo";
@@ -43,6 +44,7 @@ const Index = () => {
         <Hero />
         <Flavors />
         <Features />
+        <CustomerReviews />
         <Faq />
       </main>
       <Footer />

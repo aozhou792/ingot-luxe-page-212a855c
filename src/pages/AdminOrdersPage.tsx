@@ -25,6 +25,7 @@ import {
   updateOrderStatusOnBackend,
 } from "@/lib/orders-api";
 import { exportOrdersToExcel } from "@/lib/export-orders-excel";
+import { AdminReviews } from "@/components/admin/AdminReviews";
 
 function statusOf(order: StoredOrder): PaymentStatus {
   return order.paymentStatus === "confirmed" ? "confirmed" : "pending";
@@ -160,6 +161,7 @@ const AdminOrdersPage = () => {
   const [orders, setOrders] = useState<StoredOrder[]>([]);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
+  const [view, setView] = useState<"orders" | "reviews">("orders");
 
   const refresh = useCallback(async () => {
     if (!getAdminKey()) return;
@@ -297,18 +299,24 @@ const AdminOrdersPage = () => {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <div>
             <p className="text-xs uppercase tracking-[0.25em] text-primary mb-1">后台管理</p>
-            <h1 className="text-2xl sm:text-3xl font-semibold text-foreground">订单管理</h1>
-            <p className="text-sm text-muted-foreground mt-1">云端备份</p>
+            <h1 className="text-2xl sm:text-3xl font-semibold text-foreground">
+              {view === "orders" ? "订单管理" : "评论审核"}
+            </h1>
+            <p className="text-sm text-muted-foreground mt-1">{view === "orders" ? "云端备份" : "审核并管理商品评论"}</p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
-            <Button type="button" variant="outline" onClick={exportExcel} disabled={filtered.length === 0}>
-              <Download className="h-4 w-4 mr-2" />
-              导出 Excel
-            </Button>
-            <Button type="button" variant="outline" onClick={() => void refresh()} disabled={loading}>
-              <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
-              刷新
-            </Button>
+            {view === "orders" ? (
+              <>
+                <Button type="button" variant="outline" onClick={exportExcel} disabled={filtered.length === 0}>
+                  <Download className="h-4 w-4 mr-2" />
+                  导出 Excel
+                </Button>
+                <Button type="button" variant="outline" onClick={() => void refresh()} disabled={loading}>
+                  <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
+                  刷新
+                </Button>
+              </>
+            ) : null}
             <Button type="button" variant="outline" onClick={logout}>
               退出登录
             </Button>
@@ -318,6 +326,35 @@ const AdminOrdersPage = () => {
           </div>
         </div>
 
+        <div className="flex gap-2 mb-6">
+          <button
+            type="button"
+            onClick={() => setView("orders")}
+            className={`rounded-full border px-4 py-2 text-sm transition-colors ${
+              view === "orders"
+                ? "border-primary bg-primary/10 text-primary font-semibold"
+                : "border-border text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            订单
+          </button>
+          <button
+            type="button"
+            onClick={() => setView("reviews")}
+            className={`rounded-full border px-4 py-2 text-sm transition-colors ${
+              view === "reviews"
+                ? "border-primary bg-primary/10 text-primary font-semibold"
+                : "border-border text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            评论审核
+          </button>
+        </div>
+
+        {view === "reviews" ? (
+          <AdminReviews />
+        ) : (
+        <>
         <div className="grid sm:grid-cols-3 gap-3 mb-6">
           <div className="rounded-xl border border-border bg-card p-4">
             <p className="text-xs text-muted-foreground">显示订单</p>
@@ -446,6 +483,8 @@ const AdminOrdersPage = () => {
               );
             })}
           </div>
+        )}
+        </>
         )}
       </main>
       <Footer />
