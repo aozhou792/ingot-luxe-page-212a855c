@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Seo, breadcrumbNode } from "@/components/Seo";
 import { useReveal } from "@/hooks/use-reveal";
 import { wholesaleProducts } from "@/data/wholesale";
-import { buildWhatsAppUrl, wholesaleContacts } from "@/lib/whatsapp";
+import { buildWhatsAppUrl, WHATSAPP_CONTACT_NAME, WHATSAPP_QR_IMAGE, wholesaleContacts } from "@/lib/whatsapp";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -48,7 +48,7 @@ const WholesalePage = () => {
       <Navbar />
 
       <div className="bg-primary/10 border-b border-gold/20 text-center py-2.5 px-4 text-xs sm:text-sm font-medium text-foreground/90 mt-[calc(4rem+env(safe-area-inset-top))] sm:mt-[calc(5rem+env(safe-area-inset-top))]">
-        We only deliver to Australia · Authentic Alibarbar stock · Adults 18+ only
+        We only deliver to Australia · Authentic Alibarbar stock
       </div>
 
       <main className="pb-16 sm:pb-24">
@@ -64,7 +64,7 @@ const WholesalePage = () => {
               </p>
             </div>
 
-            <ul className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
+            <ul className="mt-8 sm:mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-3xl mx-auto">
               {wholesaleContacts.map((contact) => (
                 <li
                   key={contact.phone}
@@ -83,13 +83,20 @@ const WholesalePage = () => {
                   </a>
                 </li>
               ))}
-              <li className="reveal flex flex-col items-center justify-center rounded-2xl border border-dashed border-gold/20 bg-card/20 p-6 sm:p-8 text-center sm:col-span-1 lg:col-span-3">
-                <p className="text-sm text-muted-foreground leading-relaxed max-w-md">
-                  Prefer to scan a QR code? Use our{" "}
-                  <Link to="/whatsapp-qr" className="text-primary font-semibold hover:text-gold">
-                    WhatsApp QR page
-                  </Link>{" "}
-                  to add {wholesaleContacts[0].name} and message us directly.
+              <li className="reveal flex flex-col items-center rounded-2xl border border-gold/25 bg-card/50 p-6 sm:p-8 text-center">
+                <p className="text-sm font-semibold text-foreground">{WHATSAPP_CONTACT_NAME}</p>
+                <p className="mt-1 text-xs text-muted-foreground">WhatsApp contact</p>
+                <div className="mt-4 w-full max-w-[220px] rounded-xl bg-white p-3 shadow-inner">
+                  <img
+                    src={WHATSAPP_QR_IMAGE}
+                    alt={`${WHATSAPP_CONTACT_NAME} WhatsApp QR code`}
+                    className="mx-auto block aspect-square w-full object-contain"
+                    loading="lazy"
+                    draggable={false}
+                  />
+                </div>
+                <p className="mt-4 text-xs text-muted-foreground leading-relaxed">
+                  Scan with your WhatsApp camera to add us and message for wholesale pricing.
                 </p>
               </li>
             </ul>
