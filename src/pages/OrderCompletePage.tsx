@@ -4,6 +4,7 @@ import { Check, Copy, ImagePlus, X } from "lucide-react";
 import { toast } from "sonner";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { formatAud } from "@/lib/format";
@@ -88,6 +89,12 @@ const OrderCompletePage = () => {
   if (!order) {
     return (
       <div className="min-h-screen bg-background">
+        <Seo
+          title="No Recent Order | Alibarbar Australia"
+          description="No recent Alibarbar Australia order was found for this browser session."
+          path="/order-complete"
+          noindex
+        />
         <Navbar />
         <main className="container pt-[calc(6rem+env(safe-area-inset-top))] pb-20 max-w-lg text-center">
           <div className="rounded-2xl border border-border bg-card p-8">
@@ -155,6 +162,12 @@ const OrderCompletePage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Order Complete | Alibarbar Australia"
+        description="Alibarbar Australia order confirmation and bank transfer receipt upload."
+        path="/order-complete"
+        noindex
+      />
       <Navbar />
       <main className="container pt-[calc(5rem+env(safe-area-inset-top))] sm:pt-[calc(6rem+env(safe-area-inset-top))] pb-16 sm:pb-20 max-w-5xl">
         <nav className="text-sm text-muted-foreground mb-8" aria-label="Checkout steps">

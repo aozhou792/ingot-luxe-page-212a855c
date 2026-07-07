@@ -3,21 +3,19 @@ import { formatAud } from "@/lib/format";
 /** Flat-rate shipping used across cart and checkout. */
 export const SHIPPING_LABEL = "Regular Post";
 
-/** 5+ devices: $10 AUD; fewer than 5: $20 AUD. */
-export const SHIPPING_5_OR_MORE_AUD = 10;
-export const SHIPPING_UNDER_5_AUD = 20;
-export const SHIPPING_QUANTITY_THRESHOLD = 5;
+/** Default checkout shipping. */
+export const DEFAULT_SHIPPING_AUD = 10;
 
 export function shippingRateHint(): string {
-  return `5+ devices: ${formatAud(SHIPPING_5_OR_MORE_AUD)} shipping · under 5 devices: ${formatAud(SHIPPING_UNDER_5_AUD)}`;
+  return `Default checkout shipping: ${formatAud(DEFAULT_SHIPPING_AUD)}`;
 }
 
 export function shippingAud(itemCount: number): number {
   if (itemCount <= 0) return 0;
-  return itemCount >= SHIPPING_QUANTITY_THRESHOLD ? SHIPPING_5_OR_MORE_AUD : SHIPPING_UNDER_5_AUD;
+  return DEFAULT_SHIPPING_AUD;
 }
 
-/** Order total including quantity-based shipping. */
+/** Order total including default shipping. */
 export function orderTotal(subtotal: number, itemCount: number): number {
   return itemCount > 0 ? subtotal + shippingAud(itemCount) : subtotal;
 }

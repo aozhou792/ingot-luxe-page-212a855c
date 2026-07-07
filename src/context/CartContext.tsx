@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { toast } from "sonner";
+import { getProductBySlug } from "@/data/products";
 
 export type CartLine = {
   slug: string;
@@ -18,15 +19,23 @@ function loadLines(): CartLine[] {
     if (!raw) return [];
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
-    return parsed.filter(
-      (l): l is CartLine =>
-        l &&
-        typeof l.slug === "string" &&
-        typeof l.name === "string" &&
-        typeof l.price === "number" &&
-        typeof l.image === "string" &&
-        typeof l.qty === "number",
-    );
+    return parsed
+      .filter(
+        (l): l is CartLine =>
+          l &&
+          typeof l.slug === "string" &&
+          typeof l.name === "string" &&
+          typeof l.price === "number" &&
+          typeof l.image === "string" &&
+          typeof l.qty === "number",
+      )
+      .map((line) => {
+        const product =
+          getProductBySlug(line.slug) ??
+          (line.slug.startsWith("custom-5-pack-") ? getProductBySlug("custom-5-pack") : undefined);
+        if (!product) return line;
+        return { ...line, price: Number.parseFloat(product.price), image: product.img };
+      });
   } catch {
     return [];
   }

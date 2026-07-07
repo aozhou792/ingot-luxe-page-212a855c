@@ -2,6 +2,7 @@ import { useLayoutEffect, useState, type FormEvent, type ReactNode } from "react
 import { Link, useNavigate } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -130,6 +131,12 @@ const CheckoutPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Checkout | Alibarbar Australia"
+        description="Complete your Alibarbar Australia order with bank transfer payment."
+        path="/checkout"
+        noindex
+      />
       <Navbar />
       <main className="container pt-[calc(5rem+env(safe-area-inset-top))] sm:pt-[calc(6rem+env(safe-area-inset-top))] pb-16 sm:pb-20 max-w-6xl">
         <nav className="text-sm text-muted-foreground mb-6" aria-label="Checkout steps">

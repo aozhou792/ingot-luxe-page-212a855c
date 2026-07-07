@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
+import { Seo } from "@/components/Seo";
 import { WHATSAPP_PHONE_DISPLAY, WHATSAPP_QR_IMAGE } from "@/lib/whatsapp";
 
 const WhatsAppQrPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#25D366] via-[#1FBE5C] to-[#10A852] px-4 py-10 sm:py-14">
+      <Seo
+        title="WhatsApp QR | Alibarbar Australia"
+        description="Private WhatsApp QR contact page for Alibarbar Australia orders."
+        path="/whatsapp-qr"
+        noindex
+      />
       <div className="mx-auto flex max-w-md flex-col items-center">
         <div className="mb-8 flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#25D366]">

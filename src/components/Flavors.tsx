@@ -17,10 +17,18 @@ const FlavorCard = ({ f, revealIndex, goToProduct }: FlavorCardProps) => {
   const cartItem = { slug: f.slug, name: f.name, price: f.price, image: f.img };
 
   const handleAdd = () => {
+    if (f.isCustomPack) {
+      goToProduct(f.slug);
+      return;
+    }
     addToCart(cartItem);
   };
 
   const handleBuyNow = () => {
+    if (f.isCustomPack) {
+      goToProduct(f.slug);
+      return;
+    }
     buyNow(cartItem);
     navigate("/checkout");
   };
@@ -74,7 +82,7 @@ const FlavorCard = ({ f, revealIndex, goToProduct }: FlavorCardProps) => {
           />
         </div>
         <p className="text-[10px] sm:text-xs text-muted-foreground leading-snug line-clamp-2 min-h-[2lh]">
-          9000 puffs · Smart display · Mesh coil
+          {f.isCustomPack ? "5 pcs · Choose any 5 flavours" : "9000 puffs · Smart display · Mesh coil"}
         </p>
 
         {f.inStock ? (
@@ -84,14 +92,14 @@ const FlavorCard = ({ f, revealIndex, goToProduct }: FlavorCardProps) => {
               className="min-h-[40px] sm:min-h-[44px] py-2 sm:py-2.5 rounded-full border border-gold text-primary font-semibold uppercase tracking-tight sm:tracking-wider text-[9px] sm:text-[11px] hover:bg-gold/15 active:bg-gold/25 transition-all"
               onClick={handleAdd}
             >
-              Add
+              {f.isCustomPack ? "Choose" : "Add"}
             </button>
             <button
               type="button"
               className="min-h-[40px] sm:min-h-[44px] py-2 sm:py-2.5 rounded-full bg-gold text-primary-foreground font-semibold uppercase tracking-tight sm:tracking-wider text-[9px] sm:text-[11px] hover:opacity-95 active:opacity-90 transition-all"
               onClick={handleBuyNow}
             >
-              Buy now
+              {f.isCustomPack ? "Select" : "Buy now"}
             </button>
           </div>
         ) : (
@@ -132,7 +140,7 @@ export const Flavors = () => {
             Explore Our <span className="text-gold">Signature Flavors</span>
           </h2>
           <p className="text-muted-foreground mt-3 sm:mt-4 text-sm sm:text-base px-2">
-            Ten masterful blends. One unforgettable experience.
+            Ten masterful blends plus a 5-piece custom pack.
           </p>
           <div className="gold-divider mt-6 sm:mt-8 max-w-xs mx-auto" />
         </div>

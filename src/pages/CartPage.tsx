@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
 import { formatAud } from "@/lib/format";
@@ -15,6 +16,12 @@ const CartPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Cart | Alibarbar Australia"
+        description="Review your Alibarbar Australia cart before checkout."
+        path="/cart"
+        noindex
+      />
       <Navbar />
       <main className="container pt-[calc(5rem+env(safe-area-inset-top))] sm:pt-[calc(6rem+env(safe-area-inset-top))] pb-16 sm:pb-20">
         <nav className="text-sm text-muted-foreground mb-6" aria-label="Checkout steps">

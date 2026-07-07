@@ -1,14 +1,10 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /cart
+Disallow: /checkout
+Disallow: /order-complete
+Disallow: /orders2589
+Disallow: /whatsapp-qr
+
+Sitemap: https://www.ailibarbar.com/sitemap.xml

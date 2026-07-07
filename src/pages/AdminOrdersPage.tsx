@@ -4,6 +4,7 @@ import { CheckCircle2, Clock3, Download, Loader2, RefreshCw, ZoomIn } from "luci
 import { toast } from "sonner";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -250,6 +251,12 @@ const AdminOrdersPage = () => {
   if (!authed) {
     return (
       <div className="min-h-screen bg-background">
+        <Seo
+          title="Orders Admin | Alibarbar Australia"
+          description="Private Alibarbar Australia order management."
+          path="/orders2589"
+          noindex
+        />
         <Navbar />
         <main className="container pt-[calc(6rem+env(safe-area-inset-top))] pb-20 max-w-md">
           <div className="rounded-2xl border border-border bg-card p-8 space-y-4">
@@ -279,6 +286,12 @@ const AdminOrdersPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Orders Admin | Alibarbar Australia"
+        description="Private Alibarbar Australia order management."
+        path="/orders2589"
+        noindex
+      />
       <Navbar />
       <main className="container pt-[calc(5rem+env(safe-area-inset-top))] sm:pt-[calc(6rem+env(safe-area-inset-top))] pb-16 sm:pb-20 max-w-6xl">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">

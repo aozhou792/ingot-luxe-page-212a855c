@@ -2,12 +2,14 @@ import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { getProductBySlug, getRelatedProducts } from "@/data/products";
+import { getProductBySlug, getRelatedProducts, getSelectableFlavorProducts } from "@/data/products";
 import { ProductPrice } from "@/components/ProductPrice";
+import { Seo, productJsonLd } from "@/components/Seo";
 import { useCart } from "@/context/CartContext";
 import { useReveal } from "@/hooks/use-reveal";
 import { ArrowLeft, Check, ChevronRight, Minus, Package, Plus, Sparkles, Truck } from "lucide-react";
 import type { HomeRestoreState, ProductLocationState } from "@/types/navigation";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const highlights = [
   { icon: Sparkles, label: "Up to 9000 smooth puffs" },
@@ -15,6 +17,8 @@ const highlights = [
   { icon: Check, label: "No setup — inhale & enjoy" },
   { icon: Truck, label: "Fast fulfilment" },
 ] as const;
+
+const CUSTOM_PACK_SIZE = 5;
 
 const ProductPage = () => {
   useReveal();
@@ -31,8 +35,10 @@ const ProductPage = () => {
   const navigate = useNavigate();
   const { addToCart, buyNow } = useCart();
   const [qty, setQty] = useState(1);
+  const [selectedCustomFlavors, setSelectedCustomFlavors] = useState<string[]>(() => Array(CUSTOM_PACK_SIZE).fill(""));
 
   const related = useMemo(() => (product ? getRelatedProducts(product.slug) : []), [product]);
+  const selectableFlavors = useMemo(() => getSelectableFlavorProducts(), []);
 
   /** Instant jump to top (no smooth scroll). Global `html { scroll-behavior: smooth }` would otherwise animate scrollTo. */
   useLayoutEffect(() => {
@@ -56,6 +62,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     setQty(1);
+    setSelectedCustomFlavors(Array(CUSTOM_PACK_SIZE).fill(""));
   }, [slug]);
 
   if (!product) {
@@ -63,22 +70,47 @@ const ProductPage = () => {
   }
 
   const paragraphs = product.description.split("\n\n").filter(Boolean);
+  const productPath = `/product/${product.slug}`;
+  const seoDescription = product.excerpt.length > 155 ? `${product.excerpt.slice(0, 152).trim()}...` : product.excerpt;
 
-  const cartItem = { slug: product.slug, name: product.name, price: product.price, image: product.img };
+  const isCustomPackComplete = !product.isCustomPack || selectedCustomFlavors.every(Boolean);
+  const cartItem = product.isCustomPack
+    ? {
+        slug: `${product.slug}-${selectedCustomFlavors.map((flavor) => flavor.toLowerCase().replace(/[^a-z0-9]+/g, "-")).join("-")}`,
+        name: `${product.name} (${selectedCustomFlavors.join(", ")})`,
+        price: product.price,
+        image: product.img,
+      }
+    : { slug: product.slug, name: product.name, price: product.price, image: product.img };
 
   const handleAddToCart = () => {
-    if (!product.inStock) return;
+    if (!product.inStock || !isCustomPackComplete) return;
     addToCart({ ...cartItem, qty });
   };
 
   const handleBuyNow = () => {
-    if (!product.inStock) return;
+    if (!product.inStock || !isCustomPackComplete) return;
     buyNow({ ...cartItem, qty });
     navigate("/checkout");
   };
 
   return (
     <div className="min-h-screen bg-background relative">
+      <Seo
+        title={`${product.name} | Alibarbar Ingot 9000 Australia`}
+        description={seoDescription}
+        path={productPath}
+        image={product.img}
+        type="product"
+        jsonLd={productJsonLd({
+          name: `Alibarbar Ingot 9000 ${product.name}`,
+          description: product.excerpt,
+          image: product.img,
+          price: product.price,
+          inStock: product.inStock,
+          path: productPath,
+        })}
+      />
       {/* Ambient background — matches landing luxury feel */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute top-[15%] -left-[10%] w-[min(90vw,520px)] h-[min(90vw,520px)] bg-primary/12 rounded-full blur-[120px]" />
@@ -164,7 +196,7 @@ const ProductPage = () => {
                     originalClassName="text-lg sm:text-xl pb-1 sm:pb-1.5"
                   />
                   <span className="text-xs sm:text-sm text-muted-foreground pb-1 sm:pb-1.5 max-w-[12rem] sm:max-w-none leading-snug">
-                    per device · incl. smart display
+                    {product.isCustomPack ? "5 devices · choose your flavours" : "per device · incl. smart display"}
                   </span>
                 </div>
               </div>
@@ -179,10 +211,50 @@ const ProductPage = () => {
                 {product.excerpt}
               </blockquote>
 
+              {product.isCustomPack ? (
+                <div className="rounded-2xl border border-gold/35 bg-card/70 p-4 sm:p-6 space-y-4">
+                  <div>
+                    <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-primary/80 font-semibold">
+                      Choose 5 flavours
+                    </p>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Select any 5 from the current flavour collection. Repeats are allowed.
+                    </p>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {selectedCustomFlavors.map((value, index) => (
+                      <Select
+                        key={index}
+                        value={value}
+                        onValueChange={(nextValue) =>
+                          setSelectedCustomFlavors((prev) =>
+                            prev.map((current, currentIndex) => (currentIndex === index ? nextValue : current)),
+                          )
+                        }
+                      >
+                        <SelectTrigger className="bg-background/70">
+                          <SelectValue placeholder={`Flavour ${index + 1}`} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {selectableFlavors.map((flavor) => (
+                            <SelectItem key={flavor.slug} value={flavor.name}>
+                              {flavor.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    ))}
+                  </div>
+                  {!isCustomPackComplete ? (
+                    <p className="text-xs text-primary">Please choose all 5 flavours before adding this pack to cart.</p>
+                  ) : null}
+                </div>
+              ) : null}
+
               {/* Purchase panel */}
               <div className="rounded-2xl border border-gold/35 bg-gradient-to-br from-card/95 via-card/60 to-background/95 p-4 sm:p-6 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)]">
                 <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-primary/80 mb-3 sm:mb-4 font-semibold">
-                  Quantity & checkout
+                  {product.isCustomPack ? "Pack quantity & checkout" : "Quantity & checkout"}
                 </p>
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex items-center rounded-xl border border-gold/45 bg-background/50 overflow-hidden shrink-0">
@@ -209,7 +281,7 @@ const ProductPage = () => {
                   <div className="flex flex-col sm:flex-row gap-3 w-full sm:flex-1 sm:min-w-0 sm:max-w-xl">
                     <button
                       type="button"
-                      disabled={!product.inStock}
+                      disabled={!product.inStock || !isCustomPackComplete}
                       onClick={handleAddToCart}
                       className="flex-1 min-h-[52px] px-6 rounded-xl border-2 border-gold bg-transparent text-primary font-bold uppercase tracking-[0.12em] text-sm hover:bg-gold/15 active:scale-[0.99] transition-all disabled:opacity-40 disabled:pointer-events-none"
                     >
@@ -217,7 +289,7 @@ const ProductPage = () => {
                     </button>
                     <button
                       type="button"
-                      disabled={!product.inStock}
+                      disabled={!product.inStock || !isCustomPackComplete}
                       onClick={handleBuyNow}
                       className="flex-1 min-h-[52px] px-6 rounded-xl bg-gold text-primary-foreground font-bold uppercase tracking-[0.12em] text-sm shadow-gold hover:opacity-[0.97] active:scale-[0.99] transition-all disabled:opacity-40 disabled:pointer-events-none"
                     >

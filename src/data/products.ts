@@ -8,6 +8,7 @@ import grape from "@/assets/flavor-grape.png";
 import mango from "@/assets/flavor-mango.png";
 import strawberryWatermelon from "@/assets/flavor-strawberry-watermelon.png";
 import strawberryIce from "@/assets/flavor-strawberry-ice.png";
+import custom5Pack from "@/assets/custom-5-pack.png";
 
 export type Product = {
   slug: string;
@@ -25,6 +26,8 @@ export type Product = {
   inStock: boolean;
   /** Reserved slot: placeholder art, not for sale yet */
   isPlaceholder?: boolean;
+  /** Customers choose five existing flavours on the PDP before checkout. */
+  isCustomPack?: boolean;
 };
 
 const sharedBody = `The Alibarbar Ingot 9000 Puffs is a high-quality disposable vape designed for users who want reliability, flavour, and extended use in one sleek device. Offering up to 9000 puffs per unit, this disposable vape is ideal for adult users seeking a long-lasting option without the hassle of refilling or charging.
@@ -151,9 +154,30 @@ const strawberryIceSpecs = [
 
 export const products: Product[] = [
   {
+    slug: "custom-5-pack",
+    name: "5 Flavour Custom Pack",
+    price: "150",
+    img: custom5Pack,
+    tag: "New Pack",
+    excerpt:
+      "Choose any five Alibarbar Ingot flavours from the current collection and build your own mixed 5-piece pack.",
+    description: `Build your own Alibarbar Ingot 5-piece pack by choosing any five flavours from the current collection.
+
+Each pack includes five Alibarbar Ingot 9000 Puffs devices. Select your preferred flavour for each slot before adding the pack to cart, and your choices will be saved into the order for fulfilment.`,
+    specs: [
+      "5 × ALIBARBAR Ingot disposable vape devices",
+      "Choose any 5 flavours from the current collection",
+      "Pre-charged and inhale-activated — ready to use out of the box",
+      "Delivers up to 9000+ puffs per device",
+      "Built-in LED display for monitoring battery level and e-liquid usage",
+    ],
+    inStock: true,
+    isCustomPack: true,
+  },
+  {
     slug: "quadruple-berry",
     name: "Quadruple Berry",
-    price: "30",
+    price: "35",
     originalPrice: "60",
     img: quadrupleBerry,
     tag: "Fruity",
@@ -166,7 +190,7 @@ export const products: Product[] = [
   {
     slug: "fanta",
     name: "Fanta",
-    price: "30",
+    price: "35",
     originalPrice: "60",
     img: fanta,
     tag: "Citrus",
@@ -179,7 +203,7 @@ export const products: Product[] = [
   {
     slug: "lychee",
     name: "Lychee",
-    price: "30",
+    price: "35",
     originalPrice: "60",
     img: lychee,
     tag: "Fruity",
@@ -192,7 +216,7 @@ export const products: Product[] = [
   {
     slug: "peach-ice",
     name: "Peach Ice",
-    price: "30",
+    price: "35",
     originalPrice: "60",
     img: peachIce,
     tag: "Iced",
@@ -205,7 +229,7 @@ export const products: Product[] = [
   {
     slug: "blackberry-ice",
     name: "Blackberry Ice",
-    price: "30",
+    price: "35",
     originalPrice: "60",
     img: blackberry,
     tag: "Iced",
@@ -218,7 +242,7 @@ export const products: Product[] = [
   {
     slug: "mango-magic",
     name: "Mango Magic",
-    price: "30",
+    price: "35",
     originalPrice: "60",
     img: mango,
     tag: "Tropical",
@@ -231,7 +255,7 @@ export const products: Product[] = [
   {
     slug: "strawberry-coconut-watermelon",
     name: "Strawberry Coconut Watermelon",
-    price: "30",
+    price: "35",
     originalPrice: "60",
     img: strawberryCoconutWatermelon,
     tag: "Tropical",
@@ -244,7 +268,7 @@ export const products: Product[] = [
   {
     slug: "grape-ice",
     name: "Grape Ice",
-    price: "30",
+    price: "35",
     originalPrice: "60",
     img: grape,
     tag: "Iced",
@@ -257,7 +281,7 @@ export const products: Product[] = [
   {
     slug: "strawberry-watermelon",
     name: "Strawberry Watermelon",
-    price: "30",
+    price: "35",
     originalPrice: "60",
     img: strawberryWatermelon,
     tag: "Fruity",
@@ -270,7 +294,7 @@ export const products: Product[] = [
   {
     slug: "strawberry-ice",
     name: "Strawberry Ice",
-    price: "30",
+    price: "35",
     originalPrice: "60",
     img: strawberryIce,
     tag: "Iced",
@@ -285,6 +309,10 @@ export const products: Product[] = [
 export function getProductBySlug(slug: string | undefined): Product | undefined {
   if (!slug) return undefined;
   return products.find((p) => p.slug === slug);
+}
+
+export function getSelectableFlavorProducts(): Product[] {
+  return products.filter((p) => !p.isPlaceholder && !p.isCustomPack);
 }
 
 export function getRelatedProducts(slug: string, limit = 4): Product[] {
