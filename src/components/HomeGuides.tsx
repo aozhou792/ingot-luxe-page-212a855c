@@ -7,7 +7,7 @@ export const HomeGuides = () => {
   const featured = guides.slice(0, 3);
 
   return (
-    <section id="guides" className="py-16 sm:py-20 md:py-28 relative scroll-mt-20">
+    <section id="guides" className="pt-10 sm:pt-12 md:pt-14 pb-16 sm:pb-20 md:pb-28 relative scroll-mt-20">
       <div className="container">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-12 reveal">
           <div className="max-w-xl">

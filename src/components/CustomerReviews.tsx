@@ -32,7 +32,7 @@ export const CustomerReviews = () => {
   if (aggregate.count === 0) return null;
 
   return (
-    <section id="reviews" className="py-16 sm:py-20 md:py-28 relative scroll-mt-20">
+    <section id="reviews" className="py-10 sm:py-12 md:py-14 relative scroll-mt-20">
       <div className="absolute inset-0 -z-10 opacity-40" style={{ background: "var(--gradient-radial)" }} />
       <div className="container">
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12 reveal px-1">

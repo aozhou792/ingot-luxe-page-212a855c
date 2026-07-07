@@ -2,7 +2,8 @@ import { useEffect } from "react";
 
 export function useReveal() {
   useEffect(() => {
-    const els = document.querySelectorAll(".reveal");
+    const observed = new WeakSet<Element>();
+
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -12,9 +13,34 @@ export function useReveal() {
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.12 },
     );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+
+    const observeReveal = (root: ParentNode = document) => {
+      root.querySelectorAll(".reveal:not(.in-view)").forEach((el) => {
+        if (observed.has(el)) return;
+        observed.add(el);
+        io.observe(el);
+      });
+    };
+
+    observeReveal();
+
+    const mo = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        mutation.addedNodes.forEach((node) => {
+          if (node instanceof Element) {
+            observeReveal(node);
+          }
+        });
+      }
+    });
+
+    mo.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      io.disconnect();
+      mo.disconnect();
+    };
   }, []);
 }
