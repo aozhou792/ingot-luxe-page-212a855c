@@ -1,10 +1,11 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/context/AuthContext";
+import { requestPasswordReset } from "@/lib/auth-api";
 
 type AuthModalProps = {
   open: boolean;
@@ -14,7 +15,7 @@ type AuthModalProps = {
 
 export const AuthModal = ({ open, onOpenChange, onSuccess }: AuthModalProps) => {
   const { login, register } = useAuth();
-  const [mode, setMode] = useState<"login" | "register">("login");
+  const [mode, setMode] = useState<"login" | "register" | "forgot">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
@@ -26,6 +27,16 @@ export const AuthModal = ({ open, onOpenChange, onSuccess }: AuthModalProps) => 
     setDisplayName("");
   };
 
+  useEffect(() => {
+    if (!open) {
+      setMode("login");
+      setEmail("");
+      setPassword("");
+      setDisplayName("");
+      setSubmitting(false);
+    }
+  }, [open]);
+
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setSubmitting(true);
@@ -33,13 +44,19 @@ export const AuthModal = ({ open, onOpenChange, onSuccess }: AuthModalProps) => 
       if (mode === "login") {
         await login(email, password);
         toast.success("Signed in");
-      } else {
+      } else if (mode === "register") {
         await register(email, password, displayName);
-        toast.success("Account created");
+        toast.success("Account created and signed in");
+      } else {
+        await requestPasswordReset(email);
+        toast.success("If this email exists, a reset link has been sent.");
+        setMode("login");
       }
       reset();
-      onOpenChange(false);
-      onSuccess?.();
+      if (mode !== "forgot") {
+        onOpenChange(false);
+        onSuccess?.();
+      }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Authentication failed");
     } finally {
@@ -51,11 +68,15 @@ export const AuthModal = ({ open, onOpenChange, onSuccess }: AuthModalProps) => 
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{mode === "login" ? "Sign in" : "Create an account"}</DialogTitle>
+          <DialogTitle>
+            {mode === "login" ? "Sign in" : mode === "register" ? "Create an account" : "Forgot password"}
+          </DialogTitle>
           <DialogDescription>
             {mode === "login"
               ? "Sign in to leave a review on Alibarbar Australia."
-              : "Create an account to review your favourite flavours."}
+              : mode === "register"
+                ? "Create an account to review your favourite flavours."
+                : "Enter your email and we will send you a reset link."}
           </DialogDescription>
         </DialogHeader>
 
@@ -85,32 +106,61 @@ export const AuthModal = ({ open, onOpenChange, onSuccess }: AuthModalProps) => 
             />
           </div>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="auth-password">Password</Label>
-            <Input
-              id="auth-password"
-              type="password"
-              required
-              minLength={6}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoComplete={mode === "login" ? "current-password" : "new-password"}
-              placeholder="At least 6 characters"
-            />
-          </div>
+          {mode !== "forgot" ? (
+            <div className="space-y-1.5">
+              <Label htmlFor="auth-password">Password</Label>
+              <Input
+                id="auth-password"
+                type="password"
+                required
+                minLength={6}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete={mode === "login" ? "current-password" : "new-password"}
+                placeholder="At least 6 characters"
+              />
+            </div>
+          ) : null}
 
           <Button type="submit" className="w-full" disabled={submitting}>
-            {submitting ? "Please wait…" : mode === "login" ? "Sign in" : "Create account"}
+            {submitting
+              ? "Please wait…"
+              : mode === "login"
+                ? "Sign in"
+                : mode === "register"
+                  ? "Create account"
+                  : "Send reset link"}
           </Button>
         </form>
 
-        <button
-          type="button"
-          className="text-sm text-muted-foreground hover:text-primary transition-colors"
-          onClick={() => setMode(mode === "login" ? "register" : "login")}
-        >
-          {mode === "login" ? "No account? Create one" : "Already have an account? Sign in"}
-        </button>
+        <div className="flex flex-col gap-2">
+          {mode === "login" ? (
+            <>
+              <button
+                type="button"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors text-left"
+                onClick={() => setMode("register")}
+              >
+                No account? Create one
+              </button>
+              <button
+                type="button"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors text-left"
+                onClick={() => setMode("forgot")}
+              >
+                Forgot password?
+              </button>
+            </>
+          ) : (
+            <button
+              type="button"
+              className="text-sm text-muted-foreground hover:text-primary transition-colors text-left"
+              onClick={() => setMode("login")}
+            >
+              Back to sign in
+            </button>
+          )}
+        </div>
       </DialogContent>
     </Dialog>
   );

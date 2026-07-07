@@ -18,6 +18,10 @@ export type PublicUser = {
   displayName: string;
 };
 
+function normalizeEmail(email: string): string {
+  return email.trim().toLowerCase();
+}
+
 function blobToken(): string {
   const token = process.env.BLOB_READ_WRITE_TOKEN;
   if (!token) throw new Error("BLOB_READ_WRITE_TOKEN is not configured");
@@ -57,7 +61,7 @@ export async function registerUser(
   password: string,
   displayName: string,
 ): Promise<{ user: PublicUser } | { error: string }> {
-  const normalizedEmail = email.trim().toLowerCase();
+  const normalizedEmail = normalizeEmail(email);
   const users = await readUsers();
   if (users.some((u) => u.email === normalizedEmail)) {
     return { error: "An account with this email already exists." };
@@ -79,7 +83,7 @@ export async function authenticateUser(
   email: string,
   password: string,
 ): Promise<{ user: PublicUser } | { error: string }> {
-  const normalizedEmail = email.trim().toLowerCase();
+  const normalizedEmail = normalizeEmail(email);
   const users = await readUsers();
   const user = users.find((u) => u.email === normalizedEmail);
   if (!user || !verifyPassword(password, user.passwordHash)) {
@@ -92,4 +96,24 @@ export async function getUserById(id: string): Promise<PublicUser | null> {
   const users = await readUsers();
   const user = users.find((u) => u.id === id);
   return user ? toPublic(user) : null;
+}
+
+export async function getUserByEmail(email: string): Promise<PublicUser | null> {
+  const users = await readUsers();
+  const user = users.find((u) => u.email === normalizeEmail(email));
+  return user ? toPublic(user) : null;
+}
+
+export async function setUserPasswordById(userId: string, nextPassword: string): Promise<PublicUser | null> {
+  const users = await readUsers();
+  const index = users.findIndex((u) => u.id === userId);
+  if (index < 0) return null;
+
+  const updated: StoredUser = {
+    ...users[index],
+    passwordHash: hashPassword(nextPassword),
+  };
+  users[index] = updated;
+  await writeUsers(users);
+  return toPublic(updated);
 }

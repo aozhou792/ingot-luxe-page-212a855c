@@ -15,6 +15,7 @@ import CheckoutPage from "./pages/CheckoutPage.tsx";
 import OrderCompletePage from "./pages/OrderCompletePage.tsx";
 import AdminOrdersPage from "./pages/AdminOrdersPage.tsx";
 import WhatsAppQrPage from "./pages/WhatsAppQrPage.tsx";
+import ResetPasswordPage from "./pages/ResetPasswordPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -25,26 +26,27 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
-        <CartProvider>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/product/cool-mint" element={<Navigate to="/product/blackberry-ice" replace />} />
-            <Route
-              path="/product/chupa-strawberry"
-              element={<Navigate to="/product/strawberry-coconut-watermelon" replace />}
-            />
-            <Route path="/product/:slug" element={<ProductPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/order-complete" element={<OrderCompletePage />} />
-            <Route path="/orders2589" element={<AdminOrdersPage />} />
-            <Route path="/whatsapp-qr" element={<WhatsAppQrPage />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <WhatsAppFloat />
-          <AgeGate />
-        </CartProvider>
+          <CartProvider>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/product/cool-mint" element={<Navigate to="/product/blackberry-ice" replace />} />
+              <Route
+                path="/product/chupa-strawberry"
+                element={<Navigate to="/product/strawberry-coconut-watermelon" replace />}
+              />
+              <Route path="/product/:slug" element={<ProductPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/order-complete" element={<OrderCompletePage />} />
+              <Route path="/orders2589" element={<AdminOrdersPage />} />
+              <Route path="/whatsapp-qr" element={<WhatsAppQrPage />} />
+              <Route path="/reset-password" element={<ResetPasswordPage />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <WhatsAppFloat />
+            <AgeGate />
+          </CartProvider>
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>

@@ -26,6 +26,28 @@ export async function authRequest(
   return (await response.json()) as { token: string; user: AuthUser };
 }
 
+export async function requestPasswordReset(email: string): Promise<void> {
+  const response = await fetch("/api/auth-password", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action: "request-reset", email }),
+  });
+  if (!response.ok) throw new Error(await parseError(response));
+}
+
+export async function completePasswordReset(
+  token: string,
+  password: string,
+): Promise<{ token: string; user: AuthUser }> {
+  const response = await fetch("/api/auth-password", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action: "reset-password", token, password }),
+  });
+  if (!response.ok) throw new Error(await parseError(response));
+  return (await response.json()) as { token: string; user: AuthUser };
+}
+
 export async function fetchCurrentUser(token: string): Promise<AuthUser | null> {
   const response = await fetch("/api/auth", {
     headers: { Authorization: `Bearer ${token}` },

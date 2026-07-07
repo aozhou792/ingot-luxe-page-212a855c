@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { authRequest, fetchCurrentUser, type AuthUser } from "@/lib/auth-api";
+import { authRequest, completePasswordReset, fetchCurrentUser, type AuthUser } from "@/lib/auth-api";
 
 const TOKEN_KEY = "alibarbar-auth-token";
 
@@ -9,6 +9,7 @@ type AuthContextValue = {
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, displayName: string) => Promise<void>;
+  resetPassword: (resetToken: string, nextPassword: string) => Promise<void>;
   logout: () => void;
 };
 
@@ -82,14 +83,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [persistToken],
   );
 
+  const resetPassword = useCallback(
+    async (resetToken: string, nextPassword: string) => {
+      const { token: next, user: nextUser } = await completePasswordReset(resetToken, nextPassword);
+      setUser(nextUser);
+      persistToken(next);
+    },
+    [persistToken],
+  );
+
   const logout = useCallback(() => {
     setUser(null);
     persistToken(null);
   }, [persistToken]);
 
   const value = useMemo(
-    () => ({ user, token, loading, login, register, logout }),
-    [user, token, loading, login, register, logout],
+    () => ({ user, token, loading, login, register, resetPassword, logout }),
+    [user, token, loading, login, register, resetPassword, logout],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
