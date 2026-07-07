@@ -12,3 +12,6 @@ export const SITE_SOCIAL = {
 } as const;
 
 export const SITE_SAME_AS = Object.values(SITE_SOCIAL);
+
+/** Official Telegram community — opens in the Telegram app when installed. */
+export const TELEGRAM_COMMUNITY_URL = "https://t.me/ailibarbar";
