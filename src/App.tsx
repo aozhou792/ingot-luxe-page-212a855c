@@ -25,7 +25,7 @@ const App = () => (
         <CartProvider>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/product/cool-mint" element={<Navigate to="/product/peach-watermelon" replace />} />
+            <Route path="/product/cool-mint" element={<Navigate to="/product/blackberry-ice" replace />} />
             <Route
               path="/product/chupa-strawberry"
               element={<Navigate to="/product/strawberry-coconut-watermelon" replace />}
