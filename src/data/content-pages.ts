@@ -1,0 +1,202 @@
+export type ContentSection = {
+  heading: string;
+  paragraphs: string[];
+  bullets?: string[];
+};
+
+export type ContentPage = {
+  slug: string;
+  title: string;
+  /** Meta + hero description. */
+  description: string;
+  intro: string;
+  sections: ContentSection[];
+  updated: string;
+};
+
+const SUPPORT_EMAIL = "orders@ailibarbar.com";
+
+export const contentPages: ContentPage[] = [
+  {
+    slug: "about",
+    title: "About Alibarbar Australia",
+    description:
+      "Alibarbar Australia is an online store dedicated to authentic Alibarbar Ingot 9000 disposable vapes with fast, local delivery for adult customers.",
+    intro:
+      "Alibarbar Australia is an independent online retailer focused on one thing: giving adult Australian vapers a simple, trustworthy way to buy authentic Alibarbar Ingot 9000 devices.",
+    sections: [
+      {
+        heading: "Who we are",
+        paragraphs: [
+          "We are an Australia-based online store specialising in the Alibarbar Ingot 9000 disposable vape range. Rather than stocking dozens of unrelated brands, we concentrate on the Alibarbar line so we can guarantee authenticity and give clear, accurate product information.",
+          "Every device we sell is a genuine Alibarbar Ingot 9000 with the built-in smart LED display, 22ml e-liquid capacity and up to 9000 puffs.",
+        ],
+      },
+      {
+        heading: "What we stand for",
+        paragraphs: ["Our approach is built on a few simple principles:"],
+        bullets: [
+          "Authentic products only — no counterfeits or grey-market stock",
+          "Transparent AUD pricing with clear tiered shipping",
+          "Strictly 18+ — we verify age and never sell to minors",
+          "Responsive support by email for every order",
+        ],
+      },
+      {
+        heading: "Contact us",
+        paragraphs: [
+          `The fastest way to reach us is by email at ${SUPPORT_EMAIL}. We're happy to help with product questions, order status, and delivery enquiries.`,
+        ],
+      },
+    ],
+    updated: "2026-07-01",
+  },
+  {
+    slug: "shipping",
+    title: "Shipping & Delivery Policy",
+    description:
+      "How Alibarbar Australia ships disposable vapes — A$20 shipping under 5 devices, A$10 for 5+ devices, dispatch timing, delivery estimates and tracking for Australian customers.",
+    intro:
+      "We ship Alibarbar Ingot 9000 devices Australia-wide. This page explains our shipping costs, dispatch process and estimated delivery times.",
+    sections: [
+      {
+        heading: "Shipping cost",
+        paragraphs: [
+          "Regular Post shipping is A$20 for orders under 5 devices and A$10 for orders of 5 or more devices, added automatically at checkout. There are no hidden handling fees.",
+        ],
+      },
+      {
+        heading: "Dispatch and processing",
+        paragraphs: [
+          "Orders are dispatched after your bank transfer has been received and confirmed by our team. To avoid delays, please transfer the full order total and use your order number as the payment reference, then upload your payment screenshot.",
+        ],
+      },
+      {
+        heading: "Delivery estimates",
+        paragraphs: [
+          "Once dispatched, delivery typically takes 3-7 business days depending on your location. Metropolitan areas such as Sydney, Melbourne, Brisbane, Perth and Adelaide are usually faster, while regional and remote postcodes can take longer.",
+        ],
+      },
+      {
+        heading: "Tracking",
+        paragraphs: [
+          `If you'd like tracking information, email us your order number at ${SUPPORT_EMAIL} and we'll share the latest status of your delivery.`,
+        ],
+      },
+    ],
+    updated: "2026-07-01",
+  },
+  {
+    slug: "returns",
+    title: "Returns & Refunds Policy",
+    description:
+      "Alibarbar Australia's returns and refunds policy for disposable vapes, including faulty-item handling and how to contact support.",
+    intro:
+      "We want you to be satisfied with your order. Because disposable vapes are consumable products, our returns policy is designed around health, safety and consumer-law obligations.",
+    sections: [
+      {
+        heading: "Change-of-mind returns",
+        paragraphs: [
+          "For hygiene and safety reasons, opened or used disposable vape devices cannot be returned for change of mind. Please choose your flavours carefully, and consider the 5 Flavour Custom Pack if you'd like to try several options.",
+        ],
+      },
+      {
+        heading: "Faulty or damaged items",
+        paragraphs: [
+          "If a device arrives damaged or is faulty out of the box, contact us within 7 days of delivery. Under the Australian Consumer Law you may be entitled to a replacement or refund for products that are not of acceptable quality.",
+        ],
+        bullets: [
+          "Email us with your order number and a description of the issue",
+          "Include a photo or short video showing the fault where possible",
+          "Do not discard the device until we've assessed the claim",
+        ],
+      },
+      {
+        heading: "How to start a return",
+        paragraphs: [
+          `To start a return or report a fault, email ${SUPPORT_EMAIL} with your order number. We'll respond with the next steps as quickly as we can.`,
+        ],
+      },
+    ],
+    updated: "2026-07-01",
+  },
+  {
+    slug: "privacy",
+    title: "Privacy Policy",
+    description:
+      "How Alibarbar Australia collects, uses and protects your personal information when you shop for disposable vapes online.",
+    intro:
+      "This Privacy Policy explains what information we collect when you use Alibarbar Australia, how we use it, and the choices you have. By using our site you agree to the practices described here.",
+    sections: [
+      {
+        heading: "Information we collect",
+        paragraphs: ["We collect only the information needed to process your order and provide support:"],
+        bullets: [
+          "Contact and delivery details (name, email, phone, shipping address)",
+          "Order details and your uploaded payment confirmation",
+          "Account details if you create one (email, display name, encrypted password)",
+          "Basic technical data such as your browser type for site functionality",
+        ],
+      },
+      {
+        heading: "How we use your information",
+        paragraphs: [
+          "We use your information to process and deliver orders, verify payments, provide customer support, and confirm you meet the 18+ age requirement. We do not sell your personal information to third parties.",
+        ],
+      },
+      {
+        heading: "Data security",
+        paragraphs: [
+          "Your data is transmitted over encrypted HTTPS connections. Account passwords are stored using strong one-way hashing and are never kept in plain text. Payment is made by direct bank transfer, so we do not store card numbers.",
+        ],
+      },
+      {
+        heading: "Your choices",
+        paragraphs: [
+          `You can request access to, correction of, or deletion of your personal information at any time by emailing ${SUPPORT_EMAIL}.`,
+        ],
+      },
+    ],
+    updated: "2026-07-01",
+  },
+  {
+    slug: "terms",
+    title: "Terms of Service",
+    description:
+      "The terms and conditions for using Alibarbar Australia and purchasing Alibarbar Ingot 9000 disposable vapes online.",
+    intro:
+      "These Terms of Service govern your use of Alibarbar Australia and any purchases you make. By placing an order you agree to these terms.",
+    sections: [
+      {
+        heading: "Eligibility",
+        paragraphs: [
+          "You must be 18 years or older and of legal age to purchase vaping products in your state or territory. By ordering, you confirm that you meet this requirement. Products are intended only for existing adult smokers or vapers.",
+        ],
+      },
+      {
+        heading: "Orders and pricing",
+        paragraphs: [
+          "All prices are in Australian dollars and include applicable amounts shown at checkout, with tiered Regular Post shipping calculated by device count. We reserve the right to cancel any order where payment cannot be verified or where an item is unavailable, in which case any funds received will be refunded.",
+        ],
+      },
+      {
+        heading: "Product information",
+        paragraphs: [
+          "We aim to describe our products accurately, including puff counts and specifications. Puff counts are manufacturer estimates and actual performance varies with individual use.",
+        ],
+      },
+      {
+        heading: "Limitation of liability",
+        paragraphs: [
+          "To the extent permitted by law, Alibarbar Australia is not liable for indirect or consequential loss arising from the use of our products. Nothing in these terms excludes rights you have under the Australian Consumer Law.",
+        ],
+      },
+    ],
+    updated: "2026-07-01",
+  },
+];
+
+export function getContentPageBySlug(slug: string | undefined): ContentPage | undefined {
+  if (!slug) return undefined;
+  return contentPages.find((p) => p.slug === slug);
+}

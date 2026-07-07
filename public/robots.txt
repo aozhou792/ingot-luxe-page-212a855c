@@ -6,5 +6,6 @@ Disallow: /checkout
 Disallow: /order-complete
 Disallow: /orders2589
 Disallow: /whatsapp-qr
+Disallow: /reset-password
 
 Sitemap: https://www.ailibarbar.com/sitemap.xml

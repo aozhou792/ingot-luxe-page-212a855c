@@ -12,6 +12,19 @@ export type CartLine = {
 
 const STORAGE_KEY = "alibarbar-cart";
 
+function productForCartSlug(slug: string) {
+  return (
+    getProductBySlug(slug) ??
+    (slug.startsWith("custom-3-pack-")
+      ? getProductBySlug("custom-3-pack")
+      : slug.startsWith("custom-5-pack-")
+        ? getProductBySlug("custom-5-pack")
+        : slug.startsWith("custom-10-pack-")
+          ? getProductBySlug("custom-10-pack")
+          : undefined)
+  );
+}
+
 function loadLines(): CartLine[] {
   if (typeof window === "undefined") return [];
   try {
@@ -30,9 +43,7 @@ function loadLines(): CartLine[] {
           typeof l.qty === "number",
       )
       .map((line) => {
-        const product =
-          getProductBySlug(line.slug) ??
-          (line.slug.startsWith("custom-5-pack-") ? getProductBySlug("custom-5-pack") : undefined);
+        const product = productForCartSlug(line.slug);
         if (!product) return line;
         return { ...line, price: Number.parseFloat(product.price), image: product.img };
       });
@@ -44,6 +55,8 @@ function loadLines(): CartLine[] {
 type CartContextValue = {
   lines: CartLine[];
   itemCount: number;
+  /** Actual vape devices in cart, so custom packs count as 3/5/10 devices. */
+  deviceCount: number;
   subtotal: number;
   addToCart: (item: { slug: string; name: string; price: string; image: string; qty?: number }) => void;
   /** Replace cart with this line only (for express checkout). */
@@ -113,12 +126,23 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const itemCount = useMemo(() => lines.reduce((n, l) => n + l.qty, 0), [lines]);
 
+  const deviceCount = useMemo(
+    () =>
+      lines.reduce((n, line) => {
+        const product = productForCartSlug(line.slug);
+        const unitsPerLine = product?.isCustomPack ? product.customPackSize ?? 5 : 1;
+        return n + unitsPerLine * line.qty;
+      }, 0),
+    [lines],
+  );
+
   const subtotal = useMemo(() => lines.reduce((sum, l) => sum + l.price * l.qty, 0), [lines]);
 
   const value = useMemo(
     () => ({
       lines,
       itemCount,
+      deviceCount,
       subtotal,
       addToCart,
       buyNow,
@@ -126,7 +150,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       removeLine,
       clearCart,
     }),
-    [lines, itemCount, subtotal, addToCart, buyNow, setLineQty, removeLine, clearCart],
+    [lines, itemCount, deviceCount, subtotal, addToCart, buyNow, setLineQty, removeLine, clearCart],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

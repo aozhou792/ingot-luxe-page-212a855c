@@ -54,13 +54,13 @@ type FieldErrors = Partial<Record<keyof BillingForm, string>>;
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
-  const { lines, itemCount, subtotal, clearCart } = useCart();
+  const { lines, deviceCount, subtotal, clearCart } = useCart();
   const [form, setForm] = useState<BillingForm>(initialForm);
   const [errors, setErrors] = useState<FieldErrors>({});
 
   const hasItems = lines.length > 0;
-  const shipping = shippingAud(itemCount);
-  const total = orderTotal(subtotal, itemCount);
+  const shipping = shippingAud(deviceCount);
+  const total = orderTotal(subtotal, deviceCount);
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -318,6 +318,10 @@ const CheckoutPage = () => {
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Subtotal</span>
                   <span className="tabular-nums">{formatAud(subtotal)}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Devices</span>
+                  <span className="tabular-nums">{deviceCount}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Shipment</span>

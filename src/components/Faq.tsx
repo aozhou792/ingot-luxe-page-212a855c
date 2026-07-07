@@ -1,7 +1,13 @@
+import { Link } from "react-router-dom";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { faqItems } from "@/data/faq";
 
+/** Homepage shows a curated subset; the full list lives on /faq. */
+const HOME_FAQ_COUNT = 8;
+
 export const Faq = () => {
+  const homeItems = faqItems.slice(0, HOME_FAQ_COUNT);
+
   return (
     <section id="faq" className="py-16 sm:py-20 md:py-28 relative scroll-mt-20">
       <div className="container max-w-3xl">
@@ -13,13 +19,13 @@ export const Faq = () => {
             Frequently Asked <span className="text-gold">Questions</span>
           </h2>
           <p className="text-muted-foreground mt-3 sm:mt-4 text-sm sm:text-base px-2">
-            Shipping, payment, and ordering answers for Australian customers.
+            Shipping, payment, and product answers for Australian customers.
           </p>
           <div className="gold-divider mt-6 sm:mt-8 max-w-xs mx-auto" />
         </div>
 
         <Accordion type="single" collapsible className="reveal rounded-2xl border border-gold/25 bg-card/50 px-4 sm:px-6">
-          {faqItems.map((item, index) => (
+          {homeItems.map((item, index) => (
             <AccordionItem key={item.question} value={`faq-${index}`} className="border-gold/15">
               <AccordionTrigger className="text-left text-sm sm:text-base font-semibold hover:text-primary">
                 {item.question}
@@ -30,6 +36,15 @@ export const Faq = () => {
             </AccordionItem>
           ))}
         </Accordion>
+
+        <div className="text-center mt-6 sm:mt-8 reveal">
+          <Link
+            to="/faq"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-gold transition-colors"
+          >
+            View all {faqItems.length} FAQs →
+          </Link>
+        </div>
       </div>
     </section>
   );

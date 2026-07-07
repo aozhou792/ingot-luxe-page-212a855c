@@ -167,6 +167,15 @@ export const Flavors = () => {
             </div>
           </div>
         ) : null}
+
+        <div className="text-center mt-8 sm:mt-12 reveal">
+          <Link
+            to="/flavours"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-gold transition-colors"
+          >
+            Compare all flavours in the Flavour Centre →
+          </Link>
+        </div>
       </div>
     </section>
   );

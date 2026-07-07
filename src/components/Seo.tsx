@@ -97,9 +97,42 @@ export function Seo({
   return null;
 }
 
+const organizationNode = {
+  "@type": "Organization",
+  "@id": `${SITE_URL}/#organization`,
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: {
+    "@type": "ImageObject",
+    url: `${SITE_URL}/favicon.svg`,
+  },
+  image: DEFAULT_IMAGE,
+  description:
+    "Alibarbar Australia is an online store for authentic Alibarbar Ingot 9000 disposable vapes with fast local delivery.",
+  areaServed: { "@type": "Country", name: "Australia" },
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "orders@ailibarbar.com",
+    contactType: "customer support",
+    areaServed: "AU",
+    availableLanguage: ["en"],
+  },
+};
+
+const websiteNode = {
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  name: SITE_NAME,
+  url: SITE_URL,
+  inLanguage: "en-AU",
+  publisher: { "@id": `${SITE_URL}/#organization` },
+};
+
 export const siteJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
+    organizationNode,
+    websiteNode,
     {
       "@type": "OnlineStore",
       "@id": `${SITE_URL}/#store`,
@@ -109,6 +142,7 @@ export const siteJsonLd = {
       image: DEFAULT_IMAGE,
       currenciesAccepted: "AUD",
       paymentAccepted: "Bank Transfer",
+      parentOrganization: { "@id": `${SITE_URL}/#organization` },
       areaServed: {
         "@type": "Country",
         name: "Australia",
@@ -164,6 +198,20 @@ export const siteJsonLd = {
   ],
 } as const;
 
+export type BreadcrumbEntry = { name: string; path: string };
+
+export function breadcrumbNode(items: BreadcrumbEntry[]) {
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  };
+}
+
 export function productJsonLd(product: {
   name: string;
   description: string;
@@ -172,9 +220,10 @@ export function productJsonLd(product: {
   inStock: boolean;
   path: string;
   rating?: { average: number; count: number };
+  breadcrumbs?: BreadcrumbEntry[];
+  faq?: { question: string; answer: string }[];
 }) {
-  const schema: Record<string, unknown> = {
-    "@context": "https://schema.org",
+  const productNode: Record<string, unknown> = {
     "@type": "Product",
     name: product.name,
     description: product.description,
@@ -193,7 +242,7 @@ export function productJsonLd(product: {
   };
 
   if (product.rating && product.rating.count > 0) {
-    schema.aggregateRating = {
+    productNode.aggregateRating = {
       "@type": "AggregateRating",
       ratingValue: product.rating.average,
       reviewCount: product.rating.count,
@@ -202,5 +251,72 @@ export function productJsonLd(product: {
     };
   }
 
-  return schema;
+  const graph: Record<string, unknown>[] = [productNode];
+  if (product.breadcrumbs && product.breadcrumbs.length > 0) {
+    graph.push(breadcrumbNode(product.breadcrumbs));
+  }
+  if (product.faq && product.faq.length > 0) {
+    graph.push({
+      "@type": "FAQPage",
+      mainEntity: product.faq.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer },
+      })),
+    });
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": graph,
+  };
+}
+
+export function articleJsonLd(article: {
+  title: string;
+  description: string;
+  path: string;
+  image?: string;
+  datePublished?: string;
+  dateModified?: string;
+  breadcrumbs?: BreadcrumbEntry[];
+}) {
+  const graph: Record<string, unknown>[] = [
+    {
+      "@type": "Article",
+      headline: article.title,
+      description: article.description,
+      image: absoluteUrl(article.image ?? DEFAULT_IMAGE),
+      mainEntityOfPage: absoluteUrl(article.path),
+      inLanguage: "en-AU",
+      datePublished: article.datePublished ?? "2026-01-01",
+      dateModified: article.dateModified ?? article.datePublished ?? "2026-01-01",
+      author: { "@id": `${SITE_URL}/#organization` },
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+  ];
+
+  if (article.breadcrumbs && article.breadcrumbs.length > 0) {
+    graph.push(breadcrumbNode(article.breadcrumbs));
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": graph,
+  };
+}
+
+export function faqPageJsonLd(items: { question: string; answer: string }[], breadcrumbs?: BreadcrumbEntry[]) {
+  const graph: Record<string, unknown>[] = [
+    {
+      "@type": "FAQPage",
+      mainEntity: items.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer },
+      })),
+    },
+  ];
+  if (breadcrumbs && breadcrumbs.length > 0) graph.push(breadcrumbNode(breadcrumbs));
+  return { "@context": "https://schema.org", "@graph": graph };
 }

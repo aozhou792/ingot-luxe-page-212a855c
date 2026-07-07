@@ -6,10 +6,12 @@ import { useAuth } from "@/context/AuthContext";
 import { AuthModal } from "@/components/AuthModal";
 
 const links = [
-  { label: "Home", to: "/#home" },
-  { label: "Flavors", to: "/#flavors" },
-  { label: "Features", to: "/#features" },
-  { label: "Contact", to: "/#contact" },
+  { label: "Shop", to: "/#flavors" },
+  { label: "Flavours", to: "/flavours" },
+  { label: "Guides", to: "/guides" },
+  { label: "Compare", to: "/compare" },
+  { label: "Reviews", to: "/reviews" },
+  { label: "FAQ", to: "/faq" },
 ] as const;
 
 export const Navbar = () => {

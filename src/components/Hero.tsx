@@ -30,14 +30,14 @@ export const Hero = () => {
           </div>
 
           <h1 className="text-[1.75rem] min-[400px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] sm:leading-[1.05] px-1 sm:px-0">
-            The Ultimate <br />
-            <span className="text-gold">Luxury Vaping</span> <br />
-            Experience.
+            Buy Alibarbar <br />
+            <span className="text-gold">Ingot 9000</span> <br />
+            in Australia
           </h1>
 
           <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed px-1 sm:px-0">
-            Alibarbar Ingot 9000 Puffs. Featuring a smart digital display, premium gold bar design,
-            and intense, masterfully crafted flavors.
+            Authentic Alibarbar Ingot 9000 Puffs disposable vapes with a smart digital display, premium gold-bar
+            design, and masterfully crafted flavours — fast Australia-wide delivery and secure checkout.
           </p>
 
           <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center justify-center lg:justify-start">

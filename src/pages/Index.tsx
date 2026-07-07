@@ -4,8 +4,11 @@ import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
 import { Flavors } from "@/components/Flavors";
+import { HowItWorks } from "@/components/HowItWorks";
 import { CustomerReviews } from "@/components/CustomerReviews";
+import { HomeGuides } from "@/components/HomeGuides";
 import { Faq } from "@/components/Faq";
+import { HomeFiveStarReviews } from "@/components/HomeFiveStarReviews";
 import { Footer } from "@/components/Footer";
 import { Seo, siteJsonLd } from "@/components/Seo";
 import { useReveal } from "@/hooks/use-reveal";
@@ -34,8 +37,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Alibarbar Ingot 9000 Australia | Online Vape Shop"
-        description="Shop Alibarbar Ingot 9000 disposable vapes in Australia. Choose signature flavours or build a 5-piece custom pack with AUD pricing and local delivery."
+        title="Buy Alibarbar Ingot 9000 Australia | Official Disposable Vape Store"
+        description="Shop authentic Alibarbar Ingot 9000 disposable vapes in Australia. Fast local delivery, premium flavours, secure checkout and custom 5-pack bundles for adults 18+."
         path="/"
         jsonLd={siteJsonLd}
       />
@@ -44,8 +47,11 @@ const Index = () => {
         <Hero />
         <Flavors />
         <Features />
+        <HowItWorks />
         <CustomerReviews />
+        <HomeGuides />
         <Faq />
+        <HomeFiveStarReviews />
       </main>
       <Footer />
     </div>

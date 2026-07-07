@@ -9,10 +9,10 @@ import { formatAud } from "@/lib/format";
 import { SHIPPING_LABEL, orderTotal, shippingAud, shippingRateHint } from "@/lib/checkout";
 
 const CartPage = () => {
-  const { lines, itemCount, subtotal, setLineQty, removeLine } = useCart();
+  const { lines, deviceCount, subtotal, setLineQty, removeLine } = useCart();
   const hasItems = lines.length > 0;
-  const shipping = shippingAud(itemCount);
-  const total = orderTotal(subtotal, itemCount);
+  const shipping = shippingAud(deviceCount);
+  const total = orderTotal(subtotal, deviceCount);
 
   return (
     <div className="min-h-screen bg-background">
@@ -108,6 +108,10 @@ const CartPage = () => {
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Subtotal</span>
                 <span className="font-semibold text-indigo-900 tabular-nums">{formatAud(subtotal)}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Devices</span>
+                <span className="tabular-nums">{deviceCount}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Shipping</span>

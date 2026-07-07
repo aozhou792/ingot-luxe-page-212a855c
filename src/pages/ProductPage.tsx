@@ -2,10 +2,18 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "reac
 import { Link, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { getProductBySlug, getRelatedProducts, getSelectableFlavorProducts } from "@/data/products";
+import {
+  deviceSpecifications,
+  getProductBySlug,
+  getProductFaq,
+  getRelatedProducts,
+  getSelectableFlavorProducts,
+  howToUseSteps,
+} from "@/data/products";
+import { getFlavourBySlug } from "@/data/flavours";
 import { ProductPrice } from "@/components/ProductPrice";
 import { ProductReviews } from "@/components/reviews/ProductReviews";
-import { Seo, productJsonLd } from "@/components/Seo";
+import { Seo, productJsonLd, type BreadcrumbEntry } from "@/components/Seo";
 import { useCart } from "@/context/CartContext";
 import { useReveal } from "@/hooks/use-reveal";
 import { ArrowLeft, Check, ChevronRight, Minus, Package, Plus, Sparkles, Truck } from "lucide-react";
@@ -19,13 +27,12 @@ const highlights = [
   { icon: Truck, label: "Fast fulfilment" },
 ] as const;
 
-const CUSTOM_PACK_SIZE = 5;
-
 const ProductPage = () => {
   useReveal();
   const location = useLocation();
   const { slug } = useParams<{ slug: string }>();
   const product = getProductBySlug(slug);
+  const customPackSize = product?.customPackSize ?? 5;
   const homeScrollY = (location.state as ProductLocationState | null)?.homeScrollY;
   const backHomeState: HomeRestoreState | undefined =
     typeof homeScrollY === "number" && !Number.isNaN(homeScrollY)
@@ -36,7 +43,7 @@ const ProductPage = () => {
   const navigate = useNavigate();
   const { addToCart, buyNow } = useCart();
   const [qty, setQty] = useState(1);
-  const [selectedCustomFlavors, setSelectedCustomFlavors] = useState<string[]>(() => Array(CUSTOM_PACK_SIZE).fill(""));
+  const [selectedCustomFlavors, setSelectedCustomFlavors] = useState<string[]>(() => Array(customPackSize).fill(""));
   const [reviewRating, setReviewRating] = useState<{ average: number; count: number }>({ average: 0, count: 0 });
   const handleReviewAggregate = useCallback((aggregate: { average: number; count: number }) => {
     setReviewRating(aggregate);
@@ -67,8 +74,8 @@ const ProductPage = () => {
 
   useEffect(() => {
     setQty(1);
-    setSelectedCustomFlavors(Array(CUSTOM_PACK_SIZE).fill(""));
-  }, [slug]);
+    setSelectedCustomFlavors(Array(customPackSize).fill(""));
+  }, [customPackSize, slug]);
 
   if (!product) {
     return <Navigate to="/" replace />;
@@ -77,8 +84,17 @@ const ProductPage = () => {
   const paragraphs = product.description.split("\n\n").filter(Boolean);
   const productPath = `/product/${product.slug}`;
   const seoDescription = product.excerpt.length > 155 ? `${product.excerpt.slice(0, 152).trim()}...` : product.excerpt;
+  const productFaq = getProductFaq(product);
+  const flavourProfile = getFlavourBySlug(product.slug);
+  const breadcrumbs: BreadcrumbEntry[] = [
+    { name: "Home", path: "/" },
+    { name: "Shop", path: "/#flavors" },
+    { name: product.name, path: productPath },
+  ];
 
-  const isCustomPackComplete = !product.isCustomPack || selectedCustomFlavors.every(Boolean);
+  const isCustomPackComplete =
+    !product.isCustomPack ||
+    (selectedCustomFlavors.length === customPackSize && selectedCustomFlavors.every(Boolean));
   const cartItem = product.isCustomPack
     ? {
         slug: `${product.slug}-${selectedCustomFlavors.map((flavor) => flavor.toLowerCase().replace(/[^a-z0-9]+/g, "-")).join("-")}`,
@@ -115,6 +131,8 @@ const ProductPage = () => {
           inStock: product.inStock,
           path: productPath,
           rating: reviewRating,
+          breadcrumbs,
+          faq: productFaq,
         })}
       />
       {/* Ambient background — matches landing luxury feel */}
@@ -126,15 +144,21 @@ const ProductPage = () => {
       <Navbar />
       <main className="pt-[calc(5rem+env(safe-area-inset-top))] sm:pt-[calc(6rem+env(safe-area-inset-top))] pb-14 sm:pb-20 md:pb-24">
         <div className="container max-w-6xl">
-          <nav aria-label="Back to home" className="mb-8 sm:mb-10 px-1">
+          <nav aria-label="Breadcrumb" className="mb-8 sm:mb-10 px-1 flex flex-wrap items-center gap-x-2 gap-y-1">
             <Link
               to="/"
               state={backHomeState}
-              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 -ml-2 px-2 py-2 sm:py-0 rounded-lg sm:rounded-none hover:bg-primary/5 sm:hover:bg-transparent"
+              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors -ml-2 px-2 py-2 sm:py-0 rounded-lg sm:rounded-none hover:bg-primary/5 sm:hover:bg-transparent"
             >
               <ArrowLeft className="w-4 h-4 shrink-0 opacity-80" />
-              Back to home
+              Home
             </Link>
+            <span className="text-muted-foreground/50 text-sm">/</span>
+            <Link to="/#flavors" state={backHomeState} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              Shop
+            </Link>
+            <span className="text-muted-foreground/50 text-sm">/</span>
+            <span className="text-sm text-foreground font-medium truncate max-w-[12rem]">{product.name}</span>
           </nav>
 
           <div className="grid lg:grid-cols-[1.05fr_1fr] gap-8 sm:gap-10 lg:gap-14 xl:gap-16 items-start">
@@ -202,7 +226,9 @@ const ProductPage = () => {
                     originalClassName="text-lg sm:text-xl pb-1 sm:pb-1.5"
                   />
                   <span className="text-xs sm:text-sm text-muted-foreground pb-1 sm:pb-1.5 max-w-[12rem] sm:max-w-none leading-snug">
-                    {product.isCustomPack ? "5 devices · choose your flavours" : "per device · incl. smart display"}
+                    {product.isCustomPack
+                      ? `${customPackSize} devices · choose your flavours`
+                      : "per device · incl. smart display"}
                   </span>
                 </div>
               </div>
@@ -217,14 +243,24 @@ const ProductPage = () => {
                 {product.excerpt}
               </blockquote>
 
+              {flavourProfile ? (
+                <p className="text-sm text-muted-foreground">
+                  New to this one?{" "}
+                  <Link to={`/flavours/${flavourProfile.slug}`} className="text-primary font-semibold hover:text-gold">
+                    Read the full {product.name} flavour profile
+                  </Link>{" "}
+                  — taste notes, sweetness &amp; cooling.
+                </p>
+              ) : null}
+
               {product.isCustomPack ? (
                 <div className="rounded-2xl border border-gold/35 bg-card/70 p-4 sm:p-6 space-y-4">
                   <div>
                     <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-primary/80 font-semibold">
-                      Choose 5 flavours
+                      Choose {customPackSize} flavours
                     </p>
                     <p className="mt-1 text-sm text-muted-foreground">
-                      Select any 5 from the current flavour collection. Repeats are allowed.
+                      Select any {customPackSize} from the current flavour collection. Repeats are allowed.
                     </p>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-3">
@@ -252,7 +288,9 @@ const ProductPage = () => {
                     ))}
                   </div>
                   {!isCustomPackComplete ? (
-                    <p className="text-xs text-primary">Please choose all 5 flavours before adding this pack to cart.</p>
+                    <p className="text-xs text-primary">
+                      Please choose all {customPackSize} flavours before adding this pack to cart.
+                    </p>
                   ) : null}
                 </div>
               ) : null}
@@ -354,6 +392,57 @@ const ProductPage = () => {
               </div>
             </div>
           </section>
+
+          {/* Specifications + how to use */}
+          <section className="mt-8 sm:mt-12 grid lg:grid-cols-2 gap-4 sm:gap-6">
+            {!product.isCustomPack ? (
+              <div className="rounded-2xl border border-gold/25 bg-card/50 p-5 sm:p-7">
+                <h2 className="text-lg sm:text-xl font-bold mb-4">Specifications</h2>
+                <dl className="divide-y divide-gold/10">
+                  {deviceSpecifications.map((spec) => (
+                    <div key={spec.label} className="flex items-start justify-between gap-4 py-2.5">
+                      <dt className="text-sm text-muted-foreground">{spec.label}</dt>
+                      <dd className="text-sm font-medium text-right">{spec.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            ) : null}
+
+            <div className={`rounded-2xl border border-gold/25 bg-card/50 p-5 sm:p-7 ${product.isCustomPack ? "lg:col-span-2" : ""}`}>
+              <h2 className="text-lg sm:text-xl font-bold mb-4">How to use</h2>
+              <ol className="space-y-3">
+                {howToUseSteps.map((step, i) => (
+                  <li key={step} className="flex gap-3 text-sm text-muted-foreground leading-relaxed">
+                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary text-xs font-bold">
+                      {i + 1}
+                    </span>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+
+          {/* Product FAQ */}
+          {productFaq.length > 0 ? (
+            <section className="mt-8 sm:mt-12 rounded-2xl border border-gold/25 bg-card/50 p-5 sm:p-7">
+              <h2 className="text-lg sm:text-xl font-bold mb-4">Questions about the {product.name}</h2>
+              <div className="space-y-4">
+                {productFaq.map((item) => (
+                  <div key={item.question}>
+                    <h3 className="text-sm sm:text-base font-semibold">{item.question}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{item.answer}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-5 text-sm text-muted-foreground">
+                Want more detail? Read our{" "}
+                <Link to="/guides" className="text-primary font-semibold hover:text-gold">Alibarbar guides</Link> or the{" "}
+                <Link to="/faq" className="text-primary font-semibold hover:text-gold">full FAQ</Link>.
+              </p>
+            </section>
+          ) : null}
 
           <ProductReviews slug={product.slug} onAggregate={handleReviewAggregate} />
 

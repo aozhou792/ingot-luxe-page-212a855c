@@ -1,17 +1,51 @@
+import { Link } from "react-router-dom";
 import { Instagram, Twitter, Facebook, Youtube } from "lucide-react";
+import { guides } from "@/data/guides";
+
+const shopLinks = [
+  { label: "All Flavours", to: "/flavours" },
+  { label: "3 Flavour Custom Pack", to: "/product/custom-3-pack" },
+  { label: "5 Flavour Custom Pack", to: "/product/custom-5-pack" },
+  { label: "10 Flavour Custom Pack", to: "/product/custom-10-pack" },
+  { label: "Quadruple Berry", to: "/product/quadruple-berry" },
+];
+
+const exploreLinks = [
+  { label: "Guides", to: "/guides" },
+  { label: "Compare", to: "/compare" },
+  { label: "Reviews", to: "/reviews" },
+  { label: "Brands", to: "/brands" },
+  { label: "Blog", to: "/blog" },
+  { label: "FAQ", to: "/faq" },
+  { label: "Shipping FAQ", to: "/faq/shipping" },
+  { label: "Payment FAQ", to: "/faq/payment" },
+];
+
+const companyLinks = [
+  { label: "About Us", to: "/about" },
+  { label: "Contact", to: "/contact" },
+];
+
+const policyLinks = [
+  { label: "Shipping & Delivery", to: "/shipping" },
+  { label: "Returns & Refunds", to: "/returns" },
+  { label: "Privacy Policy", to: "/privacy" },
+  { label: "Terms of Service", to: "/terms" },
+];
 
 export const Footer = () => (
   <footer
     id="contact"
     className="border-t border-gold/30 bg-card/50 mt-8 sm:mt-10 scroll-mt-20 pb-[env(safe-area-inset-bottom)]"
   >
-    <div className="container py-10 sm:py-14 md:py-16 grid md:grid-cols-4 gap-8 sm:gap-10">
-      <div className="md:col-span-2 space-y-3 sm:space-y-4 text-center md:text-left">
+    <div className="container py-10 sm:py-14 md:py-16 grid grid-cols-2 md:grid-cols-6 gap-8 sm:gap-10">
+      <div className="col-span-2 space-y-3 sm:space-y-4 text-center md:text-left">
         <h3 className="text-xl sm:text-2xl font-extrabold tracking-[0.12em] sm:tracking-[0.15em] shimmer-text">
           ALIBARBAR
         </h3>
         <p className="text-muted-foreground max-w-md mx-auto md:mx-0 text-sm sm:text-base">
-          Premium luxury disposable vaping. Crafted for connoisseurs who demand the extraordinary.
+          Australia's destination for authentic Alibarbar Ingot 9000 disposable vapes. Premium flavours, fast local
+          delivery, and secure checkout for adults 18+.
         </p>
         <div className="flex gap-3 pt-2 justify-center md:justify-start">
           {[Instagram, Twitter, Facebook, Youtube].map((Icon, i) => (
@@ -30,25 +64,65 @@ export const Footer = () => (
       <div className="text-center md:text-left">
         <h4 className="text-sm uppercase tracking-widest text-gold mb-3 sm:mb-4">Shop</h4>
         <ul className="space-y-2 text-sm text-muted-foreground">
-          <li><a href="#flavors" className="hover:text-primary">Flavors</a></li>
-          <li><a href="#" className="hover:text-primary">Bundles</a></li>
-          <li><a href="#" className="hover:text-primary">Accessories</a></li>
+          {shopLinks.map((link) => (
+            <li key={link.label}>
+              <Link to={link.to} className="hover:text-primary">{link.label}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="text-center md:text-left">
+        <h4 className="text-sm uppercase tracking-widest text-gold mb-3 sm:mb-4">Explore</h4>
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          {exploreLinks.map((link) => (
+            <li key={link.label}>
+              <Link to={link.to} className="hover:text-primary">{link.label}</Link>
+            </li>
+          ))}
         </ul>
       </div>
 
       <div className="text-center md:text-left">
         <h4 className="text-sm uppercase tracking-widest text-gold mb-3 sm:mb-4">Company</h4>
         <ul className="space-y-2 text-sm text-muted-foreground">
-          <li><a href="#" className="hover:text-primary">About</a></li>
-          <li><a href="#" className="hover:text-primary">Contact</a></li>
-          <li><a href="#" className="hover:text-primary">Privacy</a></li>
+          {companyLinks.map((link) => (
+            <li key={link.label}>
+              <Link to={link.to} className="hover:text-primary">{link.label}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="text-center md:text-left">
+        <h4 className="text-sm uppercase tracking-widest text-gold mb-3 sm:mb-4">Policies</h4>
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          {policyLinks.map((link) => (
+            <li key={link.label}>
+              <Link to={link.to} className="hover:text-primary">{link.label}</Link>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
+
+    <div className="border-t border-gold/20">
+      <div className="container py-6">
+        <h4 className="text-xs uppercase tracking-widest text-gold mb-3 text-center md:text-left">Popular guides</h4>
+        <ul className="flex flex-wrap gap-x-4 gap-y-2 justify-center md:justify-start text-xs text-muted-foreground">
+          {guides.map((guide) => (
+            <li key={guide.slug}>
+              <Link to={`/guides/${guide.slug}`} className="hover:text-primary">{guide.title}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
     <div className="border-t border-gold/20">
       <div className="container py-5 sm:py-6 flex flex-col md:flex-row gap-3 md:gap-2 items-center justify-between text-xs text-muted-foreground text-center md:text-left px-2">
-        <p>© 2026 Alibarbar. All rights reserved.</p>
-        <p>Strictly for adults 21+. Please vape responsibly.</p>
+        <p>© 2026 Alibarbar Australia. All rights reserved.</p>
+        <p>Strictly for adults 18+. Please vape responsibly.</p>
       </div>
     </div>
   </footer>

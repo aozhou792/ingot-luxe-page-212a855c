@@ -3,21 +3,23 @@ import { formatAud } from "@/lib/format";
 /** Flat-rate shipping used across cart and checkout. */
 export const SHIPPING_LABEL = "Regular Post";
 
-/** Default checkout shipping. */
-export const DEFAULT_SHIPPING_AUD = 10;
+/** Shipping is based on the actual number of vape devices in the cart. */
+export const SMALL_ORDER_SHIPPING_AUD = 20;
+export const BULK_ORDER_SHIPPING_AUD = 10;
+export const BULK_SHIPPING_THRESHOLD = 5;
 
 export function shippingRateHint(): string {
-  return `Default checkout shipping: ${formatAud(DEFAULT_SHIPPING_AUD)}`;
+  return `${formatAud(SMALL_ORDER_SHIPPING_AUD)} shipping for 1-4 devices; ${formatAud(BULK_ORDER_SHIPPING_AUD)} shipping for ${BULK_SHIPPING_THRESHOLD}+ devices.`;
 }
 
-export function shippingAud(itemCount: number): number {
-  if (itemCount <= 0) return 0;
-  return DEFAULT_SHIPPING_AUD;
+export function shippingAud(deviceCount: number): number {
+  if (deviceCount <= 0) return 0;
+  return deviceCount < BULK_SHIPPING_THRESHOLD ? SMALL_ORDER_SHIPPING_AUD : BULK_ORDER_SHIPPING_AUD;
 }
 
-/** Order total including default shipping. */
-export function orderTotal(subtotal: number, itemCount: number): number {
-  return itemCount > 0 ? subtotal + shippingAud(itemCount) : subtotal;
+/** Order total including device-count shipping. */
+export function orderTotal(subtotal: number, deviceCount: number): number {
+  return deviceCount > 0 ? subtotal + shippingAud(deviceCount) : subtotal;
 }
 
 /** Wise (bank transfer) account the storefront collects payment into. */
