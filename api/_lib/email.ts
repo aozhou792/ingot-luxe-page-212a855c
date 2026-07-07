@@ -43,7 +43,7 @@ export async function sendOrderNotificationEmail(
 ): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.ORDER_NOTIFY_EMAIL ?? "wmitch714@gmail.com";
-  const from = process.env.ORDER_FROM_EMAIL ?? "Alibarbar Orders <onboarding@resend.dev>";
+  const from = process.env.ORDER_FROM_EMAIL ?? "Alibarbar Orders <orders@ailibarbar.com>";
 
   if (!apiKey) {
     console.warn("RESEND_API_KEY missing — skipping email notification");

@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -34,8 +33,6 @@ type BillingForm = {
   phone: string;
   email: string;
   orderNotes: string;
-  createAccount: boolean;
-  shipDifferent: boolean;
 };
 
 const initialForm: BillingForm = {
@@ -50,8 +47,6 @@ const initialForm: BillingForm = {
   phone: "",
   email: "",
   orderNotes: "",
-  createAccount: false,
-  shipDifferent: false,
 };
 
 type FieldErrors = Partial<Record<keyof BillingForm, string>>;
@@ -127,7 +122,7 @@ const CheckoutPage = () => {
         phone: form.phone.trim() || undefined,
         email: form.email.trim(),
       },
-      shipToDifferent: form.shipDifferent,
+      shipToDifferent: false,
     };
     clearCart();
     navigate("/order-complete", { state: order });
@@ -278,23 +273,6 @@ const CheckoutPage = () => {
                       autoComplete="email"
                     />
                   </Field>
-                </div>
-
-                <div className="mt-6 space-y-3">
-                  <label className="flex items-center gap-3 text-sm text-foreground cursor-pointer">
-                    <Checkbox
-                      checked={form.createAccount}
-                      onCheckedChange={(c) => setField("createAccount", c === true)}
-                    />
-                    Create an account?
-                  </label>
-                  <label className="flex items-center gap-3 text-sm text-foreground cursor-pointer">
-                    <Checkbox
-                      checked={form.shipDifferent}
-                      onCheckedChange={(c) => setField("shipDifferent", c === true)}
-                    />
-                    Deliver to a different address?
-                  </label>
                 </div>
 
                 <div className="mt-6">
