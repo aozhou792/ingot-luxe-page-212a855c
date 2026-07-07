@@ -27,7 +27,7 @@ const reasons = [
 
 export const HowItWorks = () => {
   return (
-    <section id="how-it-works" className="pt-16 sm:pt-20 md:pt-28 pb-10 sm:pb-12 md:pb-14 relative scroll-mt-20">
+    <section id="how-it-works" className="pt-10 sm:pt-12 md:pt-14 pb-10 sm:pb-12 md:pb-14 relative scroll-mt-20">
       <div className="container">
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14 reveal px-1">
           <p className="text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary mb-3 sm:mb-4">

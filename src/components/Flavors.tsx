@@ -131,7 +131,7 @@ export const Flavors = () => {
   const placeholderProducts = products.filter((p) => p.isPlaceholder);
 
   return (
-    <section id="flavors" className="py-16 sm:py-20 md:py-28 relative scroll-mt-20">
+    <section id="flavors" className="pt-8 sm:pt-10 md:pt-12 pb-16 sm:pb-20 md:pb-28 relative scroll-mt-20">
       <div className="absolute inset-0 -z-10 opacity-50" style={{ background: "var(--gradient-radial)" }} />
       <div className="container">
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 md:mb-16 reveal px-1">

@@ -55,13 +55,13 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
+        <Flavors />
+        <HowItWorks />
+        <Features />
+        <HomeWhyChoose />
         <HomeIntroduction />
         <HomeIngotExplained />
-        <HomeWhyChoose />
-        <Features />
-        <Flavors />
         <HomeProductSpecs />
-        <HowItWorks />
         <HomeCompareHub />
         <CustomerReviews />
         <HomeGuides />

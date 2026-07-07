@@ -4,7 +4,7 @@ export const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-dvh min-h-screen flex items-center pt-[calc(6rem+env(safe-area-inset-top))] sm:pt-[calc(7rem+env(safe-area-inset-top))] pb-12 sm:pb-16 md:pb-20 overflow-hidden"
+      className="relative min-h-[min(100dvh,720px)] sm:min-h-dvh sm:min-h-screen flex items-center pt-[calc(6rem+env(safe-area-inset-top))] sm:pt-[calc(7rem+env(safe-area-inset-top))] pb-8 sm:pb-12 md:pb-14 overflow-hidden"
     >
       {/* Glow background — scaled down on narrow screens to avoid horizontal overflow */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
