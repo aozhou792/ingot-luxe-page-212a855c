@@ -16,13 +16,26 @@ This repository contains the project source code and a full **Markdown knowledge
 
 ---
 
-## Knowledge Centre
+## Public Data Repositories (GitHub Database)
 
-| Section | Description | Start here |
-|---------|-------------|------------|
-| **FAQ** | Shipping, payment, product & legal questions | [docs/faq/](./docs/faq/) |
-| **Documentation** | Specs, ordering, safety & policies | [docs/documentation/](./docs/documentation/) |
-| **Guides** | Buying guides, flavour picks, usage tips | [docs/guides/](./docs/guides/) |
+Structured public databases for search and reference — **not code projects**:
+
+| Repository | Purpose |
+|------------|---------|
+| [**alibarbar-guide-hub**](https://github.com/aozhou792/alibarbar-guide-hub) | Main hub — buying guides, rankings, comparisons, FAQ |
+| [**alibarbar-flavour-index**](https://github.com/aozhou792/alibarbar-flavour-index) | Top 10 flavour rankings + JSON |
+| [**vape-comparison-data**](https://github.com/aozhou792/vape-comparison-data) | Alibarbar vs IGET / HQD / Gunnpod / KUZ / RELX |
+| [**alibarbar-faq-database**](https://github.com/aozhou792/alibarbar-faq-database) | Structured FAQ JSON (56 questions) |
+
+---
+
+## Local Docs (this repo)
+
+| Section | Start here |
+|---------|------------|
+| **FAQ** | [docs/faq/](./docs/faq/) |
+| **Documentation** | [docs/documentation/](./docs/documentation/) |
+| **Guides** | [docs/guides/](./docs/guides/) |
 
 ### Quick links
 
