@@ -34,13 +34,13 @@ async function uploadReviewPhotos(reviewId: string, dataUrls: string[]): Promise
       throw new Error("Each photo must be under 4 MB.");
     }
     const blob = await put(`${REVIEW_PHOTO_PREFIX}${reviewId}-${index}.${photoExt(contentType)}`, buffer, {
-      access: "public",
+      access: "private",
       contentType,
       token,
       addRandomSuffix: false,
       allowOverwrite: true,
     });
-    urls.push(blob.url);
+    urls.push(blob.pathname);
   }
 
   return urls;
@@ -105,7 +105,9 @@ export function toPublicReview(review: StoredReview): PublicReview {
     rating: review.rating,
     title: review.title,
     body: review.body,
-    photos: review.photos,
+    photos: review.photos?.map((path) =>
+      path.startsWith("http") ? path : `/api/review-photo?path=${encodeURIComponent(path)}`,
+    ),
     createdAt: review.createdAt,
   };
 }

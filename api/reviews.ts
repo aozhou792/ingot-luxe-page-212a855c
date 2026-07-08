@@ -91,7 +91,9 @@ export async function POST(request: Request): Promise<Response> {
     return Response.json({ review: toPublicReview({ ...review }), pending: true });
   } catch (error) {
     console.error("reviews POST failed:", error);
-    return Response.json({ error: "Failed to submit review" }, { status: 500 });
+    const message = error instanceof Error ? error.message : "Failed to submit review";
+    const status = message.includes("photo") || message.includes("Photo") || message.includes("image") ? 400 : 500;
+    return Response.json({ error: message }, { status });
   }
 }
 

@@ -25,23 +25,58 @@ type PhotoPreview = {
   name: string;
 };
 
+async function compressPhoto(file: File): Promise<string> {
+  const bitmap = await createImageBitmap(file);
+  const maxEdge = 1600;
+  const scale = Math.min(1, maxEdge / Math.max(bitmap.width, bitmap.height));
+  const width = Math.max(1, Math.round(bitmap.width * scale));
+  const height = Math.max(1, Math.round(bitmap.height * scale));
+
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("Could not process photo.");
+  ctx.drawImage(bitmap, 0, 0, width, height);
+  bitmap.close();
+
+  const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+  const bytes = Math.ceil((dataUrl.length - "data:image/jpeg;base64,".length) * 0.75);
+  if (bytes > MAX_PHOTO_BYTES) {
+    throw new Error("Each photo must be under 4 MB after compression.");
+  }
+  return dataUrl;
+}
+
 async function readPhoto(file: File): Promise<string> {
   if (!file.type.startsWith("image/")) {
     throw new Error("Please choose image files only.");
   }
-  if (file.size > MAX_PHOTO_BYTES) {
-    throw new Error("Each photo must be under 4 MB.");
+  if (file.size > 12 * 1024 * 1024) {
+    throw new Error("Each photo must be under 12 MB before compression.");
   }
 
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (typeof reader.result === "string") resolve(reader.result);
-      else reject(new Error("Could not read photo."));
-    };
-    reader.onerror = () => reject(new Error("Could not read photo."));
-    reader.readAsDataURL(file);
-  });
+  try {
+    return await compressPhoto(file);
+  } catch {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result !== "string") {
+          reject(new Error("Could not read photo."));
+          return;
+        }
+        const bytes = Math.ceil((reader.result.length - "data:".length) * 0.75);
+        if (bytes > MAX_PHOTO_BYTES) {
+          reject(new Error("Each photo must be under 4 MB."));
+          return;
+        }
+        resolve(reader.result);
+      };
+      reader.onerror = () => reject(new Error("Could not read photo."));
+      reader.readAsDataURL(file);
+    });
+  }
 }
 
 export const ReviewForm = ({ productSlug, productOptions, onSubmitted, compact = false }: ReviewFormProps) => {
