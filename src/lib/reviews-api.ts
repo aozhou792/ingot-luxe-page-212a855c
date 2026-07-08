@@ -5,6 +5,7 @@ export type PublicReview = {
   rating: number;
   title: string;
   body: string;
+  photos?: string[];
   createdAt: string;
 };
 
@@ -41,7 +42,7 @@ export async function fetchReviews(
 
 export async function submitReview(
   token: string,
-  input: { productSlug: string; rating: number; title: string; body: string },
+  input: { productSlug: string; rating: number; title: string; body: string; photos?: string[] },
 ): Promise<void> {
   const response = await fetch("/api/reviews", {
     method: "POST",

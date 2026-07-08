@@ -1,7 +1,50 @@
 import { list, put } from "@vercel/blob";
 import { randomUUID } from "node:crypto";
+import { parseDataUrl } from "./order-store.js";
 
 const REVIEWS_PATH = "reviews/index.json";
+const REVIEW_PHOTO_PREFIX = "reviews/photos/";
+const MAX_PHOTO_BYTES = 4 * 1024 * 1024;
+const MAX_PHOTOS = 3;
+
+function blobToken(): string {
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
+  if (!token) throw new Error("BLOB_READ_WRITE_TOKEN is not configured");
+  return token;
+}
+
+function photoExt(contentType: string): string {
+  if (contentType.includes("png")) return "png";
+  if (contentType.includes("webp")) return "webp";
+  if (contentType.includes("jpeg") || contentType.includes("jpg")) return "jpg";
+  return "jpg";
+}
+
+async function uploadReviewPhotos(reviewId: string, dataUrls: string[]): Promise<string[]> {
+  if (dataUrls.length > MAX_PHOTOS) {
+    throw new Error(`You can upload up to ${MAX_PHOTOS} photos.`);
+  }
+
+  const token = blobToken();
+  const urls: string[] = [];
+
+  for (let index = 0; index < dataUrls.length; index += 1) {
+    const { buffer, contentType } = parseDataUrl(dataUrls[index]);
+    if (buffer.length > MAX_PHOTO_BYTES) {
+      throw new Error("Each photo must be under 4 MB.");
+    }
+    const blob = await put(`${REVIEW_PHOTO_PREFIX}${reviewId}-${index}.${photoExt(contentType)}`, buffer, {
+      access: "public",
+      contentType,
+      token,
+      addRandomSuffix: false,
+      allowOverwrite: true,
+    });
+    urls.push(blob.url);
+  }
+
+  return urls;
+}
 
 export type ReviewStatus = "pending" | "approved" | "rejected";
 
@@ -13,9 +56,9 @@ export type StoredReview = {
   rating: number;
   title: string;
   body: string;
+  photos?: string[];
   status: ReviewStatus;
   createdAt: string;
-  /** Seed reviews are pre-approved sample content, flagged for transparency. */
   seeded?: boolean;
 };
 
@@ -26,14 +69,9 @@ export type PublicReview = {
   rating: number;
   title: string;
   body: string;
+  photos?: string[];
   createdAt: string;
 };
-
-function blobToken(): string {
-  const token = process.env.BLOB_READ_WRITE_TOKEN;
-  if (!token) throw new Error("BLOB_READ_WRITE_TOKEN is not configured");
-  return token;
-}
 
 export async function readReviews(): Promise<StoredReview[]> {
   const token = blobToken();
@@ -67,6 +105,7 @@ export function toPublicReview(review: StoredReview): PublicReview {
     rating: review.rating,
     title: review.title,
     body: review.body,
+    photos: review.photos,
     createdAt: review.createdAt,
   };
 }
@@ -78,16 +117,21 @@ export async function addReview(input: {
   rating: number;
   title: string;
   body: string;
+  photoDataUrls?: string[];
 }): Promise<StoredReview> {
   const reviews = await readReviews();
+  const id = randomUUID();
+  const photos = input.photoDataUrls?.length ? await uploadReviewPhotos(id, input.photoDataUrls) : undefined;
+
   const review: StoredReview = {
-    id: randomUUID(),
+    id,
     productSlug: input.productSlug,
     userId: input.userId,
     author: input.author,
     rating: input.rating,
     title: input.title.trim(),
     body: input.body.trim(),
+    photos,
     status: "pending",
     createdAt: new Date().toISOString(),
   };

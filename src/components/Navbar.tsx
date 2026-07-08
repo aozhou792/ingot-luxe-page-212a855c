@@ -6,13 +6,13 @@ import { useAuth } from "@/context/AuthContext";
 import { AuthModal } from "@/components/AuthModal";
 
 const links = [
-  { label: "Wholesale", to: "/wholesale" },
   { label: "Shop", to: "/#flavors" },
   { label: "Flavours", to: "/flavours" },
   { label: "Guides", to: "/guides" },
   { label: "Compare", to: "/compare" },
   { label: "Reviews", to: "/reviews" },
   { label: "FAQ", to: "/faq" },
+  { label: "Wholesale", to: "/wholesale" },
 ] as const;
 
 export const Navbar = () => {

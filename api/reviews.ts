@@ -64,6 +64,7 @@ export async function POST(request: Request): Promise<Response> {
       rating?: number;
       title?: string;
       body?: string;
+      photos?: string[];
     };
 
     const productSlug = (body.productSlug ?? "").trim();
@@ -84,6 +85,7 @@ export async function POST(request: Request): Promise<Response> {
       rating,
       title,
       body: reviewBody,
+      photoDataUrls: Array.isArray(body.photos) ? body.photos.slice(0, 3) : undefined,
     });
 
     return Response.json({ review: toPublicReview({ ...review }), pending: true });
