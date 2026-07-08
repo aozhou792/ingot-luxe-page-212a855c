@@ -1,5 +1,6 @@
 import { BadgeCheck } from "lucide-react";
 import { StarRating } from "@/components/reviews/StarRating";
+import { ReviewPhotoGrid } from "@/components/reviews/ReviewPhotoGrid";
 import { getProductBySlug } from "@/data/products";
 import type { ShowcaseReview } from "@/data/product-showcase-reviews";
 import type { PublicReview } from "@/lib/reviews-api";
@@ -21,27 +22,7 @@ function formatDate(value: string): string {
 }
 
 function PhotoGrid({ photos, large }: { photos: string[]; large?: boolean }) {
-  if (!photos.length) return null;
-  return (
-    <ul className="flex flex-wrap gap-2">
-      {photos.map((photo, index) => (
-        <li key={`${photo}-${index}`}>
-          <a href={photo} target="_blank" rel="noopener noreferrer" className="block">
-            <img
-              src={photo}
-              alt={`Customer photo ${index + 1}`}
-              className={
-                large
-                  ? "h-24 w-24 sm:h-28 sm:w-28 rounded-lg object-cover border border-gold/20"
-                  : "h-20 w-20 sm:h-24 sm:w-24 rounded-lg object-cover border border-gold/20"
-              }
-              loading="lazy"
-            />
-          </a>
-        </li>
-      ))}
-    </ul>
-  );
+  return <ReviewPhotoGrid photos={photos} large={large} />;
 }
 
 export const ReviewCard = ({ review, showProduct = false, variant = "default" }: ReviewCardProps) => {
