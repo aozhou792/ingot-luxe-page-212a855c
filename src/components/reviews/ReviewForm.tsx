@@ -4,7 +4,6 @@ import { toast } from "sonner";
 import { StarInput } from "@/components/reviews/StarRating";
 import { AuthModal } from "@/components/AuthModal";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/context/AuthContext";
 import { submitReview } from "@/lib/reviews-api";
@@ -85,7 +84,6 @@ export const ReviewForm = ({ productSlug, productOptions, onSubmitted, compact =
   const [authOpen, setAuthOpen] = useState(false);
   const [slug, setSlug] = useState(productSlug);
   const [rating, setRating] = useState(5);
-  const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [photos, setPhotos] = useState<PhotoPreview[]>([]);
   const [submitting, setSubmitting] = useState(false);
@@ -133,12 +131,11 @@ export const ReviewForm = ({ productSlug, productOptions, onSubmitted, compact =
       await submitReview(token, {
         productSlug: slug,
         rating,
-        title,
+        title: "",
         body,
         photos: photos.map((photo) => photo.dataUrl),
       });
       toast.success("Thanks! Your review is awaiting approval.");
-      setTitle("");
       setBody("");
       setRating(5);
       setPhotos([]);
@@ -192,7 +189,6 @@ export const ReviewForm = ({ productSlug, productOptions, onSubmitted, compact =
           <StarInput value={rating} onChange={setRating} />
         </div>
 
-        <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title (optional)" />
         <Textarea
           value={body}
           onChange={(e) => setBody(e.target.value)}
