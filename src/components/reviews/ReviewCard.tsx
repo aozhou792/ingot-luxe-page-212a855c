@@ -50,6 +50,9 @@ export const ReviewCard = ({ review, showProduct = false, variant = "default" }:
           </div>
           <time className="text-xs text-muted-foreground shrink-0">{formatDate(review.createdAt)}</time>
         </div>
+        {showProduct && "productLabel" in review && review.productLabel ? (
+          <p className="text-xs text-muted-foreground">{review.productLabel}</p>
+        ) : null}
       </article>
     );
   }

@@ -28,7 +28,6 @@ import type { HomeRestoreState } from "@/types/navigation";
 const mobileSection = {
   howItWorks: "order-1 md:order-none",
   features: "order-2 md:order-none",
-  reviews: "order-3 md:order-none",
   faq: "order-4 md:order-none",
   whyChoose: "order-5 md:order-none",
   compare: "order-6 md:order-none",
@@ -97,9 +96,6 @@ const Index = () => {
           <div className={mobileSection.compare}>
             <HomeCompareHub />
           </div>
-          <div className={mobileSection.reviews}>
-            <CustomerReviews />
-          </div>
           <div className={mobileSection.guides}>
             <HomeGuides />
           </div>
@@ -116,6 +112,7 @@ const Index = () => {
             <HomeShippingTrust />
           </div>
         </div>
+        <CustomerReviews />
       </main>
       <Footer />
     </div>

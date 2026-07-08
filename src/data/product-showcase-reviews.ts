@@ -6,6 +6,7 @@ export type ShowcaseReview = {
   photos: string[];
   createdAt: string;
   qualified?: boolean;
+  productLabel?: string;
 };
 
 const R = "/reviews";
@@ -87,6 +88,31 @@ const reviewPool: ReviewTemplate[] = [
     qualified: true,
   },
 ];
+
+const homeProductLabels = [
+  "Strawberry Watermelon",
+  "5 Flavour Custom Pack",
+  "10 Flavour Custom Pack",
+  "Strawberry Watermelon",
+  "3 Flavour Custom Pack",
+  "Quadruple Berry",
+  "5 Flavour Custom Pack",
+  "Peach Ice",
+] as const;
+
+export const homeShowcaseReviews: ShowcaseReview[] = reviewPool.map((review, index) => ({
+  ...review,
+  id: `home-${index}`,
+  productLabel: homeProductLabels[index],
+}));
+
+export function getHomeShowcaseAggregate(): { count: number; average: number } {
+  const sum = homeShowcaseReviews.reduce((total, review) => total + review.rating, 0);
+  return {
+    count: homeShowcaseReviews.length,
+    average: Math.round((sum / homeShowcaseReviews.length) * 10) / 10,
+  };
+}
 
 const flavourNotes: Record<string, string> = {
   "quadruple-berry": "The berry blend is lush and smooth — exactly what I wanted from Quadruple Berry.",
