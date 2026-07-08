@@ -1,5 +1,6 @@
 import { isAuthorized, unauthorizedResponse } from "./_lib/auth.js";
 import { authenticatedUser } from "./_lib/auth-tokens.js";
+import { serveReviewPhoto } from "./_lib/review-photo.js";
 import {
   addReview,
   deleteReview,
@@ -33,8 +34,13 @@ function aggregate(reviews: { productSlug: string; rating: number }[]) {
 
 export async function GET(request: Request): Promise<Response> {
   try {
-    const all = await readReviews();
     const url = new URL(request.url);
+    const photoPath = url.searchParams.get("photoPath");
+    if (photoPath) {
+      return serveReviewPhoto(photoPath);
+    }
+
+    const all = await readReviews();
     const slug = url.searchParams.get("slug");
 
     if (isAuthorized(request)) {

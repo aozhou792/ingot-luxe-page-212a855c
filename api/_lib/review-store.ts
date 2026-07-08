@@ -106,7 +106,9 @@ export function toPublicReview(review: StoredReview): PublicReview {
     title: review.title,
     body: review.body,
     photos: review.photos?.map((path) =>
-      path.startsWith("http") ? path : `/api/review-photo?path=${encodeURIComponent(path)}`,
+      path.startsWith("http")
+        ? path
+        : `/api/reviews?photoPath=${encodeURIComponent(path)}`,
     ),
     createdAt: review.createdAt,
   };
