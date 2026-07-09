@@ -36,8 +36,9 @@ const mobileSection = {
   introduction: "order-9 md:order-none",
   ingot: "order-10 md:order-none",
   specs: "order-11 md:order-none",
-  latestReviews: "order-12 md:order-none",
-  latestBlog: "order-13 md:order-none",
+  customerReviews: "order-12 md:order-none",
+  latestReviews: "order-13 md:order-none",
+  latestBlog: "order-14 md:order-none",
 } as const;
 
 const Index = () => {
@@ -99,6 +100,9 @@ const Index = () => {
           <div className={mobileSection.guides}>
             <HomeGuides />
           </div>
+          <div className={mobileSection.customerReviews}>
+            <CustomerReviews />
+          </div>
           <div className={mobileSection.latestReviews}>
             <HomeLatestReviews />
           </div>
@@ -112,7 +116,6 @@ const Index = () => {
             <HomeShippingTrust />
           </div>
         </div>
-        <CustomerReviews />
       </main>
       <Footer />
     </div>

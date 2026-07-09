@@ -5,9 +5,11 @@ import { ReviewCard } from "@/components/reviews/ReviewCard";
 import { ReviewForm } from "@/components/reviews/ReviewForm";
 import {
   getHomeShowcaseAggregate,
+  hasReviewPhotos,
   homeShowcaseReviews,
   mergeAndSortReviews,
   mergeReviewAggregate,
+  sortReviewsForDisplay,
 } from "@/data/product-showcase-reviews";
 import { products } from "@/data/products";
 import { fetchReviews, type PublicReview } from "@/lib/reviews-api";
@@ -28,8 +30,13 @@ export const CustomerReviews = () => {
     [showcaseAggregate, liveAggregate],
   );
 
-  const displayReviews = useMemo(
-    () => mergeAndSortReviews(liveReviews, homeShowcaseReviews),
+  const photoReviews = useMemo(
+    () => mergeAndSortReviews(liveReviews.filter(hasReviewPhotos), homeShowcaseReviews),
+    [liveReviews],
+  );
+
+  const textReviews = useMemo(
+    () => sortReviewsForDisplay(liveReviews.filter((review) => !hasReviewPhotos(review))),
     [liveReviews],
   );
 
@@ -76,11 +83,21 @@ export const CustomerReviews = () => {
             {loading && liveReviews.length === 0 ? (
               <p className="text-sm text-muted-foreground">Loading more reviews…</p>
             ) : null}
-            <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
-              {displayReviews.map((review) => (
-                <ReviewCard key={review.id} review={review} variant="showcase" showProduct />
-              ))}
-            </div>
+            {photoReviews.length > 0 ? (
+              <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
+                {photoReviews.map((review) => (
+                  <ReviewCard key={review.id} review={review} variant="showcase" showProduct />
+                ))}
+              </div>
+            ) : null}
+
+            {textReviews.length > 0 ? (
+              <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 pt-2">
+                {textReviews.map((review) => (
+                  <ReviewCard key={review.id} review={review} variant="showcase" showProduct />
+                ))}
+              </div>
+            ) : null}
 
             {liveReviews.length > 6 ? (
               <div className="text-center pt-2">
