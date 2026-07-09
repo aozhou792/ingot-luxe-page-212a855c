@@ -2,7 +2,7 @@ import { BadgeCheck } from "lucide-react";
 import { StarRating } from "@/components/reviews/StarRating";
 import { ReviewPhotoGrid } from "@/components/reviews/ReviewPhotoGrid";
 import { getProductBySlug } from "@/data/products";
-import type { ShowcaseReview } from "@/data/product-showcase-reviews";
+import { isVerifiedPurchase, type ShowcaseReview } from "@/data/product-showcase-reviews";
 import type { PublicReview } from "@/lib/reviews-api";
 
 type ReviewCardProps = {
@@ -28,7 +28,7 @@ function PhotoGrid({ photos, large }: { photos: string[]; large?: boolean }) {
 export const ReviewCard = ({ review, showProduct = false, variant = "default" }: ReviewCardProps) => {
   const product =
     showProduct && "productSlug" in review ? getProductBySlug(review.productSlug) : null;
-  const qualified = ("verified" in review && review.verified) || ("qualified" in review && review.qualified);
+  const qualified = isVerifiedPurchase(review);
   const photos = review.photos ?? [];
   const title = "title" in review ? review.title : "";
 

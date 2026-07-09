@@ -5,8 +5,8 @@ import { ReviewForm } from "@/components/reviews/ReviewForm";
 import {
   getShowcaseAggregate,
   getShowcaseReviews,
+  mergeAndSortReviews,
   mergeReviewAggregate,
-  sortReviewsNewestFirst,
 } from "@/data/product-showcase-reviews";
 import { fetchReviews, type PublicReview } from "@/lib/reviews-api";
 
@@ -30,7 +30,7 @@ export const ProductReviews = ({ slug, onAggregate, onSchemaData }: ProductRevie
   );
 
   const displayReviews = useMemo(
-    () => sortReviewsNewestFirst([...liveReviews, ...showcaseReviews]),
+    () => mergeAndSortReviews(liveReviews, showcaseReviews),
     [liveReviews, showcaseReviews],
   );
 

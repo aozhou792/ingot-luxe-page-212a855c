@@ -11,14 +11,26 @@ export type ShowcaseReview = {
   productLabel?: string;
 };
 
-/** Sort reviews newest first (live submissions and recent verified reviews on top). */
-export function sortReviewsNewestFirst<T extends { createdAt: string }>(reviews: T[]): T[] {
+export function hasReviewPhotos(review: { photos?: string[] }): boolean {
+  return Array.isArray(review.photos) && review.photos.length > 0;
+}
+
+/** Photo reviews are verified real purchases (showcase + customer uploads). */
+export function isVerifiedPurchase(review: { photos?: string[]; verified?: boolean; qualified?: boolean }): boolean {
+  return hasReviewPhotos(review) || Boolean(review.verified) || Boolean(review.qualified);
+}
+
+/** Photo reviews first, then newest within each group. */
+export function sortReviewsForDisplay<T extends { createdAt: string; photos?: string[] }>(reviews: T[]): T[] {
   return [...reviews].sort((a, b) => {
-    const ta = new Date(a.createdAt).getTime();
-    const tb = new Date(b.createdAt).getTime();
-    return tb - ta || 0;
+    const photoDelta = Number(hasReviewPhotos(b)) - Number(hasReviewPhotos(a));
+    if (photoDelta !== 0) return photoDelta;
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
 }
+
+/** @deprecated Use sortReviewsForDisplay */
+export const sortReviewsNewestFirst = sortReviewsForDisplay;
 
 const R = "/reviews";
 
@@ -88,8 +100,6 @@ const reviewPool: ReviewTemplate[] = [
     body: "Both units arrived sealed and the gold finish is spot on — matches the photos on the site. LED display works straight out of the box. Already planning my next order.",
     photos: [`${R}/review-09.jpg`],
     createdAt: "2026-07-09",
-    verified: true,
-    qualified: true,
   },
   {
     author: "C**l",
@@ -97,8 +107,6 @@ const reviewPool: ReviewTemplate[] = [
     body: "Cool Mint is icy and clean — not harsh at all. Box matches the device and everything was genuine ALIBARBAR Ingot 9000. Fast AU delivery, no drama.",
     photos: [`${R}/review-10.jpg`],
     createdAt: "2026-07-09",
-    verified: true,
-    qualified: true,
   },
   {
     author: "A**n",
@@ -139,11 +147,13 @@ const homeProductLabels = [
   "Grape Ice",
 ] as const;
 
-export const homeShowcaseReviews: ShowcaseReview[] = sortReviewsNewestFirst(
+export const homeShowcaseReviews: ShowcaseReview[] = sortReviewsForDisplay(
   reviewPool.map((review, index) => ({
     ...review,
     id: `home-${index}`,
     productLabel: homeProductLabels[index],
+    verified: hasReviewPhotos(review),
+    qualified: hasReviewPhotos(review),
   })),
 );
 
@@ -194,22 +204,24 @@ function pickReviewsForSlug(slug: string): ShowcaseReview[] {
   const second = reviewPool[(offset + 5) % reviewPool.length];
   const note = flavourNotes[slug];
 
-  const withNote = (template: ReviewTemplate, suffix: string) => ({
+  const withNote = (template: ReviewTemplate, suffix: string): ShowcaseReview => ({
     ...template,
     id: `${slug}-${suffix}`,
     body: note ? `${template.body} ${note}` : template.body,
+    verified: hasReviewPhotos(template),
+    qualified: hasReviewPhotos(template),
   });
 
-  return sortReviewsNewestFirst([withNote(first, "a"), withNote(second, "b")]);
+  return sortReviewsForDisplay([withNote(first, "a"), withNote(second, "b")]);
 }
 
 export function getShowcaseReviews(slug: string): ShowcaseReview[] {
   return pickReviewsForSlug(slug);
 }
 
-/** Verified showcase reviews for a product — used in Product JSON-LD. */
+/** Photo showcase reviews for a product — used in Product JSON-LD. */
 export function getVerifiedShowcaseReviews(slug: string): ShowcaseReview[] {
-  const picked = getShowcaseReviews(slug).filter((r) => r.verified);
+  const picked = getShowcaseReviews(slug).filter((r) => isVerifiedPurchase(r));
   const extras: ShowcaseReview[] = [];
 
   if (slug === "blackberry-ice") {
@@ -218,15 +230,19 @@ export function getVerifiedShowcaseReviews(slug: string): ShowcaseReview[] {
       ...template,
       id: `${slug}-verified-cool-mint`,
       body: `${template.body} ${flavourNotes[slug]}`.trim(),
+      verified: hasReviewPhotos(template),
+      qualified: hasReviewPhotos(template),
     });
   }
 
   const seen = new Set<string>();
-  return [...extras, ...picked].filter((review) => {
-    if (seen.has(review.id)) return false;
-    seen.add(review.id);
-    return true;
-  });
+  return sortReviewsForDisplay(
+    [...extras, ...picked].filter((review) => {
+      if (seen.has(review.id)) return false;
+      seen.add(review.id);
+      return true;
+    }),
+  );
 }
 
 export function aggregateFromReviews(reviews: { rating: number }[]): { count: number; average: number } {
@@ -252,6 +268,13 @@ export type SchemaReview = {
 
 export function toSchemaReviews(reviews: Array<Pick<ShowcaseReview, "author" | "rating" | "body" | "createdAt">>): SchemaReview[] {
   return reviews.map(({ author, rating, body, createdAt }) => ({ author, rating, body, createdAt }));
+}
+
+export function mergeAndSortReviews(
+  live: import("@/lib/reviews-api").PublicReview[],
+  showcase: ShowcaseReview[],
+): Array<import("@/lib/reviews-api").PublicReview | ShowcaseReview> {
+  return sortReviewsForDisplay([...live, ...showcase]);
 }
 
 export function mergeReviewAggregate(

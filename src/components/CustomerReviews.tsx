@@ -6,8 +6,8 @@ import { ReviewForm } from "@/components/reviews/ReviewForm";
 import {
   getHomeShowcaseAggregate,
   homeShowcaseReviews,
+  mergeAndSortReviews,
   mergeReviewAggregate,
-  sortReviewsNewestFirst,
 } from "@/data/product-showcase-reviews";
 import { products } from "@/data/products";
 import { fetchReviews, type PublicReview } from "@/lib/reviews-api";
@@ -29,7 +29,7 @@ export const CustomerReviews = () => {
   );
 
   const displayReviews = useMemo(
-    () => sortReviewsNewestFirst([...liveReviews, ...homeShowcaseReviews]),
+    () => mergeAndSortReviews(liveReviews, homeShowcaseReviews),
     [liveReviews],
   );
 

@@ -43,15 +43,18 @@ export async function GET(request: Request): Promise<Response> {
     const all = await readReviews();
     const slug = url.searchParams.get("slug");
 
-    const byNewest = (a: { createdAt: string }, b: { createdAt: string }) =>
-      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    const byDisplayOrder = (a: { createdAt: string; photos?: string[] }, b: { createdAt: string; photos?: string[] }) => {
+      const photoDelta = Number(Array.isArray(b.photos) && b.photos.length > 0) - Number(Array.isArray(a.photos) && a.photos.length > 0);
+      if (photoDelta !== 0) return photoDelta;
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    };
 
     if (isAuthorized(request)) {
-      const scoped = (slug ? all.filter((r) => r.productSlug === slug) : all).sort(byNewest);
+      const scoped = (slug ? all.filter((r) => r.productSlug === slug) : all).sort(byDisplayOrder);
       return Response.json({ reviews: scoped, aggregate: aggregate(all.filter((r) => r.status === "approved")) });
     }
 
-    const approved = all.filter((r) => r.status === "approved").sort(byNewest);
+    const approved = all.filter((r) => r.status === "approved").sort(byDisplayOrder);
     const scoped = slug ? approved.filter((r) => r.productSlug === slug) : approved;
     return Response.json({
       reviews: scoped.map(toPublicReview),

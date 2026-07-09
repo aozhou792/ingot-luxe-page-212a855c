@@ -15,8 +15,10 @@ import { ProductPrice } from "@/components/ProductPrice";
 import { ProductReviews } from "@/components/reviews/ProductReviews";
 import { Seo, productJsonLd, type BreadcrumbEntry } from "@/components/Seo";
 import {
+  aggregateFromReviews,
   getVerifiedShowcaseAggregate,
   getVerifiedShowcaseReviews,
+  hasReviewPhotos,
   mergeReviewAggregate,
   toSchemaReviews,
 } from "@/data/product-showcase-reviews";
@@ -113,21 +115,29 @@ const ProductPage = () => {
   const productBestFor = deriveProductBestFor(product, flavourProfile);
   const productAvoid = deriveProductAvoid(product, flavourProfile);
   const verifiedSchemaReviews = useMemo(() => getVerifiedShowcaseReviews(product.slug), [product.slug]);
+  const livePhotoReviews = useMemo(
+    () => liveSchemaReviews.filter(hasReviewPhotos),
+    [liveSchemaReviews],
+  );
+  const livePhotoAggregate = useMemo(
+    () => aggregateFromReviews(livePhotoReviews),
+    [livePhotoReviews],
+  );
   const schemaReviews = useMemo(
     () => [
-      ...liveSchemaReviews.map((r) => ({
+      ...toSchemaReviews(livePhotoReviews.map((r) => ({
         author: r.author,
         rating: r.rating,
         body: r.body,
         createdAt: r.createdAt,
-      })),
+      }))),
       ...toSchemaReviews(verifiedSchemaReviews),
     ],
-    [liveSchemaReviews, verifiedSchemaReviews],
+    [livePhotoReviews, verifiedSchemaReviews],
   );
   const schemaRating = useMemo(
-    () => mergeReviewAggregate(getVerifiedShowcaseAggregate(product.slug), liveSchemaAggregate),
-    [product.slug, liveSchemaAggregate],
+    () => mergeReviewAggregate(getVerifiedShowcaseAggregate(product.slug), livePhotoAggregate),
+    [product.slug, livePhotoAggregate],
   );
   const breadcrumbs: BreadcrumbEntry[] = [
     { name: "Home", path: "/" },
