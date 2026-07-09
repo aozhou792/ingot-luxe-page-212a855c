@@ -3,6 +3,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { Seo, faqPageJsonLd } from "@/components/Seo";
+import { QuickAnswer } from "@/components/seo/QuickAnswer";
 import { getFaqTopicBySlug } from "@/data/faq-topics";
 import { useReveal } from "@/hooks/use-reveal";
 
@@ -38,6 +39,14 @@ const FaqTopicPage = () => {
             <p className="text-xs uppercase tracking-[0.25em] text-primary mb-3 font-semibold">FAQ Hub</p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">{topic.title}</h1>
             <p className="text-muted-foreground mt-4 text-sm sm:text-base leading-relaxed">{topic.intro}</p>
+            <div className="mt-6">
+              <QuickAnswer
+                data={{
+                  question: `What does the ${topic.title} cover?`,
+                  answer: topic.description,
+                }}
+              />
+            </div>
           </header>
 
           <Accordion type="single" collapsible className="rounded-2xl border border-gold/25 bg-card/50 px-4 sm:px-6">

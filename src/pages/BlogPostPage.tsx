@@ -3,10 +3,15 @@ import { ArrowRight, ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProductPrice } from "@/components/ProductPrice";
+import { ContentByline } from "@/components/seo/ContentByline";
+import { ContentHubLinks } from "@/components/seo/ContentHubLinks";
+import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
+import { QuickAnswer } from "@/components/seo/QuickAnswer";
 import { Seo, articleJsonLd, type BreadcrumbEntry } from "@/components/Seo";
 import { getBlogPostBySlug } from "@/data/blog";
 import { getProductBySlug } from "@/data/products";
 import { guides } from "@/data/guides";
+import { deriveKeyTakeaways, deriveQuickAnswer } from "@/lib/content-geo";
 import { useReveal } from "@/hooks/use-reveal";
 
 const BlogPostPage = () => {
@@ -37,7 +42,15 @@ const BlogPostPage = () => {
     datePublished: post.datePublished,
     dateModified: post.dateModified,
     breadcrumbs,
+    faq: post.faq,
   });
+
+  const quickAnswer = deriveQuickAnswer(post.title, post.intro, post.quickAnswer);
+  const keyTakeaways = deriveKeyTakeaways(
+    post.keyTakeaways,
+    post.sections.find((s) => s.bullets)?.bullets,
+    post.faq?.map((f) => f.answer),
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -58,9 +71,56 @@ const BlogPostPage = () => {
               {post.category} · {post.readTime}
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">{post.title}</h1>
-            <p className="text-muted-foreground mt-4 text-base leading-relaxed">{post.intro}</p>
+            <ContentByline datePublished={post.datePublished} dateModified={post.dateModified} />
+            <QuickAnswer data={quickAnswer} />
             <div className="gold-divider mt-6 max-w-[6rem]" />
           </header>
+
+          <div className="mb-10">
+            <KeyTakeaways items={keyTakeaways} />
+          </div>
+
+          {post.rankings && post.rankings.length > 0 ? (
+            <section className="mb-12 overflow-x-auto">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4">Best disposable vapes Australia 2026 — ranked</h2>
+              <table className="w-full min-w-[640px] text-sm border-collapse">
+                <thead>
+                  <tr className="border-b border-gold/30 text-left">
+                    <th className="py-3 pr-3 font-semibold">#</th>
+                    <th className="py-3 pr-3 font-semibold">Device</th>
+                    <th className="py-3 pr-3 font-semibold">Brand</th>
+                    <th className="py-3 pr-3 font-semibold">Puffs</th>
+                    <th className="py-3 pr-3 font-semibold">Capacity</th>
+                    <th className="py-3 pr-3 font-semibold">Display</th>
+                    <th className="py-3 font-semibold">Verdict</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {post.rankings.map((row) => (
+                    <tr
+                      key={row.rank}
+                      className={`border-b border-gold/15 ${row.highlight ? "bg-primary/5" : ""}`}
+                    >
+                      <td className="py-3 pr-3 font-bold text-gold">{row.rank}</td>
+                      <td className="py-3 pr-3 font-semibold">{row.name}</td>
+                      <td className="py-3 pr-3">{row.brand}</td>
+                      <td className="py-3 pr-3">{row.puffs}</td>
+                      <td className="py-3 pr-3">{row.capacity}</td>
+                      <td className="py-3 pr-3">{row.display}</td>
+                      <td className="py-3 text-muted-foreground">{row.verdict}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+          ) : null}
+
+          {post.editorialVerdict ? (
+            <section className="mb-12 rounded-2xl border border-gold/30 bg-card/50 p-5 sm:p-6">
+              <h2 className="text-lg font-bold mb-3">Editor's verdict</h2>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{post.editorialVerdict}</p>
+            </section>
+          ) : null}
 
           <div className="space-y-8">
             {post.sections.map((section) => (
@@ -134,6 +194,22 @@ const BlogPostPage = () => {
               </div>
             </section>
           ) : null}
+
+          {post.faq && post.faq.length > 0 ? (
+            <section className="mt-14">
+              <h2 className="text-xl sm:text-2xl font-bold mb-5">FAQ</h2>
+              <div className="space-y-4">
+                {post.faq.map((item) => (
+                  <div key={item.question} className="rounded-xl border border-gold/15 bg-card/40 p-4">
+                    <h3 className="font-semibold text-sm sm:text-base">{item.question}</h3>
+                    <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{item.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          <ContentHubLinks />
         </article>
       </main>
       <Footer />

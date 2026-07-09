@@ -1,4 +1,4 @@
-import { list, put } from "@vercel/blob";
+import { del, list, put } from "@vercel/blob";
 import type { PaymentStatus, StoredOrder } from "./types.js";
 
 const ORDER_SEQ_INITIAL = 3870;
@@ -121,6 +121,44 @@ export async function saveOrderWithReceipt(
   });
 
   return record;
+}
+
+/** Delete all payment receipt images and clear receipt fields on stored orders. */
+export async function cleanupOrderReceipts(): Promise<{ deleted: number; ordersUpdated: number }> {
+  const token = blobToken();
+  let deleted = 0;
+  let cursor: string | undefined;
+
+  do {
+    const result = await list({ prefix: RECEIPT_PREFIX, token, cursor });
+    if (result.blobs.length > 0) {
+      await del(
+        result.blobs.map((b) => b.url),
+        { token },
+      );
+      deleted += result.blobs.length;
+    }
+    cursor = result.hasMore ? result.cursor : undefined;
+  } while (cursor);
+
+  const orders = await listOrders();
+  let ordersUpdated = 0;
+
+  for (const order of orders) {
+    if (!order.paymentReceipt && !order.paymentReceiptName) continue;
+
+    const { paymentReceipt: _r, paymentReceiptName: _n, ...rest } = order;
+    await put(orderPath(order.orderNumber), JSON.stringify(rest), {
+      access: "private",
+      contentType: "application/json",
+      token,
+      addRandomSuffix: false,
+      allowOverwrite: true,
+    });
+    ordersUpdated += 1;
+  }
+
+  return { deleted, ordersUpdated };
 }
 
 export async function updateOrderStatus(orderNumber: string, status: PaymentStatus): Promise<StoredOrder | null> {

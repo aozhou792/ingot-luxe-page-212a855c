@@ -22,6 +22,9 @@ export type ReviewPost = {
   }[];
   pros: string[];
   cons: string[];
+  /** Optional audience-fit lists for GEO blocks; falls back to pros/cons. */
+  whoShouldBuy?: string[];
+  whoShouldAvoid?: string[];
   verdict: string[];
   faq: { question: string; answer: string }[];
   relatedReviews?: string[];
@@ -235,4 +238,16 @@ export const reviewPosts: ReviewPost[] = [
 export function getReviewBySlug(slug: string | undefined): ReviewPost | undefined {
   if (!slug) return undefined;
   return reviewPosts.find((post) => post.slug === slug);
+}
+
+export function getReviewByProductSlug(productSlug: string | undefined): ReviewPost | undefined {
+  if (!productSlug) return undefined;
+  return reviewPosts.find((post) => post.productSlug === productSlug);
+}
+
+/** Average dimension score rounded to one decimal for Review schema. */
+export function getReviewRatingValue(review: ReviewPost): number {
+  if (review.dimensions.length === 0) return 4;
+  const sum = review.dimensions.reduce((acc, d) => acc + d.value, 0);
+  return Math.round((sum / review.dimensions.length) * 10) / 10;
 }

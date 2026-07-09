@@ -3,9 +3,16 @@ import { ArrowRight, Check, ChevronRight, X } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { ProductPrice } from "@/components/ProductPrice";
-import { Seo, articleJsonLd, type BreadcrumbEntry } from "@/components/Seo";
+import { ContentByline } from "@/components/seo/ContentByline";
+import { ContentHubLinks } from "@/components/seo/ContentHubLinks";
+import { BestFor } from "@/components/seo/BestFor";
+import { EditorVerdict } from "@/components/seo/EditorVerdict";
+import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
+import { QuickAnswer } from "@/components/seo/QuickAnswer";
+import { Seo, reviewJsonLd, type BreadcrumbEntry } from "@/components/Seo";
 import { getProductBySlug } from "@/data/products";
-import { getReviewBySlug, reviewPosts } from "@/data/reviews";
+import { getReviewBySlug, getReviewRatingValue, reviewPosts } from "@/data/reviews";
+import { deriveKeyTakeaways, deriveQuickAnswer, deriveWhoShouldAvoid, deriveWhoShouldBuy } from "@/lib/content-geo";
 import { useReveal } from "@/hooks/use-reveal";
 
 function DimensionBar({ label, value, note }: { label: string; value: number; note: string }) {
@@ -41,15 +48,24 @@ const ReviewPage = () => {
     .map((relatedSlug) => reviewPosts.find((item) => item.slug === relatedSlug))
     .filter((item): item is NonNullable<typeof item> => Boolean(item));
 
-  const jsonLd = articleJsonLd({
+  const jsonLd = reviewJsonLd({
     title: review.title,
     description: review.description,
     path,
     image: product?.img,
     datePublished: review.datePublished,
     dateModified: review.dateModified,
+    productName: product ? `Alibarbar Ingot 9000 ${product.name}` : review.title,
+    productPath: product ? `/product/${product.slug}` : path,
+    ratingValue: getReviewRatingValue(review),
     breadcrumbs,
+    faq: review.faq,
   });
+
+  const quickAnswer = deriveQuickAnswer(review.title, review.intro);
+  const keyTakeaways = deriveKeyTakeaways(review.pros);
+  const whoShouldBuy = deriveWhoShouldBuy(review.whoShouldBuy ?? review.pros);
+  const whoShouldAvoid = deriveWhoShouldAvoid(review.whoShouldAvoid ?? review.cons);
 
   return (
     <div className="min-h-screen bg-background">
@@ -81,7 +97,8 @@ const ReviewPage = () => {
                 {review.category} · {review.readTime}
               </p>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">{review.title}</h1>
-              <p className="text-muted-foreground mt-4 text-base leading-relaxed">{review.intro}</p>
+              <ContentByline datePublished={review.datePublished} dateModified={review.dateModified} />
+              <QuickAnswer data={quickAnswer} />
               {product ? (
                 <div className="mt-6 flex flex-wrap items-center gap-4">
                   <ProductPrice price={product.price} originalPrice={product.originalPrice} priceClassName="text-2xl" />
@@ -94,6 +111,12 @@ const ReviewPage = () => {
                 </div>
               ) : null}
             </header>
+          </div>
+
+          <div className="mt-8 space-y-6">
+            <KeyTakeaways items={keyTakeaways} />
+            <EditorVerdict summary={review.verdict[0]} detail={review.verdict.slice(1)} />
+            <BestFor bestFor={whoShouldBuy} avoidFor={whoShouldAvoid} />
           </div>
 
           <section className="mt-12 rounded-2xl border border-gold/20 bg-card/50 p-5 sm:p-6">
@@ -154,7 +177,7 @@ const ReviewPage = () => {
           </section>
 
           <section className="mt-12">
-            <h2 className="text-xl sm:text-2xl font-bold mb-3">Verdict</h2>
+            <h2 className="text-xl sm:text-2xl font-bold mb-3">Full verdict</h2>
             <div className="space-y-3 text-muted-foreground leading-[1.75] text-sm sm:text-base">
               {review.verdict.map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
@@ -193,6 +216,8 @@ const ReviewPage = () => {
               </div>
             </section>
           ) : null}
+
+          <ContentHubLinks />
         </article>
       </main>
       <Footer />

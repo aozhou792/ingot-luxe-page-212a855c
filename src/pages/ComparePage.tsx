@@ -2,8 +2,14 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { Check, ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { ContentByline } from "@/components/seo/ContentByline";
+import { ContentHubLinks } from "@/components/seo/ContentHubLinks";
+import { CompareShortAnswer } from "@/components/seo/CompareShortAnswer";
+import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
+import { QuickAnswer } from "@/components/seo/QuickAnswer";
 import { Seo, articleJsonLd, type BreadcrumbEntry } from "@/components/Seo";
 import { getComparisonBySlug } from "@/data/comparisons";
+import { deriveCompareShortAnswer, deriveKeyTakeaways, deriveQuickAnswer } from "@/lib/content-geo";
 import { useReveal } from "@/hooks/use-reveal";
 
 const ComparePage = () => {
@@ -27,7 +33,12 @@ const ComparePage = () => {
     datePublished: comparison.datePublished,
     dateModified: comparison.dateModified,
     breadcrumbs,
+    faq: comparison.faq,
   });
+
+  const quickAnswer = deriveQuickAnswer(comparison.title, comparison.intro);
+  const keyTakeaways = deriveKeyTakeaways(comparison.alibarbarStrengths);
+  const shortAnswer = deriveCompareShortAnswer(comparison);
 
   return (
     <div className="min-h-screen bg-background">
@@ -46,9 +57,21 @@ const ComparePage = () => {
           <header className="mb-8">
             <p className="text-xs uppercase tracking-[0.25em] text-primary mb-3 font-semibold">Comparison</p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">{comparison.title}</h1>
-            <p className="text-muted-foreground mt-4 text-base leading-relaxed">{comparison.intro}</p>
+            <ContentByline datePublished={comparison.datePublished} dateModified={comparison.dateModified} />
+            <div className="mt-6 space-y-6">
+              <CompareShortAnswer
+                competitor={comparison.competitor}
+                alibarbar={shortAnswer.alibarbar}
+                competitorPick={shortAnswer.competitor}
+              />
+              <QuickAnswer data={quickAnswer} />
+            </div>
             <div className="gold-divider mt-6 max-w-[6rem]" />
           </header>
+
+          <div className="mb-10">
+            <KeyTakeaways items={keyTakeaways} />
+          </div>
 
           <section className="mb-10">
             <h2 className="text-xl sm:text-2xl font-bold mb-3">About {comparison.competitor}</h2>
@@ -161,6 +184,8 @@ const ComparePage = () => {
               Explore flavours
             </Link>
           </div>
+
+          <ContentHubLinks />
         </article>
       </main>
       <Footer />

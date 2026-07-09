@@ -3,8 +3,14 @@ import { ArrowRight, ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProductPrice } from "@/components/ProductPrice";
+import { ContentByline } from "@/components/seo/ContentByline";
+import { ContentHubLinks } from "@/components/seo/ContentHubLinks";
+import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
+import { QuickAnswer } from "@/components/seo/QuickAnswer";
 import { Seo, articleJsonLd, type BreadcrumbEntry } from "@/components/Seo";
 import { flavourProfiles, getFlavourBySlug, getFlavourProduct } from "@/data/flavours";
+import { getReviewByProductSlug } from "@/data/reviews";
+import { deriveKeyTakeaways, deriveQuickAnswer } from "@/lib/content-geo";
 import { useReveal } from "@/hooks/use-reveal";
 
 function TasteBar({ label, value }: { label: string; value: number }) {
@@ -29,6 +35,7 @@ const FlavourPage = () => {
   if (!flavour) return <Navigate to="/flavours" replace />;
 
   const product = getFlavourProduct(flavour.slug);
+  const editorialReview = getReviewByProductSlug(flavour.slug);
   const path = `/flavours/${flavour.slug}`;
   const breadcrumbs: BreadcrumbEntry[] = [
     { name: "Home", path: "/" },
@@ -46,7 +53,14 @@ const FlavourPage = () => {
     path,
     image: product?.img,
     breadcrumbs,
+    faq: flavour.faq,
   });
+
+  const quickAnswer = deriveQuickAnswer(
+    `What does Alibarbar ${flavour.name} taste like?`,
+    flavour.tagline,
+  );
+  const keyTakeaways = deriveKeyTakeaways(flavour.bestFor);
 
   return (
     <div className="min-h-screen bg-background">
@@ -82,7 +96,12 @@ const FlavourPage = () => {
             <div>
               <p className="text-xs uppercase tracking-[0.25em] text-primary mb-2 font-semibold">{flavour.family}</p>
               <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight">{flavour.name}</h1>
-              <p className="text-muted-foreground mt-3 text-base leading-relaxed">{flavour.tagline}</p>
+              <ContentByline />
+              <QuickAnswer data={quickAnswer} />
+
+              <div className="mt-6">
+                <KeyTakeaways items={keyTakeaways} />
+              </div>
 
               <div className="mt-6 space-y-3 rounded-2xl border border-gold/20 bg-card/50 p-5">
                 <p className="text-xs uppercase tracking-wide text-gold font-semibold mb-1">Taste profile</p>
@@ -100,6 +119,14 @@ const FlavourPage = () => {
                   >
                     Shop {flavour.name}
                   </Link>
+                  {editorialReview ? (
+                    <Link
+                      to={`/reviews/${editorialReview.slug}`}
+                      className="inline-flex items-center justify-center min-h-[48px] px-6 rounded-full border border-gold/40 text-primary font-bold uppercase tracking-widest text-xs hover:border-gold transition"
+                    >
+                      Read review
+                    </Link>
+                  ) : null}
                 </div>
               ) : null}
             </div>
@@ -182,6 +209,8 @@ const FlavourPage = () => {
             </Link>
             .
           </div>
+
+          <ContentHubLinks />
         </div>
       </main>
       <Footer />

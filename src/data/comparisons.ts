@@ -15,6 +15,8 @@ export type Comparison = {
   alibarbarStrengths: string[];
   competitorStrengths: string[];
   verdict: string[];
+  /** Optional one-line picks for the GEO "Which is better?" block. */
+  shortAnswer?: { alibarbar: string; competitor: string };
   faq: { question: string; answer: string }[];
   datePublished: string;
   dateModified: string;

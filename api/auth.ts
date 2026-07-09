@@ -1,4 +1,5 @@
 import { authenticatedUser, createToken } from "./_lib/auth-tokens.js";
+import { sendWelcomeEmail } from "./_lib/marketing-email.js";
 import { authenticateUser, getUserById, registerUser } from "./_lib/user-store.js";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -54,6 +55,14 @@ export async function POST(request: Request): Promise<Response> {
       email: result.user.email,
       displayName: result.user.displayName,
     });
+
+    if (action === "register") {
+      try {
+        await sendWelcomeEmail(result.user);
+      } catch (error) {
+        console.error("welcome email failed:", error);
+      }
+    }
 
     return Response.json({ token, user: result.user });
   } catch (error) {

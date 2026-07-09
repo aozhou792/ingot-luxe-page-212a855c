@@ -4,6 +4,17 @@ export type BlogSection = {
   bullets?: string[];
 };
 
+export type BlogRanking = {
+  rank: number;
+  name: string;
+  brand: string;
+  puffs: string;
+  capacity: string;
+  display: string;
+  verdict: string;
+  highlight?: boolean;
+};
+
 export type BlogPost = {
   slug: string;
   title: string;
@@ -14,6 +25,11 @@ export type BlogPost = {
   dateModified: string;
   intro: string;
   sections: BlogSection[];
+  quickAnswer?: { question: string; answer: string };
+  keyTakeaways?: string[];
+  faq?: { question: string; answer: string }[];
+  rankings?: BlogRanking[];
+  editorialVerdict?: string;
   relatedProducts?: string[];
   relatedGuides?: string[];
 };
@@ -25,11 +41,81 @@ export const blogPosts: BlogPost[] = [
     description:
       "A practical 2026 buyer's guide to choosing a disposable vape in Australia — puff count, capacity, display, flavour and value, with where the Alibarbar Ingot 9000 fits.",
     category: "Buying Guide",
-    readTime: "7 min read",
+    readTime: "12 min read",
     datePublished: "2026-04-01",
-    dateModified: "2026-07-01",
+    dateModified: "2026-07-09",
     intro:
-      "There are more disposable vapes on the Australian market than ever, and they are not all equal. This 2026 guide breaks down what actually matters when choosing one, so you can spend your money well.",
+      "There are more disposable vapes on the Australian market than ever, and they are not all equal. This 2026 guide breaks down what actually matters when choosing one — with a ranked comparison table and our editor's pick for adults 18+.",
+    quickAnswer: {
+      question: "What is the best disposable vape in Australia in 2026?",
+      answer:
+        "For most adult vapers who want maximum value per device, the Alibarbar Ingot 9000 leads in 2026 thanks to its up-to-9000 puff rating, 22ml e-liquid capacity, mesh coil and smart LED display. IGET and HQD remain strong if you prefer their specific models or flavours.",
+    },
+    keyTakeaways: [
+      "Match puff count to tank size and battery — not marketing alone",
+      "LED display is a real differentiator for planning replacements",
+      "Alibarbar Ingot 9000 tops our 2026 ranking for capacity and value",
+      "Buy authentic from Australian sellers with clear shipping policies",
+      "Try a 5 Flavour Custom Pack if you are new to the range",
+    ],
+    rankings: [
+      {
+        rank: 1,
+        name: "Ingot 9000",
+        brand: "Alibarbar",
+        puffs: "Up to 9000",
+        capacity: "22ml",
+        display: "LED battery + e-liquid",
+        verdict: "Best overall for capacity, display and flavour range",
+        highlight: true,
+      },
+      {
+        rank: 2,
+        name: "Bar Plus / Legend",
+        brand: "IGET",
+        puffs: "~3500–4000",
+        capacity: "~12ml",
+        display: "Model-dependent",
+        verdict: "Strong if you want a familiar IGET model or flavour",
+      },
+      {
+        rank: 3,
+        name: "Cuvie Plus",
+        brand: "HQD",
+        puffs: "~1200–2500",
+        capacity: "~8ml",
+        display: "Usually none",
+        verdict: "Compact option for lighter daily use",
+      },
+      {
+        rank: 4,
+        name: "Infinity",
+        brand: "RELX",
+        puffs: "~500–600",
+        capacity: "~2ml",
+        display: "None",
+        verdict: "Pod-style alternative, not a high-capacity disposable",
+      },
+    ],
+    editorialVerdict:
+      "Our 2026 pick for Australian adults who vape regularly is the Alibarbar Ingot 9000. No other mainstream disposable combines 9000 puffs, 22ml capacity and an on-device display in one package. If you are comparing brands, start with our Alibarbar vs IGET comparison, then try a 5 Flavour Custom Pack to sample the range.",
+    faq: [
+      {
+        question: "What puff count should I look for in 2026?",
+        answer:
+          "Look for devices where puff count aligns with tank size. A 9000 puff rating with only 8ml of e-liquid is unlikely to deliver. The Alibarbar Ingot 9000 pairs 9000 puffs with 22ml and a 2350mAh battery.",
+      },
+      {
+        question: "Is Alibarbar better than IGET in Australia?",
+        answer:
+          "For maximum puffs per device and an LED display, Alibarbar Ingot 9000 is the stronger choice. IGET suits buyers who want a specific model from their established range.",
+      },
+      {
+        question: "How much is shipping on disposable vapes in Australia?",
+        answer:
+          "At Alibarbar Australia, standard shipping is A$20 for orders under 5 devices and A$10 for orders of 5 or more, with 3–7 business day delivery Australia-wide.",
+      },
+    ],
     sections: [
       {
         heading: "1. Puff count and e-liquid capacity",
@@ -60,6 +146,18 @@ export const blogPosts: BlogPost[] = [
         heading: "5. Authenticity and local delivery",
         paragraphs: [
           "Only buy genuine devices from sellers who ship locally and support adults 18+. Authenticity matters for consistency and safety, and local delivery means faster, more reliable arrival.",
+        ],
+      },
+      {
+        heading: "6. Our 2026 ranking methodology",
+        paragraphs: [
+          "We rank devices on verified specs (puff rating, e-liquid capacity, battery, display), flavour range, value per puff and local availability — not paid placement. Competitor specs reflect commonly sold models at the time of writing.",
+        ],
+        bullets: [
+          "Capacity and battery must align with puff rating",
+          "On-device display adds practical day-to-day value",
+          "Flavour variety and custom packs score higher for new buyers",
+          "Australian shipping and authenticity policies are required",
         ],
       },
     ],

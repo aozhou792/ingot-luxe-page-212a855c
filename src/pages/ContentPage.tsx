@@ -3,7 +3,11 @@ import { ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Seo, breadcrumbNode } from "@/components/Seo";
+import { ContentByline } from "@/components/seo/ContentByline";
+import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
+import { QuickAnswer } from "@/components/seo/QuickAnswer";
 import { getContentPageBySlug } from "@/data/content-pages";
+import { deriveKeyTakeaways, deriveQuickAnswer } from "@/lib/content-geo";
 import { useReveal } from "@/hooks/use-reveal";
 
 const ContentPage = () => {
@@ -15,6 +19,10 @@ const ContentPage = () => {
   if (!page) return <Navigate to="/" replace />;
 
   const path = `/${page.slug}`;
+  const quickAnswer = deriveQuickAnswer(page.title, page.intro);
+  const keyTakeaways = deriveKeyTakeaways(
+    page.sections.find((s) => s.bullets)?.bullets,
+  );
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -46,7 +54,15 @@ const ContentPage = () => {
 
           <header className="mb-8">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">{page.title}</h1>
-            <p className="text-muted-foreground mt-4 text-base leading-relaxed">{page.intro}</p>
+            <ContentByline dateModified={page.updated} reviewedBy="Alibarbar Team" />
+            <div className="mt-5">
+              <QuickAnswer data={quickAnswer} />
+            </div>
+            {keyTakeaways.length > 0 ? (
+              <div className="mt-6">
+                <KeyTakeaways items={keyTakeaways} />
+              </div>
+            ) : null}
             <p className="text-xs text-muted-foreground mt-3">Last updated: {page.updated}</p>
             <div className="gold-divider mt-6 max-w-[6rem]" />
           </header>

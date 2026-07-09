@@ -13,18 +13,23 @@ const shopLinks = [
 ];
 
 const exploreLinks = [
+  { label: "Topics", to: "/topics" },
   { label: "Guides", to: "/guides" },
   { label: "Compare", to: "/compare" },
   { label: "Reviews", to: "/reviews" },
   { label: "Brands", to: "/brands" },
   { label: "Blog", to: "/blog" },
   { label: "FAQ", to: "/faq" },
+  { label: "Product FAQ", to: "/faq/product" },
   { label: "Shipping FAQ", to: "/faq/shipping" },
   { label: "Payment FAQ", to: "/faq/payment" },
+  { label: "Authenticity FAQ", to: "/faq/authenticity" },
+  { label: "Legal FAQ", to: "/faq/legal" },
 ];
 
 const companyLinks = [
   { label: "About Us", to: "/about" },
+  { label: "Our Authors", to: "/author/jason-smith" },
   { label: "Why Trust Us", to: "/why-trust-us" },
   { label: "Editorial Policy", to: "/editorial-policy" },
   { label: "Age Verification", to: "/age-verification" },

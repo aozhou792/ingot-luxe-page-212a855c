@@ -2,8 +2,12 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { ContentByline } from "@/components/seo/ContentByline";
+import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
+import { QuickAnswer } from "@/components/seo/QuickAnswer";
 import { Seo, articleJsonLd, type BreadcrumbEntry } from "@/components/Seo";
 import { getBrandBySlug } from "@/data/brands";
+import { deriveKeyTakeaways, deriveQuickAnswer } from "@/lib/content-geo";
 import { useReveal } from "@/hooks/use-reveal";
 
 const BrandPage = () => {
@@ -20,6 +24,9 @@ const BrandPage = () => {
     { name: brand.name, path },
   ];
 
+  const quickAnswer = deriveQuickAnswer(brand.title, brand.intro, brand.quickAnswer);
+  const keyTakeaways = deriveKeyTakeaways(brand.knownFor);
+
   const jsonLd = articleJsonLd({
     title: brand.title,
     description: brand.description,
@@ -27,6 +34,7 @@ const BrandPage = () => {
     datePublished: brand.datePublished,
     dateModified: brand.dateModified,
     breadcrumbs,
+    faq: brand.faq,
   });
 
   return (
@@ -48,9 +56,14 @@ const BrandPage = () => {
               {brand.isOwn ? "Our brand" : "Brand guide"}
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">{brand.title}</h1>
-            <p className="text-muted-foreground mt-4 text-base leading-relaxed">{brand.intro}</p>
+            <ContentByline datePublished={brand.datePublished} dateModified={brand.dateModified} />
+            <QuickAnswer data={quickAnswer} />
             <div className="gold-divider mt-6 max-w-[6rem]" />
           </header>
+
+          <div className="mb-10">
+            <KeyTakeaways items={keyTakeaways} />
+          </div>
 
           <section className="mb-10">
             <h2 className="text-xl sm:text-2xl font-bold mb-3">Overview</h2>
@@ -91,6 +104,20 @@ const BrandPage = () => {
               </Link>
             ) : null}
           </section>
+
+          {brand.faq && brand.faq.length > 0 ? (
+            <section className="mb-10">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4">Frequently asked questions</h2>
+              <div className="space-y-4">
+                {brand.faq.map((item) => (
+                  <div key={item.question} className="rounded-xl border border-gold/20 bg-card/50 p-4">
+                    <h3 className="text-sm sm:text-base font-semibold">{item.question}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{item.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           <div className="rounded-2xl border border-gold/25 bg-card/60 p-6 text-center">
             <p className="text-sm text-muted-foreground mb-4">

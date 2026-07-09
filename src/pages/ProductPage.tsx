@@ -14,6 +14,16 @@ import { getFlavourBySlug } from "@/data/flavours";
 import { ProductPrice } from "@/components/ProductPrice";
 import { ProductReviews } from "@/components/reviews/ProductReviews";
 import { Seo, productJsonLd, type BreadcrumbEntry } from "@/components/Seo";
+import { ContentByline } from "@/components/seo/ContentByline";
+import { BestFor } from "@/components/seo/BestFor";
+import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
+import { QuickAnswer } from "@/components/seo/QuickAnswer";
+import {
+  deriveProductAvoid,
+  deriveProductBestFor,
+  deriveProductKeyTakeaways,
+  deriveProductQuickAnswer,
+} from "@/lib/content-geo";
 import { useCart } from "@/context/CartContext";
 import { useReveal } from "@/hooks/use-reveal";
 import { ArrowLeft, Check, ChevronRight, Minus, Package, Plus, Sparkles, Truck } from "lucide-react";
@@ -86,6 +96,10 @@ const ProductPage = () => {
   const seoDescription = product.excerpt.length > 155 ? `${product.excerpt.slice(0, 152).trim()}...` : product.excerpt;
   const productFaq = getProductFaq(product);
   const flavourProfile = getFlavourBySlug(product.slug);
+  const productQuickAnswer = deriveProductQuickAnswer(product, flavourProfile);
+  const productKeyTakeaways = deriveProductKeyTakeaways(product, flavourProfile);
+  const productBestFor = deriveProductBestFor(product, flavourProfile);
+  const productAvoid = deriveProductAvoid(product, flavourProfile);
   const breadcrumbs: BreadcrumbEntry[] = [
     { name: "Home", path: "/" },
     { name: "Shop", path: "/#flavors" },
@@ -217,6 +231,19 @@ const ProductPage = () => {
                 <h1 className="text-2xl min-[400px]:text-3xl sm:text-4xl lg:text-[2.75rem] xl:text-5xl font-extrabold leading-[1.12] tracking-tight">
                   {product.name}
                 </h1>
+
+                {!product.isPlaceholder ? (
+                  <>
+                    <ContentByline />
+                    <QuickAnswer data={productQuickAnswer} />
+                    <div className="pt-2">
+                      <KeyTakeaways items={productKeyTakeaways} />
+                    </div>
+                    <div className="pt-2">
+                      <BestFor bestFor={productBestFor} avoidFor={productAvoid} />
+                    </div>
+                  </>
+                ) : null}
 
                 <div className="flex flex-wrap items-end gap-2 sm:gap-4 pt-1">
                   <ProductPrice

@@ -12,6 +12,10 @@ export type Brand = {
   positioning: string[];
   /** Optional slug into /compare for a deeper head-to-head. */
   compareSlug?: string;
+  /** GEO quick-answer block under the H1. */
+  quickAnswer?: { question: string; answer: string };
+  /** Brand-specific FAQ for AI-citable Q&A. */
+  faq?: { question: string; answer: string }[];
   datePublished: string;
   dateModified: string;
 };
@@ -39,6 +43,33 @@ export const brands: Brand[] = [
     positioning: [
       "Within the high-puff disposable category, Alibarbar competes on capacity, the convenience of an on-device display, and flavour flexibility.",
       "For Australian adult vapers who want a long-lasting, no-setup device, the Ingot 9000 is the brand's core recommendation.",
+    ],
+    quickAnswer: {
+      question: "What is Alibarbar?",
+      answer:
+        "Alibarbar is a disposable vape brand best known for the Ingot 9000 — a high-capacity device rated for up to 9000 puffs, with a 22ml tank, 2350mAh battery, mesh coil and built-in smart LED display. Alibarbar Australia stocks 10+ single flavours plus 3, 5 and 10-device custom packs for adult customers nationwide.",
+    },
+    faq: [
+      {
+        question: "What is Alibarbar?",
+        answer:
+          "Alibarbar is a premium disposable vape brand. Its flagship product is the Ingot 9000, designed for up to 9000 puffs per device with a smart LED display showing battery and e-liquid levels.",
+      },
+      {
+        question: "Is Alibarbar legal in Australia?",
+        answer:
+          "Nicotine vaping products are regulated in Australia. Alibarbar Australia sells to adults 18+ only. Laws vary by state and territory — our Legal FAQ hub explains the general rules. This is information only, not legal advice.",
+      },
+      {
+        question: "How long do Alibarbar vapes last?",
+        answer:
+          "Each Ingot 9000 is rated for up to 9000 puffs with a 22ml e-liquid tank and 2350mAh battery. Real-world lifespan depends on puff length and draw style; the LED display helps you track remaining e-liquid.",
+      },
+      {
+        question: "What Alibarbar flavours are most popular?",
+        answer:
+          "Quadruple Berry, Peach Ice and Fanta are among the most searched flavours in Australia. Quadruple Berry suits all-day fruit vapers; Peach Ice adds moderate cooling; Fanta covers citrus soda fans. See our flavour guides for full tasting notes.",
+      },
     ],
     datePublished: "2026-03-20",
     dateModified: "2026-07-01",

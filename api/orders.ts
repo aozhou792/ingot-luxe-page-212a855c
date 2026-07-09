@@ -1,5 +1,5 @@
 import { isAuthorized, unauthorizedResponse } from "./_lib/auth.js";
-import { listOrders, updateOrderStatus } from "./_lib/order-store.js";
+import { cleanupOrderReceipts, listOrders, updateOrderStatus } from "./_lib/order-store.js";
 import type { PaymentStatus } from "./_lib/types.js";
 
 export async function GET(request: Request): Promise<Response> {
@@ -11,6 +11,19 @@ export async function GET(request: Request): Promise<Response> {
   } catch (error) {
     console.error("orders GET failed:", error);
     const message = error instanceof Error ? error.message : "Failed to load orders";
+    return Response.json({ error: message }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: Request): Promise<Response> {
+  if (!isAuthorized(request)) return unauthorizedResponse();
+
+  try {
+    const result = await cleanupOrderReceipts();
+    return Response.json({ ok: true, ...result });
+  } catch (error) {
+    console.error("orders DELETE (cleanup receipts) failed:", error);
+    const message = error instanceof Error ? error.message : "Cleanup failed";
     return Response.json({ error: message }, { status: 500 });
   }
 }

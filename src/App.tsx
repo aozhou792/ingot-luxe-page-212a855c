@@ -36,6 +36,9 @@ const BlogPostPage = lazy(() => import("./pages/BlogPostPage.tsx"));
 const ReviewsIndexPage = lazy(() => import("./pages/ReviewsIndexPage.tsx"));
 const ReviewPage = lazy(() => import("./pages/ReviewPage.tsx"));
 const FaqTopicPage = lazy(() => import("./pages/FaqTopicPage.tsx"));
+const AuthorPage = lazy(() => import("./pages/AuthorPage.tsx"));
+const TopicsIndexPage = lazy(() => import("./pages/TopicsIndexPage.tsx"));
+const TopicPage = lazy(() => import("./pages/TopicPage.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -78,6 +81,9 @@ const App = () => (
               <Route path="/reviews/:slug" element={<ReviewPage />} />
               <Route path="/faq" element={<FaqPage />} />
               <Route path="/faq/:slug" element={<FaqTopicPage />} />
+              <Route path="/topics" element={<TopicsIndexPage />} />
+              <Route path="/topics/:slug" element={<TopicPage />} />
+              <Route path="/author/:slug" element={<AuthorPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/wholesale" element={<WholesalePage />} />
               <Route path="/search" element={<SearchPage />} />

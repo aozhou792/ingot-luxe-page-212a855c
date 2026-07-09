@@ -33,6 +33,38 @@ export const contentPages: ContentPage[] = [
         ],
       },
       {
+        heading: "How we review products",
+        paragraphs: [
+          "Guides, comparisons and flavour reviews are written by our editorial team using structured tasting notes and manufacturer specifications. Each article is reviewed internally before publication and shows a last-updated date.",
+          "Our lead reviewer Jason Smith has 5+ years experience testing disposable vapes in Australia. See his author profile for expertise areas and our Editorial Policy for fact-checking and corrections.",
+        ],
+        bullets: [
+          "Written by Jason Smith · Reviewed by Alibarbar Team",
+          "Comparisons list competitor strengths honestly",
+          "Corrections welcomed — email orders@ailibarbar.com",
+        ],
+      },
+      {
+        heading: "Our testing process",
+        paragraphs: [
+          "Every flavour review follows the same structured methodology: unbox and verify packaging, record puff consistency across the device life, score sweetness, cooling and smoothness on a 1–5 scale, and compare notes against manufacturer specifications.",
+          "Guides and comparisons cross-check puff counts, tank sizes and battery specs against official Alibarbar documentation and publicly listed competitor data. We re-test when product batches or formulations change.",
+        ],
+        bullets: [
+          "Structured 1–5 scoring on sweetness, cooling and smoothness",
+          "Specs verified against manufacturer documentation",
+          "Competitor data sourced from public listings with model disclaimers",
+          "Articles re-reviewed when laws, pricing or product lines change",
+        ],
+      },
+      {
+        heading: "How we collect information",
+        paragraphs: [
+          "Product specifications come from manufacturer documentation and our own inventory. Competitor comparisons use publicly available model listings — we note when specs vary by SKU or region.",
+          "Customer questions from email and FAQ traffic inform which topics we expand. Shipping and payment answers are checked against our live checkout and fulfilment process.",
+        ],
+      },
+      {
         heading: "What we stand for",
         paragraphs: ["Our approach is built on a few simple principles:"],
         bullets: [
@@ -226,6 +258,19 @@ export const contentPages: ContentPage[] = [
         ],
       },
       {
+        heading: "Review methodology",
+        paragraphs: [
+          "Our lead reviewer Jason Smith has tested 200+ disposable vape products over 5+ years in the Australian market. Reviews score flavour dimensions, list honest pros and cons, and include an editor's verdict summarising who should buy.",
+          "Content is reviewed internally by the Alibarbar Team before publication. Each article shows the author, reviewer and last-updated date.",
+        ],
+        bullets: [
+          "200+ disposable vape products reviewed",
+          "5+ years specialising in the Australian market",
+          "Structured tasting notes — not paid competitor endorsements",
+          "Corrections process — email orders@ailibarbar.com",
+        ],
+      },
+      {
         heading: "Human support",
         paragraphs: [
           `Orders and product questions are handled by email at ${SUPPORT_EMAIL}, usually within one business day.`,
@@ -246,6 +291,27 @@ export const contentPages: ContentPage[] = [
         heading: "Purpose",
         paragraphs: [
           "Guides explain how the Alibarbar Ingot 9000 works. Comparisons present factual differences between brands. Reviews describe flavour and performance based on structured tasting notes. Blog posts cover broader buying topics relevant to Australian vapers.",
+          "Articles are written by named authors — see /author/jason-smith — and reviewed internally before publication. Each page shows who wrote it and when it was last updated.",
+        ],
+      },
+      {
+        heading: "Our testing process",
+        paragraphs: [
+          "Flavour reviews use a consistent scoring framework: sweetness, cooling, smoothness and all-day suitability, each rated 1–5 with written notes. Devices are used across their rated lifespan to check flavour consistency and LED display accuracy.",
+          "Guides verify technical claims (9000 puffs, 22ml capacity, 2350mAh battery) against manufacturer specs. Comparisons include a disclaimer when competitor models vary.",
+        ],
+        bullets: [
+          "1–5 dimension scoring on every flavour review",
+          "Full-device testing, not first-puff impressions only",
+          "Internal review by Alibarbar Team before publish",
+          "Last-updated dates on all knowledge articles",
+        ],
+      },
+      {
+        heading: "How often content is updated",
+        paragraphs: [
+          "We review guides and comparisons when product specifications, competitor line-ups or Australian regulations change. FAQ hubs are expanded when customer email patterns show recurring questions.",
+          "Typical review cycle: product guides every 3–6 months, comparisons when competitor models change, flavour reviews when new batches ship.",
         ],
       },
       {

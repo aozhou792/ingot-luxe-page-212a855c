@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { getAuthorBySlug, getDefaultAuthor } from "@/data/authors";
 import { products } from "@/data/products";
 import { faqItems } from "@/data/faq";
 import { SITE_LOGO_HEIGHT, SITE_LOGO_PATH, SITE_LOGO_WIDTH, SITE_SAME_AS } from "@/data/site";
@@ -94,6 +95,9 @@ export function Seo({
     } else {
       existing?.remove();
     }
+
+    document.documentElement.dataset.seoReady = "true";
+    document.dispatchEvent(new Event("seo-ready"));
   }, [description, image, jsonLd, noindex, path, title, type]);
 
   return null;
@@ -145,6 +149,65 @@ function productImageUrl(img: string): string {
   return img.startsWith("http") ? img : `${SITE_URL}${img.startsWith("/") ? img : `/${img}`}`;
 }
 
+/** Tiered AU shipping for Offer schema (under 5 devices / 5+ devices). */
+export function offerShippingDetails() {
+  const destination = {
+    "@type": "DefinedRegion",
+    addressCountry: "AU",
+  };
+  const deliveryTime = {
+    "@type": "ShippingDeliveryTime",
+    handlingTime: {
+      "@type": "QuantitativeValue",
+      minValue: 1,
+      maxValue: 2,
+      unitCode: "DAY",
+    },
+    transitTime: {
+      "@type": "QuantitativeValue",
+      minValue: 3,
+      maxValue: 7,
+      unitCode: "DAY",
+    },
+  };
+  return [
+    {
+      "@type": "OfferShippingDetails",
+      shippingDestination: destination,
+      deliveryTime,
+      shippingRate: {
+        "@type": "MonetaryAmount",
+        value: "20",
+        currency: "AUD",
+      },
+      name: "Standard shipping (under 5 devices)",
+    },
+    {
+      "@type": "OfferShippingDetails",
+      shippingDestination: destination,
+      deliveryTime,
+      shippingRate: {
+        "@type": "MonetaryAmount",
+        value: "10",
+        currency: "AUD",
+      },
+      name: "Reduced shipping (5 or more devices)",
+    },
+  ];
+}
+
+function productOffer(path: string, price: string, inStock: boolean) {
+  return {
+    "@type": "Offer",
+    url: absoluteUrl(path),
+    price,
+    priceCurrency: "AUD",
+    availability: inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+    seller: { "@id": `${SITE_URL}/#organization` },
+    shippingDetails: offerShippingDetails(),
+  };
+}
+
 function homepageProductNodes() {
   return products
     .filter((p) => !p.isPlaceholder)
@@ -155,14 +218,7 @@ function homepageProductNodes() {
       description: p.excerpt,
       image: productImageUrl(p.img),
       brand: { "@type": "Brand", name: "ALIBARBAR" },
-      offers: {
-        "@type": "Offer",
-        url: `${SITE_URL}/product/${p.slug}`,
-        price: p.price,
-        priceCurrency: "AUD",
-        availability: p.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-        seller: { "@id": `${SITE_URL}/#organization` },
-      },
+      offers: productOffer(`/product/${p.slug}`, p.price, p.inStock),
     }));
 }
 
@@ -253,13 +309,7 @@ export function productJsonLd(product: {
       "@type": "Brand",
       name: "ALIBARBAR",
     },
-    offers: {
-      "@type": "Offer",
-      url: absoluteUrl(product.path),
-      price: product.price,
-      priceCurrency: "AUD",
-      availability: product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-    },
+    offers: productOffer(product.path, product.price, product.inStock),
   };
 
   if (product.rating && product.rating.count > 0) {
@@ -293,6 +343,54 @@ export function productJsonLd(product: {
   };
 }
 
+export function personNode(slug: string) {
+  const author = getAuthorBySlug(slug) ?? getDefaultAuthor();
+  return {
+    "@type": "Person",
+    "@id": `${SITE_URL}/author/${author.slug}#person`,
+    name: author.name,
+    jobTitle: author.title,
+    url: `${SITE_URL}/author/${author.slug}`,
+    worksFor: { "@id": `${SITE_URL}/#organization` },
+    knowsAbout: author.expertise,
+  };
+}
+
+function authorReference(authorSlug?: string) {
+  const author = getAuthorBySlug(authorSlug) ?? getDefaultAuthor();
+  return { "@id": `${SITE_URL}/author/${author.slug}#person` };
+}
+
+export function howToJsonLd(howTo: {
+  name: string;
+  description: string;
+  path: string;
+  steps: { name: string; text: string }[];
+  totalTime?: string;
+  breadcrumbs?: BreadcrumbEntry[];
+}) {
+  const graph: Record<string, unknown>[] = [
+    {
+      "@type": "HowTo",
+      name: howTo.name,
+      description: howTo.description,
+      inLanguage: "en-AU",
+      totalTime: howTo.totalTime ?? "PT5M",
+      step: howTo.steps.map((step, index) => ({
+        "@type": "HowToStep",
+        position: index + 1,
+        name: step.name,
+        text: step.text,
+        url: `${absoluteUrl(howTo.path)}#step-${index + 1}`,
+      })),
+    },
+  ];
+  if (howTo.breadcrumbs && howTo.breadcrumbs.length > 0) {
+    graph.push(breadcrumbNode(howTo.breadcrumbs));
+  }
+  return { "@context": "https://schema.org", "@graph": graph };
+}
+
 export function articleJsonLd(article: {
   title: string;
   description: string;
@@ -300,9 +398,14 @@ export function articleJsonLd(article: {
   image?: string;
   datePublished?: string;
   dateModified?: string;
+  authorSlug?: string;
   breadcrumbs?: BreadcrumbEntry[];
+  faq?: { question: string; answer: string }[];
+  howToSteps?: { name: string; text: string }[];
+  howToTotalTime?: string;
 }) {
   const graph: Record<string, unknown>[] = [
+    personNode(article.authorSlug ?? getDefaultAuthor().slug),
     {
       "@type": "Article",
       headline: article.title,
@@ -312,18 +415,125 @@ export function articleJsonLd(article: {
       inLanguage: "en-AU",
       datePublished: article.datePublished ?? "2026-01-01",
       dateModified: article.dateModified ?? article.datePublished ?? "2026-01-01",
-      author: { "@id": `${SITE_URL}/#organization` },
+      author: authorReference(article.authorSlug),
       publisher: { "@id": `${SITE_URL}/#organization` },
     },
   ];
+
+  if (article.howToSteps && article.howToSteps.length > 0) {
+    graph.push({
+      "@type": "HowTo",
+      name: article.title,
+      description: article.description,
+      inLanguage: "en-AU",
+      totalTime: article.howToTotalTime ?? "PT5M",
+      step: article.howToSteps.map((step, index) => ({
+        "@type": "HowToStep",
+        position: index + 1,
+        name: step.name,
+        text: step.text,
+        url: `${absoluteUrl(article.path)}#step-${index + 1}`,
+      })),
+    });
+  }
 
   if (article.breadcrumbs && article.breadcrumbs.length > 0) {
     graph.push(breadcrumbNode(article.breadcrumbs));
   }
 
+  if (article.faq && article.faq.length > 0) {
+    graph.push({
+      "@type": "FAQPage",
+      mainEntity: article.faq.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer },
+      })),
+    });
+  }
+
   return {
     "@context": "https://schema.org",
     "@graph": graph,
+  };
+}
+
+export function reviewJsonLd(review: {
+  title: string;
+  description: string;
+  path: string;
+  image?: string;
+  datePublished?: string;
+  dateModified?: string;
+  authorSlug?: string;
+  productName: string;
+  productPath: string;
+  ratingValue: number;
+  breadcrumbs?: BreadcrumbEntry[];
+  faq?: { question: string; answer: string }[];
+}) {
+  const graph: Record<string, unknown>[] = [
+    personNode(review.authorSlug ?? getDefaultAuthor().slug),
+    {
+      "@type": "Review",
+      headline: review.title,
+      description: review.description,
+      image: absoluteUrl(review.image ?? DEFAULT_IMAGE),
+      datePublished: review.datePublished ?? "2026-01-01",
+      dateModified: review.dateModified ?? review.datePublished ?? "2026-01-01",
+      author: authorReference(review.authorSlug),
+      publisher: { "@id": `${SITE_URL}/#organization` },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: review.ratingValue,
+        bestRating: 5,
+        worstRating: 1,
+      },
+      itemReviewed: {
+        "@type": "Product",
+        name: review.productName,
+        url: absoluteUrl(review.productPath),
+        brand: { "@type": "Brand", name: "ALIBARBAR" },
+      },
+    },
+  ];
+
+  if (review.breadcrumbs && review.breadcrumbs.length > 0) {
+    graph.push(breadcrumbNode(review.breadcrumbs));
+  }
+
+  if (review.faq && review.faq.length > 0) {
+    graph.push({
+      "@type": "FAQPage",
+      mainEntity: review.faq.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer },
+      })),
+    });
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": graph,
+  };
+}
+
+export function authorPageJsonLd(authorSlug: string) {
+  const author = getAuthorBySlug(authorSlug) ?? getDefaultAuthor();
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationNode,
+      personNode(author.slug),
+      {
+        "@type": "ProfilePage",
+        mainEntity: { "@id": `${SITE_URL}/author/${author.slug}#person` },
+        name: `${author.name} | ${SITE_NAME}`,
+        url: `${SITE_URL}/author/${author.slug}`,
+        inLanguage: "en-AU",
+      },
+    ],
   };
 }
 

@@ -3,9 +3,14 @@ import { ArrowRight, ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProductPrice } from "@/components/ProductPrice";
+import { ContentByline } from "@/components/seo/ContentByline";
+import { ContentHubLinks } from "@/components/seo/ContentHubLinks";
+import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
+import { QuickAnswer } from "@/components/seo/QuickAnswer";
 import { Seo, articleJsonLd, type BreadcrumbEntry } from "@/components/Seo";
 import { getGuideBySlug, guides } from "@/data/guides";
 import { getProductBySlug } from "@/data/products";
+import { deriveKeyTakeaways, deriveQuickAnswer } from "@/lib/content-geo";
 import { useReveal } from "@/hooks/use-reveal";
 
 const GuidePage = () => {
@@ -29,6 +34,16 @@ const GuidePage = () => {
     .map((s) => guides.find((g) => g.slug === s))
     .filter((g): g is NonNullable<typeof g> => Boolean(g));
 
+  const howToSteps =
+    guide.slug === "how-to-use-a-disposable-vape"
+      ? guide.sections
+          .filter((s) => s.heading.toLowerCase().startsWith("step"))
+          .map((s) => ({
+            name: s.heading.replace(/^Step \d+:\s*/i, ""),
+            text: s.paragraphs.join(" "),
+          }))
+      : undefined;
+
   const jsonLd = articleJsonLd({
     title: guide.title,
     description: guide.description,
@@ -36,7 +51,17 @@ const GuidePage = () => {
     datePublished: guide.datePublished,
     dateModified: guide.dateModified,
     breadcrumbs,
+    faq: guide.faq,
+    howToSteps,
+    howToTotalTime: howToSteps ? "PT5M" : undefined,
   });
+
+  const quickAnswer = deriveQuickAnswer(guide.title, guide.intro, guide.quickAnswer);
+  const keyTakeaways = deriveKeyTakeaways(
+    guide.keyTakeaways,
+    guide.sections.find((s) => s.bullets)?.bullets,
+    guide.faq?.map((f) => f.answer),
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -57,9 +82,14 @@ const GuidePage = () => {
               {guide.category} · {guide.readTime}
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">{guide.title}</h1>
-            <p className="text-muted-foreground mt-4 text-base leading-relaxed">{guide.intro}</p>
+            <ContentByline datePublished={guide.datePublished} dateModified={guide.dateModified} />
+            <QuickAnswer data={quickAnswer} />
             <div className="gold-divider mt-6 max-w-[6rem]" />
           </header>
+
+          <div className="mb-10">
+            <KeyTakeaways items={keyTakeaways} />
+          </div>
 
           <div className="space-y-8">
             {guide.sections.map((section) => (
@@ -149,6 +179,8 @@ const GuidePage = () => {
               </div>
             </section>
           ) : null}
+
+          <ContentHubLinks />
         </article>
       </main>
       <Footer />

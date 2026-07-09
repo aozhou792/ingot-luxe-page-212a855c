@@ -3,6 +3,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Seo, faqPageJsonLd } from "@/components/Seo";
+import { QuickAnswer } from "@/components/seo/QuickAnswer";
 import { faqItems, type FaqItem } from "@/data/faq";
 import { faqTopics } from "@/data/faq-topics";
 import { useReveal } from "@/hooks/use-reveal";
@@ -53,6 +54,15 @@ const FaqPage = () => {
               Everything Australian customers ask about the Alibarbar Ingot 9000 — from delivery and payment to puff
               counts, flavours and safe use.
             </p>
+            <div className="mt-6">
+              <QuickAnswer
+                data={{
+                  question: "What does this FAQ cover?",
+                  answer:
+                    "This FAQ answers the most common questions about Alibarbar Ingot 9000 disposable vapes in Australia — including shipping (A$20 under 5 devices, A$10 for 5+), bank transfer payment, puff counts (up to 9000), 10+ flavours, authenticity, age requirements (18+) and safe storage.",
+                }}
+              />
+            </div>
           </header>
 
           <section className="grid sm:grid-cols-2 gap-4 mb-10">
