@@ -28,7 +28,7 @@ function PhotoGrid({ photos, large }: { photos: string[]; large?: boolean }) {
 export const ReviewCard = ({ review, showProduct = false, variant = "default" }: ReviewCardProps) => {
   const product =
     showProduct && "productSlug" in review ? getProductBySlug(review.productSlug) : null;
-  const qualified = "qualified" in review && review.qualified;
+  const qualified = ("verified" in review && review.verified) || ("qualified" in review && review.qualified);
   const photos = review.photos ?? [];
   const title = "title" in review ? review.title : "";
 
@@ -39,7 +39,7 @@ export const ReviewCard = ({ review, showProduct = false, variant = "default" }:
         {qualified ? (
           <div className="inline-flex items-center gap-1.5 self-start rounded-full border border-gold/30 bg-background/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-primary">
             <BadgeCheck className="h-3.5 w-3.5" aria-hidden />
-            Qualified
+            Qualified purchase
           </div>
         ) : null}
         <p className="text-sm leading-relaxed text-foreground/90">{review.body}</p>

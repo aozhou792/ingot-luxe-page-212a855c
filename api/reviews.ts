@@ -43,12 +43,15 @@ export async function GET(request: Request): Promise<Response> {
     const all = await readReviews();
     const slug = url.searchParams.get("slug");
 
+    const byNewest = (a: { createdAt: string }, b: { createdAt: string }) =>
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+
     if (isAuthorized(request)) {
-      const scoped = slug ? all.filter((r) => r.productSlug === slug) : all;
+      const scoped = (slug ? all.filter((r) => r.productSlug === slug) : all).sort(byNewest);
       return Response.json({ reviews: scoped, aggregate: aggregate(all.filter((r) => r.status === "approved")) });
     }
 
-    const approved = all.filter((r) => r.status === "approved");
+    const approved = all.filter((r) => r.status === "approved").sort(byNewest);
     const scoped = slug ? approved.filter((r) => r.productSlug === slug) : approved;
     return Response.json({
       reviews: scoped.map(toPublicReview),

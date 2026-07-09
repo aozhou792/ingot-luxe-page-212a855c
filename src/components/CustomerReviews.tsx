@@ -7,6 +7,7 @@ import {
   getHomeShowcaseAggregate,
   homeShowcaseReviews,
   mergeReviewAggregate,
+  sortReviewsNewestFirst,
 } from "@/data/product-showcase-reviews";
 import { products } from "@/data/products";
 import { fetchReviews, type PublicReview } from "@/lib/reviews-api";
@@ -25,6 +26,11 @@ export const CustomerReviews = () => {
   const summary = useMemo(
     () => mergeReviewAggregate(showcaseAggregate, liveAggregate),
     [showcaseAggregate, liveAggregate],
+  );
+
+  const displayReviews = useMemo(
+    () => sortReviewsNewestFirst([...liveReviews, ...homeShowcaseReviews]),
+    [liveReviews],
   );
 
   const load = useCallback(async () => {
@@ -67,21 +73,14 @@ export const CustomerReviews = () => {
 
         <div className="grid lg:grid-cols-[minmax(0,1fr)_360px] gap-6 lg:gap-8 items-start">
           <div className="order-2 lg:order-1 space-y-4">
+            {loading && liveReviews.length === 0 ? (
+              <p className="text-sm text-muted-foreground">Loading more reviews…</p>
+            ) : null}
             <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
-              {homeShowcaseReviews.map((review) => (
+              {displayReviews.map((review) => (
                 <ReviewCard key={review.id} review={review} variant="showcase" showProduct />
               ))}
             </div>
-
-            {loading ? (
-              <p className="text-sm text-muted-foreground">Loading more reviews…</p>
-            ) : liveReviews.length > 0 ? (
-              <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 pt-2">
-                {liveReviews.slice(0, 6).map((review) => (
-                  <ReviewCard key={review.id} review={review} variant="showcase" showProduct />
-                ))}
-              </div>
-            ) : null}
 
             {liveReviews.length > 6 ? (
               <div className="text-center pt-2">

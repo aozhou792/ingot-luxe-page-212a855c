@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { getAuthorBySlug, getDefaultAuthor } from "@/data/authors";
 import { products } from "@/data/products";
+import {
+  getVerifiedShowcaseAggregate,
+  getVerifiedShowcaseReviews,
+  toSchemaReviews,
+} from "@/data/product-showcase-reviews";
 import { faqItems } from "@/data/faq";
 import { SITE_LOGO_HEIGHT, SITE_LOGO_PATH, SITE_LOGO_WIDTH, SITE_SAME_AS } from "@/data/site";
 
@@ -208,18 +213,48 @@ function productOffer(path: string, price: string, inStock: boolean) {
   };
 }
 
+function productReviewNodes(reviews: { author: string; rating: number; body: string; createdAt: string }[]) {
+  return reviews.map((review) => ({
+    "@type": "Review",
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: review.rating,
+      bestRating: 5,
+      worstRating: 1,
+    },
+    author: { "@type": "Person", name: review.author },
+    reviewBody: review.body,
+    datePublished: review.createdAt,
+  }));
+}
+
 function homepageProductNodes() {
   return products
     .filter((p) => !p.isPlaceholder)
-    .map((p) => ({
-      "@type": "Product",
-      "@id": `${SITE_URL}/product/${p.slug}#product`,
-      name: `Alibarbar Ingot 9000 ${p.name}`,
-      description: p.excerpt,
-      image: productImageUrl(p.img),
-      brand: { "@type": "Brand", name: "ALIBARBAR" },
-      offers: productOffer(`/product/${p.slug}`, p.price, p.inStock),
-    }));
+    .map((p) => {
+      const verifiedReviews = getVerifiedShowcaseReviews(p.slug);
+      const verifiedRating = getVerifiedShowcaseAggregate(p.slug);
+      const node: Record<string, unknown> = {
+        "@type": "Product",
+        "@id": `${SITE_URL}/product/${p.slug}#product`,
+        name: `Alibarbar Ingot 9000 ${p.name}`,
+        description: p.excerpt,
+        image: productImageUrl(p.img),
+        brand: { "@type": "Brand", name: "ALIBARBAR" },
+        offers: productOffer(`/product/${p.slug}`, p.price, p.inStock),
+      };
+      if (verifiedRating.count > 0) {
+        node.aggregateRating = {
+          "@type": "AggregateRating",
+          ratingValue: verifiedRating.average,
+          reviewCount: verifiedRating.count,
+          bestRating: 5,
+          worstRating: 1,
+        };
+        node.review = productReviewNodes(toSchemaReviews(verifiedReviews));
+      }
+      return node;
+    });
 }
 
 export const siteJsonLd = {
@@ -297,6 +332,7 @@ export function productJsonLd(product: {
   inStock: boolean;
   path: string;
   rating?: { average: number; count: number };
+  reviews?: { author: string; rating: number; body: string; createdAt: string }[];
   breadcrumbs?: BreadcrumbEntry[];
   faq?: { question: string; answer: string }[];
 }) {
@@ -320,6 +356,10 @@ export function productJsonLd(product: {
       bestRating: 5,
       worstRating: 1,
     };
+  }
+
+  if (product.reviews && product.reviews.length > 0) {
+    productNode.review = productReviewNodes(product.reviews);
   }
 
   const graph: Record<string, unknown>[] = [productNode];

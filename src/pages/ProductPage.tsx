@@ -14,6 +14,13 @@ import { getFlavourBySlug } from "@/data/flavours";
 import { ProductPrice } from "@/components/ProductPrice";
 import { ProductReviews } from "@/components/reviews/ProductReviews";
 import { Seo, productJsonLd, type BreadcrumbEntry } from "@/components/Seo";
+import {
+  getVerifiedShowcaseAggregate,
+  getVerifiedShowcaseReviews,
+  mergeReviewAggregate,
+  toSchemaReviews,
+} from "@/data/product-showcase-reviews";
+import type { PublicReview } from "@/lib/reviews-api";
 import { ContentByline } from "@/components/seo/ContentByline";
 import { BestFor } from "@/components/seo/BestFor";
 import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
@@ -54,10 +61,15 @@ const ProductPage = () => {
   const { addToCart, buyNow } = useCart();
   const [qty, setQty] = useState(1);
   const [selectedCustomFlavors, setSelectedCustomFlavors] = useState<string[]>(() => Array(customPackSize).fill(""));
-  const [reviewRating, setReviewRating] = useState<{ average: number; count: number }>({ average: 0, count: 0 });
-  const handleReviewAggregate = useCallback((aggregate: { average: number; count: number }) => {
-    setReviewRating(aggregate);
-  }, []);
+  const [liveSchemaReviews, setLiveSchemaReviews] = useState<PublicReview[]>([]);
+  const [liveSchemaAggregate, setLiveSchemaAggregate] = useState({ count: 0, average: 0 });
+  const handleSchemaReviews = useCallback(
+    (liveReviews: PublicReview[], liveAggregate: { count: number; average: number }) => {
+      setLiveSchemaReviews(liveReviews);
+      setLiveSchemaAggregate(liveAggregate);
+    },
+    [],
+  );
 
   const related = useMemo(() => (product ? getRelatedProducts(product.slug) : []), [product]);
   const selectableFlavors = useMemo(() => getSelectableFlavorProducts(), []);
@@ -100,6 +112,23 @@ const ProductPage = () => {
   const productKeyTakeaways = deriveProductKeyTakeaways(product, flavourProfile);
   const productBestFor = deriveProductBestFor(product, flavourProfile);
   const productAvoid = deriveProductAvoid(product, flavourProfile);
+  const verifiedSchemaReviews = useMemo(() => getVerifiedShowcaseReviews(product.slug), [product.slug]);
+  const schemaReviews = useMemo(
+    () => [
+      ...liveSchemaReviews.map((r) => ({
+        author: r.author,
+        rating: r.rating,
+        body: r.body,
+        createdAt: r.createdAt,
+      })),
+      ...toSchemaReviews(verifiedSchemaReviews),
+    ],
+    [liveSchemaReviews, verifiedSchemaReviews],
+  );
+  const schemaRating = useMemo(
+    () => mergeReviewAggregate(getVerifiedShowcaseAggregate(product.slug), liveSchemaAggregate),
+    [product.slug, liveSchemaAggregate],
+  );
   const breadcrumbs: BreadcrumbEntry[] = [
     { name: "Home", path: "/" },
     { name: "Shop", path: "/#flavors" },
@@ -144,7 +173,8 @@ const ProductPage = () => {
           price: product.price,
           inStock: product.inStock,
           path: productPath,
-          rating: reviewRating,
+          rating: schemaRating.count > 0 ? schemaRating : undefined,
+          reviews: schemaReviews.length > 0 ? schemaReviews : undefined,
           breadcrumbs,
           faq: productFaq,
         })}
@@ -471,7 +501,7 @@ const ProductPage = () => {
             </section>
           ) : null}
 
-          <ProductReviews slug={product.slug} onAggregate={handleReviewAggregate} />
+          <ProductReviews slug={product.slug} onSchemaData={handleSchemaReviews} />
 
           {related.length > 0 && (
             <section className="mt-12 sm:mt-16 md:mt-20 lg:mt-28">

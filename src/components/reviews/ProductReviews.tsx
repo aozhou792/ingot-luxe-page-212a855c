@@ -6,15 +6,17 @@ import {
   getShowcaseAggregate,
   getShowcaseReviews,
   mergeReviewAggregate,
+  sortReviewsNewestFirst,
 } from "@/data/product-showcase-reviews";
 import { fetchReviews, type PublicReview } from "@/lib/reviews-api";
 
 type ProductReviewsProps = {
   slug: string;
   onAggregate?: (aggregate: { count: number; average: number }) => void;
+  onSchemaData?: (liveReviews: PublicReview[], liveAggregate: { count: number; average: number }) => void;
 };
 
-export const ProductReviews = ({ slug, onAggregate }: ProductReviewsProps) => {
+export const ProductReviews = ({ slug, onAggregate, onSchemaData }: ProductReviewsProps) => {
   const showcaseReviews = useMemo(() => getShowcaseReviews(slug), [slug]);
   const showcaseAggregate = useMemo(() => getShowcaseAggregate(slug), [slug]);
 
@@ -25,6 +27,11 @@ export const ProductReviews = ({ slug, onAggregate }: ProductReviewsProps) => {
   const summary = useMemo(
     () => mergeReviewAggregate(showcaseAggregate, liveAggregate),
     [showcaseAggregate, liveAggregate],
+  );
+
+  const displayReviews = useMemo(
+    () => sortReviewsNewestFirst([...liveReviews, ...showcaseReviews]),
+    [liveReviews, showcaseReviews],
   );
 
   const load = useCallback(async () => {
@@ -49,6 +56,10 @@ export const ProductReviews = ({ slug, onAggregate }: ProductReviewsProps) => {
     onAggregate?.(summary);
   }, [onAggregate, summary]);
 
+  useEffect(() => {
+    onSchemaData?.(liveReviews, liveAggregate);
+  }, [liveAggregate, liveReviews, onSchemaData]);
+
   return (
     <section className="mt-10 sm:mt-16 rounded-2xl sm:rounded-[1.75rem] border border-gold/25 bg-gradient-to-b from-card/70 to-background/90 p-4 sm:p-6 md:p-9">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
@@ -67,15 +78,12 @@ export const ProductReviews = ({ slug, onAggregate }: ProductReviewsProps) => {
 
       <div className="grid lg:grid-cols-[minmax(0,1fr)_360px] gap-6 lg:gap-8 items-start">
         <div className="space-y-4 order-2 lg:order-1">
-          {showcaseReviews.map((review) => (
+          {loading && liveReviews.length === 0 ? (
+            <p className="text-sm text-muted-foreground">Loading more reviews…</p>
+          ) : null}
+          {displayReviews.map((review) => (
             <ReviewCard key={review.id} review={review} variant="showcase" />
           ))}
-
-          {loading ? (
-            <p className="text-sm text-muted-foreground">Loading more reviews…</p>
-          ) : liveReviews.length > 0 ? (
-            liveReviews.map((review) => <ReviewCard key={review.id} review={review} variant="showcase" />)
-          ) : null}
         </div>
 
         <div className="order-1 lg:order-2">

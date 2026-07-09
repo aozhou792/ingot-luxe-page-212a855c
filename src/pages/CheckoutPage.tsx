@@ -27,6 +27,7 @@ import {
   shippingRateHint,
 } from "@/lib/checkout";
 import { saveCheckoutDraft, validateCouponCode } from "@/lib/marketing-api";
+import { TELEGRAM_COMMUNITY_URL } from "@/data/site";
 import { nextOrderNumber } from "@/lib/orders";
 import { fetchNextOrderNumberFromApi } from "@/lib/orders-api";
 import type { OrderDetails } from "@/types/navigation";
@@ -228,6 +229,18 @@ const CheckoutPage = () => {
                 <p className="text-xs text-muted-foreground">
                   Codes require at least {COUPON_MIN_DEVICES} devices in your cart. Abandoned-order codes are sent to
                   your checkout email.
+                </p>
+                <p className="text-xs text-muted-foreground rounded-lg border border-gold/20 bg-background/60 px-3 py-2.5">
+                  Want a discount code?{" "}
+                  <a
+                    href={TELEGRAM_COMMUNITY_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-primary hover:text-gold transition-colors"
+                  >
+                    Join our Telegram
+                  </a>{" "}
+                  to get yours — we share exclusive codes with the community.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <Input
