@@ -54,25 +54,41 @@ const VerifyPage = () => {
 
   const applyDecodedPayload = useCallback(async (raw: string) => {
     await stopScanner();
-    const result = await verifySealToken(raw);
-    setOutcome(
-      result.genuine
-        ? { status: "genuine", sealId: result.id }
-        : { status: "fake", sealId: result.id || "UNKNOWN" },
-    );
+    try {
+      const result = await verifySealToken(raw);
+      if (!result.ok) {
+        setOutcome({ status: "error", message: result.error });
+        return;
+      }
+      setOutcome(
+        result.authentic
+          ? { status: "genuine", sealId: result.code }
+          : { status: "fake", sealId: result.code || "UNKNOWN" },
+      );
+    } catch {
+      setOutcome({ status: "error", message: "Network error — could not reach the authenticity API." });
+    }
   }, [stopScanner]);
 
   // Deep-link: phone camera opened honeycomb QR directly
   useEffect(() => {
     const seal = searchParams.get("seal") ?? searchParams.get("code") ?? searchParams.get("token");
     if (!seal) return;
-    void verifySealToken(seal).then((result) => {
-      setOutcome(
-        result.genuine
-          ? { status: "genuine", sealId: result.id }
-          : { status: "fake", sealId: result.id },
-      );
-    });
+    void verifySealToken(seal)
+      .then((result) => {
+        if (!result.ok) {
+          setOutcome({ status: "error", message: result.error });
+          return;
+        }
+        setOutcome(
+          result.authentic
+            ? { status: "genuine", sealId: result.code }
+            : { status: "fake", sealId: result.code },
+        );
+      })
+      .catch(() => {
+        setOutcome({ status: "error", message: "Network error — could not reach the authenticity API." });
+      });
   }, [searchParams]);
 
   useEffect(() => () => {

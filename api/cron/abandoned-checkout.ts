@@ -1,5 +1,4 @@
 import { authorizeCron } from "../_lib/cron-auth.js";
-import { COUPON_MIN_DEVICES, createAbandonmentCoupon } from "../_lib/coupon-store.js";
 import {
   listCheckoutDrafts,
   markDraftReminderSent,
@@ -29,14 +28,8 @@ export async function GET(request: Request): Promise<Response> {
         continue;
       }
 
-      let couponCode: string | undefined;
-      if (draft.deviceCount >= COUPON_MIN_DEVICES) {
-        const coupon = await createAbandonmentCoupon(draft.order.billing.email, draft.orderNumber);
-        couponCode = coupon.code;
-      }
-
-      await sendAbandonedCheckoutEmail(draft, couponCode);
-      await markDraftReminderSent(draft.orderNumber, couponCode);
+      await sendAbandonedCheckoutEmail(draft);
+      await markDraftReminderSent(draft.orderNumber);
       sent += 1;
     }
 

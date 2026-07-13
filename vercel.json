@@ -31,10 +31,6 @@
     {
       "path": "/api/cron/abandoned-checkout",
       "schedule": "0 1 * * *"
-    },
-    {
-      "path": "/api/cron/marketing",
-      "schedule": "0 2 * * 0"
     }
   ]
 }

@@ -5,8 +5,7 @@ export const VERIFY_PAGE_URL = `${SITE_URL}/verify`;
 
 /**
  * Shared authenticity token library (5 codes — not one-per-unit).
- * Each honeycomb seal encodes one of these as a scannable QR payload.
- * Print any of the 5 randomly on boxes; scanning any = genuine.
+ * Must stay in sync with api/_lib/seal-tokens.ts and public/authenticity/tokens.json.
  */
 export const HONEYCOMB_SEALS = [
   { id: "ABSEAL01", label: "Seal A", token: "ABSEAL01" },
@@ -17,8 +16,6 @@ export const HONEYCOMB_SEALS = [
 ] as const;
 
 export type HoneycombSealId = (typeof HONEYCOMB_SEALS)[number]["id"];
-
-const SEAL_SET = new Set<string>(HONEYCOMB_SEALS.map((s) => s.id));
 
 /** Payload encoded inside each honeycomb QR. */
 export function honeycombSealUrl(id: string): string {
@@ -45,38 +42,18 @@ export function normalizeSealPayload(raw: string): string {
   return trimmed.toUpperCase().replace(/[\s\-_.]/g, "");
 }
 
-export function isGenuineHoneycombSeal(
-  raw: string,
-): { genuine: true; id: HoneycombSealId } | { genuine: false; id: string } {
-  const id = normalizeSealPayload(raw);
-  if (SEAL_SET.has(id)) {
-    return { genuine: true, id: id as HoneycombSealId };
-  }
-  return { genuine: false, id };
-}
+export type VerifySealApiResult =
+  | { ok: true; authentic: true; code: string; message: string; productHint?: string }
+  | { ok: true; authentic: false; code: string; message: string }
+  | { ok: false; authentic: false; error: string };
 
-/** Fetch static token library (/authenticity/tokens.json). Falls back to built-in list. */
-export async function loadAuthTokenLibrary(): Promise<Set<string>> {
-  try {
-    const res = await fetch("/authenticity/tokens.json", { cache: "no-store" });
-    if (!res.ok) throw new Error("tokens fetch failed");
-    const data = (await res.json()) as { tokens?: string[] };
-    if (Array.isArray(data.tokens) && data.tokens.length > 0) {
-      return new Set(data.tokens.map((t) => t.toUpperCase().replace(/[\s\-_.]/g, "")));
-    }
-  } catch {
-    // use built-in
-  }
-  return new Set(HONEYCOMB_SEALS.map((s) => s.id));
-}
-
-export async function verifySealToken(
-  raw: string,
-): Promise<{ genuine: true; id: string } | { genuine: false; id: string }> {
-  const id = normalizeSealPayload(raw);
-  const library = await loadAuthTokenLibrary();
-  if (id && library.has(id)) {
-    return { genuine: true, id };
-  }
-  return { genuine: false, id };
+/** Call authenticity API — server checks the 5-token library. */
+export async function verifySealToken(raw: string): Promise<VerifySealApiResult> {
+  const res = await fetch("/api/verify-authenticity", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ code: raw }),
+  });
+  const data = (await res.json()) as VerifySealApiResult;
+  return data;
 }

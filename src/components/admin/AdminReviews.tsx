@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { CheckCircle2, Loader2, RefreshCw, Sparkles, Trash2, X } from "lucide-react";
+import { CheckCircle2, Loader2, RefreshCw, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { StarRating } from "@/components/reviews/StarRating";
@@ -9,7 +9,6 @@ import {
   deleteReviewOnBackend,
   fetchAdminReviews,
   moderateReview,
-  seedReviewsOnBackend,
   type AdminReview,
   type ReviewStatus,
 } from "@/lib/reviews-api";
@@ -40,7 +39,6 @@ const statusLabel: Record<ReviewStatus, string> = {
 export const AdminReviews = () => {
   const [reviews, setReviews] = useState<AdminReview[]>([]);
   const [loading, setLoading] = useState(false);
-  const [seeding, setSeeding] = useState(false);
   const [filter, setFilter] = useState<ReviewStatus | "all">("all");
 
   const refresh = useCallback(async () => {
@@ -98,23 +96,6 @@ export const AdminReviews = () => {
     }
   };
 
-  const seed = async () => {
-    setSeeding(true);
-    try {
-      const added = await seedReviewsOnBackend(getAdminKey());
-      if (added > 0) {
-        toast.success(`已生成 ${added} 条初始好评。`);
-        await refresh();
-      } else {
-        toast.info("初始好评已存在，未重复生成。");
-      }
-    } catch (error) {
-      toast.error(apiErrorMessage(error, "无法生成初始好评。"));
-    } finally {
-      setSeeding(false);
-    }
-  };
-
   const tabs: { key: ReviewStatus | "all"; label: string; count: number }[] = [
     { key: "all", label: "全部", count: counts.all },
     { key: "pending", label: "待审核", count: counts.pending },
@@ -142,10 +123,6 @@ export const AdminReviews = () => {
           ))}
         </div>
         <div className="flex items-center gap-2">
-          <Button type="button" variant="outline" onClick={() => void seed()} disabled={seeding}>
-            <Sparkles className={`h-4 w-4 mr-2 ${seeding ? "animate-pulse" : ""}`} />
-            生成初始好评
-          </Button>
           <Button type="button" variant="outline" onClick={() => void refresh()} disabled={loading}>
             <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             刷新

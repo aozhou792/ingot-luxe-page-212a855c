@@ -83,13 +83,3 @@ export async function deleteReviewOnBackend(adminKey: string, id: string): Promi
   });
   if (!response.ok) throw new Error(await parseError(response));
 }
-
-export async function seedReviewsOnBackend(adminKey: string): Promise<number> {
-  const response = await fetch("/api/seed-reviews", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${adminKey}` },
-  });
-  if (!response.ok) throw new Error(await parseError(response));
-  const data = (await response.json()) as { added: number };
-  return data.added;
-}
