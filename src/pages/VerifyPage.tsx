@@ -17,6 +17,7 @@ import { Seo, breadcrumbNode } from "@/components/Seo";
 import { useReveal } from "@/hooks/use-reveal";
 import { Button } from "@/components/ui/button";
 import {
+  HONEYCOMB_SEALS,
   isGenuineHoneycombSeal,
   VERIFY_PAGE_URL,
 } from "@/data/authenticity-codes";
@@ -363,6 +364,35 @@ const VerifyPage = () => {
                 <p className="text-sm text-muted-foreground leading-relaxed">{outcome.message}</p>
               </div>
             ) : null}
+          </section>
+
+          <section className="reveal rounded-2xl border border-gold/25 bg-card/50 p-5 sm:p-8 mb-8">
+            <h2 className="text-lg font-bold mb-2">What the seal looks like</h2>
+            <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
+              Left side of the box: circular orange ring with dotted honeycomb pattern (not a square QR). Aim your camera
+              at this mark, or upload a photo of it.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 items-center">
+              <img
+                src="/authenticity/honeycomb-ABSEAL01.png"
+                alt="Example honeycomb anti-counterfeit seal"
+                className="w-44 h-44 sm:w-52 sm:h-52 rounded-full object-contain bg-white shadow-[0_0_0_1px_hsl(45_75%_52%/0.25)]"
+                width={208}
+                height={208}
+              />
+              <div className="text-sm text-muted-foreground space-y-2">
+                <p>
+                  <strong className="text-foreground">Right QR</strong> → opens this page
+                </p>
+                <p>
+                  <strong className="text-foreground">Left honeycomb</strong> → scan here for genuine / not-genuine
+                </p>
+                <p className="text-xs font-mono text-gold/90">
+                  Print files: /authenticity/entry-verify.png + honeycomb-{HONEYCOMB_SEALS[0].id}.png …{" "}
+                  {HONEYCOMB_SEALS[4].id}.png
+                </p>
+              </div>
+            </div>
           </section>
 
           <p className="reveal text-sm text-muted-foreground leading-relaxed">
