@@ -63,7 +63,7 @@ export async function verifySealPhoto(imageDataUrl: string): Promise<VerifySealA
   return (await res.json()) as VerifySealApiResult;
 }
 
-/** Optional token path (QR deep-link). */
+/** Optional legacy token path (deprecated — seals are photo-only). */
 export async function verifySealToken(raw: string): Promise<VerifySealApiResult> {
   const res = await fetch("/api/verify-authenticity", {
     method: "POST",

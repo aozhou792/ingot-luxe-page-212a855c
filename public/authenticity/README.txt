@@ -1,15 +1,14 @@
-Alibarbar AU — 5-token honeycomb authenticity
-==============================================
+Alibarbar AU — photo-compare honeycomb authenticity
+====================================================
 
-模式: 5 个共享 token（随机印，扫中任一即正品）
-验真: 扫蜂窝图中的可读 QR → 对照 tokens.json 码库
+模式: 5 个共享点阵标（随机印，拍中任一即正品）
+验真: 拍照上传 → 服务器与官方模板比对（蜂窝内无 QR）
 
 RIGHT: entry-verify.png → https://www.alibarbar.mom/verify
-LEFT:  honeycomb-ABSEAL01.png … 05.png  （橙环蜂窝框 + 中间标准 QR）
-备用:  token-qr-ABSEAL0N.png
-码库: tokens.json
+LEFT:  honeycomb-ABSEAL01.png … 05.png
+样式: 橙环 + 实心中心六边形 + 3 个带心点的卫星六边形 + 点阵
 
 顾客:
   1. 扫右边方码进 /verify
-  2. 页内扫/上传左边蜂窝
-  3. 读出 ABSEAL0x，在码库内 → 正品
+  2. 拍摄/上传左边点阵标
+  3. 与官方模板匹配 → 正品

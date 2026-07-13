@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Camera,
   CheckCircle2,
@@ -15,12 +15,7 @@ import { Footer } from "@/components/Footer";
 import { Seo, breadcrumbNode } from "@/components/Seo";
 import { useReveal } from "@/hooks/use-reveal";
 import { Button } from "@/components/ui/button";
-import {
-  fileToVerifyDataUrl,
-  VERIFY_PAGE_URL,
-  verifySealPhoto,
-  verifySealToken,
-} from "@/data/authenticity-codes";
+import { fileToVerifyDataUrl, VERIFY_PAGE_URL, verifySealPhoto } from "@/data/authenticity-codes";
 
 type VerifyOutcome =
   | { status: "idle" }
@@ -30,7 +25,6 @@ type VerifyOutcome =
 
 const VerifyPage = () => {
   useReveal();
-  const [searchParams] = useSearchParams();
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -57,15 +51,6 @@ const VerifyPage = () => {
       setOutcome({ status: "fake", sealId: result.code || "UNKNOWN", score: result.score });
     }
   }, []);
-
-  // Deep-link from QR payload still supported
-  useEffect(() => {
-    const seal = searchParams.get("seal") ?? searchParams.get("code") ?? searchParams.get("token");
-    if (!seal) return;
-    void verifySealToken(seal)
-      .then(applyApiResult)
-      .catch(() => setOutcome({ status: "error", message: "Network error — could not reach the authenticity API." }));
-  }, [searchParams, applyApiResult]);
 
   useEffect(() => () => stopCamera(), [stopCamera]);
 
@@ -257,8 +242,8 @@ const VerifyPage = () => {
               Verify your <span className="text-gold">Alibarbar</span>
             </h1>
             <p className="text-muted-foreground mt-4 text-base leading-relaxed max-w-2xl">
-              Photograph the circular honeycomb seal on the box. Our server compares your photo against the official
-              seal library (5 shared templates — not one code per device).
+              Photograph the circular orange-ring honeycomb seal on the box. Our server compares your photo against five
+              official 点阵 templates (shared seals, not one code per device — no QR inside the left seal).
             </p>
             <div className="gold-divider mt-6 max-w-[6rem]" />
           </header>
@@ -285,7 +270,7 @@ const VerifyPage = () => {
                   <ShieldCheck className="w-4 h-4 text-gold" />
                   Photo the honeycomb
                 </p>
-                <p className="text-muted-foreground mt-1">Server matches your photo to official templates.</p>
+                <p className="text-muted-foreground mt-1">Photo the left 点阵 seal — server matches official templates.</p>
               </div>
             </li>
           </ol>
@@ -365,9 +350,36 @@ const VerifyPage = () => {
             ) : null}
           </section>
 
-          <p className="reveal text-sm text-muted-foreground leading-relaxed">
+          <p className="reveal text-sm text-muted-foreground leading-relaxed mb-6">
             Entry page: <span className="font-mono text-gold break-all">{VERIFY_PAGE_URL}</span>
           </p>
+
+          <section className="reveal rounded-2xl border border-border/60 bg-card/30 p-5 sm:p-6">
+            <h2 className="text-sm font-bold uppercase tracking-[0.15em] text-muted-foreground mb-4">
+              Official seal templates (print)
+            </h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              Five shared 点阵 seals — print any at random on packaging. No QR inside these marks.
+            </p>
+            <div className="grid grid-cols-5 gap-2 sm:gap-3">
+              {["01", "02", "03", "04", "05"].map((n) => (
+                <a
+                  key={n}
+                  href={`/authenticity/honeycomb-ABSEAL${n}.png`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block rounded-full overflow-hidden border border-gold/25 bg-white aspect-square hover:border-gold/60 transition-colors"
+                >
+                  <img
+                    src={`/authenticity/honeycomb-ABSEAL${n}.png`}
+                    alt={`Official honeycomb seal ABSEAL${n}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </a>
+              ))}
+            </div>
+          </section>
         </div>
       </main>
       <Footer />

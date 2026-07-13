@@ -1,40 +1,34 @@
 {
-  "protocol": "alibarbar-au-seal-tokens-v1",
-  "entryQr": {
-    "file": "entry-verify.png",
-    "url": "https://www.alibarbar.mom/verify"
-  },
-  "tokenLibrary": "tokens.json",
-  "honeycombSeals": [
+  "mode": "photo-compare",
+  "note": "Left = QR-free orange-ring 点阵 seal (5 templates). Right QR opens /verify only.",
+  "verifyUrl": "https://www.alibarbar.mom/verify",
+  "seals": [
     {
       "id": "ABSEAL01",
       "file": "honeycomb-ABSEAL01.png",
-      "payload": "https://www.alibarbar.mom/verify?seal=ABSEAL01",
-      "tokenQr": "token-qr-ABSEAL01.png"
+      "kind": "photo-template"
     },
     {
       "id": "ABSEAL02",
       "file": "honeycomb-ABSEAL02.png",
-      "payload": "https://www.alibarbar.mom/verify?seal=ABSEAL02",
-      "tokenQr": "token-qr-ABSEAL02.png"
+      "kind": "photo-template"
     },
     {
       "id": "ABSEAL03",
       "file": "honeycomb-ABSEAL03.png",
-      "payload": "https://www.alibarbar.mom/verify?seal=ABSEAL03",
-      "tokenQr": "token-qr-ABSEAL03.png"
+      "kind": "photo-template"
     },
     {
       "id": "ABSEAL04",
       "file": "honeycomb-ABSEAL04.png",
-      "payload": "https://www.alibarbar.mom/verify?seal=ABSEAL04",
-      "tokenQr": "token-qr-ABSEAL04.png"
+      "kind": "photo-template"
     },
     {
       "id": "ABSEAL05",
       "file": "honeycomb-ABSEAL05.png",
-      "payload": "https://www.alibarbar.mom/verify?seal=ABSEAL05",
-      "tokenQr": "token-qr-ABSEAL05.png"
+      "kind": "photo-template"
     }
-  ]
+  ],
+  "entryQr": "entry-verify.png",
+  "styleReference": "seal-style-reference.png"
 }

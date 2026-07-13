@@ -288,12 +288,12 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "How can I tell if my Alibarbar Ingot is genuine?",
         answer:
-          "Check the Authentication panel on the back of the box: scan the right QR to open /verify, then scan or upload the left honeycomb anti-counterfeit seal for a Genuine / not-genuine result. Genuine devices also have the smart LED display, up to 9000 puffs, 22ml capacity and ALIBARBAR branding. Buying from Alibarbar Australia ensures authentic stock.",
+          "Check the Authentication panel on the back of the box: scan the right QR to open /verify, then photograph or upload the left honeycomb anti-counterfeit seal for a Genuine / not-genuine result. Genuine devices also have the smart LED display, up to 9000 puffs, 22ml capacity and ALIBARBAR branding. Buying from Alibarbar Australia ensures authentic stock.",
       },
       {
         question: "How do I use the packaging authenticity marks?",
         answer:
-          "Scan the right-hand QR code on the box to open www.alibarbar.mom/verify. On that page, scan or upload a photo of the left honeycomb seal — it contains one of five official authenticity tokens. Matching any token in our code library shows Genuine Alibarbar; an unknown code shows a not-genuine warning. The same five seals are printed randomly across genuine packaging (not a unique serial per device).",
+          "Scan the right-hand QR code on the box to open www.alibarbar.mom/verify. On that page, photograph or upload the left circular honeycomb seal (orange ring + hex + 点阵 — no QR inside that seal). Matching any of our five official seal templates shows Genuine Alibarbar. The same five seals are printed randomly across genuine packaging (not a unique serial per device).",
       },
       {
         question: "How do I know if my Alibarbar is fake?",
@@ -328,7 +328,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "Can I verify my device online?",
         answer:
-          "Yes. Scan the right packaging QR to open www.alibarbar.mom/verify, then scan or upload the left honeycomb seal on that page. A successful match confirms an official Alibarbar product. When in doubt, buying from Alibarbar Australia removes the guesswork.",
+          "Yes. Scan the right packaging QR to open www.alibarbar.mom/verify, then photograph or upload the left honeycomb seal on that page. A successful photo match confirms an official Alibarbar product. When in doubt, buying from Alibarbar Australia removes the guesswork.",
       },
       {
         question: "Are custom packs also genuine?",
