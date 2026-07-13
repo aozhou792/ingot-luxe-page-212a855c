@@ -39,6 +39,7 @@ const FaqTopicPage = lazy(() => import("./pages/FaqTopicPage.tsx"));
 const AuthorPage = lazy(() => import("./pages/AuthorPage.tsx"));
 const TopicsIndexPage = lazy(() => import("./pages/TopicsIndexPage.tsx"));
 const TopicPage = lazy(() => import("./pages/TopicPage.tsx"));
+const VerifyPage = lazy(() => import("./pages/VerifyPage.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -86,6 +87,7 @@ const App = () => (
               <Route path="/author/:slug" element={<AuthorPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/wholesale" element={<WholesalePage />} />
+              <Route path="/verify" element={<VerifyPage />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/about" element={<ContentPage />} />
               <Route path="/shipping" element={<ContentPage />} />

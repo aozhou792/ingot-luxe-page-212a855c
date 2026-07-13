@@ -98,7 +98,7 @@ const whyReasons = [
   {
     icon: BadgeCheck,
     title: "100% authentic stock",
-    desc: "We only source genuine ALIBARBAR Ingot 9000 devices with the smart LED display and verified specifications.",
+    desc: "Genuine ALIBARBAR Ingot 9000 devices — scan the honeycomb anti-counterfeit seal on the box to confirm official brand stock.",
   },
   {
     icon: ShieldCheck,
@@ -142,6 +142,7 @@ export const HomeWhyChoose = () => (
       </div>
       <p className="text-center mt-8 text-sm text-muted-foreground reveal max-w-2xl mx-auto leading-relaxed">
         Learn more about our standards on the{" "}
+        <Link to="/verify" className="text-primary font-semibold hover:text-gold">Verify Authenticity</Link>,{" "}
         <Link to="/why-trust-us" className="text-primary font-semibold hover:text-gold">Why Trust Us</Link>,{" "}
         <Link to="/about" className="text-primary font-semibold hover:text-gold">About</Link> and{" "}
         <Link to="/editorial-policy" className="text-primary font-semibold hover:text-gold">Editorial Policy</Link> pages.

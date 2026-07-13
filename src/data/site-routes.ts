@@ -26,6 +26,7 @@ const HUB_ROUTES: SiteRoute[] = [
   { path: "/faq", priority: 0.7, changefreq: "monthly" },
   { path: "/contact", priority: 0.5, changefreq: "monthly" },
   { path: "/wholesale", priority: 0.6, changefreq: "monthly" },
+  { path: "/verify", priority: 0.8, changefreq: "monthly" },
 ];
 
 /** Slug-only lists — avoids importing product/flavour modules with image assets in Node scripts. */

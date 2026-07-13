@@ -288,7 +288,12 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "How can I tell if my Alibarbar Ingot is genuine?",
         answer:
-          "Genuine Alibarbar Ingot 9000 devices have the smart LED display showing battery and e-liquid levels, up to 9000 puffs, 22ml capacity and the ALIBARBAR branding on packaging. Buying from Alibarbar Australia ensures authentic stock — avoid unusually cheap listings on unofficial marketplaces.",
+          "Check the Authentication panel on the back of the box: the left honeycomb is the anti-counterfeit seal (scan it to confirm Genuine Alibarbar), and the right QR opens /verify on our website. Genuine devices also have the smart LED display, up to 9000 puffs, 22ml capacity and ALIBARBAR branding. Buying from Alibarbar Australia ensures authentic stock.",
+      },
+      {
+        question: "How do I use the packaging authenticity marks?",
+        answer:
+          "On the back of the box: the left honeycomb is the anti-counterfeit seal — scan it with your phone and you should land on our site showing Genuine Alibarbar. The right QR code simply opens the verification page at www.alibarbar.mom/verify so you can read how to check. There is no separate typed brand code and no unique serial per device.",
       },
       {
         question: "How do I know if my Alibarbar is fake?",
@@ -298,7 +303,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "What should genuine packaging look like?",
         answer:
-          "Authentic packaging includes ALIBARBAR branding, Ingot 9000 model naming, and clear puff-count and capacity labelling. The device inside should have the gold ingot-bar design and a working LED display.",
+          "Authentic packaging includes ALIBARBAR branding, Ingot 9000 model naming, clear puff-count and capacity labelling, plus the Authentication panel with a left honeycomb anti-counterfeit seal and a right QR code linked to our verify page. The device inside should have the gold ingot-bar design and a working LED display.",
       },
       {
         question: "Why are some Alibarbar listings much cheaper online?",
@@ -321,9 +326,9 @@ export const faqTopics: FaqTopic[] = [
           "Email orders@ailibarbar.com within 7 days with your order number and photos of the device and packaging. We will investigate and resolve genuine quality issues under our Returns & Refunds Policy.",
       },
       {
-        question: "Can I verify my device with the manufacturer?",
+        question: "Can I verify my device online?",
         answer:
-          "Some batches include verification codes on packaging. If your box has a code, follow the manufacturer's instructions. When in doubt, buying from Alibarbar Australia removes the guesswork.",
+          "Yes. Scan the honeycomb anti-counterfeit mark on the box — it opens our authenticity page and confirms an official Alibarbar product. You can also open www.alibarbar.mom/verify via the right-side packaging QR for the full guide. When in doubt, buying from Alibarbar Australia removes the guesswork.",
       },
       {
         question: "Are custom packs also genuine?",

@@ -20,6 +20,7 @@ const exploreLinks = [
   { label: "Reviews", to: "/reviews" },
   { label: "Brands", to: "/brands" },
   { label: "Blog", to: "/blog" },
+  { label: "Verify Authenticity", to: "/verify" },
   { label: "FAQ", to: "/faq" },
   { label: "Product FAQ", to: "/faq/product" },
   { label: "Shipping FAQ", to: "/faq/shipping" },

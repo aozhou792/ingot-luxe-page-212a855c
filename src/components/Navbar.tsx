@@ -12,6 +12,7 @@ const links = [
   { label: "Guides", to: "/guides" },
   { label: "Compare", to: "/compare" },
   { label: "Reviews", to: "/reviews" },
+  { label: "Verify", to: "/verify" },
   { label: "FAQ", to: "/faq" },
   { label: "Wholesale", to: "/wholesale" },
 ] as const;
