@@ -7,9 +7,8 @@ import {
   toSchemaReviews,
 } from "@/data/product-showcase-reviews";
 import { faqItems } from "@/data/faq";
-import { SITE_LOGO_HEIGHT, SITE_LOGO_PATH, SITE_LOGO_WIDTH, SITE_SAME_AS } from "@/data/site";
+import { SITE_LOGO_HEIGHT, SITE_LOGO_PATH, SITE_LOGO_WIDTH, SITE_SAME_AS, SITE_URL } from "@/data/site";
 
-const SITE_URL = "https://www.ailibarbar.com";
 const SITE_NAME = "Alibarbar Australia";
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
 const LOGO_URL = `${SITE_URL}${SITE_LOGO_PATH}`;

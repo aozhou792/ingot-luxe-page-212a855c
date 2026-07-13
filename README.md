@@ -1,9 +1,9 @@
-# Alibarbar Australia
+﻿# Alibarbar Australia
 
-> Official knowledge base & source for [**Alibarbar Australia**](https://www.ailibarbar.com) — authentic **Alibarbar Ingot 9000** disposable vapes, shipped Australia-wide.
+> Official knowledge base & source for [**Alibarbar Australia**](https://www.alibarbar.mom) — authentic **Alibarbar Ingot 9000** disposable vapes, shipped Australia-wide.
 
-[![Website](https://img.shields.io/badge/website-ailibarbar.com-d7b760?style=for-the-badge)](https://www.ailibarbar.com)
-[![Region](https://img.shields.io/badge/region-Australia-00843D?style=for-the-badge)](https://www.ailibarbar.com)
+[![Website](https://img.shields.io/badge/website-ailibarbar.com-d7b760?style=for-the-badge)](https://www.alibarbar.mom)
+[![Region](https://img.shields.io/badge/region-Australia-00843D?style=for-the-badge)](https://www.alibarbar.mom)
 [![18+](https://img.shields.io/badge/adults-18%2B%20only-red?style=for-the-badge)](#legal)
 
 ---
@@ -95,9 +95,9 @@ Stack: **Vite · React · TypeScript · Tailwind · Vercel**
 
 | | |
 |---|---|
-| **Website** | https://www.ailibarbar.com |
+| **Website** | https://www.alibarbar.mom |
 | **Email** | orders@ailibarbar.com |
-| **Shop** | [Browse flavours](https://www.ailibarbar.com/flavours) |
+| **Shop** | [Browse flavours](https://www.alibarbar.mom/flavours) |
 
 ---
 
@@ -108,7 +108,7 @@ Products are **strictly for adults 18+** who already smoke or vape. Not for non-
 ---
 
 <p align="center">
-  <a href="https://www.ailibarbar.com">Shop Alibarbar Australia</a>
+  <a href="https://www.alibarbar.mom">Shop Alibarbar Australia</a>
   &nbsp;·&nbsp;
   <a href="./docs/README.md">Full Documentation</a>
   &nbsp;·&nbsp;

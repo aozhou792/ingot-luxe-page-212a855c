@@ -1,4 +1,4 @@
-# Where to Buy Alibarbar Ingot 9000 in Australia
+﻿# Where to Buy Alibarbar Ingot 9000 in Australia
 
 A practical guide for Australian buyers looking for **authentic** Alibarbar Ingot 9000 devices.
 
@@ -11,7 +11,7 @@ The safest option is a store that specialises in the Alibarbar range — not a g
 - Offer support for faulty items
 - Enforce 18+ age policy
 
-**Official store:** https://www.ailibarbar.com
+**Official store:** https://www.alibarbar.mom
 
 ## Red flags to avoid
 

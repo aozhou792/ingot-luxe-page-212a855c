@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { ArrowRight, Tag } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -16,7 +16,7 @@ const BrandsIndexPage = () => {
         "@type": "CollectionPage",
         name: "Vape Brand Guides",
         description: "Guides to disposable vape brands and how they compare with Alibarbar.",
-        url: "https://www.ailibarbar.com/brands",
+        url: "https://www.alibarbar.mom/brands",
       },
       breadcrumbNode([
         { name: "Home", path: "/" },

@@ -1,4 +1,5 @@
 /** Central site metadata for SEO schema and footer links. */
+export const SITE_URL = "https://www.alibarbar.mom";
 export const SITE_LOGO_PATH = "/logo.png";
 export const SITE_LOGO_WIDTH = 600;
 export const SITE_LOGO_HEIGHT = 600;

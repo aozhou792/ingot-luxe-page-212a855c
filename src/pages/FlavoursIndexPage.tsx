@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -16,7 +16,7 @@ const FlavoursIndexPage = () => {
         "@type": "CollectionPage",
         name: "Alibarbar Ingot 9000 Flavours",
         description: "Explore every Alibarbar Ingot 9000 flavour with taste profiles, sweetness and cooling ratings.",
-        url: "https://www.ailibarbar.com/flavours",
+        url: "https://www.alibarbar.mom/flavours",
       },
       breadcrumbNode([
         { name: "Home", path: "/" },

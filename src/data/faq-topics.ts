@@ -1,4 +1,4 @@
-export type FaqTopic = {
+﻿export type FaqTopic = {
   slug: string;
   title: string;
   description: string;
@@ -308,7 +308,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "Where can I buy authentic Alibarbar in Australia?",
         answer:
-          "You can order authentic Alibarbar Ingot 9000 devices directly from Alibarbar Australia at www.ailibarbar.com. We ship Australia-wide to NSW, VIC, QLD, WA, SA, TAS, ACT and NT.",
+          "You can order authentic Alibarbar Ingot 9000 devices directly from Alibarbar Australia at www.alibarbar.mom. We ship Australia-wide to NSW, VIC, QLD, WA, SA, TAS, ACT and NT.",
       },
       {
         question: "Does the LED display work on fakes?",

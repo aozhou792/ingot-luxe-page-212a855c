@@ -1,10 +1,10 @@
-# How to Order from Alibarbar Australia
+﻿# How to Order from Alibarbar Australia
 
-**Live page:** https://www.ailibarbar.com/ordering-guide
+**Live page:** https://www.alibarbar.mom/ordering-guide
 
 ## Step 1: Browse and add to cart
 
-Visit https://www.ailibarbar.com and browse individual flavours or Custom Packs (3, 5 or 10 flavours). Add items to cart.
+Visit https://www.alibarbar.mom and browse individual flavours or Custom Packs (3, 5 or 10 flavours). Add items to cart.
 
 ## Step 2: Checkout
 
@@ -36,8 +36,8 @@ Email **orders@ailibarbar.com** with your order number.
 
 ## Help
 
-- Payment questions: https://www.ailibarbar.com/faq/payment
-- Shipping questions: https://www.ailibarbar.com/faq/shipping
+- Payment questions: https://www.alibarbar.mom/faq/payment
+- Shipping questions: https://www.alibarbar.mom/faq/shipping
 
 ---
 

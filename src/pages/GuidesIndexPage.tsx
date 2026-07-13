@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -16,13 +16,13 @@ const GuidesIndexPage = () => {
         "@type": "CollectionPage",
         name: "Alibarbar Vape Guides",
         description: "Guides and resources for Alibarbar Ingot 9000 disposable vapes in Australia.",
-        url: "https://www.ailibarbar.com/guides",
+        url: "https://www.alibarbar.mom/guides",
       },
       {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.ailibarbar.com/" },
-          { "@type": "ListItem", position: 2, name: "Guides", item: "https://www.ailibarbar.com/guides" },
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.alibarbar.mom/" },
+          { "@type": "ListItem", position: 2, name: "Guides", item: "https://www.alibarbar.mom/guides" },
         ],
       },
     ],

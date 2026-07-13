@@ -1,9 +1,9 @@
-import { Resend } from "resend";
+﻿import { Resend } from "resend";
 import type { CheckoutDraft } from "./draft-store.js";
 import { COUPON_DISCOUNT_AUD, COUPON_VALID_DAYS } from "./coupon-store.js";
 import type { StoredUser } from "./user-store.js";
 
-const DEFAULT_SITE_URL = "https://www.ailibarbar.com";
+const DEFAULT_SITE_URL = "https://www.alibarbar.mom";
 const TELEGRAM_URL = "https://t.me/ailibarbar";
 const WHATSAPP_PHONE_DISPLAY = "+86 176 8897 1179";
 const WHATSAPP_URL = "https://wa.me/8617688971179";

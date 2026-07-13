@@ -1,6 +1,6 @@
-# Product FAQ
+﻿# Product FAQ
 
-**Live page:** https://www.ailibarbar.com/faq/product
+**Live page:** https://www.alibarbar.mom/faq/product
 
 ## Specifications
 
@@ -17,13 +17,13 @@
 
 **No.** You cannot recharge an Alibarbar Ingot 9000 — it is a non-rechargeable disposable. When the battery or e-liquid is finished, replace the whole device.
 
-**Guide:** https://www.ailibarbar.com/guides/can-you-recharge-alibarbar-ingot-9000
+**Guide:** https://www.alibarbar.mom/guides/can-you-recharge-alibarbar-ingot-9000
 
 ## How many puffs?
 
 Up to **9000 puffs** per device (manufacturer rating). Real totals depend on puff length.
 
-**Guide:** https://www.ailibarbar.com/guides/how-many-puffs-does-alibarbar-ingot-9000-have
+**Guide:** https://www.alibarbar.mom/guides/how-many-puffs-does-alibarbar-ingot-9000-have
 
 ## How long does one device last?
 
@@ -33,7 +33,7 @@ At ~300 puffs/day, expect roughly **3–4 weeks**. Light users may get 6+ weeks;
 
 Open the retail pack, remove the mouthpiece cap, then inhale gently. Do **not** pry open the device casing.
 
-**Guide:** https://www.ailibarbar.com/guides/how-to-open-alibarbar-vape
+**Guide:** https://www.alibarbar.mom/guides/how-to-open-alibarbar-vape
 
 ## Available flavours
 
@@ -60,7 +60,7 @@ Remove from packaging, take off any cap, and inhale gently. No buttons, filling 
 - Consistent vapour and flavour quality
 - Buy from a verified retailer
 
-**Guide:** https://www.ailibarbar.com/guides/how-to-spot-fake-alibarbar-ingot
+**Guide:** https://www.alibarbar.mom/guides/how-to-spot-fake-alibarbar-ingot
 
 ## Storage
 
@@ -68,4 +68,4 @@ Store in a cool, dry place away from direct sunlight and extreme heat. Do not le
 
 ---
 
-*Full specs: https://www.ailibarbar.com/product-specifications*
+*Full specs: https://www.alibarbar.mom/product-specifications*

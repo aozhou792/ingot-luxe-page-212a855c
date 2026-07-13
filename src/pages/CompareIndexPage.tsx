@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { ArrowRight, GitCompare } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -16,7 +16,7 @@ const CompareIndexPage = () => {
         "@type": "CollectionPage",
         name: "Alibarbar Vape Comparisons",
         description: "Compare the Alibarbar Ingot 9000 with other disposable vape brands in Australia.",
-        url: "https://www.ailibarbar.com/compare",
+        url: "https://www.alibarbar.mom/compare",
       },
       breadcrumbNode([
         { name: "Home", path: "/" },

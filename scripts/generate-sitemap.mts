@@ -1,8 +1,8 @@
-import { writeFileSync } from "node:fs";
+﻿import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { getSiteRoutes } from "../src/data/site-routes.ts";
 
-const SITE_URL = "https://www.ailibarbar.com";
+const SITE_URL = "https://www.alibarbar.mom";
 const OUT = resolve(process.cwd(), "public/sitemap.xml");
 const lastmod = new Date().toISOString().slice(0, 10);
 

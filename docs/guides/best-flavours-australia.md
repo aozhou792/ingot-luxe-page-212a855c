@@ -1,4 +1,4 @@
-# Best Alibarbar Ingot 9000 Flavours in Australia
+﻿# Best Alibarbar Ingot 9000 Flavours in Australia
 
 Ten flavours in the current Australian line-up, plus Custom 3/5/10 packs. Here is how to choose.
 
@@ -31,7 +31,7 @@ Ten flavours in the current Australian line-up, plus Custom 3/5/10 packs. Here i
 
 The **5 Flavour Custom Pack** (A$160) lets you pick any five flavours — repeats allowed. Ideal for finding your favourite before committing to a single flavour.
 
-**Shop:** https://www.ailibarbar.com/product/custom-5-pack
+**Shop:** https://www.alibarbar.mom/product/custom-5-pack
 
 ---
 

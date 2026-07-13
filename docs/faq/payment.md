@@ -1,6 +1,6 @@
-# Payment FAQ
+﻿# Payment FAQ
 
-**Live page:** https://www.ailibarbar.com/faq/payment
+**Live page:** https://www.alibarbar.mom/faq/payment
 
 ## What payment methods do you accept?
 

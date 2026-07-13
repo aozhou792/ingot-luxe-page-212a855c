@@ -1,4 +1,4 @@
-export type TopicLink = {
+﻿export type TopicLink = {
   label: string;
   path: string;
   description: string;
@@ -274,7 +274,7 @@ export const topicHubs: TopicHub[] = [
     faq: [
       {
         question: "Where to buy Alibarbar Ingot 9000 in Australia?",
-        answer: "Alibarbar Australia at ailibarbar.com stocks authentic Ingot 9000 devices with Australia-wide shipping.",
+        answer: "Alibarbar Australia at www.alibarbar.mom stocks authentic Ingot 9000 devices with Australia-wide shipping.",
       },
     ],
     guides: [

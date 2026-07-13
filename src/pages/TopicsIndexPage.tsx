@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -17,7 +17,7 @@ const TopicsIndexPage = () => {
         name: "Disposable Vape Topic Hubs | Alibarbar Australia",
         description:
           "Entity hubs for mesh coil, 9000 puff disposables, buying in Australia, Alibarbar Ingot 9000 and competitor comparisons.",
-        url: "https://www.ailibarbar.com/topics",
+        url: "https://www.alibarbar.mom/topics",
       },
       breadcrumbNode([
         { name: "Home", path: "/" },

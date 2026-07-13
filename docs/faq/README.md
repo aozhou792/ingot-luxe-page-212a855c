@@ -1,8 +1,8 @@
-# FAQ — Alibarbar Australia
+﻿# FAQ — Alibarbar Australia
 
 Answers to common questions about ordering, shipping, payment, the Alibarbar Ingot 9000 product and legal requirements in Australia.
 
-**Live FAQ hub:** https://www.ailibarbar.com/faq
+**Live FAQ hub:** https://www.alibarbar.mom/faq
 
 ## Topics
 
@@ -38,7 +38,7 @@ Yes. You must be 18 or older and of legal age in your state or territory.
 
 ### Where can I buy in Australia?
 
-Order authentic devices at https://www.ailibarbar.com — we ship to all Australian states and territories.
+Order authentic devices at https://www.alibarbar.mom — we ship to all Australian states and territories.
 
 ---
 

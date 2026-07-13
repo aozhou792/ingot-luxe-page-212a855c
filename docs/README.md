@@ -1,6 +1,6 @@
-# Alibarbar Australia — Documentation Hub
+﻿# Alibarbar Australia — Documentation Hub
 
-Official knowledge base for [Alibarbar Australia](https://www.ailibarbar.com) — the Australian online store for authentic **Alibarbar Ingot 9000** disposable vapes.
+Official knowledge base for [Alibarbar Australia](https://www.alibarbar.mom) — the Australian online store for authentic **Alibarbar Ingot 9000** disposable vapes.
 
 > **Adults 18+ only.** Products are intended for existing adult smokers or vapers in Australia.
 
@@ -14,12 +14,12 @@ Official knowledge base for [Alibarbar Australia](https://www.ailibarbar.com) �
 
 ## Quick links (live site)
 
-- [Shop](https://www.ailibarbar.com/)
-- [Documentation](https://www.ailibarbar.com/documentation)
-- [Guides](https://www.ailibarbar.com/guides)
-- [FAQ](https://www.ailibarbar.com/faq)
-- [Product specifications](https://www.ailibarbar.com/product-specifications)
-- [Ordering guide](https://www.ailibarbar.com/ordering-guide)
+- [Shop](https://www.alibarbar.mom/)
+- [Documentation](https://www.alibarbar.mom/documentation)
+- [Guides](https://www.alibarbar.mom/guides)
+- [FAQ](https://www.alibarbar.mom/faq)
+- [Product specifications](https://www.alibarbar.mom/product-specifications)
+- [Ordering guide](https://www.alibarbar.mom/ordering-guide)
 
 ## About this repository
 
@@ -28,4 +28,4 @@ This repository powers the Alibarbar Australia e-commerce site (Vite + React, de
 ## Contact
 
 - Email: orders@ailibarbar.com
-- Website: https://www.ailibarbar.com
+- Website: https://www.alibarbar.mom

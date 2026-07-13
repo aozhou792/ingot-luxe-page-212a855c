@@ -1,8 +1,8 @@
-# Documentation — Alibarbar Australia
+﻿# Documentation — Alibarbar Australia
 
 Official reference documentation for the Alibarbar Ingot 9000 store and product.
 
-**Live documentation hub:** https://www.ailibarbar.com/documentation
+**Live documentation hub:** https://www.alibarbar.mom/documentation
 
 ## Documents
 
@@ -14,11 +14,11 @@ Official reference documentation for the Alibarbar Ingot 9000 store and product.
 
 ## Also on the live site
 
-- [Shipping & Delivery](https://www.ailibarbar.com/shipping)
-- [Returns & Refunds](https://www.ailibarbar.com/returns)
-- [Age Verification](https://www.ailibarbar.com/age-verification)
-- [Privacy Policy](https://www.ailibarbar.com/privacy)
-- [Terms of Service](https://www.ailibarbar.com/terms)
+- [Shipping & Delivery](https://www.alibarbar.mom/shipping)
+- [Returns & Refunds](https://www.alibarbar.mom/returns)
+- [Age Verification](https://www.alibarbar.mom/age-verification)
+- [Privacy Policy](https://www.alibarbar.mom/privacy)
+- [Terms of Service](https://www.alibarbar.mom/terms)
 
 ## Product summary
 

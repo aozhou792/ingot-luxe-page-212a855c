@@ -1,6 +1,6 @@
-# Legal & Safety FAQ
+﻿# Legal & Safety FAQ
 
-**Live page:** https://www.ailibarbar.com/faq/legal-safety
+**Live page:** https://www.alibarbar.mom/faq/legal-safety
 
 > General information only — not legal advice. Regulations vary by state and territory.
 
@@ -14,7 +14,7 @@ Only **existing adult smokers or vapers**. Not for non-smokers, minors, or anyon
 
 ## Are disposable vapes legal in Australia?
 
-Regulations change and differ by jurisdiction. See our overview: https://www.ailibarbar.com/guides/disposable-vape-laws-in-australia
+Regulations change and differ by jurisdiction. See our overview: https://www.alibarbar.mom/guides/disposable-vape-laws-in-australia
 
 ## Air travel
 
@@ -36,8 +36,8 @@ Seek medical advice immediately. Keep vaping products out of reach of children.
 
 ## Consumer rights
 
-Faulty products may be covered under the **Australian Consumer Law**. See https://www.ailibarbar.com/returns
+Faulty products may be covered under the **Australian Consumer Law**. See https://www.alibarbar.mom/returns
 
 ---
 
-*Safety guide: https://www.ailibarbar.com/safety-and-storage*
+*Safety guide: https://www.alibarbar.mom/safety-and-storage*
