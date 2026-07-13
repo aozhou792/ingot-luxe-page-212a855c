@@ -1,45 +1,41 @@
 {
+  "protocol": "alibarbar-au-honeycomb-v2",
   "entryQr": {
     "file": "entry-verify.png",
     "url": "https://www.alibarbar.mom/verify",
-    "use": "Right-side square packaging QR — opens verify page only"
+    "use": "Right-side square QR — opens verify page"
   },
   "honeycombSeals": [
     {
       "id": "ABSEAL01",
       "file": "honeycomb-ABSEAL01.png",
       "svg": "honeycomb-ABSEAL01.svg",
-      "url": "https://www.alibarbar.mom/verify?seal=ABSEAL01",
-      "use": "Left honeycomb anti-counterfeit seal — print any of these 5"
+      "use": "Left honeycomb seal — print any of these 5"
     },
     {
       "id": "ABSEAL02",
       "file": "honeycomb-ABSEAL02.png",
       "svg": "honeycomb-ABSEAL02.svg",
-      "url": "https://www.alibarbar.mom/verify?seal=ABSEAL02",
-      "use": "Left honeycomb anti-counterfeit seal — print any of these 5"
+      "use": "Left honeycomb seal — print any of these 5"
     },
     {
       "id": "ABSEAL03",
       "file": "honeycomb-ABSEAL03.png",
       "svg": "honeycomb-ABSEAL03.svg",
-      "url": "https://www.alibarbar.mom/verify?seal=ABSEAL03",
-      "use": "Left honeycomb anti-counterfeit seal — print any of these 5"
+      "use": "Left honeycomb seal — print any of these 5"
     },
     {
       "id": "ABSEAL04",
       "file": "honeycomb-ABSEAL04.png",
       "svg": "honeycomb-ABSEAL04.svg",
-      "url": "https://www.alibarbar.mom/verify?seal=ABSEAL04",
-      "use": "Left honeycomb anti-counterfeit seal — print any of these 5"
+      "use": "Left honeycomb seal — print any of these 5"
     },
     {
       "id": "ABSEAL05",
       "file": "honeycomb-ABSEAL05.png",
       "svg": "honeycomb-ABSEAL05.svg",
-      "url": "https://www.alibarbar.mom/verify?seal=ABSEAL05",
-      "use": "Left honeycomb anti-counterfeit seal — print any of these 5"
+      "use": "Left honeycomb seal — print any of these 5"
     }
   ],
-  "note": "Honeycomb seals match proprietary box artwork style. Verify page uses visual template matching."
+  "note": "Own visual protocol (packaging-style honeycomb). Verified on /verify by photo template match — not manufacturer SDK."
 }
