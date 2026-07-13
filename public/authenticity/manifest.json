@@ -1,41 +1,40 @@
 {
-  "protocol": "alibarbar-au-honeycomb-v2",
+  "protocol": "alibarbar-au-honeycomb-v3",
   "entryQr": {
     "file": "entry-verify.png",
-    "url": "https://www.alibarbar.mom/verify",
-    "use": "Right-side square QR — opens verify page"
+    "url": "https://www.alibarbar.mom/verify"
   },
   "honeycombSeals": [
     {
       "id": "ABSEAL01",
       "file": "honeycomb-ABSEAL01.png",
       "svg": "honeycomb-ABSEAL01.svg",
-      "use": "Left honeycomb seal — print any of these 5"
+      "panel": "panel-ABSEAL01.png"
     },
     {
       "id": "ABSEAL02",
       "file": "honeycomb-ABSEAL02.png",
       "svg": "honeycomb-ABSEAL02.svg",
-      "use": "Left honeycomb seal — print any of these 5"
+      "panel": "panel-ABSEAL02.png"
     },
     {
       "id": "ABSEAL03",
       "file": "honeycomb-ABSEAL03.png",
       "svg": "honeycomb-ABSEAL03.svg",
-      "use": "Left honeycomb seal — print any of these 5"
+      "panel": "panel-ABSEAL03.png"
     },
     {
       "id": "ABSEAL04",
       "file": "honeycomb-ABSEAL04.png",
       "svg": "honeycomb-ABSEAL04.svg",
-      "use": "Left honeycomb seal — print any of these 5"
+      "panel": "panel-ABSEAL04.png"
     },
     {
       "id": "ABSEAL05",
       "file": "honeycomb-ABSEAL05.png",
       "svg": "honeycomb-ABSEAL05.svg",
-      "use": "Left honeycomb seal — print any of these 5"
+      "panel": "panel-ABSEAL05.png"
     }
   ],
-  "note": "Own visual protocol (packaging-style honeycomb). Verified on /verify by photo template match — not manufacturer SDK."
+  "note": "Visual match to packaging Authentication sticker. Verified on /verify by photo template match."
 }
