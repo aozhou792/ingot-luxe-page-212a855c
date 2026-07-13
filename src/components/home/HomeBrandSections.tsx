@@ -98,7 +98,7 @@ const whyReasons = [
   {
     icon: BadgeCheck,
     title: "100% authentic stock",
-    desc: "Genuine ALIBARBAR Ingot 9000 devices — scan the honeycomb anti-counterfeit seal on the box to confirm official brand stock.",
+    desc: "Genuine ALIBARBAR Ingot 9000 devices — scan the packaging QR, then scan the honeycomb seal on our verify page to confirm.",
   },
   {
     icon: ShieldCheck,

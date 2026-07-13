@@ -1,27 +1,26 @@
 /**
- * Packaging QR payloads — two marks, two jobs.
- *
- * Left honeycomb (防伪码) → confirm genuine brand
- * Right QR               → open the site verify page
- *
+ * Print helpers — same seals as src/data/authenticity-codes.ts
  *   node scripts/mint-authenticity-codes.mjs
  */
 const SITE = "https://www.alibarbar.mom";
+const VERIFY = `${SITE}/verify`;
+const SEALS = ["ABSEAL01", "ABSEAL02", "ABSEAL03", "ABSEAL04", "ABSEAL05"];
 
 console.log(`
-包装背面怎么印 / 怎么用
+包装怎么印 / 顾客怎么用
 ========================
 
-【左边 · 蜂窝】= 防伪码（扫出来是自家正品）
-  把下面链接做成二维码，嵌在蜂窝图案里（全箱共用同一个）：
-  ${SITE}/verify?seal=1
+【右边二维码】→ 进入网站验证页（全箱同一个）
+  ${VERIFY}
+  图片文件: public/authenticity/entry-verify.png
 
-  顾客手机一扫 → 打开网站并显示 “Genuine Alibarbar”
-
-【右边 · 二维码】= 进网站验证板块（不是另一套暗号）
-  ${SITE}/verify
-
-  顾客扫一下 → 打开本站 /verify 说明页
-
-不需要一物一码，也不需要再印 ALIBARBAR / INGOT9000 这类「通用品牌码」。
+【左边蜂窝防伪码】→ 在验证页里扫 / 上传（下面 5 个任选打印）
+`);
+for (const id of SEALS) {
+  console.log(`  ${id}`);
+  console.log(`    URL  ${VERIFY}?seal=${id}`);
+  console.log(`    PNG  public/authenticity/honeycomb-${id}.png`);
+  console.log("");
+}
+console.log(`生成印刷图: node scripts/generate-honeycomb-qrs.mjs
 `);

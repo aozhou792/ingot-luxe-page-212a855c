@@ -1,0 +1,39 @@
+{
+  "entryQr": {
+    "file": "entry-verify.png",
+    "url": "https://www.alibarbar.mom/verify",
+    "use": "Right-side packaging QR — opens verify page only"
+  },
+  "honeycombSeals": [
+    {
+      "id": "ABSEAL01",
+      "file": "honeycomb-ABSEAL01.png",
+      "url": "https://www.alibarbar.mom/verify?seal=ABSEAL01",
+      "use": "Left honeycomb anti-counterfeit seal — print any of these 5 on boxes"
+    },
+    {
+      "id": "ABSEAL02",
+      "file": "honeycomb-ABSEAL02.png",
+      "url": "https://www.alibarbar.mom/verify?seal=ABSEAL02",
+      "use": "Left honeycomb anti-counterfeit seal — print any of these 5 on boxes"
+    },
+    {
+      "id": "ABSEAL03",
+      "file": "honeycomb-ABSEAL03.png",
+      "url": "https://www.alibarbar.mom/verify?seal=ABSEAL03",
+      "use": "Left honeycomb anti-counterfeit seal — print any of these 5 on boxes"
+    },
+    {
+      "id": "ABSEAL04",
+      "file": "honeycomb-ABSEAL04.png",
+      "url": "https://www.alibarbar.mom/verify?seal=ABSEAL04",
+      "use": "Left honeycomb anti-counterfeit seal — print any of these 5 on boxes"
+    },
+    {
+      "id": "ABSEAL05",
+      "file": "honeycomb-ABSEAL05.png",
+      "url": "https://www.alibarbar.mom/verify?seal=ABSEAL05",
+      "use": "Left honeycomb anti-counterfeit seal — print any of these 5 on boxes"
+    }
+  ]
+}

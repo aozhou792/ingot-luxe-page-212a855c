@@ -1,110 +1,147 @@
-import { useMemo } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { CheckCircle2, QrCode, ShieldCheck } from "lucide-react";
+import { Html5Qrcode } from "html5-qrcode";
+import {
+  Camera,
+  CheckCircle2,
+  ImagePlus,
+  Loader2,
+  QrCode,
+  ShieldAlert,
+  ShieldCheck,
+  XCircle,
+} from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Seo, breadcrumbNode } from "@/components/Seo";
 import { useReveal } from "@/hooks/use-reveal";
-import { HONEYCOMB_SEAL_URL, VERIFY_PAGE_URL } from "@/data/authenticity-codes";
+import { Button } from "@/components/ui/button";
+import {
+  isGenuineHoneycombSeal,
+  VERIFY_PAGE_URL,
+} from "@/data/authenticity-codes";
 
-function HoneycombSeal({ className = "" }: { className?: string }) {
-  const cells = useMemo(() => {
-    const out: { x: number; y: number; r: number }[] = [];
-    const size = 9;
-    const gap = 11;
-    for (let row = -size; row <= size; row++) {
-      for (let col = -size; col <= size; col++) {
-        const x = col * gap + (row % 2 === 0 ? 0 : gap / 2);
-        const y = row * gap * 0.86;
-        const dist = Math.hypot(x, y);
-        if (dist > 88 || dist < 18) continue;
-        out.push({ x, y, r: dist < 36 ? 2.4 : dist < 58 ? 1.8 : 1.2 });
-      }
-    }
-    return out;
-  }, []);
+type VerifyOutcome =
+  | { status: "idle" }
+  | { status: "genuine"; sealId: string }
+  | { status: "fake"; sealId: string }
+  | { status: "error"; message: string };
 
-  return (
-    <svg
-      viewBox="-100 -100 200 200"
-      className={className}
-      role="img"
-      aria-label="Alibarbar honeycomb anti-counterfeit seal"
-    >
-      <defs>
-        <radialGradient id="honeyGlow" cx="50%" cy="45%" r="65%">
-          <stop offset="0%" stopColor="hsl(48 95% 60% / 0.35)" />
-          <stop offset="55%" stopColor="hsl(45 75% 52% / 0.12)" />
-          <stop offset="100%" stopColor="transparent" />
-        </radialGradient>
-      </defs>
-      <circle r="96" fill="url(#honeyGlow)" />
-      <circle r="92" fill="none" stroke="hsl(45 75% 52% / 0.55)" strokeWidth="1.5" />
-      <circle r="84" fill="hsl(0 0% 4% / 0.85)" stroke="hsl(45 75% 52% / 0.35)" strokeWidth="1" />
-      {cells.map((c, i) => (
-        <circle key={i} cx={c.x} cy={c.y} r={c.r} fill="hsl(45 85% 58% / 0.85)" />
-      ))}
-      <polygon
-        points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11"
-        fill="none"
-        stroke="hsl(48 95% 65%)"
-        strokeWidth="2.2"
-      />
-      <polygon
-        points="0,-12 10,-6 10,6 0,12 -10,6 -10,-6"
-        fill="hsl(45 75% 52% / 0.25)"
-        stroke="hsl(48 95% 65%)"
-        strokeWidth="1.2"
-      />
-      <text
-        y="72"
-        textAnchor="middle"
-        fill="hsl(45 75% 52%)"
-        fontSize="9"
-        fontFamily="Montserrat, sans-serif"
-        letterSpacing="2"
-        fontWeight="700"
-      >
-        ALIBARBAR
-      </text>
-    </svg>
-  );
-}
-
-function PackagingQrMock() {
-  const modules = useMemo(() => {
-    const n = 21;
-    const cells: boolean[] = [];
-    for (let y = 0; y < n; y++) {
-      for (let x = 0; x < n; x++) {
-        const finder = (x < 7 && y < 7) || (x > n - 8 && y < 7) || (x < 7 && y > n - 8);
-        const quiet = x === 0 || y === 0 || x === n - 1 || y === n - 1;
-        const pattern = (x * 7 + y * 13) % 5 === 0 || ((x + y) % 3 === 0 && x > 8);
-        cells.push(finder || (!quiet && pattern));
-      }
-    }
-    return { n, cells };
-  }, []);
-
-  return (
-    <svg viewBox="0 0 21 21" className="w-full h-full" shapeRendering="crispEdges" aria-hidden>
-      <rect width="21" height="21" fill="#fff" />
-      {modules.cells.map((on, i) =>
-        on ? (
-          <rect key={i} x={i % modules.n} y={Math.floor(i / modules.n)} width="1" height="1" fill="#0a0a0a" />
-        ) : null,
-      )}
-    </svg>
-  );
+function applySealResult(raw: string): VerifyOutcome {
+  const result = isGenuineHoneycombSeal(raw);
+  if (!result.id) {
+    return { status: "error", message: "No code found. Try again or upload a clearer photo of the honeycomb seal." };
+  }
+  if (result.genuine) {
+    return { status: "genuine", sealId: result.id };
+  }
+  return { status: "fake", sealId: result.id };
 }
 
 const VerifyPage = () => {
   useReveal();
   const [searchParams] = useSearchParams();
-  const fromHoneycomb =
-    searchParams.get("seal") === "1" ||
-    searchParams.get("type") === "honeycomb" ||
-    searchParams.get("from") === "honeycomb";
+  const scannerHostId = useId().replace(/:/g, "");
+  const scannerRef = useRef<Html5Qrcode | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [scanning, setScanning] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [outcome, setOutcome] = useState<VerifyOutcome>({ status: "idle" });
+
+  const stopScanner = useCallback(async () => {
+    const scanner = scannerRef.current;
+    scannerRef.current = null;
+    setScanning(false);
+    if (!scanner) return;
+    try {
+      if (scanner.isScanning) await scanner.stop();
+    } catch {
+      // already stopped
+    }
+    try {
+      scanner.clear();
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  const finishWithPayload = useCallback(
+    async (raw: string) => {
+      await stopScanner();
+      setOutcome(applySealResult(raw));
+    },
+    [stopScanner],
+  );
+
+  // Deep-link from a honeycomb QR opened in the phone camera app
+  useEffect(() => {
+    const seal = searchParams.get("seal") ?? searchParams.get("code");
+    if (!seal) return;
+    setOutcome(applySealResult(seal));
+  }, [searchParams]);
+
+  useEffect(() => {
+    return () => {
+      void stopScanner();
+    };
+  }, [stopScanner]);
+
+  async function startCameraScan() {
+    setOutcome({ status: "idle" });
+    setBusy(true);
+    try {
+      await stopScanner();
+      const scanner = new Html5Qrcode(scannerHostId);
+      scannerRef.current = scanner;
+      setScanning(true);
+      await scanner.start(
+        { facingMode: "environment" },
+        { fps: 8, qrbox: { width: 240, height: 240 } },
+        (decoded) => {
+          void finishWithPayload(decoded);
+        },
+        () => {
+          // frame miss — ignore
+        },
+      );
+    } catch (error) {
+      setScanning(false);
+      const message =
+        error instanceof Error && /Permission|NotAllowed/i.test(error.message)
+          ? "Camera permission denied. Allow camera access, or upload a photo of the honeycomb seal instead."
+          : "Could not open the camera. Upload a photo of the honeycomb seal instead.";
+      setOutcome({ status: "error", message });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function onPhotoSelected(file: File | undefined) {
+    if (!file) return;
+    setOutcome({ status: "idle" });
+    setBusy(true);
+    await stopScanner();
+    try {
+      const scanner = new Html5Qrcode(scannerHostId);
+      scannerRef.current = scanner;
+      const decoded = await scanner.scanFile(file, true);
+      await finishWithPayload(decoded);
+    } catch {
+      setOutcome({
+        status: "error",
+        message: "Could not read a QR code from that photo. Take a clear, well-lit photo of the honeycomb seal.",
+      });
+    } finally {
+      setBusy(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  }
+
+  function resetCheck() {
+    void stopScanner();
+    setOutcome({ status: "idle" });
+  }
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -114,7 +151,7 @@ const VerifyPage = () => {
         name: "Verify Alibarbar Authenticity",
         url: VERIFY_PAGE_URL,
         description:
-          "Scan the honeycomb anti-counterfeit seal or the packaging QR to confirm a genuine Alibarbar Ingot product.",
+          "Scan the packaging QR, then scan or upload the honeycomb anti-counterfeit seal to confirm a genuine Alibarbar product.",
       },
       breadcrumbNode([
         { name: "Home", path: "/" },
@@ -123,17 +160,95 @@ const VerifyPage = () => {
     ],
   };
 
+  if (outcome.status === "genuine") {
+    return (
+      <div className="min-h-screen bg-background">
+        <Seo
+          title="Genuine Alibarbar | Authenticity Verified"
+          description="Honeycomb seal verified — this is an official Alibarbar brand product."
+          path="/verify"
+          noindex
+        />
+        <Navbar />
+        <main className="pt-[calc(6rem+env(safe-area-inset-top))] pb-16 flex items-center justify-center min-h-[70vh]">
+          <div className="container max-w-lg">
+            <div className="rounded-3xl border border-emerald-500/40 bg-gradient-to-b from-emerald-500/15 to-card/60 p-8 sm:p-10 text-center shadow-[0_0_60px_-20px_hsl(160_80%_40%/0.35)]">
+              <CheckCircle2 className="w-16 h-16 text-emerald-400 mx-auto mb-5" />
+              <p className="text-xs uppercase tracking-[0.25em] text-emerald-400 font-semibold mb-3">Verified</p>
+              <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight">
+                Genuine <span className="text-gold">Alibarbar</span>
+              </h1>
+              <p className="text-muted-foreground mt-4 leading-relaxed">
+                The honeycomb anti-counterfeit seal matches an official Alibarbar mark. This product is authentic brand
+                stock.
+              </p>
+              <p className="text-xs text-muted-foreground/80 mt-4 font-mono">Alibarbar Ingot 9000 · {outcome.sealId}</p>
+              <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+                <Button asChild className="bg-gold text-primary-foreground hover:bg-primary">
+                  <Link to="/#flavors">Shop flavours</Link>
+                </Button>
+                <Button type="button" variant="outline" className="border-gold/40" onClick={resetCheck}>
+                  Check another
+                </Button>
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (outcome.status === "fake") {
+    return (
+      <div className="min-h-screen bg-background">
+        <Seo
+          title="Not Genuine | Alibarbar Authenticity"
+          description="This honeycomb seal did not match an official Alibarbar anti-counterfeit mark."
+          path="/verify"
+          noindex
+        />
+        <Navbar />
+        <main className="pt-[calc(6rem+env(safe-area-inset-top))] pb-16 flex items-center justify-center min-h-[70vh]">
+          <div className="container max-w-lg">
+            <div className="rounded-3xl border border-destructive/40 bg-gradient-to-b from-destructive/15 to-card/60 p-8 sm:p-10 text-center">
+              <XCircle className="w-16 h-16 text-destructive mx-auto mb-5" />
+              <p className="text-xs uppercase tracking-[0.25em] text-destructive font-semibold mb-3">Warning</p>
+              <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight">Not a genuine seal</h1>
+              <p className="text-muted-foreground mt-4 leading-relaxed">
+                This honeycomb mark does not match an official Alibarbar anti-counterfeit seal. The product may be
+                counterfeit or the packaging may be damaged / reprinted.
+              </p>
+              {outcome.sealId ? (
+                <p className="text-xs text-muted-foreground/80 mt-4 font-mono">Scanned · {outcome.sealId}</p>
+              ) : null}
+              <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+                <Button type="button" className="bg-gold text-primary-foreground hover:bg-primary" onClick={resetCheck}>
+                  Try again
+                </Button>
+                <Button asChild variant="outline" className="border-gold/40">
+                  <Link to="/contact">Contact support</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Seo
         title="Verify Authenticity | Alibarbar Australia"
-        description="Scan the honeycomb anti-counterfeit mark or the packaging QR on your Alibarbar Ingot box to confirm it is a genuine brand product."
+        description="Scan the packaging QR, then scan or upload the honeycomb anti-counterfeit seal to confirm a genuine Alibarbar Ingot product."
         path="/verify"
         jsonLd={jsonLd}
       />
       <Navbar />
       <main className="pt-[calc(6rem+env(safe-area-inset-top))] pb-16 sm:pb-24">
-        <div className="container max-w-4xl">
+        <div className="container max-w-3xl">
           <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground mb-6">
             <Link to="/" className="hover:text-primary">
               Home
@@ -142,115 +257,124 @@ const VerifyPage = () => {
             <span className="text-foreground">Verify</span>
           </nav>
 
-          <header className="mb-8 sm:mb-10 reveal">
+          <header className="mb-8 reveal">
             <p className="text-xs uppercase tracking-[0.25em] text-gold font-semibold mb-3">Authentication</p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
               Verify your <span className="text-gold">Alibarbar</span>
             </h1>
             <p className="text-muted-foreground mt-4 text-base leading-relaxed max-w-2xl">
-              Two marks on the back of the box — different jobs. The honeycomb is the anti-counterfeit seal. The QR code
-              opens this verification page on our site.
+              You are on the official verification page. Next, scan the{" "}
+              <strong className="text-foreground font-semibold">honeycomb seal</strong> on the left of the box (or upload
+              a photo of it) to confirm authenticity.
             </p>
             <div className="gold-divider mt-6 max-w-[6rem]" />
           </header>
 
-          {fromHoneycomb && (
-            <div
-              className="reveal mb-8 rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-5 sm:p-6 flex gap-3"
-              role="status"
-            >
-              <CheckCircle2 className="w-7 h-7 shrink-0 text-emerald-400" />
+          <ol className="reveal mb-8 grid sm:grid-cols-2 gap-4 text-sm">
+            <li className="rounded-xl border border-gold/25 bg-card/50 p-4 flex gap-3">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gold text-gold text-xs font-bold">
+                1
+              </span>
               <div>
-                <p className="font-bold text-lg">Genuine Alibarbar</p>
-                <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
-                  Honeycomb anti-counterfeit seal confirmed — this is an official Alibarbar brand product.
-                </p>
-                <p className="text-xs text-muted-foreground mt-2 font-mono">Alibarbar Ingot 9000 · brand seal</p>
-              </div>
-            </div>
-          )}
-
-          <section
-            aria-label="How packaging marks work"
-            className="reveal rounded-2xl border border-gold/35 bg-gradient-to-b from-card/80 to-card/40 p-5 sm:p-8 mb-8"
-          >
-            <div className="flex items-center gap-2 mb-6">
-              <ShieldCheck className="w-5 h-5 text-gold" />
-              <h2 className="text-sm uppercase tracking-[0.2em] text-gold font-bold">How to use</h2>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-              <div
-                className={`rounded-xl border p-5 sm:p-6 flex flex-col items-center text-center ${
-                  fromHoneycomb ? "border-gold bg-gold/5" : "border-gold/25 bg-background/40"
-                }`}
-              >
-                <p className="text-[11px] uppercase tracking-widest text-muted-foreground mb-3">
-                  Left · Honeycomb = 防伪码
-                </p>
-                <HoneycombSeal className="w-40 h-40 sm:w-48 sm:h-48 mb-4 animate-[pulse_4s_ease-in-out_infinite]" />
-                <h3 className="text-base font-bold mb-2">Anti-counterfeit seal</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  This honeycomb mark <strong className="text-foreground font-semibold">is</strong> the authenticity
-                  check. Scan it with your phone camera — if it opens our site and shows{" "}
-                  <span className="text-emerald-400 font-medium">Genuine Alibarbar</span>, the product is official brand
-                  stock.
-                </p>
-                <p className="text-xs text-muted-foreground/80 mt-4 leading-relaxed">
-                  Print this URL inside / under the honeycomb artwork:
-                  <br />
-                  <span className="text-gold font-mono break-all">{HONEYCOMB_SEAL_URL}</span>
-                </p>
-              </div>
-
-              <div className="rounded-xl border border-gold/25 bg-background/40 p-5 sm:p-6 flex flex-col items-center text-center">
-                <p className="text-[11px] uppercase tracking-widest text-muted-foreground mb-3">
-                  Right · QR = enter this page
-                </p>
-                <div className="w-36 h-36 sm:w-40 sm:h-40 p-2 bg-white rounded-md mb-4 shadow-[0_0_0_1px_hsl(45_75%_52%/0.35)]">
-                  <PackagingQrMock />
-                </div>
-                <h3 className="text-base font-bold mb-2 flex items-center gap-2 justify-center">
+                <p className="font-bold flex items-center gap-2">
                   <QrCode className="w-4 h-4 text-gold" />
-                  Website verification panel
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  The right QR is not a separate secret code. It simply opens this{" "}
-                  <strong className="text-foreground font-semibold">/verify</strong> page so customers can see how to
-                  check authenticity and use the honeycomb seal.
+                  Right QR
                 </p>
-                <p className="text-xs text-muted-foreground/80 mt-4 leading-relaxed">
-                  Print this URL as the right-side QR:
-                  <br />
-                  <span className="text-gold font-mono break-all">{VERIFY_PAGE_URL}</span>
+                <p className="text-muted-foreground mt-1 leading-relaxed">
+                  Scan the square QR on the box to open this page.
                 </p>
               </div>
+            </li>
+            <li className="rounded-xl border border-gold/40 bg-gold/5 p-4 flex gap-3">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold text-primary-foreground text-xs font-bold">
+                2
+              </span>
+              <div>
+                <p className="font-bold flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-gold" />
+                  Left honeycomb
+                </p>
+                <p className="text-muted-foreground mt-1 leading-relaxed">
+                  Scan or upload the honeycomb seal here to get a genuine / not-genuine result.
+                </p>
+              </div>
+            </li>
+          </ol>
+
+          <section className="reveal rounded-2xl border border-gold/35 bg-gradient-to-b from-card/80 to-card/40 p-5 sm:p-8 mb-6">
+            <div className="flex items-center gap-2 mb-4">
+              <Camera className="w-5 h-5 text-gold" />
+              <h2 className="text-lg font-bold">Scan honeycomb seal</h2>
             </div>
+            <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
+              Point your camera at the circular honeycomb mark on the packaging, or upload a clear photo of it.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 mb-5">
+              <Button
+                type="button"
+                disabled={busy}
+                onClick={() => void startCameraScan()}
+                className="h-12 bg-gold text-primary-foreground hover:bg-primary font-semibold"
+              >
+                {busy && !scanning ? (
+                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                ) : (
+                  <Camera className="w-4 h-4 mr-2" />
+                )}
+                {scanning ? "Camera on — aim at seal" : "Scan with camera"}
+              </Button>
+              <Button
+                type="button"
+                disabled={busy}
+                variant="outline"
+                className="h-12 border-gold/40"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <ImagePlus className="w-4 h-4 mr-2" />
+                Upload photo
+              </Button>
+              {scanning ? (
+                <Button type="button" variant="ghost" className="h-12" onClick={() => void stopScanner()}>
+                  Stop camera
+                </Button>
+              ) : null}
+            </div>
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              capture="environment"
+              className="sr-only"
+              onChange={(e) => void onPhotoSelected(e.target.files?.[0])}
+            />
+
+            <div
+              id={scannerHostId}
+              className={`overflow-hidden rounded-xl border border-gold/20 bg-black/40 ${
+                scanning ? "min-h-[260px]" : "min-h-0"
+              }`}
+            />
+
+            {outcome.status === "error" ? (
+              <div className="mt-5 rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 flex gap-3" role="alert">
+                <ShieldAlert className="w-5 h-5 text-amber-400 shrink-0" />
+                <p className="text-sm text-muted-foreground leading-relaxed">{outcome.message}</p>
+              </div>
+            ) : null}
           </section>
 
-          <section className="reveal rounded-2xl border border-gold/25 bg-card/50 p-5 sm:p-8 mb-8 space-y-4 text-sm text-muted-foreground leading-relaxed">
-            <h2 className="text-lg font-bold text-foreground">Quick summary</h2>
-            <ul className="space-y-3">
-              <li>
-                <strong className="text-foreground">蜂窝（左边）</strong> = 防伪码。手机扫一下，跳到本站并显示正品，就是自家品牌。
-              </li>
-              <li>
-                <strong className="text-foreground">二维码（右边）</strong> = 入口。扫开网站验证板块（本页），看说明、对照包装。
-              </li>
-              <li>
-                不需要一物一码，也不用再输一串「通用品牌码」——全箱蜂窝扫同一个正品链接即可。
-              </li>
-            </ul>
-          </section>
-
-          <p className="reveal text-sm text-muted-foreground">
-            Still unsure? See our{" "}
+          <p className="reveal text-sm text-muted-foreground leading-relaxed">
+            Official packaging QR target:{" "}
+            <span className="font-mono text-gold break-all">{VERIFY_PAGE_URL}</span>
+            . Need help?{" "}
             <Link to="/faq/authenticity" className="text-primary font-semibold hover:text-gold">
               Authenticity FAQ
             </Link>{" "}
             or{" "}
             <Link to="/contact" className="text-primary font-semibold hover:text-gold">
-              contact support
+              contact us
             </Link>
             .
           </p>
