@@ -1,59 +1,74 @@
 import { SITE_URL } from "@/data/site";
 
-/** Right packaging QR — opens the verify page only (no seal token). */
+/** Right packaging QR — opens the verify page only. */
 export const VERIFY_PAGE_URL = `${SITE_URL}/verify`;
 
-/**
- * Shared authenticity token library (5 codes — not one-per-unit).
- * Must stay in sync with api/_lib/seal-tokens.ts and public/authenticity/tokens.json.
- */
 export const HONEYCOMB_SEALS = [
-  { id: "ABSEAL01", label: "Seal A", token: "ABSEAL01" },
-  { id: "ABSEAL02", label: "Seal B", token: "ABSEAL02" },
-  { id: "ABSEAL03", label: "Seal C", token: "ABSEAL03" },
-  { id: "ABSEAL04", label: "Seal D", token: "ABSEAL04" },
-  { id: "ABSEAL05", label: "Seal E", token: "ABSEAL05" },
+  { id: "ABSEAL01", label: "Seal A" },
+  { id: "ABSEAL02", label: "Seal B" },
+  { id: "ABSEAL03", label: "Seal C" },
+  { id: "ABSEAL04", label: "Seal D" },
+  { id: "ABSEAL05", label: "Seal E" },
 ] as const;
 
 export type HoneycombSealId = (typeof HONEYCOMB_SEALS)[number]["id"];
 
-/** Payload encoded inside each honeycomb QR. */
 export function honeycombSealUrl(id: string): string {
   return `${VERIFY_PAGE_URL}?seal=${encodeURIComponent(id)}`;
 }
 
-export function normalizeSealPayload(raw: string): string {
-  const trimmed = raw.trim();
-  if (!trimmed) return "";
-
-  try {
-    if (trimmed.includes("://") || trimmed.startsWith("www.")) {
-      const url = new URL(trimmed.startsWith("www.") ? `https://${trimmed}` : trimmed);
-      const seal = url.searchParams.get("seal") ?? url.searchParams.get("code") ?? url.searchParams.get("token");
-      if (seal) return seal.trim().toUpperCase().replace(/[\s\-_.]/g, "");
-    }
-  } catch {
-    // not a URL
-  }
-
-  const sealMatch = trimmed.match(/[?&](?:seal|code|token)=([A-Za-z0-9_-]+)/i);
-  if (sealMatch?.[1]) return sealMatch[1].toUpperCase().replace(/[\s\-_.]/g, "");
-
-  return trimmed.toUpperCase().replace(/[\s\-_.]/g, "");
-}
-
 export type VerifySealApiResult =
-  | { ok: true; authentic: true; code: string; message: string; productHint?: string }
-  | { ok: true; authentic: false; code: string; message: string }
+  | {
+      ok: true;
+      authentic: true;
+      code: string;
+      message: string;
+      method?: string;
+      score?: number;
+      productHint?: string;
+    }
+  | {
+      ok: true;
+      authentic: false;
+      code?: string;
+      message: string;
+      method?: string;
+      score?: number;
+    }
   | { ok: false; authentic: false; error: string };
 
-/** Call authenticity API — server checks the 5-token library. */
+/** Compress an image File/Blob to a JPEG data URL for the verify API. */
+export async function fileToVerifyDataUrl(file: Blob, maxEdge = 1200, quality = 0.72): Promise<string> {
+  const bitmap = await createImageBitmap(file);
+  const scale = Math.min(1, maxEdge / Math.max(bitmap.width, bitmap.height));
+  const w = Math.max(1, Math.round(bitmap.width * scale));
+  const h = Math.max(1, Math.round(bitmap.height * scale));
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("Canvas unsupported");
+  ctx.drawImage(bitmap, 0, 0, w, h);
+  bitmap.close();
+  return canvas.toDataURL("image/jpeg", quality);
+}
+
+/** Photo comparison against official templates (server-side). */
+export async function verifySealPhoto(imageDataUrl: string): Promise<VerifySealApiResult> {
+  const res = await fetch("/api/verify-authenticity", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ imageBase64: imageDataUrl }),
+  });
+  return (await res.json()) as VerifySealApiResult;
+}
+
+/** Optional token path (QR deep-link). */
 export async function verifySealToken(raw: string): Promise<VerifySealApiResult> {
   const res = await fetch("/api/verify-authenticity", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ code: raw }),
   });
-  const data = (await res.json()) as VerifySealApiResult;
-  return data;
+  return (await res.json()) as VerifySealApiResult;
 }

@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { Html5Qrcode } from "html5-qrcode";
 import {
   Camera,
   CheckCircle2,
@@ -16,110 +15,106 @@ import { Footer } from "@/components/Footer";
 import { Seo, breadcrumbNode } from "@/components/Seo";
 import { useReveal } from "@/hooks/use-reveal";
 import { Button } from "@/components/ui/button";
-import { VERIFY_PAGE_URL, verifySealToken } from "@/data/authenticity-codes";
+import {
+  fileToVerifyDataUrl,
+  VERIFY_PAGE_URL,
+  verifySealPhoto,
+  verifySealToken,
+} from "@/data/authenticity-codes";
 
 type VerifyOutcome =
   | { status: "idle" }
-  | { status: "genuine"; sealId: string }
-  | { status: "fake"; sealId: string }
+  | { status: "genuine"; sealId: string; score?: number }
+  | { status: "fake"; sealId: string; score?: number }
   | { status: "error"; message: string };
 
 const VerifyPage = () => {
   useReveal();
   const [searchParams] = useSearchParams();
-  const scannerHostId = useId().replace(/:/g, "");
-  const scannerRef = useRef<Html5Qrcode | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [scanning, setScanning] = useState(false);
+  const [cameraOn, setCameraOn] = useState(false);
   const [busy, setBusy] = useState(false);
   const [outcome, setOutcome] = useState<VerifyOutcome>({ status: "idle" });
 
-  const stopScanner = useCallback(async () => {
-    const scanner = scannerRef.current;
-    scannerRef.current = null;
-    setScanning(false);
-    if (!scanner) return;
-    try {
-      if (scanner.isScanning) await scanner.stop();
-    } catch {
-      // already stopped
+  const stopCamera = useCallback(() => {
+    streamRef.current?.getTracks().forEach((t) => t.stop());
+    streamRef.current = null;
+    if (videoRef.current) videoRef.current.srcObject = null;
+    setCameraOn(false);
+  }, []);
+
+  const applyApiResult = useCallback((result: Awaited<ReturnType<typeof verifySealPhoto>>) => {
+    if (!result.ok) {
+      setOutcome({ status: "error", message: result.error });
+      return;
     }
-    try {
-      scanner.clear();
-    } catch {
-      // ignore
+    if (result.authentic) {
+      setOutcome({ status: "genuine", sealId: result.code, score: result.score });
+    } else {
+      setOutcome({ status: "fake", sealId: result.code || "UNKNOWN", score: result.score });
     }
   }, []);
 
-  const applyDecodedPayload = useCallback(async (raw: string) => {
-    await stopScanner();
-    try {
-      const result = await verifySealToken(raw);
-      if (!result.ok) {
-        setOutcome({ status: "error", message: result.error });
-        return;
-      }
-      setOutcome(
-        result.authentic
-          ? { status: "genuine", sealId: result.code }
-          : { status: "fake", sealId: result.code || "UNKNOWN" },
-      );
-    } catch {
-      setOutcome({ status: "error", message: "Network error — could not reach the authenticity API." });
-    }
-  }, [stopScanner]);
-
-  // Deep-link: phone camera opened honeycomb QR directly
+  // Deep-link from QR payload still supported
   useEffect(() => {
     const seal = searchParams.get("seal") ?? searchParams.get("code") ?? searchParams.get("token");
     if (!seal) return;
     void verifySealToken(seal)
-      .then((result) => {
-        if (!result.ok) {
-          setOutcome({ status: "error", message: result.error });
-          return;
-        }
-        setOutcome(
-          result.authentic
-            ? { status: "genuine", sealId: result.code }
-            : { status: "fake", sealId: result.code },
-        );
-      })
-      .catch(() => {
-        setOutcome({ status: "error", message: "Network error — could not reach the authenticity API." });
-      });
-  }, [searchParams]);
+      .then(applyApiResult)
+      .catch(() => setOutcome({ status: "error", message: "Network error — could not reach the authenticity API." }));
+  }, [searchParams, applyApiResult]);
 
-  useEffect(() => () => {
-    void stopScanner();
-  }, [stopScanner]);
+  useEffect(() => () => stopCamera(), [stopCamera]);
 
-  async function startCameraScan() {
+  async function startCamera() {
     setOutcome({ status: "idle" });
     setBusy(true);
     try {
-      await stopScanner();
-      const scanner = new Html5Qrcode(scannerHostId);
-      scannerRef.current = scanner;
-      setScanning(true);
-      await scanner.start(
-        { facingMode: "environment" },
-        { fps: 8, qrbox: { width: 260, height: 260 } },
-        (decoded) => {
-          void applyDecodedPayload(decoded);
-        },
-        () => {
-          // frame miss
-        },
-      );
-    } catch (error) {
-      setScanning(false);
-      const message =
-        error instanceof Error && /Permission|NotAllowed/i.test(error.message)
-          ? "Camera permission denied. Allow camera access, or upload a photo of the honeycomb seal."
-          : "Could not open the camera. Upload a photo of the honeycomb seal instead.";
-      setOutcome({ status: "error", message });
+      stopCamera();
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: "environment" } },
+        audio: false,
+      });
+      streamRef.current = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        await videoRef.current.play();
+      }
+      setCameraOn(true);
+    } catch {
+      setOutcome({
+        status: "error",
+        message: "Camera permission denied. Upload a clear photo of the honeycomb seal instead.",
+      });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function captureAndVerify() {
+    const video = videoRef.current;
+    if (!video || !cameraOn) return;
+    setBusy(true);
+    setOutcome({ status: "idle" });
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth || 640;
+      canvas.height = video.videoHeight || 480;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("Canvas unsupported");
+      ctx.drawImage(video, 0, 0);
+      stopCamera();
+      const dataUrl = canvas.toDataURL("image/jpeg", 0.72);
+      const result = await verifySealPhoto(dataUrl);
+      applyApiResult(result);
+    } catch {
+      setOutcome({
+        status: "error",
+        message: "Could not verify that photo. Try again with the full circular seal in frame.",
+      });
     } finally {
       setBusy(false);
     }
@@ -129,17 +124,15 @@ const VerifyPage = () => {
     if (!file) return;
     setOutcome({ status: "idle" });
     setBusy(true);
-    await stopScanner();
+    stopCamera();
     try {
-      const scanner = new Html5Qrcode(scannerHostId);
-      scannerRef.current = scanner;
-      const decoded = await scanner.scanFile(file, true);
-      await applyDecodedPayload(decoded);
+      const dataUrl = await fileToVerifyDataUrl(file);
+      const result = await verifySealPhoto(dataUrl);
+      applyApiResult(result);
     } catch {
       setOutcome({
         status: "error",
-        message:
-          "Could not read a code from that photo. Use a clear photo of the honeycomb seal (the circular mark encodes a token).",
+        message: "Could not read that photo. Use a clear, well-lit picture of the circular honeycomb seal.",
       });
     } finally {
       setBusy(false);
@@ -148,7 +141,7 @@ const VerifyPage = () => {
   }
 
   function resetCheck() {
-    void stopScanner();
+    stopCamera();
     setOutcome({ status: "idle" });
   }
 
@@ -160,7 +153,7 @@ const VerifyPage = () => {
         name: "Verify Alibarbar Authenticity",
         url: VERIFY_PAGE_URL,
         description:
-          "Scan the packaging QR, then scan the honeycomb seal token to confirm a genuine Alibarbar product.",
+          "Photograph the honeycomb anti-counterfeit seal to confirm a genuine Alibarbar product via official template matching.",
       },
       breadcrumbNode([
         { name: "Home", path: "/" },
@@ -172,26 +165,23 @@ const VerifyPage = () => {
   if (outcome.status === "genuine") {
     return (
       <div className="min-h-screen bg-background">
-        <Seo
-          title="Genuine Alibarbar | Authenticity Verified"
-          description="Seal token verified — this is an official Alibarbar brand product."
-          path="/verify"
-          noindex
-        />
+        <Seo title="Genuine Alibarbar | Authenticity Verified" description="Seal photo verified." path="/verify" noindex />
         <Navbar />
         <main className="pt-[calc(6rem+env(safe-area-inset-top))] pb-16 flex items-center justify-center min-h-[70vh]">
           <div className="container max-w-lg">
-            <div className="rounded-3xl border border-emerald-500/40 bg-gradient-to-b from-emerald-500/15 to-card/60 p-8 sm:p-10 text-center shadow-[0_0_60px_-20px_hsl(160_80%_40%/0.35)]">
+            <div className="rounded-3xl border border-emerald-500/40 bg-gradient-to-b from-emerald-500/15 to-card/60 p-8 sm:p-10 text-center">
               <CheckCircle2 className="w-16 h-16 text-emerald-400 mx-auto mb-5" />
               <p className="text-xs uppercase tracking-[0.25em] text-emerald-400 font-semibold mb-3">Verified</p>
               <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight">
                 Genuine <span className="text-gold">Alibarbar</span>
               </h1>
               <p className="text-muted-foreground mt-4 leading-relaxed">
-                This honeycomb seal token matches our official authenticity code library. The product is authentic brand
-                stock.
+                Your photo matched an official honeycomb seal template in our authenticity library.
               </p>
-              <p className="text-xs text-muted-foreground/80 mt-4 font-mono">Token · {outcome.sealId}</p>
+              <p className="text-xs text-muted-foreground/80 mt-4 font-mono">
+                Template · {outcome.sealId}
+                {outcome.score != null ? ` · score ${outcome.score.toFixed(3)}` : ""}
+              </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
                 <Button asChild className="bg-gold text-primary-foreground hover:bg-primary">
                   <Link to="/#flavors">Shop flavours</Link>
@@ -211,12 +201,7 @@ const VerifyPage = () => {
   if (outcome.status === "fake") {
     return (
       <div className="min-h-screen bg-background">
-        <Seo
-          title="Not Genuine | Alibarbar Authenticity"
-          description="This seal token is not in the official Alibarbar authenticity code library."
-          path="/verify"
-          noindex
-        />
+        <Seo title="Not Genuine | Alibarbar Authenticity" description="Seal photo did not match." path="/verify" noindex />
         <Navbar />
         <main className="pt-[calc(6rem+env(safe-area-inset-top))] pb-16 flex items-center justify-center min-h-[70vh]">
           <div className="container max-w-lg">
@@ -225,11 +210,11 @@ const VerifyPage = () => {
               <p className="text-xs uppercase tracking-[0.25em] text-destructive font-semibold mb-3">Warning</p>
               <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight">Not a genuine seal</h1>
               <p className="text-muted-foreground mt-4 leading-relaxed">
-                The scanned code is not one of our official authenticity tokens. The product may be counterfeit or the
-                mark may be damaged / reprinted.
+                This photo did not match our official seal templates closely enough. Retake with the full circular mark
+                filling the frame, or the product may not be genuine.
               </p>
-              {outcome.sealId ? (
-                <p className="text-xs text-muted-foreground/80 mt-4 font-mono">Read · {outcome.sealId}</p>
+              {outcome.score != null ? (
+                <p className="text-xs text-muted-foreground/80 mt-4 font-mono">Best score · {outcome.score.toFixed(3)}</p>
               ) : null}
               <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
                 <Button type="button" className="bg-gold text-primary-foreground hover:bg-primary" onClick={resetCheck}>
@@ -251,7 +236,7 @@ const VerifyPage = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="Verify Authenticity | Alibarbar Australia"
-        description="Scan the packaging QR, then scan the honeycomb seal token to confirm a genuine Alibarbar Ingot product."
+        description="Photograph the honeycomb seal — our server matches it against official templates."
         path="/verify"
         jsonLd={jsonLd}
       />
@@ -272,9 +257,8 @@ const VerifyPage = () => {
               Verify your <span className="text-gold">Alibarbar</span>
             </h1>
             <p className="text-muted-foreground mt-4 text-base leading-relaxed max-w-2xl">
-              Scan the circular honeycomb seal on the box. It contains an official authenticity{" "}
-              <strong className="text-foreground font-semibold">token</strong> from our 5-code library — any of those
-              five means genuine (not one unique code per device).
+              Photograph the circular honeycomb seal on the box. Our server compares your photo against the official
+              seal library (5 shared templates — not one code per device).
             </p>
             <div className="gold-divider mt-6 max-w-[6rem]" />
           </header>
@@ -289,7 +273,7 @@ const VerifyPage = () => {
                   <QrCode className="w-4 h-4 text-gold" />
                   Right QR
                 </p>
-                <p className="text-muted-foreground mt-1 leading-relaxed">Opens this verification page.</p>
+                <p className="text-muted-foreground mt-1">Opens this verification page.</p>
               </div>
             </li>
             <li className="rounded-xl border border-gold/40 bg-gold/5 p-4 flex gap-3">
@@ -299,11 +283,9 @@ const VerifyPage = () => {
               <div>
                 <p className="font-bold flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-gold" />
-                  Left honeycomb
+                  Photo the honeycomb
                 </p>
-                <p className="text-muted-foreground mt-1 leading-relaxed">
-                  Scan or upload — we read the token and check our code library.
-                </p>
+                <p className="text-muted-foreground mt-1">Server matches your photo to official templates.</p>
               </div>
             </li>
           </ol>
@@ -311,27 +293,36 @@ const VerifyPage = () => {
           <section className="reveal rounded-2xl border border-gold/35 bg-gradient-to-b from-card/80 to-card/40 p-5 sm:p-8 mb-6">
             <div className="flex items-center gap-2 mb-4">
               <Camera className="w-5 h-5 text-gold" />
-              <h2 className="text-lg font-bold">Scan honeycomb token</h2>
+              <h2 className="text-lg font-bold">Photograph honeycomb seal</h2>
             </div>
             <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
-              Point your camera at the circular seal, or upload a clear photo. We decode the embedded code and match it
-              against the official 5-token library.
+              Fill the frame with the full circular seal, avoid heavy glare, and hold steady. Straight-on shots of a
+              clear print typically match at about 85–95%; angled, blurry, or glare-heavy phone photos are closer to
+              60–80%.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 mb-5">
-              <Button
-                type="button"
-                disabled={busy}
-                onClick={() => void startCameraScan()}
-                className="h-12 bg-gold text-primary-foreground hover:bg-primary font-semibold"
-              >
-                {busy && !scanning ? (
-                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                ) : (
-                  <Camera className="w-4 h-4 mr-2" />
-                )}
-                {scanning ? "Camera on — aim at seal" : "Scan with camera"}
-              </Button>
+              {!cameraOn ? (
+                <Button
+                  type="button"
+                  disabled={busy}
+                  onClick={() => void startCamera()}
+                  className="h-12 bg-gold text-primary-foreground hover:bg-primary font-semibold"
+                >
+                  {busy ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Camera className="w-4 h-4 mr-2" />}
+                  Open camera
+                </Button>
+              ) : (
+                <Button
+                  type="button"
+                  disabled={busy}
+                  onClick={() => void captureAndVerify()}
+                  className="h-12 bg-gold text-primary-foreground hover:bg-primary font-semibold"
+                >
+                  {busy ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Camera className="w-4 h-4 mr-2" />}
+                  Capture &amp; verify
+                </Button>
+              )}
               <Button
                 type="button"
                 disabled={busy}
@@ -342,9 +333,9 @@ const VerifyPage = () => {
                 <ImagePlus className="w-4 h-4 mr-2" />
                 Upload photo
               </Button>
-              {scanning ? (
-                <Button type="button" variant="ghost" className="h-12" onClick={() => void stopScanner()}>
-                  Stop camera
+              {cameraOn ? (
+                <Button type="button" variant="ghost" className="h-12" onClick={stopCamera}>
+                  Close camera
                 </Button>
               ) : null}
             </div>
@@ -359,11 +350,12 @@ const VerifyPage = () => {
             />
 
             <div
-              id={scannerHostId}
               className={`overflow-hidden rounded-xl border border-gold/20 bg-black/40 ${
-                scanning ? "min-h-[280px]" : "min-h-0"
+                cameraOn ? "min-h-[280px]" : "min-h-0"
               }`}
-            />
+            >
+              <video ref={videoRef} playsInline muted className={`w-full ${cameraOn ? "block" : "hidden"}`} />
+            </div>
 
             {outcome.status === "error" ? (
               <div className="mt-5 rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 flex gap-3" role="alert">
@@ -374,16 +366,7 @@ const VerifyPage = () => {
           </section>
 
           <p className="reveal text-sm text-muted-foreground leading-relaxed">
-            Entry QR: <span className="font-mono text-gold break-all">{VERIFY_PAGE_URL}</span>
-            . Need help?{" "}
-            <Link to="/faq/authenticity" className="text-primary font-semibold hover:text-gold">
-              Authenticity FAQ
-            </Link>{" "}
-            or{" "}
-            <Link to="/contact" className="text-primary font-semibold hover:text-gold">
-              contact us
-            </Link>
-            .
+            Entry page: <span className="font-mono text-gold break-all">{VERIFY_PAGE_URL}</span>
           </p>
         </div>
       </main>
