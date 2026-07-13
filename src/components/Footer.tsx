@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Instagram, Twitter, Facebook, Youtube } from "lucide-react";
 import { guides } from "@/data/guides";
 import { SITE_SOCIAL } from "@/data/site";
+import logoHeader from "@/assets/logo-header.png";
 
 const shopLinks = [
   { label: "Wholesale", to: "/wholesale" },
@@ -50,9 +51,16 @@ export const Footer = () => (
   >
     <div className="container py-10 sm:py-14 md:py-16 grid grid-cols-2 md:grid-cols-6 gap-8 sm:gap-10">
       <div className="col-span-2 space-y-3 sm:space-y-4 text-center md:text-left">
-        <h3 className="text-xl sm:text-2xl font-extrabold tracking-[0.12em] sm:tracking-[0.15em] shimmer-text">
-          ALIBARBAR
-        </h3>
+        <Link to="/" className="inline-flex justify-center md:justify-start" aria-label="Alibarbar Australia home">
+          <img
+            src={logoHeader}
+            alt="ALI BARBAR"
+            className="h-10 sm:h-12 w-auto max-w-[14rem] object-contain"
+            width={280}
+            height={72}
+            decoding="async"
+          />
+        </Link>
         <p className="text-muted-foreground max-w-md mx-auto md:mx-0 text-sm sm:text-base">
           Australia's destination for authentic Alibarbar Ingot 9000 disposable vapes. Premium flavours, fast local
           delivery, and secure checkout for adults 18+.

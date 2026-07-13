@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import { AuthModal } from "@/components/AuthModal";
+import logoHeader from "@/assets/logo-header.png";
 
 const links = [
   { label: "Shop", to: "/#flavors" },
@@ -42,11 +43,15 @@ export const Navbar = () => {
       }`}
     >
       <nav className="container flex items-center justify-between h-16 sm:h-20">
-        <Link
-          to="/"
-          className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-[0.12em] sm:tracking-[0.15em] shimmer-text min-w-0 shrink"
-        >
-          ALIBARBAR
+        <Link to="/" className="min-w-0 shrink flex items-center" aria-label="Alibarbar Australia home">
+          <img
+            src={logoHeader}
+            alt="ALI BARBAR"
+            className="h-8 sm:h-10 md:h-11 w-auto max-w-[min(52vw,14rem)] object-contain object-left"
+            width={280}
+            height={72}
+            decoding="async"
+          />
         </Link>
 
         <ul className="hidden md:flex items-center gap-10">
