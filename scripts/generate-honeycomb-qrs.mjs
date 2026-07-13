@@ -1,10 +1,13 @@
 /**
- * Generate packaging QR assets:
- * - Right: standard square entry QR
- * - Left: circular honeycomb-style dotted seals (matches box artwork)
+ * Generate packaging authenticity artwork matching ALIBARBAR box honeycomb seals.
+ *
+ * Looks like the proprietary circular seal (centre mesh hex + satellite hexes +
+ * data dots + segmented orange ring). Each of 5 variants has a unique seeded
+ * dot pattern. Verification on /verify uses visual template match (not QR).
  *
  *   node scripts/generate-honeycomb-qrs.mjs
  */
+import { createHash } from "node:crypto";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -17,12 +20,14 @@ const SITE = "https://www.alibarbar.mom";
 const VERIFY = `${SITE}/verify`;
 const SEALS = ["ABSEAL01", "ABSEAL02", "ABSEAL03", "ABSEAL04", "ABSEAL05"];
 
-const SIZE = 1200;
-const ORANGE = "#E86B1A"; // packaging ring colour
-const ORANGE_SOFT = "#F4A261";
-const INK = "#111111";
-const PAPER = "#f7f7f5";
-const GOLD = "#C9A227";
+const SIZE = 1400;
+const CX = SIZE / 2;
+const CY = SIZE / 2;
+const ORANGE = "#E86B1A";
+const ORANGE_DEEP = "#D45A0F";
+const INK = "#1a1a1a";
+const MESH = "#6b6b6b";
+const PAPER = "#ffffff";
 
 function hexPoints(x, y, r) {
   const pts = [];
@@ -41,157 +46,143 @@ function arcPath(cx, cy, r, startDeg, endDeg) {
   const x2 = cx + r * Math.cos(e);
   const y2 = cy + r * Math.sin(e);
   const large = endDeg - startDeg > 180 ? 1 : 0;
-  return `M ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2}`;
+  return `M ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 ${large} 1 ${x2.toFixed(2)} ${y2.toFixed(2)}`;
 }
 
-function isFinder(row, col, n) {
-  const inTL = row < 7 && col < 7;
-  const inTR = row < 7 && col >= n - 7;
-  const inBL = row >= n - 7 && col < 7;
-  return inTL || inTR || inBL;
+/** Deterministic PRNG from seal id */
+function rng(seed) {
+  let h = createHash("sha256").update(seed).digest();
+  let i = 0;
+  return () => {
+    if (i >= h.length) {
+      h = createHash("sha256").update(h).digest();
+      i = 0;
+    }
+    const v = h[i++] / 255;
+    return v;
+  };
 }
 
-function finderCenter(row, col, n) {
-  if (row < 7 && col < 7) return { fr: 3, fc: 3 };
-  if (row < 7 && col >= n - 7) return { fr: 3, fc: n - 4 };
-  if (row >= n - 7 && col < 7) return { fr: n - 4, fc: 3 };
-  return null;
-}
-
-/** Decorative honeycomb lattice in the centre (visual only). */
-function honeycombLattice(cx, cy, maxR, cell) {
+function meshFill(cx, cy, r, id) {
   const parts = [];
-  const gap = cell * 1.15;
-  for (let row = -14; row <= 14; row++) {
-    for (let col = -14; col <= 14; col++) {
-      const x = cx + col * gap + (row % 2 === 0 ? 0 : gap / 2);
-      const y = cy + row * gap * 0.86;
-      const dist = Math.hypot(x - cx, y - cy);
-      if (dist > maxR || dist < cell * 2.8) continue;
-      const r = cell * 0.22;
+  const clipId = `mesh-${id}`;
+  parts.push(`<clipPath id="${clipId}"><polygon points="${hexPoints(cx, cy, r)}"/></clipPath>`);
+  parts.push(`<g clip-path="url(#${clipId})">`);
+  parts.push(`<rect x="${cx - r}" y="${cy - r}" width="${r * 2}" height="${r * 2}" fill="#9a9a9a"/>`);
+  // Fine screen / mesh pattern like packaging
+  const step = 4.2;
+  for (let y = cy - r; y < cy + r; y += step) {
+    for (let x = cx - r; x < cx + r; x += step) {
+      const ox = ((Math.floor(y / step) % 2) * step) / 2;
       parts.push(
-        `<polygon points="${hexPoints(x, y, r)}" fill="${INK}" opacity="0.12"/>`,
+        `<circle cx="${(x + ox).toFixed(2)}" cy="${y.toFixed(2)}" r="1.15" fill="${MESH}"/>`,
       );
     }
   }
+  parts.push(`</g>`);
+  parts.push(
+    `<polygon points="${hexPoints(cx, cy, r)}" fill="none" stroke="${INK}" stroke-width="2.2"/>`,
+  );
   return parts.join("");
 }
 
 /**
- * Circular dotted QR — orange ring + round finders like the Ingot box seal.
+ * Proprietary-look honeycomb seal — visual match to Ingot box Authentication mark.
+ * Dot layout is unique per sealId so photo matching can tell variants apart.
  */
-function honeycombQrSvg(payload) {
-  const qr = QRCode.create(payload, { errorCorrectionLevel: "H" });
-  const modules = qr.modules;
-  const n = modules.size;
-  const cx = SIZE / 2;
-  const cy = SIZE / 2;
-  const ringOuter = SIZE * 0.49;
-  const ringMid = SIZE * 0.455;
-  const ringInner = SIZE * 0.42;
-  const codeR = SIZE * 0.385;
-  const quiet = 2;
-  const cell = (codeR * 2) / (n + quiet * 2);
-  const originX = cx - codeR;
-  const originY = cy - codeR;
-  const dotR = cell * 0.34;
-  const centerClear = cell * 3.8;
+function honeycombSealSvg(sealId) {
+  const rand = rng(`alibarbar-honeycomb-${sealId}`);
+  const outerR = SIZE * 0.46;
+  const midR = SIZE * 0.425;
+  const innerR = SIZE * 0.395;
+  const codeR = SIZE * 0.355;
+  const centreHexR = SIZE * 0.105;
+  const satHexR = SIZE * 0.055;
+
+  // 5 satellite hexes around centre (like packaging)
+  const satAngles = [-90, -18, 54, 126, 198].map((a, i) => a + (rand() - 0.5) * 4 + i * 0.2);
+  const satDist = SIZE * 0.2;
 
   const parts = [];
   parts.push(`<svg xmlns="http://www.w3.org/2000/svg" width="${SIZE}" height="${SIZE}" viewBox="0 0 ${SIZE} ${SIZE}">`);
   parts.push(`<defs>`);
-  parts.push(`<clipPath id="disc"><circle cx="${cx}" cy="${cy}" r="${ringInner - 4}"/></clipPath>`);
+  parts.push(`<clipPath id="disc-${sealId}"><circle cx="${CX}" cy="${CY}" r="${innerR - 2}"/></clipPath>`);
   parts.push(`</defs>`);
   parts.push(`<rect width="100%" height="100%" fill="${PAPER}"/>`);
 
-  // Orange packaging ring (thick outer band)
-  parts.push(`<circle cx="${cx}" cy="${cy}" r="${ringOuter}" fill="none" stroke="${ORANGE}" stroke-width="28"/>`);
-  parts.push(`<circle cx="${cx}" cy="${cy}" r="${ringMid}" fill="none" stroke="#ffffff" stroke-width="6"/>`);
-  parts.push(`<circle cx="${cx}" cy="${cy}" r="${ringInner}" fill="none" stroke="${INK}" stroke-width="2.5"/>`);
-
-  // Subtle gold accent arcs on ring
-  parts.push(
-    `<path d="${arcPath(cx, cy, ringOuter - 14, -55, 55)}" fill="none" stroke="${GOLD}" stroke-width="8" stroke-linecap="round" opacity="0.85"/>`,
-  );
-  parts.push(
-    `<path d="${arcPath(cx, cy, ringOuter - 14, 125, 235)}" fill="none" stroke="${GOLD}" stroke-width="8" stroke-linecap="round" opacity="0.85"/>`,
-  );
-
-  // Inner paper disc
-  parts.push(`<circle cx="${cx}" cy="${cy}" r="${ringInner - 5}" fill="${PAPER}"/>`);
-  parts.push(`<g clip-path="url(#disc)">`);
-  parts.push(honeycombLattice(cx, cy, centerClear * 0.95, cell));
-
-  // Circular finder targets (bullseye style like packaging)
-  const finderCenters = [
-    { fr: 3, fc: 3 },
-    { fr: 3, fc: n - 4 },
-    { fr: n - 4, fc: 3 },
+  // Segmented orange outer ring (3 arcs of uneven length — packaging style)
+  const segments = [
+    { start: -40 + rand() * 8, sweep: 95 + rand() * 20 },
+    { start: 80 + rand() * 10, sweep: 55 + rand() * 15 },
+    { start: 170 + rand() * 12, sweep: 110 + rand() * 25 },
   ];
-  for (const { fr, fc } of finderCenters) {
-    const fx = originX + (fc + quiet + 0.5) * cell;
-    const fy = originY + (fr + quiet + 0.5) * cell;
-    parts.push(`<circle cx="${fx.toFixed(2)}" cy="${fy.toFixed(2)}" r="${(cell * 3.2).toFixed(2)}" fill="${INK}"/>`);
-    parts.push(`<circle cx="${fx.toFixed(2)}" cy="${fy.toFixed(2)}" r="${(cell * 2.2).toFixed(2)}" fill="${PAPER}"/>`);
-    parts.push(`<circle cx="${fx.toFixed(2)}" cy="${fy.toFixed(2)}" r="${(cell * 1.1).toFixed(2)}" fill="${INK}"/>`);
+  for (const seg of segments) {
+    parts.push(
+      `<path d="${arcPath(CX, CY, outerR, seg.start, seg.start + seg.sweep)}" fill="none" stroke="${ORANGE}" stroke-width="22" stroke-linecap="butt"/>`,
+    );
   }
+  // Thin continuous orange guide ring
+  parts.push(`<circle cx="${CX}" cy="${CY}" r="${midR}" fill="none" stroke="${ORANGE_DEEP}" stroke-width="3.5"/>`);
+  parts.push(`<circle cx="${CX}" cy="${CY}" r="${innerR}" fill="none" stroke="#cccccc" stroke-width="1.5"/>`);
+  parts.push(`<circle cx="${CX}" cy="${CY}" r="${innerR - 3}" fill="${PAPER}"/>`);
 
-  for (let row = 0; row < n; row++) {
-    for (let col = 0; col < n; col++) {
-      if (!modules.get(row, col)) continue;
-      if (isFinder(row, col, n)) continue;
+  parts.push(`<g clip-path="url(#disc-${sealId})">`);
 
-      const x = originX + (col + quiet + 0.5) * cell;
-      const y = originY + (row + quiet + 0.5) * cell;
-      const dist = Math.hypot(x - cx, y - cy);
-      if (dist > codeR - cell * 0.15) continue;
-      if (dist < centerClear) continue;
-
-      const fc = finderCenter(row, col, n);
-      if (fc) {
-        const fdx = Math.abs(col - fc.fc);
-        const fdy = Math.abs(row - fc.fr);
-        if (fdx <= 3 && fdy <= 3) continue;
-      }
-
-      const honey = (row + col) % 4 === 0;
-      if (honey) {
-        parts.push(`<polygon points="${hexPoints(x, y, dotR * 1.05)}" fill="${INK}"/>`);
-      } else {
-        parts.push(`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${dotR.toFixed(2)}" fill="${INK}"/>`);
+  // Data dots — intentional clusters (unique per seal)
+  const dotCount = 180 + Math.floor(rand() * 40);
+  for (let i = 0; i < dotCount; i++) {
+    const ang = rand() * Math.PI * 2;
+    const dist = codeR * (0.28 + rand() * 0.68);
+    const x = CX + Math.cos(ang) * dist;
+    const y = CY + Math.sin(ang) * dist;
+    // Keep clear of centre hex and satellite hexes
+    if (Math.hypot(x - CX, y - CY) < centreHexR * 1.15) continue;
+    let nearSat = false;
+    for (const a of satAngles) {
+      const sx = CX + Math.cos((a * Math.PI) / 180) * satDist;
+      const sy = CY + Math.sin((a * Math.PI) / 180) * satDist;
+      if (Math.hypot(x - sx, y - sy) < satHexR * 1.35) {
+        nearSat = true;
+        break;
       }
     }
+    if (nearSat) continue;
+    const rr = 2.2 + rand() * 2.8;
+    parts.push(`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${rr.toFixed(2)}" fill="${INK}"/>`);
   }
+
+  // Extra structured ring of mid-size dots
+  for (let i = 0; i < 36; i++) {
+    if (rand() < 0.22) continue;
+    const a = (i / 36) * Math.PI * 2 + rand() * 0.08;
+    const dist = codeR * (0.72 + rand() * 0.12);
+    const x = CX + Math.cos(a) * dist;
+    const y = CY + Math.sin(a) * dist;
+    parts.push(`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${(2.6 + rand()).toFixed(2)}" fill="${INK}"/>`);
+  }
+
+  // Satellite hexagons with white centre dots
+  for (const aDeg of satAngles) {
+    const a = (aDeg * Math.PI) / 180;
+    const sx = CX + Math.cos(a) * satDist;
+    const sy = CY + Math.sin(a) * satDist;
+    parts.push(
+      `<polygon points="${hexPoints(sx, sy, satHexR)}" fill="${PAPER}" stroke="${INK}" stroke-width="5.5"/>`,
+    );
+    parts.push(`<circle cx="${sx.toFixed(2)}" cy="${sy.toFixed(2)}" r="6.5" fill="${INK}"/>`);
+  }
+
+  // Centre mesh hexagon
+  parts.push(meshFill(CX, CY, centreHexR, sealId));
 
   parts.push(`</g>`);
-
-  // Centre brand hex (like box artwork)
-  const hr = cell * 2.5;
-  parts.push(`<polygon points="${hexPoints(cx, cy, hr)}" fill="#e8e8e8" stroke="${INK}" stroke-width="2"/>`);
-  parts.push(`<polygon points="${hexPoints(cx, cy, hr * 0.58)}" fill="#d4d4d4" stroke="${INK}" stroke-width="1.5"/>`);
-  for (let i = 0; i < 6; i++) {
-    const a = (Math.PI / 180) * (60 * i - 30);
-    const hx = cx + hr * 0.78 * Math.cos(a);
-    const hy = cy + hr * 0.78 * Math.sin(a);
-    parts.push(`<polygon points="${hexPoints(hx, hy, cell * 0.35)}" fill="${INK}" opacity="0.35"/>`);
-  }
-
-  parts.push(
-    `<text x="${cx}" y="${cy + ringInner + 36}" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="4" fill="${ORANGE}">ALIBARBAR</text>`,
-  );
   parts.push(`</svg>`);
   return parts.join("");
 }
 
-async function writeHoneycombPng(filePath, payload) {
-  const svg = honeycombQrSvg(payload);
-  const svgPath = filePath.replace(/\.png$/i, ".svg");
-  await writeFile(svgPath, svg);
-  await sharp(Buffer.from(svg)).png().toFile(filePath);
-}
-
 await mkdir(outDir, { recursive: true });
 
+// Right-side entry QR (standard square)
 await QRCode.toFile(path.join(outDir, "entry-verify.png"), VERIFY, {
   type: "png",
   width: 1024,
@@ -207,21 +198,23 @@ const manifest = {
     use: "Right-side square packaging QR — opens verify page only",
   },
   honeycombSeals: [],
-  note: "Honeycomb seals: circular orange-ring dotted QRs matching box artwork. Scannable on verify page.",
+  note: "Honeycomb seals match proprietary box artwork style. Verify page uses visual template matching.",
 };
 
 for (const id of SEALS) {
-  const url = `${VERIFY}?seal=${id}`;
+  const svg = honeycombSealSvg(id);
   const file = `honeycomb-${id}.png`;
-  await writeHoneycombPng(path.join(outDir, file), url);
+  const svgFile = `honeycomb-${id}.svg`;
+  await writeFile(path.join(outDir, svgFile), svg);
+  await sharp(Buffer.from(svg)).png().toFile(path.join(outDir, file));
   manifest.honeycombSeals.push({
     id,
     file,
-    svg: `honeycomb-${id}.svg`,
-    url,
+    svg: svgFile,
+    url: `${VERIFY}?seal=${id}`,
     use: "Left honeycomb anti-counterfeit seal — print any of these 5",
   });
-  console.log(`✓ ${file} (+svg) → ${url}`);
+  console.log(`✓ ${file} (+svg)`);
 }
 
 await writeFile(
@@ -229,23 +222,22 @@ await writeFile(
   `Alibarbar packaging authenticity codes
 =======================================
 
-RIGHT (square QR — same on every box):
-  entry-verify.png
-  → ${VERIFY}
+RIGHT (方码，全箱同一个):
+  entry-verify.png → ${VERIFY}
 
-LEFT (蜂窝状圆形码 — 5 个任选打印):
-${SEALS.map((id) => `  honeycomb-${id}.png / .svg → ${VERIFY}?seal=${id}`).join("\n")}
+LEFT (蜂窝状圆形防伪标 — 5 个任选打印，外观仿原厂 Authentication 贴纸):
+${SEALS.map((id) => `  honeycomb-${id}.png / .svg`).join("\n")}
+
+验证方式:
+  1. 扫右边方码 → 打开 /verify
+  2. 在页面里拍照 / 上传左边蜂窝标
+  3. 网站用图像比对判断正品 / 非正品
 
 说明:
-  左边是圆形橙环 + 点阵蜂窝风格（仿包装盒 Authentication 左侧图案），
-  手机相机和验证页「扫描/上传照片」都能识别。
-
-Customer flow:
-  1. Scan right QR → /verify
-  2. On page, scan or upload left honeycomb seal
-  3. Match → Genuine; else → Not genuine
+  原厂蜂窝是专有点阵协议，我们无法复制其解码系统。
+  这边生成的是「外观接近 + 自家可验证」的印刷稿，不需要再下设计软件。
 `,
 );
 
 await writeFile(path.join(outDir, "manifest.json"), JSON.stringify(manifest, null, 2));
-console.log(`\nWrote honeycomb-style seals to ${outDir}`);
+console.log(`\nWrote seals to ${outDir}`);

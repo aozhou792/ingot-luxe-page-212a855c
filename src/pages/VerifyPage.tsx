@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { Html5Qrcode } from "html5-qrcode";
 import {
   Camera,
   CheckCircle2,
@@ -16,11 +15,8 @@ import { Footer } from "@/components/Footer";
 import { Seo, breadcrumbNode } from "@/components/Seo";
 import { useReveal } from "@/hooks/use-reveal";
 import { Button } from "@/components/ui/button";
-import {
-  HONEYCOMB_SEALS,
-  isGenuineHoneycombSeal,
-  VERIFY_PAGE_URL,
-} from "@/data/authenticity-codes";
+import { HONEYCOMB_SEALS, isGenuineHoneycombSeal, VERIFY_PAGE_URL } from "@/data/authenticity-codes";
+import { matchHoneycombPhoto } from "@/lib/match-honeycomb-seal";
 
 type VerifyOutcome =
   | { status: "idle" }
@@ -28,91 +24,89 @@ type VerifyOutcome =
   | { status: "fake"; sealId: string }
   | { status: "error"; message: string };
 
-function applySealResult(raw: string): VerifyOutcome {
-  const result = isGenuineHoneycombSeal(raw);
-  if (!result.id) {
-    return { status: "error", message: "No code found. Try again or upload a clearer photo of the honeycomb seal." };
-  }
-  if (result.genuine) {
-    return { status: "genuine", sealId: result.id };
-  }
-  return { status: "fake", sealId: result.id };
-}
-
 const VerifyPage = () => {
   useReveal();
   const [searchParams] = useSearchParams();
-  const scannerHostId = useId().replace(/:/g, "");
-  const scannerRef = useRef<Html5Qrcode | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [scanning, setScanning] = useState(false);
+  const [cameraOn, setCameraOn] = useState(false);
   const [busy, setBusy] = useState(false);
   const [outcome, setOutcome] = useState<VerifyOutcome>({ status: "idle" });
 
-  const stopScanner = useCallback(async () => {
-    const scanner = scannerRef.current;
-    scannerRef.current = null;
-    setScanning(false);
-    if (!scanner) return;
-    try {
-      if (scanner.isScanning) await scanner.stop();
-    } catch {
-      // already stopped
-    }
-    try {
-      scanner.clear();
-    } catch {
-      // ignore
-    }
+  const stopCamera = useCallback(() => {
+    streamRef.current?.getTracks().forEach((t) => t.stop());
+    streamRef.current = null;
+    if (videoRef.current) videoRef.current.srcObject = null;
+    setCameraOn(false);
   }, []);
 
-  const finishWithPayload = useCallback(
-    async (raw: string) => {
-      await stopScanner();
-      setOutcome(applySealResult(raw));
-    },
-    [stopScanner],
-  );
-
-  // Deep-link from a honeycomb QR opened in the phone camera app
   useEffect(() => {
     const seal = searchParams.get("seal") ?? searchParams.get("code");
     if (!seal) return;
-    setOutcome(applySealResult(seal));
+    const result = isGenuineHoneycombSeal(seal);
+    setOutcome(
+      result.genuine
+        ? { status: "genuine", sealId: result.id }
+        : { status: "fake", sealId: result.id },
+    );
   }, [searchParams]);
 
-  useEffect(() => {
-    return () => {
-      void stopScanner();
-    };
-  }, [stopScanner]);
+  useEffect(() => () => stopCamera(), [stopCamera]);
 
-  async function startCameraScan() {
+  async function applyVisualMatch(source: Blob | HTMLCanvasElement) {
+    const match = await matchHoneycombPhoto(source);
+    if (match.matched) {
+      setOutcome({ status: "genuine", sealId: match.id });
+    } else {
+      setOutcome({ status: "fake", sealId: match.id || "UNKNOWN" });
+    }
+  }
+
+  async function startCamera() {
     setOutcome({ status: "idle" });
     setBusy(true);
     try {
-      await stopScanner();
-      const scanner = new Html5Qrcode(scannerHostId);
-      scannerRef.current = scanner;
-      setScanning(true);
-      await scanner.start(
-        { facingMode: "environment" },
-        { fps: 8, qrbox: { width: 240, height: 240 } },
-        (decoded) => {
-          void finishWithPayload(decoded);
-        },
-        () => {
-          // frame miss — ignore
-        },
-      );
-    } catch (error) {
-      setScanning(false);
-      const message =
-        error instanceof Error && /Permission|NotAllowed/i.test(error.message)
-          ? "Camera permission denied. Allow camera access, or upload a photo of the honeycomb seal instead."
-          : "Could not open the camera. Upload a photo of the honeycomb seal instead.";
-      setOutcome({ status: "error", message });
+      stopCamera();
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: "environment" } },
+        audio: false,
+      });
+      streamRef.current = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        await videoRef.current.play();
+      }
+      setCameraOn(true);
+    } catch {
+      setOutcome({
+        status: "error",
+        message: "Camera permission denied or unavailable. Upload a clear photo of the honeycomb seal instead.",
+      });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function captureAndMatch() {
+    const video = videoRef.current;
+    if (!video || !cameraOn) return;
+    setBusy(true);
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth || 640;
+      canvas.height = video.videoHeight || 480;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("Canvas unsupported");
+      ctx.drawImage(video, 0, 0);
+      stopCamera();
+      await applyVisualMatch(canvas);
+    } catch {
+      setOutcome({
+        status: "error",
+        message: "Could not capture the seal. Try again or upload a photo.",
+      });
     } finally {
       setBusy(false);
     }
@@ -122,16 +116,13 @@ const VerifyPage = () => {
     if (!file) return;
     setOutcome({ status: "idle" });
     setBusy(true);
-    await stopScanner();
+    stopCamera();
     try {
-      const scanner = new Html5Qrcode(scannerHostId);
-      scannerRef.current = scanner;
-      const decoded = await scanner.scanFile(file, true);
-      await finishWithPayload(decoded);
+      await applyVisualMatch(file);
     } catch {
       setOutcome({
         status: "error",
-        message: "Could not read a QR code from that photo. Take a clear, well-lit photo of the honeycomb seal.",
+        message: "Could not read that photo. Take a clear, well-lit photo of the circular honeycomb seal.",
       });
     } finally {
       setBusy(false);
@@ -140,7 +131,7 @@ const VerifyPage = () => {
   }
 
   function resetCheck() {
-    void stopScanner();
+    stopCamera();
     setOutcome({ status: "idle" });
   }
 
@@ -152,7 +143,7 @@ const VerifyPage = () => {
         name: "Verify Alibarbar Authenticity",
         url: VERIFY_PAGE_URL,
         description:
-          "Scan the packaging QR, then scan or upload the honeycomb anti-counterfeit seal to confirm a genuine Alibarbar product.",
+          "Scan the packaging QR, then photograph the honeycomb anti-counterfeit seal to confirm a genuine Alibarbar product.",
       },
       breadcrumbNode([
         { name: "Home", path: "/" },
@@ -220,9 +211,6 @@ const VerifyPage = () => {
                 This honeycomb mark does not match an official Alibarbar anti-counterfeit seal. The product may be
                 counterfeit or the packaging may be damaged / reprinted.
               </p>
-              {outcome.sealId ? (
-                <p className="text-xs text-muted-foreground/80 mt-4 font-mono">Scanned · {outcome.sealId}</p>
-              ) : null}
               <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
                 <Button type="button" className="bg-gold text-primary-foreground hover:bg-primary" onClick={resetCheck}>
                   Try again
@@ -243,7 +231,7 @@ const VerifyPage = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="Verify Authenticity | Alibarbar Australia"
-        description="Scan the packaging QR, then scan or upload the honeycomb anti-counterfeit seal to confirm a genuine Alibarbar Ingot product."
+        description="Scan the packaging QR, then photograph the honeycomb anti-counterfeit seal to confirm a genuine Alibarbar Ingot product."
         path="/verify"
         jsonLd={jsonLd}
       />
@@ -264,9 +252,9 @@ const VerifyPage = () => {
               Verify your <span className="text-gold">Alibarbar</span>
             </h1>
             <p className="text-muted-foreground mt-4 text-base leading-relaxed max-w-2xl">
-              You are on the official verification page. Next, scan the{" "}
-              <strong className="text-foreground font-semibold">honeycomb seal</strong> on the left of the box (or upload
-              a photo of it) to confirm authenticity.
+              You are on the official verification page. Next, photograph the{" "}
+              <strong className="text-foreground font-semibold">circular honeycomb seal</strong> on the left of the box
+              (or upload a photo) to confirm authenticity.
             </p>
             <div className="gold-divider mt-6 max-w-[6rem]" />
           </header>
@@ -296,7 +284,7 @@ const VerifyPage = () => {
                   Left honeycomb
                 </p>
                 <p className="text-muted-foreground mt-1 leading-relaxed">
-                  Scan or upload the honeycomb seal here to get a genuine / not-genuine result.
+                  Photo or upload the circular honeycomb seal for a genuine / not-genuine result.
                 </p>
               </div>
             </li>
@@ -305,26 +293,34 @@ const VerifyPage = () => {
           <section className="reveal rounded-2xl border border-gold/35 bg-gradient-to-b from-card/80 to-card/40 p-5 sm:p-8 mb-6">
             <div className="flex items-center gap-2 mb-4">
               <Camera className="w-5 h-5 text-gold" />
-              <h2 className="text-lg font-bold">Scan honeycomb seal</h2>
+              <h2 className="text-lg font-bold">Check honeycomb seal</h2>
             </div>
             <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
-              Point your camera at the circular honeycomb mark on the packaging, or upload a clear photo of it.
+              Aim at the circular orange-ring seal (centre mesh hex + surrounding hex marks), then capture or upload.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 mb-5">
-              <Button
-                type="button"
-                disabled={busy}
-                onClick={() => void startCameraScan()}
-                className="h-12 bg-gold text-primary-foreground hover:bg-primary font-semibold"
-              >
-                {busy && !scanning ? (
-                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                ) : (
-                  <Camera className="w-4 h-4 mr-2" />
-                )}
-                {scanning ? "Camera on — aim at seal" : "Scan with camera"}
-              </Button>
+              {!cameraOn ? (
+                <Button
+                  type="button"
+                  disabled={busy}
+                  onClick={() => void startCamera()}
+                  className="h-12 bg-gold text-primary-foreground hover:bg-primary font-semibold"
+                >
+                  {busy ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Camera className="w-4 h-4 mr-2" />}
+                  Open camera
+                </Button>
+              ) : (
+                <Button
+                  type="button"
+                  disabled={busy}
+                  onClick={() => void captureAndMatch()}
+                  className="h-12 bg-gold text-primary-foreground hover:bg-primary font-semibold"
+                >
+                  {busy ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Camera className="w-4 h-4 mr-2" />}
+                  Capture &amp; verify
+                </Button>
+              )}
               <Button
                 type="button"
                 disabled={busy}
@@ -335,9 +331,9 @@ const VerifyPage = () => {
                 <ImagePlus className="w-4 h-4 mr-2" />
                 Upload photo
               </Button>
-              {scanning ? (
-                <Button type="button" variant="ghost" className="h-12" onClick={() => void stopScanner()}>
-                  Stop camera
+              {cameraOn ? (
+                <Button type="button" variant="ghost" className="h-12" onClick={stopCamera}>
+                  Close camera
                 </Button>
               ) : null}
             </div>
@@ -352,11 +348,12 @@ const VerifyPage = () => {
             />
 
             <div
-              id={scannerHostId}
-              className={`overflow-hidden rounded-xl border border-gold/20 bg-black/40 ${
-                scanning ? "min-h-[260px]" : "min-h-0"
+              className={`overflow-hidden rounded-xl border border-gold/20 bg-black/50 ${
+                cameraOn ? "min-h-[260px]" : "hidden"
               }`}
-            />
+            >
+              <video ref={videoRef} playsInline muted className="w-full max-h-[420px] object-cover" />
+            </div>
 
             {outcome.status === "error" ? (
               <div className="mt-5 rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 flex gap-3" role="alert">
@@ -366,39 +363,32 @@ const VerifyPage = () => {
             ) : null}
           </section>
 
-          <section className="reveal rounded-2xl border border-gold/25 bg-card/50 p-5 sm:p-8 mb-8">
-            <h2 className="text-lg font-bold mb-2">What the seal looks like</h2>
-            <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
-              Left side of the box: circular orange ring with dotted honeycomb pattern (not a square QR). Aim your camera
-              at this mark, or upload a photo of it.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 items-center">
-              <img
-                src="/authenticity/honeycomb-ABSEAL01.png"
-                alt="Example honeycomb anti-counterfeit seal"
-                className="w-44 h-44 sm:w-52 sm:h-52 rounded-full object-contain bg-white shadow-[0_0_0_1px_hsl(45_75%_52%/0.25)]"
-                width={208}
-                height={208}
-              />
-              <div className="text-sm text-muted-foreground space-y-2">
-                <p>
-                  <strong className="text-foreground">Right QR</strong> → opens this page
-                </p>
-                <p>
-                  <strong className="text-foreground">Left honeycomb</strong> → scan here for genuine / not-genuine
-                </p>
-                <p className="text-xs font-mono text-gold/90">
-                  Print files: /authenticity/entry-verify.png + honeycomb-{HONEYCOMB_SEALS[0].id}.png …{" "}
-                  {HONEYCOMB_SEALS[4].id}.png
-                </p>
-              </div>
+          <div className="reveal mb-8">
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Print reference · 5 seals</p>
+            <div className="grid grid-cols-5 gap-2 sm:gap-3">
+              {HONEYCOMB_SEALS.map((s) => (
+                <a
+                  key={s.id}
+                  href={`/authenticity/honeycomb-${s.id}.png`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-gold/25 bg-white p-1 hover:border-gold transition-colors"
+                  title={s.id}
+                >
+                  <img
+                    src={`/authenticity/honeycomb-${s.id}.png`}
+                    alt={`Honeycomb seal ${s.id}`}
+                    className="w-full aspect-square object-contain rounded-full"
+                    loading="lazy"
+                  />
+                </a>
+              ))}
             </div>
-          </section>
+          </div>
 
           <p className="reveal text-sm text-muted-foreground leading-relaxed">
             Official packaging QR target:{" "}
-            <span className="font-mono text-gold break-all">{VERIFY_PAGE_URL}</span>
-            . Need help?{" "}
+            <span className="font-mono text-gold break-all">{VERIFY_PAGE_URL}</span>. Need help?{" "}
             <Link to="/faq/authenticity" className="text-primary font-semibold hover:text-gold">
               Authenticity FAQ
             </Link>{" "}

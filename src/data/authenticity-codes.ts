@@ -4,8 +4,9 @@ import { SITE_URL } from "@/data/site";
 export const VERIFY_PAGE_URL = `${SITE_URL}/verify`;
 
 /**
- * Shared honeycomb seal IDs (3–5 variants for printing — not one-per-unit).
- * Honeycomb QR payload: `${VERIFY_PAGE_URL}?seal=ABSEAL01`
+ * Shared honeycomb seal IDs (5 print variants — not one-per-unit).
+ * Artwork: /authenticity/honeycomb-{id}.png
+ * Verify page matches uploaded/captured photos against these templates.
  */
 export const HONEYCOMB_SEALS = [
   { id: "ABSEAL01", label: "Seal A" },
