@@ -504,8 +504,16 @@ const ProductPage = () => {
                 ))}
               </div>
               <p className="mt-5 text-sm text-muted-foreground">
-                Want more detail? Read our{" "}
-                <Link to="/guides" className="text-primary font-semibold hover:text-gold">Alibarbar guides</Link> or the{" "}
+                Want more detail? Read{" "}
+                <Link to="/guides/how-many-puffs-does-alibarbar-ingot-9000-have" className="text-primary font-semibold hover:text-gold">
+                  how many puffs in an Alibarbar
+                </Link>
+                ,{" "}
+                <Link to="/guides/how-to-open-alibarbar-vape" className="text-primary font-semibold hover:text-gold">
+                  how to open an Alibarbar vape
+                </Link>
+                , our{" "}
+                <Link to="/guides" className="text-primary font-semibold hover:text-gold">full guides</Link> or the{" "}
                 <Link to="/faq" className="text-primary font-semibold hover:text-gold">full FAQ</Link>.
               </p>
             </section>

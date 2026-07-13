@@ -99,18 +99,31 @@ const FaqPage = () => {
             ))}
           </div>
 
-          <div className="mt-12 rounded-2xl border border-gold/20 bg-card/50 p-6 text-center">
-            <p className="text-sm sm:text-base text-muted-foreground">
+          <div className="mt-12 rounded-2xl border border-gold/20 bg-card/50 p-6">
+            <p className="text-sm sm:text-base text-muted-foreground text-center mb-4">
               Still have a question? Email us at{" "}
               <a href="mailto:orders@ailibarbar.com" className="text-primary font-semibold hover:text-gold">
                 orders@ailibarbar.com
               </a>{" "}
-              or read our{" "}
-              <Link to="/guides" className="text-primary font-semibold hover:text-gold">
-                vape guides
-              </Link>
-              .
+              or read a focused guide:
             </p>
+            <ul className="flex flex-col sm:flex-row sm:flex-wrap sm:justify-center gap-2 sm:gap-4 text-sm text-center">
+              <li>
+                <Link to="/guides/how-many-puffs-does-alibarbar-ingot-9000-have" className="text-primary font-semibold hover:text-gold">
+                  How many puffs in an Alibarbar?
+                </Link>
+              </li>
+              <li>
+                <Link to="/guides/can-you-recharge-alibarbar-ingot-9000" className="text-primary font-semibold hover:text-gold">
+                  How to recharge an Alibarbar
+                </Link>
+              </li>
+              <li>
+                <Link to="/guides/how-to-open-alibarbar-vape" className="text-primary font-semibold hover:text-gold">
+                  How to open an Alibarbar vape
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </main>

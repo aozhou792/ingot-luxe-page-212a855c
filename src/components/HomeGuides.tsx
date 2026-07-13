@@ -2,9 +2,18 @@ import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { guides } from "@/data/guides";
 
+/** Priority guides aligned to early Search Console query demand. */
+const FEATURED_GUIDE_SLUGS = [
+  "how-many-puffs-does-alibarbar-ingot-9000-have",
+  "can-you-recharge-alibarbar-ingot-9000",
+  "how-to-open-alibarbar-vape",
+] as const;
+
 /** Surfaces the knowledge centre on the homepage for internal linking + GEO. */
 export const HomeGuides = () => {
-  const featured = guides.slice(0, 3);
+  const featured = FEATURED_GUIDE_SLUGS.map((slug) => guides.find((g) => g.slug === slug)).filter(
+    (g): g is NonNullable<typeof g> => Boolean(g),
+  );
 
   return (
     <section id="guides" className="pt-10 sm:pt-12 md:pt-14 pb-16 sm:pb-20 md:pb-28 relative scroll-mt-20">
@@ -18,7 +27,7 @@ export const HomeGuides = () => {
               Alibarbar <span className="text-gold">guides</span>
             </h2>
             <p className="text-muted-foreground mt-3 text-sm sm:text-base">
-              Learn how the Ingot 9000 works, how long it lasts, and how to pick your flavour.
+              Puff count, charging myths, and how to open your Ingot 9000 for first use.
             </p>
           </div>
           <Link

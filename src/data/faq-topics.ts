@@ -201,9 +201,19 @@ export const faqTopics: FaqTopic[] = [
           "For an average user taking around 300-400 puffs per day, a 9000-puff device typically lasts roughly two to four weeks. Heavier use will shorten this, lighter use will extend it.",
       },
       {
+        question: "How do I recharge an Alibarbar vape?",
+        answer:
+          "You cannot. The Alibarbar Ingot is a non-rechargeable disposable that comes pre-charged with a 2350mAh battery sized to last the full e-liquid capacity. When it is finished, replace the device — do not attempt to open or charge it.",
+      },
+      {
         question: "Is the Alibarbar Ingot rechargeable?",
         answer:
-          "The Alibarbar Ingot is a non-rechargeable disposable device. It comes pre-charged with a 2350mAh battery sized to last the full e-liquid capacity, so there is no charging required.",
+          "No. The Alibarbar Ingot is a non-rechargeable disposable device. It comes pre-charged with a 2350mAh battery sized to last the full e-liquid capacity, so there is no charging required.",
+      },
+      {
+        question: "How do I open an Alibarbar vape?",
+        answer:
+          "Open the retail packaging, remove any mouthpiece or air-intake protective cap, then take a gentle draw. Do not pry open the device casing — it is a sealed disposable and is not meant to be opened for charging or refilling.",
       },
       {
         question: "How do I use a disposable vape?",

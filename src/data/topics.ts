@@ -78,6 +78,7 @@ export const topicHubs: TopicHub[] = [
     ],
     guides: [
       { label: "What Is the Alibarbar Ingot 9000?", path: "/guides/what-is-alibarbar-ingot-9000", description: "Full device guide" },
+      { label: "How to Open an Alibarbar Vape", path: "/guides/how-to-open-alibarbar-vape", description: "Unboxing steps" },
       { label: "How to Use a Disposable Vape", path: "/guides/how-to-use-a-disposable-vape", description: "Beginner steps" },
     ],
     products: [
@@ -147,6 +148,7 @@ export const topicHubs: TopicHub[] = [
     guides: [
       { label: "How Many Puffs Does the Ingot 9000 Have?", path: "/guides/how-many-puffs-does-alibarbar-ingot-9000-have", description: "Puff count explained" },
       { label: "How Long Does the Ingot 9000 Last?", path: "/guides/how-long-does-alibarbar-ingot-9000-last", description: "Real-world lifespan" },
+      { label: "How to Recharge an Alibarbar", path: "/guides/can-you-recharge-alibarbar-ingot-9000", description: "Why it is not rechargeable" },
     ],
     products: [
       { label: "Custom 10 Pack", path: "/product/custom-10-pack", description: "Best value for heavy users" },
@@ -277,6 +279,9 @@ export const topicHubs: TopicHub[] = [
     ],
     guides: [
       { label: "Complete Ingot 9000 Guide", path: "/guides/what-is-alibarbar-ingot-9000", description: "Specs and overview" },
+      { label: "How Many Puffs in an Alibarbar?", path: "/guides/how-many-puffs-does-alibarbar-ingot-9000-have", description: "Puff count explained" },
+      { label: "How to Recharge an Alibarbar", path: "/guides/can-you-recharge-alibarbar-ingot-9000", description: "Non-rechargeable safety guide" },
+      { label: "How to Open an Alibarbar Vape", path: "/guides/how-to-open-alibarbar-vape", description: "Unboxing and first use" },
     ],
     products: [
       { label: "Shop All Products", path: "/#flavors", description: "Browse flavours" },

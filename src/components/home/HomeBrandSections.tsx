@@ -58,19 +58,27 @@ export const HomeIngotExplained = () => (
             Unlike smaller disposables that run out in a few days, the Ingot 9000 is built for extended daily use. A
             built-in <strong className="text-foreground font-semibold">smart LED display</strong> shows remaining
             battery and e-liquid levels so you are never guessing when to replace the device. Activation is
-            inhale-draw — remove the cap, puff gently, and the mesh coil delivers consistent vapour from the first draw
-            to the last.
+            inhale-draw —{" "}
+            <Link to="/guides/how-to-open-alibarbar-vape" className="text-primary font-semibold hover:text-gold">
+              open the pack
+            </Link>
+            , remove the cap, puff gently, and the mesh coil delivers consistent vapour from the first draw to the
+            last.
           </p>
           <p>
             The Ingot 9000 is <strong className="text-foreground font-semibold">not rechargeable</strong>. The battery
             and e-liquid are matched so that when the display reads empty or the device flashes with little vapour, it
             has reached end of life and should be recycled responsibly. For a full walkthrough, read our{" "}
+            <Link to="/guides/how-many-puffs-does-alibarbar-ingot-9000-have" className="text-primary font-semibold hover:text-gold">
+              how many puffs in an Alibarbar guide
+            </Link>
+            ,{" "}
             <Link to="/guides/how-long-does-alibarbar-ingot-9000-last" className="text-primary font-semibold hover:text-gold">
               how long does it last guide
             </Link>{" "}
             and{" "}
             <Link to="/guides/can-you-recharge-alibarbar-ingot-9000" className="text-primary font-semibold hover:text-gold">
-              recharge safety guide
+              how to recharge an Alibarbar guide
             </Link>
             .
           </p>

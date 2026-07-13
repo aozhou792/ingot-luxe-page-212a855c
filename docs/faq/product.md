@@ -15,11 +15,25 @@
 
 ## Is it rechargeable?
 
-**No.** The Ingot 9000 is a non-rechargeable disposable. When the battery or e-liquid is finished, replace the whole device.
+**No.** You cannot recharge an Alibarbar Ingot 9000 — it is a non-rechargeable disposable. When the battery or e-liquid is finished, replace the whole device.
+
+**Guide:** https://www.ailibarbar.com/guides/can-you-recharge-alibarbar-ingot-9000
+
+## How many puffs?
+
+Up to **9000 puffs** per device (manufacturer rating). Real totals depend on puff length.
+
+**Guide:** https://www.ailibarbar.com/guides/how-many-puffs-does-alibarbar-ingot-9000-have
 
 ## How long does one device last?
 
 At ~300 puffs/day, expect roughly **3–4 weeks**. Light users may get 6+ weeks; heavy users around 2 weeks.
+
+## How to open / first use
+
+Open the retail pack, remove the mouthpiece cap, then inhale gently. Do **not** pry open the device casing.
+
+**Guide:** https://www.ailibarbar.com/guides/how-to-open-alibarbar-vape
 
 ## Available flavours
 

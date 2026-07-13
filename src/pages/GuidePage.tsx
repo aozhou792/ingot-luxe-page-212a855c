@@ -35,7 +35,7 @@ const GuidePage = () => {
     .filter((g): g is NonNullable<typeof g> => Boolean(g));
 
   const howToSteps =
-    guide.slug === "how-to-use-a-disposable-vape"
+    guide.slug === "how-to-use-a-disposable-vape" || guide.slug === "how-to-open-alibarbar-vape"
       ? guide.sections
           .filter((s) => s.heading.toLowerCase().startsWith("step"))
           .map((s) => ({
