@@ -1,40 +1,40 @@
 {
-  "protocol": "alibarbar-au-honeycomb-v3",
+  "protocol": "alibarbar-au-seal-tokens-v1",
   "entryQr": {
     "file": "entry-verify.png",
     "url": "https://www.alibarbar.mom/verify"
   },
+  "tokenLibrary": "tokens.json",
   "honeycombSeals": [
     {
       "id": "ABSEAL01",
       "file": "honeycomb-ABSEAL01.png",
-      "svg": "honeycomb-ABSEAL01.svg",
-      "panel": "panel-ABSEAL01.png"
+      "payload": "https://www.alibarbar.mom/verify?seal=ABSEAL01",
+      "tokenQr": "token-qr-ABSEAL01.png"
     },
     {
       "id": "ABSEAL02",
       "file": "honeycomb-ABSEAL02.png",
-      "svg": "honeycomb-ABSEAL02.svg",
-      "panel": "panel-ABSEAL02.png"
+      "payload": "https://www.alibarbar.mom/verify?seal=ABSEAL02",
+      "tokenQr": "token-qr-ABSEAL02.png"
     },
     {
       "id": "ABSEAL03",
       "file": "honeycomb-ABSEAL03.png",
-      "svg": "honeycomb-ABSEAL03.svg",
-      "panel": "panel-ABSEAL03.png"
+      "payload": "https://www.alibarbar.mom/verify?seal=ABSEAL03",
+      "tokenQr": "token-qr-ABSEAL03.png"
     },
     {
       "id": "ABSEAL04",
       "file": "honeycomb-ABSEAL04.png",
-      "svg": "honeycomb-ABSEAL04.svg",
-      "panel": "panel-ABSEAL04.png"
+      "payload": "https://www.alibarbar.mom/verify?seal=ABSEAL04",
+      "tokenQr": "token-qr-ABSEAL04.png"
     },
     {
       "id": "ABSEAL05",
       "file": "honeycomb-ABSEAL05.png",
-      "svg": "honeycomb-ABSEAL05.svg",
-      "panel": "panel-ABSEAL05.png"
+      "payload": "https://www.alibarbar.mom/verify?seal=ABSEAL05",
+      "tokenQr": "token-qr-ABSEAL05.png"
     }
-  ],
-  "note": "Visual match to packaging Authentication sticker. Verified on /verify by photo template match."
+  ]
 }

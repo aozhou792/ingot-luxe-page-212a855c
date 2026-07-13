@@ -293,7 +293,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "How do I use the packaging authenticity marks?",
         answer:
-          "Scan the right-hand QR code on the box to open www.alibarbar.mom/verify. On that page, scan the left honeycomb anti-counterfeit seal with your camera, or upload a clear photo of it. A matching official seal shows a Genuine Alibarbar result; an unmatched mark shows a not-genuine warning. There is no unique serial per device — a small set of shared honeycomb seals is used across genuine packaging.",
+          "Scan the right-hand QR code on the box to open www.alibarbar.mom/verify. On that page, scan or upload a photo of the left honeycomb seal — it contains one of five official authenticity tokens. Matching any token in our code library shows Genuine Alibarbar; an unknown code shows a not-genuine warning. The same five seals are printed randomly across genuine packaging (not a unique serial per device).",
       },
       {
         question: "How do I know if my Alibarbar is fake?",

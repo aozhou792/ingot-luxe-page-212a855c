@@ -1,10 +1,9 @@
 /**
- * Generate honeycomb seals to match ALIBARBAR packaging Authentication sticker.
- * Reference: packaging circular mark (centre mesh hex + 5 outline hexes + data dots + orange rings).
+ * Generate scannable honeycomb seals:
+ * clean QR (token) + packaging orange ring OUTSIDE the QR (does not cover modules).
  *
  *   node scripts/generate-honeycomb-qrs.mjs
  */
-import { createHash } from "node:crypto";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -17,31 +16,16 @@ const SITE = "https://www.alibarbar.mom";
 const VERIFY = `${SITE}/verify`;
 const SEALS = ["ABSEAL01", "ABSEAL02", "ABSEAL03", "ABSEAL04", "ABSEAL05"];
 
-const SIZE = 1600;
+const SIZE = 1400;
 const CX = SIZE / 2;
 const CY = SIZE / 2;
-
-// Colours matched from packaging photo
+const QR_SIZE = 860; // stays well inside orange rings
 const ORANGE = "#E36A1A";
 const ORANGE_INNER = "#D45F14";
-const INK = "#1c1c1c";
-const MESH_BG = "#7a7a7a";
-const MESH_DOT = "#2e2e2e";
-const PAPER = "#ffffff";
-
-function hexPoints(x, y, r) {
-  const pts = [];
-  for (let i = 0; i < 6; i++) {
-    const a = (Math.PI / 180) * (60 * i - 30);
-    pts.push(`${(x + r * Math.cos(a)).toFixed(2)},${(y + r * Math.sin(a)).toFixed(2)}`);
-  }
-  return pts.join(" ");
-}
 
 function arcPath(cx, cy, r, startDeg, endDeg) {
   let sweep = endDeg - startDeg;
   while (sweep < 0) sweep += 360;
-  while (sweep >= 360) sweep -= 360;
   const s = (Math.PI / 180) * startDeg;
   const e = (Math.PI / 180) * (startDeg + sweep);
   const x1 = cx + r * Math.cos(s);
@@ -52,219 +36,78 @@ function arcPath(cx, cy, r, startDeg, endDeg) {
   return `M ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 ${large} 1 ${x2.toFixed(2)} ${y2.toFixed(2)}`;
 }
 
-function rng(seed) {
-  let h = createHash("sha256").update(seed).digest();
-  let i = 0;
-  return () => {
-    if (i >= h.length) {
-      h = createHash("sha256").update(h).digest();
-      i = 0;
-    }
-    return h[i++] / 255;
-  };
-}
-
-function centreMesh(cx, cy, r, id) {
-  const parts = [];
-  const clip = `mesh-${id}`;
-  parts.push(`<clipPath id="${clip}"><polygon points="${hexPoints(cx, cy, r)}"/></clipPath>`);
-  parts.push(`<g clip-path="url(#${clip})">`);
-  parts.push(`<rect x="${cx - r}" y="${cy - r}" width="${r * 2}" height="${r * 2}" fill="${MESH_BG}"/>`);
-  // Fine halftone mesh like packaging centre hex
-  const step = 2.8;
-  for (let y = cy - r - step; y <= cy + r + step; y += step) {
-    for (let x = cx - r - step; x <= cx + r + step; x += step) {
-      const ox = (Math.floor((y - (cy - r)) / step) % 2) * (step / 2);
-      parts.push(
-        `<circle cx="${(x + ox).toFixed(2)}" cy="${y.toFixed(2)}" r="1.05" fill="${MESH_DOT}"/>`,
-      );
-    }
+function hexPoints(x, y, r) {
+  const pts = [];
+  for (let i = 0; i < 6; i++) {
+    const a = (Math.PI / 180) * (60 * i - 30);
+    pts.push(`${(x + r * Math.cos(a)).toFixed(2)},${(y + r * Math.sin(a)).toFixed(2)}`);
   }
-  // Soft top highlight (printed plastic look)
-  parts.push(
-    `<ellipse cx="${cx}" cy="${(cy - r * 0.15).toFixed(2)}" rx="${(r * 0.72).toFixed(2)}" ry="${(r * 0.55).toFixed(2)}" fill="#ffffff" opacity="0.14"/>`,
-  );
-  parts.push(`</g>`);
-  parts.push(`<polygon points="${hexPoints(cx, cy, r)}" fill="none" stroke="${INK}" stroke-width="1.8"/>`);
-  return parts.join("");
+  return pts.join(" ");
 }
 
-function blocked(x, y, zones) {
-  for (const z of zones) {
-    if (Math.hypot(x - z.x, y - z.y) < z.r) return true;
-  }
-  return false;
-}
+function frameSvg() {
+  const outerR = SIZE * 0.485;
+  const orangeR = SIZE * 0.462;
+  const thinR = SIZE * 0.428;
+  // Decorative hexes live in the RING BAND only (outside QR corner radius ~ QR_SIZE/2 * sqrt(2) ≈ 607)
+  // QR half-diagonal ≈ 607; keep decorations beyond ~640 from centre... actually put small hexes on the ring band between thinR and orangeR? Better: 5 tiny hex marks just outside QR corners in the white margin between QR and thin ring.
+  const qrHalf = QR_SIZE / 2;
+  const decoR = qrHalf + 55; // in quiet white band between QR and orange rings
 
-/**
- * Match packaging Authentication circular sticker as closely as possible.
- * Dot layout unique per sealId (own verify protocol).
- */
-function honeycombSealSvg(sealId) {
-  const rand = rng(`pack-match-v3-${sealId}`);
-
-  // Proportions from packaging photo
-  const outerR = SIZE * 0.448;
-  const orangeR = SIZE * 0.428;
-  const thinOrangeR = SIZE * 0.395;
-  const discR = SIZE * 0.382;
-  const codeR = SIZE * 0.335;
-  const centreR = SIZE * 0.1;
-  const satR = SIZE * 0.05;
-  const satDist = SIZE * 0.178;
-
-  // Five satellite hexes — packaging pentagon (tip roughly at top)
-  const satAngles = [-90, -18, 54, 126, 198].map((a) => a + (rand() - 0.5) * 1.5);
-  const sats = satAngles.map((deg) => {
-    const a = (deg * Math.PI) / 180;
-    return { x: CX + Math.cos(a) * satDist, y: CY + Math.sin(a) * satDist };
-  });
-
-  const zones = [
-    { x: CX, y: CY, r: centreR * 1.25 },
-    ...sats.map((s) => ({ x: s.x, y: s.y, r: satR * 1.45 })),
-  ];
-
-  const parts = [];
-  parts.push(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${SIZE}" height="${SIZE}" viewBox="0 0 ${SIZE} ${SIZE}">`,
-  );
-  parts.push(`<defs>`);
-  parts.push(`<clipPath id="disc-${sealId}"><circle cx="${CX}" cy="${CY}" r="${discR}"/></clipPath>`);
-  parts.push(`</defs>`);
-  parts.push(`<rect width="100%" height="100%" fill="${PAPER}"/>`);
-
-  // White sticker disc + thin black outer rim (like cut sticker edge)
-  parts.push(`<circle cx="${CX}" cy="${CY}" r="${outerR}" fill="${PAPER}" stroke="#222222" stroke-width="2"/>`);
-
-  // Thick segmented orange outer ring — packaging is mostly continuous with a few gaps
-  const baseSegs = [
+  const segs = [
     { start: -110, sweep: 95 },
     { start: 0, sweep: 70 },
     { start: 85, sweep: 50 },
     { start: 150, sweep: 85 },
     { start: 250, sweep: 80 },
   ];
-  for (const seg of baseSegs) {
-    const start = seg.start + (rand() - 0.5) * 2;
-    const sweep = seg.sweep + (rand() - 0.5) * 3;
-    parts.push(
-      `<path d="${arcPath(CX, CY, orangeR, start, start + sweep)}" fill="none" stroke="${ORANGE}" stroke-width="34" stroke-linecap="butt"/>`,
-    );
-  }
 
-  // Continuous thinner orange ring inside (packaging)
-  parts.push(
-    `<circle cx="${CX}" cy="${CY}" r="${thinOrangeR}" fill="none" stroke="${ORANGE_INNER}" stroke-width="4"/>`,
-  );
-  // Hairline grey guide
-  parts.push(`<circle cx="${CX}" cy="${CY}" r="${discR}" fill="none" stroke="#c8c8c8" stroke-width="1"/>`);
-  parts.push(`<circle cx="${CX}" cy="${CY}" r="${discR - 1}" fill="${PAPER}"/>`);
-
-  parts.push(`<g clip-path="url(#disc-${sealId})">`);
-
-  // --- Data dots: clusters + short lines + isolates (packaging character) ---
-  // Pre-planned cluster anchors around the ring (then seed jitter per seal)
-  const clusterAnchors = [
-    { a: -70, d: 0.78, n: 5 },
-    { a: -30, d: 0.55, n: 4 },
-    { a: 10, d: 0.82, n: 6 },
-    { a: 55, d: 0.62, n: 3 },
-    { a: 95, d: 0.8, n: 4 },
-    { a: 140, d: 0.58, n: 5 },
-    { a: 175, d: 0.75, n: 3 },
-    { a: 210, d: 0.52, n: 4 },
-    { a: 250, d: 0.84, n: 5 },
-    { a: 290, d: 0.6, n: 3 },
-    { a: 320, d: 0.72, n: 4 },
-    { a: 350, d: 0.48, n: 3 },
+  const parts = [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${SIZE}" height="${SIZE}" viewBox="0 0 ${SIZE} ${SIZE}">`,
+    `<circle cx="${CX}" cy="${CY}" r="${outerR}" fill="#ffffff" stroke="#222" stroke-width="2.5"/>`,
   ];
 
-  for (const cl of clusterAnchors) {
-    const ang = ((cl.a + (rand() - 0.5) * 8) * Math.PI) / 180;
-    const dist = codeR * (cl.d + (rand() - 0.5) * 0.06);
-    const bx = CX + Math.cos(ang) * dist;
-    const by = CY + Math.sin(ang) * dist;
-    if (blocked(bx, by, zones)) continue;
-
-    const mode = rand();
-    if (mode < 0.4) {
-      // Short nearly-straight / slight-curve line
-      const tang = ang + Math.PI / 2 + (rand() - 0.5) * 0.4;
-      for (let k = 0; k < cl.n; k++) {
-        const t = (k - (cl.n - 1) / 2) * (5.2 + rand() * 1.8);
-        const bend = Math.sin(k * 0.9 + rand()) * 1.8;
-        const x = bx + Math.cos(tang) * t + Math.cos(ang) * bend;
-        const y = by + Math.sin(tang) * t + Math.sin(ang) * bend;
-        if (blocked(x, y, zones)) continue;
-        if (Math.hypot(x - CX, y - CY) > codeR * 0.98) continue;
-        const rr = 2.0 + rand() * 1.6;
-        parts.push(`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${rr.toFixed(2)}" fill="${INK}"/>`);
-      }
-    } else {
-      // Tight irregular cluster
-      for (let k = 0; k < cl.n; k++) {
-        const x = bx + (rand() - 0.5) * 14;
-        const y = by + (rand() - 0.5) * 14;
-        if (blocked(x, y, zones)) continue;
-        if (Math.hypot(x - CX, y - CY) > codeR * 0.98) continue;
-        const rr = 2.2 + rand() * 2.0;
-        parts.push(`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${rr.toFixed(2)}" fill="${INK}"/>`);
-      }
-    }
-  }
-
-  // Sparse isolated dots
-  for (let i = 0; i < 48; i++) {
-    const ang = rand() * Math.PI * 2;
-    const dist = codeR * (0.38 + rand() * 0.55);
-    const x = CX + Math.cos(ang) * dist;
-    const y = CY + Math.sin(ang) * dist;
-    if (blocked(x, y, zones)) continue;
-    parts.push(`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${(1.7 + rand() * 1.5).toFixed(2)}" fill="${INK}"/>`);
-  }
-
-  // Five satellite hex outlines + centre dots (packaging finder marks)
-  for (const s of sats) {
+  for (const seg of segs) {
     parts.push(
-      `<polygon points="${hexPoints(s.x, s.y, satR)}" fill="${PAPER}" stroke="${INK}" stroke-width="10" stroke-linejoin="miter"/>`,
+      `<path d="${arcPath(CX, CY, orangeR, seg.start, seg.start + seg.sweep)}" fill="none" stroke="${ORANGE}" stroke-width="38" stroke-linecap="butt"/>`,
     );
-    parts.push(`<circle cx="${s.x.toFixed(2)}" cy="${s.y.toFixed(2)}" r="5.8" fill="${INK}"/>`);
+  }
+  parts.push(`<circle cx="${CX}" cy="${CY}" r="${thinR}" fill="none" stroke="${ORANGE_INNER}" stroke-width="4"/>`);
+
+  // Packaging-style satellite hexes in the margin (NOT over QR)
+  for (const deg of [-90, -18, 54, 126, 198]) {
+    const a = (deg * Math.PI) / 180;
+    const sx = CX + Math.cos(a) * decoR;
+    const sy = CY + Math.sin(a) * decoR;
+    parts.push(
+      `<polygon points="${hexPoints(sx, sy, 22)}" fill="#fff" stroke="#111" stroke-width="4"/>`,
+    );
+    parts.push(`<circle cx="${sx.toFixed(2)}" cy="${sy.toFixed(2)}" r="5" fill="#111"/>`);
   }
 
-  // Centre mesh hexagon
-  parts.push(centreMesh(CX, CY, centreR, sealId));
-
-  parts.push(`</g>`);
+  // Small centre mesh hex — OPTIONAL; skip overlay on QR for max scan reliability
   parts.push(`</svg>`);
   return parts.join("");
 }
 
-/** Full AUTHENTICATION panel mock (for print layout reference). */
-function panelSvg(sealId) {
-  const seal = honeycombSealSvg(sealId);
-  // Extract inner content without outer svg wrapper — simpler: embed as image via nested svg
-  const inner = seal
-    .replace(/<svg[^>]*>/, "")
-    .replace(/<\/svg>/, "")
-    .replace(/width="1600" height="1600"/, "");
+async function writeHoneycombSeal(sealId, payload) {
+  const qrPng = await QRCode.toBuffer(payload, {
+    type: "png",
+    width: QR_SIZE,
+    margin: 2,
+    errorCorrectionLevel: "H",
+    color: { dark: "#111111", light: "#ffffff" },
+  });
 
-  const W = 900;
-  const H = 1100;
-  const sealSize = 520;
-  const sx = (W - sealSize) / 2;
-  const sy = 120;
-
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-  <rect width="100%" height="100%" fill="#C9A84A"/>
-  <rect x="24" y="24" width="${W - 48}" height="${H - 48}" fill="none" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="${W / 2}" y="88" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" letter-spacing="1" fill="#1a1a1a">AUTHENTICATION</text>
-  <svg x="${sx}" y="${sy}" width="${sealSize}" height="${sealSize}" viewBox="0 0 1600 1600">${inner}</svg>
-  <text x="${W / 2}" y="720" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#1a1a1a">Open <tspan font-weight="700">www.alibarbar.mom/verify</tspan></text>
-  <text x="${W / 2}" y="752" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#1a1a1a">to verify your ALIBARBAR's</text>
-  <text x="${W / 2}" y="784" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#1a1a1a">authenticity</text>
-  <text x="${W / 2}" y="860" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#333333">Seal ${sealId} · Alibarbar Australia</text>
-</svg>`;
+  await sharp({
+    create: { width: SIZE, height: SIZE, channels: 4, background: { r: 255, g: 255, b: 255, alpha: 1 } },
+  })
+    .composite([
+      { input: Buffer.from(frameSvg()), gravity: "centre" },
+      { input: qrPng, gravity: "centre" },
+    ])
+    .png()
+    .toFile(path.join(outDir, `honeycomb-${sealId}.png`));
 }
 
 await mkdir(outDir, { recursive: true });
@@ -277,44 +120,53 @@ await QRCode.toFile(path.join(outDir, "entry-verify.png"), VERIFY, {
   color: { dark: "#0a0a0a", light: "#ffffff" },
 });
 
+const tokensDoc = {
+  protocol: "alibarbar-au-seal-tokens-v1",
+  note: "Shared token library (5 codes). Any seal encoding one of these is genuine. Not one-per-unit.",
+  tokens: SEALS,
+  payloads: Object.fromEntries(SEALS.map((id) => [id, `${VERIFY}?seal=${id}`])),
+};
+
+await writeFile(path.join(outDir, "tokens.json"), JSON.stringify(tokensDoc, null, 2));
+
 const manifest = {
-  protocol: "alibarbar-au-honeycomb-v3",
+  protocol: tokensDoc.protocol,
   entryQr: { file: "entry-verify.png", url: VERIFY },
+  tokenLibrary: "tokens.json",
   honeycombSeals: [],
-  note: "Visual match to packaging Authentication sticker. Verified on /verify by photo template match.",
 };
 
 for (const id of SEALS) {
-  const svg = honeycombSealSvg(id);
-  const file = `honeycomb-${id}.png`;
-  const svgFile = `honeycomb-${id}.svg`;
-  await writeFile(path.join(outDir, svgFile), svg);
-  await sharp(Buffer.from(svg)).png().toFile(path.join(outDir, file));
-
-  const panel = panelSvg(id);
-  const panelPng = `panel-${id}.png`;
-  await writeFile(path.join(outDir, `panel-${id}.svg`), panel);
-  await sharp(Buffer.from(panel)).png().toFile(path.join(outDir, panelPng));
-
-  manifest.honeycombSeals.push({ id, file, svg: svgFile, panel: panelPng });
-  console.log(`✓ ${file} + ${panelPng}`);
+  const payload = `${VERIFY}?seal=${id}`;
+  await writeHoneycombSeal(id, payload);
+  await QRCode.toFile(path.join(outDir, `token-qr-${id}.png`), payload, {
+    type: "png",
+    width: 1024,
+    margin: 2,
+    errorCorrectionLevel: "H",
+    color: { dark: "#0a0a0a", light: "#ffffff" },
+  });
+  manifest.honeycombSeals.push({ id, file: `honeycomb-${id}.png`, payload, tokenQr: `token-qr-${id}.png` });
+  console.log(`✓ honeycomb-${id}.png → ${payload}`);
 }
 
 await writeFile(
   path.join(outDir, "README.txt"),
-  `Packaging-matched honeycomb seals (Alibarbar AU own verify protocol)
-===================================================================
+  `Alibarbar AU — 5-token honeycomb authenticity
+==============================================
 
-LEFT circular seal (print on box Authentication area):
-${SEALS.map((id) => `  honeycomb-${id}.png`).join("\n")}
+模式: 5 个共享 token（随机印，扫中任一即正品）
+验真: 扫蜂窝图中的可读 QR → 对照 tokens.json 码库
 
-Full panel mock (gold AUTHENTICATION layout reference):
-${SEALS.map((id) => `  panel-${id}.png`).join("\n")}
+RIGHT: entry-verify.png → ${VERIFY}
+LEFT:  honeycomb-ABSEAL01.png … 05.png  （橙环蜂窝框 + 中间标准 QR）
+备用:  token-qr-ABSEAL0N.png
+码库: tokens.json
 
-RIGHT entry QR:
-  entry-verify.png → ${VERIFY}
-
-Verify: scan right QR → photograph left seal on /verify
+顾客:
+  1. 扫右边方码进 /verify
+  2. 页内扫/上传左边蜂窝
+  3. 读出 ABSEAL0x，在码库内 → 正品
 `,
 );
 
