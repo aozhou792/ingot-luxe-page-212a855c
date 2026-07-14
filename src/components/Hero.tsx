@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import heroDevice from "@/assets/hero-device.png";
 import { TELEGRAM_COMMUNITY_URL } from "@/data/site";
 
@@ -13,6 +14,34 @@ function TelegramIcon({ className }: { className?: string }) {
 }
 
 export const Hero = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [loadVideo, setLoadVideo] = useState(false);
+
+  // Defer the ~1.7MB hero MP4 so first paint / fonts / product images win the network.
+  useEffect(() => {
+    let cancelled = false;
+    const timer = window.setTimeout(() => {
+      if (!cancelled) setLoadVideo(true);
+    }, 700);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!loadVideo) return;
+    const el = videoRef.current;
+    if (!el) return;
+    el.load();
+    const play = el.play();
+    if (play && typeof play.catch === "function") {
+      play.catch(() => {
+        /* autoplay may be blocked — poster still shows */
+      });
+    }
+  }, [loadVideo]);
+
   return (
     <section
       id="home"
@@ -102,15 +131,17 @@ export const Hero = () => {
                 aria-hidden
               />
               <video
+                ref={videoRef}
                 className="relative z-0 block w-full aspect-[3/4] sm:aspect-[4/5] object-cover object-center"
-                autoPlay
+                autoPlay={loadVideo}
                 muted
                 loop
                 playsInline
+                preload="none"
                 poster={heroDevice}
                 aria-label="Alibarbar Ingot 9000 Puffs gold luxury vape device — product showcase video"
               >
-                <source src="/hero-alibarbar.mp4" type="video/mp4" />
+                {loadVideo ? <source src="/hero-alibarbar.mp4" type="video/mp4" /> : null}
               </video>
             </div>
           </div>

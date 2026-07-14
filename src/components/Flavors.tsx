@@ -55,6 +55,9 @@ const FlavorCard = ({ f, revealIndex, goToProduct }: FlavorCardProps) => {
           src={f.img}
           alt={`${f.name} Alibarbar Ingot 9000 puffs flavor`}
           loading="lazy"
+          decoding="async"
+          width={400}
+          height={400}
           className="w-full h-full object-contain p-3 sm:p-5 md:p-6 group-hover:scale-110 transition-transform duration-700"
         />
         <span className="absolute top-2 left-2 sm:top-3 sm:left-3 text-[8px] sm:text-[10px] uppercase tracking-widest px-2 py-0.5 sm:px-3 sm:py-1 rounded-full border border-gold bg-background/60 backdrop-blur text-primary max-w-[calc(100%-0.75rem)] truncate">
