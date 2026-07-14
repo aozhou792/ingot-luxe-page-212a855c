@@ -17,7 +17,7 @@ const CX = SIZE / 2;
 const CY = SIZE / 2;
 const ORANGE = "#F07828";
 const ORANGE_INNER = "#E86A1C";
-const SITE = "https://www.alibarbar.mom";
+const SITE = "https://www.ailibarbar.com";
 const VERIFY = `${SITE}/verify`;
 
 const SEALS = ["ABSEAL01", "ABSEAL02", "ABSEAL03", "ABSEAL04", "ABSEAL05"];

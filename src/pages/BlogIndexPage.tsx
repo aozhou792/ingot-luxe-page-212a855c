@@ -1,4 +1,4 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowRight, Newspaper } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -16,7 +16,7 @@ const BlogIndexPage = () => {
         "@type": "Blog",
         name: "Alibarbar Australia Blog",
         description: "News, buying guides and flavour reviews for Alibarbar Ingot 9000 disposable vapes in Australia.",
-        url: "https://www.alibarbar.mom/blog",
+        url: "https://www.ailibarbar.com/blog",
       },
       breadcrumbNode([
         { name: "Home", path: "/" },

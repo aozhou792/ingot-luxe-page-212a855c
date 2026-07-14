@@ -1,5 +1,5 @@
 /** Central site metadata for SEO schema and footer links. */
-export const SITE_URL = "https://www.alibarbar.mom";
+export const SITE_URL = "https://www.ailibarbar.com";
 /** Square brand mark used for schema / OG logo (favicon asset). */
 export const SITE_LOGO_PATH = "/logo.png";
 export const SITE_LOGO_WIDTH = 512;

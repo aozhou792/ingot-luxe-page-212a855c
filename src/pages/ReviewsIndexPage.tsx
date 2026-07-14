@@ -1,4 +1,4 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowRight, Star } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
@@ -17,7 +17,7 @@ const ReviewsIndexPage = () => {
         "@type": "CollectionPage",
         name: "Alibarbar Flavour Reviews",
         description: "Editorial reviews of Alibarbar Ingot 9000 flavours available in Australia.",
-        url: "https://www.alibarbar.mom/reviews",
+        url: "https://www.ailibarbar.com/reviews",
       },
       breadcrumbNode([
         { name: "Home", path: "/" },

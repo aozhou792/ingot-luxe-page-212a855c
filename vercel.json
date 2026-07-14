@@ -2,20 +2,20 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.ailibarbar.com" }],
-      "destination": "https://www.alibarbar.mom/:path*",
-      "statusCode": 301
-    },
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "ailibarbar.com" }],
-      "destination": "https://www.alibarbar.mom/:path*",
+      "has": [{ "type": "host", "value": "www.alibarbar.mom" }],
+      "destination": "https://www.ailibarbar.com/:path*",
       "statusCode": 301
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "alibarbar.mom" }],
-      "destination": "https://www.alibarbar.mom/:path*",
+      "destination": "https://www.ailibarbar.com/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "ailibarbar.com" }],
+      "destination": "https://www.ailibarbar.com/:path*",
       "statusCode": 301
     }
   ],

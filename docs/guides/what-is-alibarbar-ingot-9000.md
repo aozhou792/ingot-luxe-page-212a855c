@@ -1,4 +1,4 @@
-﻿# What Is the Alibarbar Ingot 9000?
+# What Is the Alibarbar Ingot 9000?
 
 The **Alibarbar Ingot 9000** is a premium disposable vape built for adult users who want a long-lasting, no-fuss device. It arrives pre-filled, pre-charged and ready to use — no filling, charging or buttons.
 
@@ -26,7 +26,7 @@ Existing adult smokers and vapers in Australia who want a dependable device with
 
 ## Buy in Australia
 
-https://www.alibarbar.mom
+https://www.ailibarbar.com
 
 ---
 

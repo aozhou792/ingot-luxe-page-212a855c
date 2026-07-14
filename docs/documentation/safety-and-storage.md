@@ -1,6 +1,6 @@
-﻿# Safety & Storage Guide
+# Safety & Storage Guide
 
-**Live page:** https://www.alibarbar.mom/safety-and-storage
+**Live page:** https://www.ailibarbar.com/safety-and-storage
 
 ## Safe storage
 
@@ -34,4 +34,4 @@ If e-liquid is ingested (especially by a child), seek medical advice immediately
 
 ---
 
-*Legal overview: https://www.alibarbar.mom/guides/disposable-vape-laws-in-australia*
+*Legal overview: https://www.ailibarbar.com/guides/disposable-vape-laws-in-australia*

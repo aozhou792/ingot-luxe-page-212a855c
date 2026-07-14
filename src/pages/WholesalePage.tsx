@@ -1,4 +1,4 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Seo, breadcrumbNode } from "@/components/Seo";
@@ -26,7 +26,7 @@ const WholesalePage = () => {
       {
         "@type": "WebPage",
         name: "Wholesale Alibarbar Ingot 9000 Australia",
-        url: "https://www.alibarbar.mom/wholesale",
+        url: "https://www.ailibarbar.com/wholesale",
         description:
           "Wholesale and bulk pricing for authentic Alibarbar Ingot 9000 disposable vapes. Australia-wide supply via WhatsApp.",
       },

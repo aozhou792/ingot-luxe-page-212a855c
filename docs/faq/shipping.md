@@ -1,6 +1,6 @@
-﻿# Shipping FAQ
+# Shipping FAQ
 
-**Live page:** https://www.alibarbar.mom/faq/shipping
+**Live page:** https://www.ailibarbar.com/faq/shipping
 
 ## How much is shipping?
 
@@ -36,4 +36,4 @@ Email orders@ailibarbar.com within 7 days with your order number and photos of t
 
 ---
 
-*Full policy: https://www.alibarbar.mom/shipping*
+*Full policy: https://www.ailibarbar.com/shipping*

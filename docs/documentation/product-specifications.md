@@ -1,6 +1,6 @@
-﻿# Alibarbar Ingot 9000 — Product Specifications
+# Alibarbar Ingot 9000 — Product Specifications
 
-**Live page:** https://www.alibarbar.mom/product-specifications
+**Live page:** https://www.ailibarbar.com/product-specifications
 
 ## Device specifications
 
@@ -50,4 +50,4 @@ Genuine devices have:
 
 ---
 
-*Buy authentic: https://www.alibarbar.mom*
+*Buy authentic: https://www.ailibarbar.com*

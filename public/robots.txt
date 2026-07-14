@@ -1,4 +1,4 @@
-﻿User-agent: *
+User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /cart
@@ -8,4 +8,4 @@ Disallow: /orders2589
 Disallow: /whatsapp-qr
 Disallow: /reset-password
 
-Sitemap: https://www.alibarbar.mom/sitemap.xml
+Sitemap: https://www.ailibarbar.com/sitemap.xml

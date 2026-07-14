@@ -2,7 +2,7 @@
  * Print helpers — same seals as src/data/authenticity-codes.ts
  *   node scripts/mint-authenticity-codes.mjs
  */
-const SITE = "https://www.alibarbar.mom";
+const SITE = "https://www.ailibarbar.com";
 const VERIFY = `${SITE}/verify`;
 const SEALS = ["ABSEAL01", "ABSEAL02", "ABSEAL03", "ABSEAL04", "ABSEAL05"];
 

@@ -1,4 +1,4 @@
-﻿import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -30,7 +30,7 @@ const ContentPage = () => {
         "@type": "WebPage",
         name: page.title,
         description: page.description,
-        url: `https://www.alibarbar.mom${path}`,
+        url: `https://www.ailibarbar.com${path}`,
         dateModified: page.updated,
       },
       breadcrumbNode([

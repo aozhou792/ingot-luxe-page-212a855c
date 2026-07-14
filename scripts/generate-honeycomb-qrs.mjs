@@ -12,7 +12,7 @@ import sharp from "sharp";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const outDir = path.join(__dirname, "../public/authenticity");
-const SITE = "https://www.alibarbar.mom";
+const SITE = "https://www.ailibarbar.com";
 const VERIFY = `${SITE}/verify`;
 const SEALS = ["ABSEAL01", "ABSEAL02", "ABSEAL03", "ABSEAL04", "ABSEAL05"];
 

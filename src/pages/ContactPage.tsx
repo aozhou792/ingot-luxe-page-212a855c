@@ -1,4 +1,4 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Mail, Clock, MapPin } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -14,7 +14,7 @@ const ContactPage = () => {
       {
         "@type": "ContactPage",
         name: "Contact Alibarbar Australia",
-        url: "https://www.alibarbar.mom/contact",
+        url: "https://www.ailibarbar.com/contact",
       },
       breadcrumbNode([
         { name: "Home", path: "/" },

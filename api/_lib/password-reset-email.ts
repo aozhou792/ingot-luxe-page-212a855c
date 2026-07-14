@@ -1,6 +1,6 @@
-﻿import { Resend } from "resend";
+import { Resend } from "resend";
 
-const DEFAULT_SITE_URL = "https://www.alibarbar.mom";
+const DEFAULT_SITE_URL = "https://www.ailibarbar.com";
 
 function appBaseUrl(): string {
   const raw = process.env.SITE_URL || DEFAULT_SITE_URL;
