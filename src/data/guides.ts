@@ -40,9 +40,21 @@ export const guides: Guide[] = [
     category: "Product Guide",
     readTime: "6 min read",
     datePublished: "2026-02-01",
-    dateModified: "2026-07-01",
+    dateModified: "2026-07-14",
     intro:
       "The Alibarbar Ingot 9000 is a premium disposable vape built for adult users who want a long-lasting, no-fuss device. This guide explains exactly what it is, how it performs, and how to decide if it is right for you.",
+    quickAnswer: {
+      question: "What is the Alibarbar Ingot 9000?",
+      answer:
+        "The Alibarbar Ingot 9000 is a pre-filled, pre-charged disposable vape rated for up to 9000 puffs. It has a 22ml tank, 2350mAh battery, mesh coil and a smart LED display for battery and e-liquid — ready to use with no charging, filling or buttons.",
+    },
+    keyTakeaways: [
+      "Up to 9000 puffs per sealed disposable device",
+      "22ml e-liquid + 2350mAh non-rechargeable battery",
+      "Smart LED shows remaining battery and e-liquid",
+      "Inhale-activated — zero setup out of the box",
+      "For adults 18+ who already smoke or vape",
+    ],
     sections: [
       {
         heading: "Overview",
@@ -104,9 +116,21 @@ export const guides: Guide[] = [
     category: "Usage Guide",
     readTime: "5 min read",
     datePublished: "2026-02-05",
-    dateModified: "2026-07-01",
+    dateModified: "2026-07-14",
     intro:
       "One of the most common questions we get is how long a single Alibarbar Ingot 9000 will last. The honest answer is: it depends on how you vape. Here is a realistic breakdown.",
+    quickAnswer: {
+      question: "How long does an Alibarbar Ingot 9000 last?",
+      answer:
+        "It depends on daily puffs. At about 300 puffs a day, expect roughly 3–4 weeks from one Ingot 9000. Light use (~150/day) can stretch toward 6 weeks; heavy use (~600/day) is closer to 2 weeks. Longer, harder draws shorten that window.",
+    },
+    keyTakeaways: [
+      "Rated for up to 9000 puffs — real life varies with puff length",
+      "Average use (~300 puffs/day): about 3–4 weeks",
+      "Light use ~6 weeks; heavy use ~2 weeks",
+      "Shorter puffs and cool storage extend device life",
+      "Use the LED display to plan your next replacement",
+    ],
     sections: [
       {
         heading: "The simple maths",
@@ -419,9 +443,21 @@ export const guides: Guide[] = [
     category: "Beginner Guide",
     readTime: "5 min read",
     datePublished: "2026-02-12",
-    dateModified: "2026-07-13",
+    dateModified: "2026-07-14",
     intro:
       "Disposable vapes are designed to be as simple as possible. If you have never used one before, this beginner's guide walks you through everything from opening the pack to your first puff and safe storage.",
+    quickAnswer: {
+      question: "How do you use a disposable vape?",
+      answer:
+        "Unbox the device, remove any mouthpiece or air-intake cap, then take a gentle inhale — no buttons, charging or filling. On the Alibarbar Ingot 9000, check the LED display for battery and e-liquid, and store the device upright somewhere cool when you are not using it.",
+    },
+    keyTakeaways: [
+      "Remove packaging and protective caps only — do not open the casing",
+      "Inhale gently to activate; no buttons needed",
+      "Start with short puffs to learn airflow and flavour",
+      "Watch the LED for remaining battery and e-liquid",
+      "No charging — replace the device when it is finished",
+    ],
     sections: [
       {
         heading: "Step 1: Unbox the device",
@@ -478,9 +514,33 @@ export const guides: Guide[] = [
     category: "Buying Guide",
     readTime: "6 min read",
     datePublished: "2026-02-16",
-    dateModified: "2026-07-01",
+    dateModified: "2026-07-14",
     intro:
       "With ten flavours in the current line-up plus a build-your-own custom pack, choosing can be tricky. Here is a guide to the most popular Alibarbar Ingot 9000 flavours and who each one suits.",
+    quickAnswer: {
+      question: "What are the best Alibarbar flavours in Australia?",
+      answer:
+        "Fruit lovers usually start with Quadruple Berry, Mango Magic or Strawberry Watermelon. For ice, Peach Ice is the most balanced; Grape Ice and Blackberry Ice run colder. Want something different — try Fanta or Lychee. Unsure? Build a 5 Flavour Custom Pack.",
+    },
+    keyTakeaways: [
+      "Quadruple Berry is the top all-round fruity pick",
+      "Peach Ice is the easiest iced recommendation",
+      "Fanta and Lychee cover soda and floral change-ups",
+      "Ten single flavours plus custom packs cover most tastes",
+      "A custom pack is the fastest way to sample the range",
+    ],
+    faq: [
+      {
+        question: "What is the most popular Alibarbar flavour?",
+        answer:
+          "Quadruple Berry and Peach Ice are among the most requested in Australia — berry for no-ice fruit fans, Peach Ice for a moderate chill.",
+      },
+      {
+        question: "How many Alibarbar flavours are there?",
+        answer:
+          "The current Ingot 9000 line-up includes ten single flavours, plus build-your-own custom packs so you can mix several in one order.",
+      },
+    ],
     sections: [
       {
         heading: "Best for fruit lovers",
@@ -518,9 +578,33 @@ export const guides: Guide[] = [
     category: "Australia Guide",
     readTime: "5 min read",
     datePublished: "2026-02-20",
-    dateModified: "2026-07-01",
+    dateModified: "2026-07-14",
     intro:
       "Vaping regulation in Australia changes over time and can vary by state and territory. This is a general, plain-English overview for adult consumers — it is not legal advice, so always check the current rules that apply to you.",
+    quickAnswer: {
+      question: "Are disposable vapes legal in Australia?",
+      answer:
+        "Nicotine vaping products are regulated and rules differ by state and territory. Alibarbar Australia sells only to adults 18+. This page is general information only — not legal advice. Always check the current laws where you live before buying or using vapes.",
+    },
+    keyTakeaways: [
+      "Strictly 18+ — no sales to minors",
+      "Intended for existing adult smokers and vapers only",
+      "Store away from children, pets and heat",
+      "Dispose of used devices via e-waste / battery recycling",
+      "State and territory rules can change — verify locally",
+    ],
+    faq: [
+      {
+        question: "Who can buy disposable vapes in Australia?",
+        answer:
+          "Alibarbar Australia only sells to adults aged 18 and over. Confirm you meet the legal age requirement before ordering.",
+      },
+      {
+        question: "Is this page legal advice?",
+        answer:
+          "No. It is a general overview for adult consumers. Regulations change and vary by jurisdiction — check the current rules that apply to you.",
+      },
+    ],
     sections: [
       {
         heading: "Strictly 18+",

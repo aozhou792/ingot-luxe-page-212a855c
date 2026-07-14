@@ -62,8 +62,8 @@ const ReviewPage = () => {
     faq: review.faq,
   });
 
-  const quickAnswer = deriveQuickAnswer(review.title, review.intro);
-  const keyTakeaways = deriveKeyTakeaways(review.pros);
+  const quickAnswer = deriveQuickAnswer(review.title, review.intro, review.quickAnswer);
+  const keyTakeaways = deriveKeyTakeaways(review.keyTakeaways, review.pros);
   const whoShouldBuy = deriveWhoShouldBuy(review.whoShouldBuy ?? review.pros);
   const whoShouldAvoid = deriveWhoShouldAvoid(review.whoShouldAvoid ?? review.cons);
 

@@ -36,8 +36,8 @@ const ComparePage = () => {
     faq: comparison.faq,
   });
 
-  const quickAnswer = deriveQuickAnswer(comparison.title, comparison.intro);
-  const keyTakeaways = deriveKeyTakeaways(comparison.alibarbarStrengths);
+  const quickAnswer = deriveQuickAnswer(comparison.title, comparison.intro, comparison.quickAnswer);
+  const keyTakeaways = deriveKeyTakeaways(comparison.keyTakeaways, comparison.alibarbarStrengths);
   const shortAnswer = deriveCompareShortAnswer(comparison);
 
   return (

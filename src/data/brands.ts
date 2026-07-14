@@ -92,8 +92,20 @@ export const brands: Brand[] = [
       "If you want maximum device life and flavour-mixing, Alibarbar is worth comparing directly against your preferred IGET model.",
     ],
     compareSlug: "alibarbar-vs-iget",
+    quickAnswer: {
+      question: "What is IGET compared with Alibarbar?",
+      answer:
+        "IGET is a widely known disposable brand in Australia with many models and a large flavour catalogue. Alibarbar’s Ingot 9000 targets the high-capacity end — up to 9000 puffs, a smart LED display and a 5 Flavour Custom Pack. Pick IGET for a familiar flavour or compact model; pick Alibarbar for longevity per device.",
+    },
+    faq: [
+      {
+        question: "Is IGET better than Alibarbar?",
+        answer:
+          "It depends. IGET wins on brand familiarity and flavour catalogue breadth. Alibarbar Ingot 9000 usually wins on single-device puff capacity, tank size and built-in display. See our Alibarbar vs IGET comparison for a side-by-side.",
+      },
+    ],
     datePublished: "2026-03-21",
-    dateModified: "2026-07-01",
+    dateModified: "2026-07-14",
   },
   {
     slug: "hqd",
@@ -113,8 +125,20 @@ export const brands: Brand[] = [
       "Choose based on whether you value a smaller device or a longer-lasting one.",
     ],
     compareSlug: "alibarbar-vs-hqd",
+    quickAnswer: {
+      question: "What is HQD compared with Alibarbar?",
+      answer:
+        "HQD is known for compact disposables and a familiar flavour range. The Alibarbar Ingot 9000 is built for longer life — up to 9000 puffs, 22ml tank and an LED display. Choose HQD for pocket size; choose Alibarbar if you want fewer replacements.",
+    },
+    faq: [
+      {
+        question: "Is HQD or Alibarbar better?",
+        answer:
+          "HQD suits vapers who prefer smaller devices. Alibarbar Ingot 9000 is the stronger pick for capacity, display and a custom flavour pack. Compare both in our Alibarbar vs HQD guide.",
+      },
+    ],
     datePublished: "2026-03-22",
-    dateModified: "2026-07-01",
+    dateModified: "2026-07-14",
   },
   {
     slug: "gunnpod",
@@ -134,8 +158,20 @@ export const brands: Brand[] = [
       "If you want far fewer replacements, the Ingot 9000 offers substantially more capacity.",
     ],
     compareSlug: "alibarbar-vs-gunnpod",
+    quickAnswer: {
+      question: "What is Gunnpod compared with Alibarbar?",
+      answer:
+        "Gunnpod is best known for its compact ~2000-puff classic model. The Alibarbar Ingot 9000 is a high-capacity alternative rated for up to 9000 puffs with a 22ml tank and LED display — fewer replacements if you vape regularly.",
+    },
+    faq: [
+      {
+        question: "Does Alibarbar last longer than a Gunnpod?",
+        answer:
+          "Against the classic Gunnpod 2000, yes on headline rating — up to 9000 vs about 2000 puffs. Newer Gunnpod models vary; check that model’s specs. See Alibarbar vs Gunnpod for details.",
+      },
+    ],
     datePublished: "2026-03-23",
-    dateModified: "2026-07-01",
+    dateModified: "2026-07-14",
   },
   {
     slug: "kuz",
@@ -155,8 +191,20 @@ export const brands: Brand[] = [
       "Compare the exact model you're considering against the Ingot 9000's spec sheet.",
     ],
     compareSlug: "alibarbar-vs-kuz",
+    quickAnswer: {
+      question: "What is KUZ compared with Alibarbar?",
+      answer:
+        "KUZ competes in the high-puff disposable segment with model-dependent specs. Alibarbar Ingot 9000 offers a consistent package: up to 9000 puffs, 22ml, smart LED and a 5 Flavour Custom Pack — a predictable default when comparing brands.",
+    },
+    faq: [
+      {
+        question: "Is KUZ the same as Alibarbar?",
+        answer:
+          "No. Both sell high-puff disposables, but capacities, displays and flavours differ by brand and model. Compare the exact KUZ device with the Ingot 9000 before buying.",
+      },
+    ],
     datePublished: "2026-03-24",
-    dateModified: "2026-07-01",
+    dateModified: "2026-07-14",
   },
 ];
 

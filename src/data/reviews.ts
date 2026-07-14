@@ -25,6 +25,10 @@ export type ReviewPost = {
   /** Optional audience-fit lists for GEO blocks; falls back to pros/cons. */
   whoShouldBuy?: string[];
   whoShouldAvoid?: string[];
+  /** Explicit GEO quick-answer; falls back to title + intro. */
+  quickAnswer?: { question: string; answer: string };
+  /** Explicit key takeaways; falls back to pros. */
+  keyTakeaways?: string[];
   verdict: string[];
   faq: { question: string; answer: string }[];
   relatedReviews?: string[];
@@ -40,9 +44,31 @@ export const reviewPosts: ReviewPost[] = [
     category: "Flavour Review",
     readTime: "7 min read",
     datePublished: "2026-04-20",
-    dateModified: "2026-07-07",
+    dateModified: "2026-07-14",
     intro:
       "Quadruple Berry is the closest match to the classic berry and blueberry-style searches people make for Alibarbar. Instead of a single-note blueberry, it blends strawberry, raspberry, blackberry and blueberry into one fuller berry profile.",
+    quickAnswer: {
+      question: "Is Alibarbar Quadruple Berry worth buying?",
+      answer:
+        "Yes for most fruit-first adult vapers. Quadruple Berry blends strawberry, raspberry, blackberry and blueberry into a balanced all-day profile with almost no menthol — the safest first Alibarbar pick if you want berry flavour without ice.",
+    },
+    keyTakeaways: [
+      "Mixed-berry profile, not single-note blueberry",
+      "Almost no cooling — smooth fruit all day",
+      "Strongest beginner-friendly Alibarbar fruit pick",
+      "Works well as a daily driver on the Ingot 9000",
+      "Skip it if you want a strong icy finish",
+    ],
+    whoShouldBuy: [
+      "Adults who want a fruity all-day disposable",
+      "Beginners picking their first Alibarbar flavour",
+      "Anyone who likes berry blends without menthol",
+      "Custom-pack builders needing a safe fruit slot",
+    ],
+    whoShouldAvoid: [
+      "Strong ice / menthol fans",
+      "Buyers who specifically want pure blueberry only",
+    ],
     dimensions: [
       { label: "Sweetness", value: 4, note: "Ripe and jammy without becoming syrupy." },
       { label: "Cooling", value: 1, note: "Almost no menthol; this is a smooth fruit profile." },
@@ -108,9 +134,31 @@ export const reviewPosts: ReviewPost[] = [
     category: "Flavour Review",
     readTime: "6 min read",
     datePublished: "2026-04-22",
-    dateModified: "2026-07-07",
+    dateModified: "2026-07-14",
     intro:
       "Peach Ice is one of the easiest iced flavours to recommend because it does not overdo the menthol. It keeps peach at the centre and uses the cooling finish to make the flavour cleaner.",
+    quickAnswer: {
+      question: "Is Alibarbar Peach Ice good?",
+      answer:
+        "Yes — Peach Ice is the best moderate-ice Alibarbar flavour for most people. Ripe peach stays front and centre, with a clean cooling finish that refreshes without freezing the throat like the strongest iced options.",
+    },
+    keyTakeaways: [
+      "Medium cooling — noticeable but not harsh",
+      "Peach flavour stays clearer than on colder iced options",
+      "Best entry point into the Alibarbar iced range",
+      "Great warm-weather or all-day iced pick",
+      "Choose Grape Ice or Blackberry Ice if you want maximum chill",
+    ],
+    whoShouldBuy: [
+      "Adults who want fruit plus a moderate ice finish",
+      "First-time iced flavour buyers",
+      "People who find strong menthol too harsh",
+      "Warm-weather daily vapers",
+    ],
+    whoShouldAvoid: [
+      "Strong menthol / maximum-ice fans",
+      "Anyone who dislikes peach sweetness",
+    ],
     dimensions: [
       { label: "Sweetness", value: 4, note: "Juicy peach sweetness with a soft candy edge." },
       { label: "Cooling", value: 3, note: "Noticeable but not overpowering." },
@@ -175,9 +223,30 @@ export const reviewPosts: ReviewPost[] = [
     category: "Flavour Review",
     readTime: "6 min read",
     datePublished: "2026-04-24",
-    dateModified: "2026-07-07",
+    dateModified: "2026-07-14",
     intro:
       "You asked for Cola Ice, but the current actual line-up includes Fanta rather than Cola. Fanta covers a similar soda-style search intent: bright, sweet, fizzy and different from the usual berry or ice profiles.",
+    quickAnswer: {
+      question: "Is Alibarbar Fanta worth trying?",
+      answer:
+        "Yes if you want something different from berry or ice. Fanta is a bright orange-soda style flavour with very little cooling — memorable and great in a custom pack, though less universal as a first-ever Alibarbar pick than Quadruple Berry.",
+    },
+    keyTakeaways: [
+      "Orange-soda profile, not fresh orange juice",
+      "Almost no ice — refreshment comes from citrus",
+      "One of the most distinctive flavours in the range",
+      "Ideal as a change-up in a 5 Flavour Custom Pack",
+      "Current line-up has Fanta, not Cola Ice",
+    ],
+    whoShouldBuy: [
+      "Adults who like soda-style or citrus vapes",
+      "Buyers bored of berry and menthol",
+      "Custom-pack shoppers wanting a fun fifth flavour",
+    ],
+    whoShouldAvoid: [
+      "People who only want classic fruit or ice profiles",
+      "Anyone looking for Cola Ice specifically",
+    ],
     dimensions: [
       { label: "Sweetness", value: 4, note: "Orange soda sweetness with a bright citrus edge." },
       { label: "Cooling", value: 1, note: "Very little ice; the refreshment comes from citrus." },

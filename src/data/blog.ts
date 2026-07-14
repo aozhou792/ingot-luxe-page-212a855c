@@ -172,9 +172,38 @@ export const blogPosts: BlogPost[] = [
     category: "Flavour Review",
     readTime: "6 min read",
     datePublished: "2026-04-08",
-    dateModified: "2026-07-01",
+    dateModified: "2026-07-14",
     intro:
       "With ten flavours plus a custom pack, the Alibarbar range covers a lot of ground. Here are our favourites grouped by style, so you can jump straight to what you like.",
+    quickAnswer: {
+      question: "What are the best Alibarbar Ingot 9000 flavours?",
+      answer:
+        "For a balanced fruity daily vape, start with Quadruple Berry or Strawberry Watermelon. Prefer a chill? Peach Ice is the smoothest iced pick, with Grape Ice and Blackberry Ice for a stronger cool. Tropical fans usually land on Mango Magic or Strawberry Coconut Watermelon. Not sure yet — build a 5 Flavour Custom Pack.",
+    },
+    keyTakeaways: [
+      "Quadruple Berry is the strongest all-round fruity pick",
+      "Peach Ice leads the iced range for a moderate chill",
+      "Mango Magic is the flagship tropical flavour",
+      "Ten flavours cover fruity, iced and tropical styles",
+      "A 5 Flavour Custom Pack is the fastest way to find a favourite",
+    ],
+    faq: [
+      {
+        question: "What is the best Alibarbar flavour for beginners?",
+        answer:
+          "Quadruple Berry and Strawberry Watermelon are the easiest starting points — familiar fruit profiles with no heavy menthol. If you usually like iced drinks, try Peach Ice next.",
+      },
+      {
+        question: "Which Alibarbar flavours are iced?",
+        answer:
+          "Peach Ice, Grape Ice, Blackberry Ice and Strawberry Ice all include a cooling finish. Peach Ice is moderate; Grape Ice and Blackberry Ice hit colder.",
+      },
+      {
+        question: "How do I try multiple Alibarbar flavours at once?",
+        answer:
+          "Order a 5 Flavour Custom Pack and pick any five from the current Alibarbar Ingot 9000 range — the best option if you want variety before committing to singles.",
+      },
+    ],
     sections: [
       {
         heading: "Best fruity flavours",
@@ -212,9 +241,38 @@ export const blogPosts: BlogPost[] = [
     category: "Tips",
     readTime: "5 min read",
     datePublished: "2026-04-15",
-    dateModified: "2026-07-01",
+    dateModified: "2026-07-14",
     intro:
       "A disposable vape's rated puff count is an upper limit — how close you get depends on how you use it. These six habits will help you get the most from every device.",
+    quickAnswer: {
+      question: "How do you make a disposable vape last longer?",
+      answer:
+        "Take shorter, gentler puffs, pause between draws, and store the device upright somewhere cool and dry. Avoid heat, extreme cold and chain-vaping. On devices like the Alibarbar Ingot 9000, watch the LED battery and e-liquid display so you plan replacements instead of running dry. Buy authentic — counterfeits often underperform.",
+    },
+    keyTakeaways: [
+      "Shorter, gentler puffs use less liquid and battery",
+      "Pause between draws to protect the coil",
+      "Store upright in a cool, dry place — never in a hot car",
+      "Use the LED display to plan your next device",
+      "Genuine devices are more likely to reach their rated life",
+    ],
+    faq: [
+      {
+        question: "Does puff style really affect how long a disposable lasts?",
+        answer:
+          "Yes. Long, hard draws burn through e-liquid and battery faster than short, steady puffs. Treating the rated puff count as an upper limit — and puffing more gently — gets you closer to it.",
+      },
+      {
+        question: "Where should I store my disposable vape?",
+        answer:
+          "Keep it upright in a cool, dry place away from direct sun and hot cars. Extreme heat degrades battery and e-liquid; extreme cold can temporarily weaken battery output until the device returns to room temperature.",
+      },
+      {
+        question: "How does the Alibarbar Ingot 9000 display help?",
+        answer:
+          "The smart LED shows remaining battery and e-liquid levels, so you can see when a replacement is due instead of suddenly running empty mid-day.",
+      },
+    ],
     sections: [
       {
         heading: "1. Take shorter, gentler puffs",
