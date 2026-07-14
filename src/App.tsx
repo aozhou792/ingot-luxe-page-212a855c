@@ -1,9 +1,10 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, type ComponentType } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { RouteErrorBoundary } from "@/components/RouteErrorBoundary";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { AuthProvider } from "@/context/AuthContext";
 import { CartProvider } from "@/context/CartContext";
@@ -18,32 +19,59 @@ import WhatsAppQrPage from "./pages/WhatsAppQrPage.tsx";
 import ResetPasswordPage from "./pages/ResetPasswordPage.tsx";
 import SearchPage from "./pages/SearchPage.tsx";
 
+/** Retry stale chunk URLs after a deploy so Suspense does not hang forever. */
+function lazyWithRetry<T extends ComponentType<unknown>>(
+  factory: () => Promise<{ default: T }>,
+  retries = 2,
+) {
+  return lazy(async () => {
+    let lastError: unknown;
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      try {
+        return await factory();
+      } catch (error) {
+        lastError = error;
+        // Give the CDN/browser a beat, then retry (often fixes post-deploy hash mismatches).
+        await new Promise((resolve) => setTimeout(resolve, 350 * (attempt + 1)));
+      }
+    }
+    throw lastError;
+  });
+}
+
 // Content/marketing routes are lazy-loaded to keep the initial bundle small.
-const GuidesIndexPage = lazy(() => import("./pages/GuidesIndexPage.tsx"));
-const GuidePage = lazy(() => import("./pages/GuidePage.tsx"));
-const FaqPage = lazy(() => import("./pages/FaqPage.tsx"));
-const ContactPage = lazy(() => import("./pages/ContactPage.tsx"));
-const WholesalePage = lazy(() => import("./pages/WholesalePage.tsx"));
-const ContentPage = lazy(() => import("./pages/ContentPage.tsx"));
-const FlavoursIndexPage = lazy(() => import("./pages/FlavoursIndexPage.tsx"));
-const FlavourPage = lazy(() => import("./pages/FlavourPage.tsx"));
-const CompareIndexPage = lazy(() => import("./pages/CompareIndexPage.tsx"));
-const ComparePage = lazy(() => import("./pages/ComparePage.tsx"));
-const BrandsIndexPage = lazy(() => import("./pages/BrandsIndexPage.tsx"));
-const BrandPage = lazy(() => import("./pages/BrandPage.tsx"));
-const BlogIndexPage = lazy(() => import("./pages/BlogIndexPage.tsx"));
-const BlogPostPage = lazy(() => import("./pages/BlogPostPage.tsx"));
-const ReviewsIndexPage = lazy(() => import("./pages/ReviewsIndexPage.tsx"));
-const ReviewPage = lazy(() => import("./pages/ReviewPage.tsx"));
-const FaqTopicPage = lazy(() => import("./pages/FaqTopicPage.tsx"));
-const AuthorPage = lazy(() => import("./pages/AuthorPage.tsx"));
-const TopicsIndexPage = lazy(() => import("./pages/TopicsIndexPage.tsx"));
-const TopicPage = lazy(() => import("./pages/TopicPage.tsx"));
-const VerifyPage = lazy(() => import("./pages/VerifyPage.tsx"));
+const GuidesIndexPage = lazyWithRetry(() => import("./pages/GuidesIndexPage.tsx"));
+const GuidePage = lazyWithRetry(() => import("./pages/GuidePage.tsx"));
+const FaqPage = lazyWithRetry(() => import("./pages/FaqPage.tsx"));
+const ContactPage = lazyWithRetry(() => import("./pages/ContactPage.tsx"));
+const WholesalePage = lazyWithRetry(() => import("./pages/WholesalePage.tsx"));
+const ContentPage = lazyWithRetry(() => import("./pages/ContentPage.tsx"));
+const FlavoursIndexPage = lazyWithRetry(() => import("./pages/FlavoursIndexPage.tsx"));
+const FlavourPage = lazyWithRetry(() => import("./pages/FlavourPage.tsx"));
+const CompareIndexPage = lazyWithRetry(() => import("./pages/CompareIndexPage.tsx"));
+const ComparePage = lazyWithRetry(() => import("./pages/ComparePage.tsx"));
+const BrandsIndexPage = lazyWithRetry(() => import("./pages/BrandsIndexPage.tsx"));
+const BrandPage = lazyWithRetry(() => import("./pages/BrandPage.tsx"));
+const BlogIndexPage = lazyWithRetry(() => import("./pages/BlogIndexPage.tsx"));
+const BlogPostPage = lazyWithRetry(() => import("./pages/BlogPostPage.tsx"));
+const ReviewsIndexPage = lazyWithRetry(() => import("./pages/ReviewsIndexPage.tsx"));
+const ReviewPage = lazyWithRetry(() => import("./pages/ReviewPage.tsx"));
+const FaqTopicPage = lazyWithRetry(() => import("./pages/FaqTopicPage.tsx"));
+const AuthorPage = lazyWithRetry(() => import("./pages/AuthorPage.tsx"));
+const TopicsIndexPage = lazyWithRetry(() => import("./pages/TopicsIndexPage.tsx"));
+const TopicPage = lazyWithRetry(() => import("./pages/TopicPage.tsx"));
+const VerifyPage = lazyWithRetry(() => import("./pages/VerifyPage.tsx"));
 
 const queryClient = new QueryClient();
 
-const RouteFallback = () => <div className="min-h-screen bg-background" aria-hidden />;
+const RouteFallback = () => (
+  <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-6" role="status">
+    <div className="text-center space-y-3">
+      <p className="text-xs uppercase tracking-[0.25em] text-primary font-semibold">Alibarbar</p>
+      <p className="text-sm text-muted-foreground">Loading…</p>
+    </div>
+  </div>
+);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -53,6 +81,7 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <CartProvider>
+            <RouteErrorBoundary>
             <Suspense fallback={<RouteFallback />}>
             <Routes>
               <Route path="/" element={<Index />} />
@@ -101,6 +130,7 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
             </Suspense>
+            </RouteErrorBoundary>
             <WhatsAppFloat />
           </CartProvider>
         </AuthProvider>
