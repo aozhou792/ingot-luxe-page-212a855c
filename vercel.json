@@ -5,6 +5,11 @@
       "has": [{ "type": "host", "value": "ailibarbar.com" }],
       "destination": "https://www.ailibarbar.com/:path*",
       "statusCode": 301
+    },
+    {
+      "source": "/verify",
+      "destination": "/",
+      "statusCode": 301
     }
   ],
   "rewrites": [

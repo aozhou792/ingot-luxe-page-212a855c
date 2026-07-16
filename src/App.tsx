@@ -4,6 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Analytics } from "@/components/Analytics";
 import { RouteErrorBoundary } from "@/components/RouteErrorBoundary";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { AuthProvider } from "@/context/AuthContext";
@@ -60,8 +61,6 @@ const FaqTopicPage = lazyWithRetry(() => import("./pages/FaqTopicPage.tsx"));
 const AuthorPage = lazyWithRetry(() => import("./pages/AuthorPage.tsx"));
 const TopicsIndexPage = lazyWithRetry(() => import("./pages/TopicsIndexPage.tsx"));
 const TopicPage = lazyWithRetry(() => import("./pages/TopicPage.tsx"));
-const VerifyPage = lazyWithRetry(() => import("./pages/VerifyPage.tsx"));
-
 const queryClient = new QueryClient();
 
 const RouteFallback = () => (
@@ -79,6 +78,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <Analytics />
         <AuthProvider>
           <CartProvider>
             <RouteErrorBoundary>
@@ -116,7 +116,7 @@ const App = () => (
               <Route path="/author/:slug" element={<AuthorPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/wholesale" element={<WholesalePage />} />
-              <Route path="/verify" element={<VerifyPage />} />
+              <Route path="/verify" element={<Navigate to="/" replace />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/about" element={<ContentPage />} />
               <Route path="/shipping" element={<ContentPage />} />
