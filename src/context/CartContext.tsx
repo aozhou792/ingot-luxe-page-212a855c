@@ -104,7 +104,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const price = Number.parseFloat(item.price);
     if (Number.isNaN(price)) return;
     setLines([{ slug: item.slug, name: item.name, price, image: item.image, qty }]);
-    toast.message("Checkout", { description: `${item.name} × ${qty}` });
   }, []);
 
   const setLineQty = useCallback((slug: string, qty: number) => {
