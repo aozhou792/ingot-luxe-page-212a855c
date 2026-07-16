@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { products, type Product } from "@/data/products";
 import { ProductPrice } from "@/components/ProductPrice";
 import { useCart } from "@/context/CartContext";
@@ -29,6 +30,7 @@ const FlavorCard = ({ f, revealIndex, goToProduct }: FlavorCardProps) => {
       goToProduct(f.slug);
       return;
     }
+    toast.dismiss();
     buyNow(cartItem);
     navigate("/checkout");
   };

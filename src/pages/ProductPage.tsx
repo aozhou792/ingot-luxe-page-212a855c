@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import {
@@ -164,6 +165,7 @@ const ProductPage = () => {
 
   const handleBuyNow = () => {
     if (!product.inStock || !isCustomPackComplete) return;
+    toast.dismiss();
     buyNow({ ...cartItem, qty });
     navigate("/checkout");
   };

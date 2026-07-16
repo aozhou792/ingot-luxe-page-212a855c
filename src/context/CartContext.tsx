@@ -103,6 +103,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const qty = item.qty ?? 1;
     const price = Number.parseFloat(item.price);
     if (Number.isNaN(price)) return;
+    toast.dismiss();
     setLines([{ slug: item.slug, name: item.name, price, image: item.image, qty }]);
   }, []);
 

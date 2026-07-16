@@ -1,5 +1,6 @@
 import { useLayoutEffect, useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Seo } from "@/components/Seo";
@@ -73,6 +74,7 @@ const CheckoutPage = () => {
   const total = orderTotal(subtotal, deviceCount);
 
   useLayoutEffect(() => {
+    toast.dismiss();
     window.scrollTo(0, 0);
   }, []);
 
