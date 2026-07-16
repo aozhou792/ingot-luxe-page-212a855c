@@ -1,14 +1,23 @@
 import type { OrderDetails } from "./types.js";
 import { COUPON_DISCOUNT_AUD, COUPON_MIN_DEVICES, validateCoupon } from "./coupon-store.js";
 
+const SMALL_ORDER_SHIPPING_AUD = 20;
+const BULK_ORDER_SHIPPING_AUD = 10;
+/** Must match src/lib/checkout.ts — 10+ devices get reduced shipping. */
+const BULK_SHIPPING_THRESHOLD = 10;
+
+function shippingAud(deviceCount: number): number {
+  if (deviceCount <= 0) return 0;
+  return deviceCount < BULK_SHIPPING_THRESHOLD ? SMALL_ORDER_SHIPPING_AUD : BULK_ORDER_SHIPPING_AUD;
+}
+
 export function computeOrderTotal(subtotal: number, deviceCount: number, discountAmount = 0): number {
   if (deviceCount <= 0) return Math.max(0, subtotal - discountAmount);
-  const shipping = deviceCount < 5 ? 20 : 10;
-  return Math.max(0, subtotal + shipping - discountAmount);
+  return Math.max(0, subtotal + shippingAud(deviceCount) - discountAmount);
 }
 
 export async function assertOrderTotals(order: OrderDetails): Promise<void> {
-  const expectedShipping = order.deviceCount < 5 ? 20 : 10;
+  const expectedShipping = shippingAud(order.deviceCount);
   if (Math.abs(order.shipping - expectedShipping) > 0.01) {
     throw new Error("Invalid shipping amount");
   }
