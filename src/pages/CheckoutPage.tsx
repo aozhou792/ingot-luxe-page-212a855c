@@ -25,6 +25,7 @@ import {
   shippingAud,
   shippingRateHint,
 } from "@/lib/checkout";
+import { trackPlaceOrder } from "@/lib/analytics";
 import { saveCheckoutDraft } from "@/lib/marketing-api";
 import { nextOrderNumber } from "@/lib/orders";
 import { fetchNextOrderNumberFromApi } from "@/lib/orders-api";
@@ -143,6 +144,7 @@ const CheckoutPage = () => {
     };
 
     void saveCheckoutDraft(order, deviceCount);
+    await trackPlaceOrder(order);
     clearCart();
     navigate("/order-complete", { state: order });
   };

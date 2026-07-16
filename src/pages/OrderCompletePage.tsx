@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Check, Copy, ImagePlus, X } from "lucide-react";
 import { toast } from "sonner";
@@ -15,6 +15,7 @@ import {
   cacheOrderLocally,
   RECEIPT_ACCEPT,
 } from "@/lib/orders";
+import { trackPlaceOrder, trackPurchase } from "@/lib/analytics";
 import { submitOrderToBackend } from "@/lib/orders-api";
 import { AU_STATES } from "@/data/australia";
 import type { OrderAddress, OrderDetails } from "@/types/navigation";
@@ -86,6 +87,11 @@ const OrderCompletePage = () => {
   const [paymentDone, setPaymentDone] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    if (!order) return;
+    void trackPlaceOrder(order);
+  }, [order]);
+
   if (!order) {
     return (
       <div className="min-h-screen bg-background">
@@ -138,6 +144,7 @@ const OrderCompletePage = () => {
     try {
       const saved = await submitOrderToBackend(order, receipt);
       cacheOrderLocally(saved);
+      trackPurchase(order);
       setPaymentDone(true);
       setPayOpen(false);
       toast.success("Payment receipt received.", {
