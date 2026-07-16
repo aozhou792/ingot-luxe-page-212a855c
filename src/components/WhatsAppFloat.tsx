@@ -1,25 +1,135 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
+const STORAGE_KEY = "whatsapp-float-position";
 
 /**
- * Fixed bottom-right WhatsApp shortcut (safe-area aware).
- * Kept simple — no drag — so it always stays in the expected corner.
+ * Fixed WhatsApp shortcut that can be dragged away from key mobile actions.
  */
 export const WhatsAppFloat = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isHovered, setIsHovered] = useState(false);
+  const [position, setPosition] = useState<{ x: number; y: number } | null>(null);
+  const dragState = useRef<{ pointerId: number; startX: number; startY: number; moved: boolean } | null>(null);
+
+  const defaultPosition = useMemo(() => {
+    const isCheckout = location.pathname === "/checkout";
+    const isSmallViewport = typeof window !== "undefined" ? window.innerWidth < 1024 : false;
+
+    if (isCheckout && isSmallViewport) {
+      return {
+        left: "max(1rem, env(safe-area-inset-left))",
+        bottom: "calc(env(safe-area-inset-bottom) + 6.5rem)",
+      };
+    }
+
+    return {
+      right: "max(1rem, env(safe-area-inset-right))",
+      bottom: "max(1rem, env(safe-area-inset-bottom))",
+    };
+  }, [location.pathname]);
+
+  const clampPosition = (x: number, y: number) => {
+    if (typeof window === "undefined") return { x, y };
+
+    const buttonSize = 56;
+    const margin = 8;
+
+    return {
+      x: Math.min(Math.max(margin, x), window.innerWidth - buttonSize - margin),
+      y: Math.min(Math.max(margin, y), window.innerHeight - buttonSize - margin),
+    };
+  };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+
+      const parsed = JSON.parse(raw) as { x?: number; y?: number } | null;
+      if (typeof parsed?.x !== "number" || typeof parsed?.y !== "number") return;
+
+      setPosition(clampPosition(parsed.x, parsed.y));
+    } catch {
+      /* ignore invalid stored position */
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !position) return;
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(position));
+  }, [position]);
+
+  const releaseDrag = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    dragState.current = null;
+  };
+
+  const onPointerDown = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    dragState.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      moved: false,
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const onPointerMove = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    const drag = dragState.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+
+    const dx = event.clientX - drag.startX;
+    const dy = event.clientY - drag.startY;
+    if (!drag.moved && Math.hypot(dx, dy) < 6) return;
+
+    drag.moved = true;
+    setIsHovered(false);
+    setPosition(clampPosition(event.clientX - 28, event.clientY - 28));
+  };
+
+  const onPointerUp = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    const drag = dragState.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+
+    const shouldNavigate = !drag.moved;
+    releaseDrag(event);
+
+    if (shouldNavigate) {
+      navigate("/whatsapp-qr");
+    }
+  };
+
+  const onPointerCancel = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    const drag = dragState.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    releaseDrag(event);
+  };
+
+  const wrapperStyle = position
+    ? { left: `${position.x}px`, top: `${position.y}px` }
+    : defaultPosition;
 
   return (
     <div
-      className="fixed z-50 bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))]"
+      className="fixed z-50"
+      style={wrapperStyle}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <button
         type="button"
         aria-label="Open WhatsApp QR page"
-        className="flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105"
-        onClick={() => navigate("/whatsapp-qr")}
+        className="flex h-14 w-14 cursor-grab touch-none items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-105 active:cursor-grabbing"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerCancel}
       >
         <svg viewBox="0 0 24 24" aria-hidden="true" className="h-8 w-8 fill-current">
           <path d="M19.05 4.94A9.86 9.86 0 0 0 12 2C6.49 2 2 6.49 2 12c0 1.76.46 3.49 1.34 5.02L2 22l5.09-1.33A9.95 9.95 0 0 0 12 22c5.51 0 10-4.49 10-10 0-2.67-1.04-5.18-2.95-7.06ZM12 20.29a8.28 8.28 0 0 1-4.2-1.15l-.3-.18-3.02.79.81-2.95-.2-.31A8.27 8.27 0 0 1 3.71 12c0-4.57 3.72-8.29 8.29-8.29 2.21 0 4.28.86 5.85 2.43a8.21 8.21 0 0 1 2.43 5.86c0 4.57-3.71 8.29-8.28 8.29Zm4.55-6.17c-.25-.13-1.48-.73-1.71-.82-.23-.08-.39-.13-.56.13-.16.25-.64.82-.79.99-.14.17-.28.2-.53.07-.25-.12-1.05-.39-2-1.24-.73-.64-1.23-1.43-1.37-1.67-.14-.24-.01-.37.1-.49.11-.1.25-.28.37-.42.12-.14.16-.24.24-.4.08-.17.04-.32-.02-.45-.06-.12-.56-1.35-.76-1.85-.2-.47-.4-.4-.56-.4h-.48c-.17 0-.45.06-.69.32-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.16 1.76 2.68 4.26 3.76 2.5 1.07 2.5.72 2.95.68.45-.04 1.48-.61 1.69-1.21.21-.6.21-1.11.15-1.21-.06-.1-.22-.17-.47-.3Z" />

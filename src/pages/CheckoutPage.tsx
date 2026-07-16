@@ -145,8 +145,8 @@ const CheckoutPage = () => {
 
     void saveCheckoutDraft(order, deviceCount);
     await trackPlaceOrder(order);
-    clearCart();
     navigate("/order-complete", { state: order });
+    requestAnimationFrame(() => clearCart());
   };
 
   return (
