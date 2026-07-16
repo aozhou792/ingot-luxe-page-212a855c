@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Check, Copy, ImagePlus, X } from "lucide-react";
 import { toast } from "sonner";
@@ -86,6 +86,16 @@ const OrderCompletePage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [paymentDone, setPaymentDone] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useLayoutEffect(() => {
+    const root = document.documentElement;
+    const prevBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    root.scrollTop = 0;
+    document.body.scrollTop = 0;
+    window.scrollTo(0, 0);
+    root.style.scrollBehavior = prevBehavior;
+  }, [order?.orderNumber]);
 
   useEffect(() => {
     if (!order) return;
