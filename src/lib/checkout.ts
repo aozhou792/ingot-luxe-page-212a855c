@@ -6,10 +6,11 @@ export const SHIPPING_LABEL = "Regular Post";
 /** Shipping is based on the actual number of vape devices in the cart. */
 export const SMALL_ORDER_SHIPPING_AUD = 20;
 export const BULK_ORDER_SHIPPING_AUD = 10;
-export const BULK_SHIPPING_THRESHOLD = 5;
+/** 10+ devices get reduced shipping; 3-pack and 5-pack (and other sub-10 orders) stay at A$20. */
+export const BULK_SHIPPING_THRESHOLD = 10;
 
 export function shippingRateHint(): string {
-  return `${formatAud(SMALL_ORDER_SHIPPING_AUD)} shipping for 1-4 devices; ${formatAud(BULK_ORDER_SHIPPING_AUD)} shipping for ${BULK_SHIPPING_THRESHOLD}+ devices.`;
+  return `${formatAud(SMALL_ORDER_SHIPPING_AUD)} shipping for 1-9 devices; ${formatAud(BULK_ORDER_SHIPPING_AUD)} shipping for ${BULK_SHIPPING_THRESHOLD}+ devices.`;
 }
 
 export function shippingAud(deviceCount: number): number {

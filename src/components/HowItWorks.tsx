@@ -21,7 +21,7 @@ const steps = [
 const reasons = [
   { icon: BadgeCheck, title: "100% authentic", desc: "Genuine ALIBARBAR Ingot 9000 devices only." },
   { icon: ShieldCheck, title: "Strictly 18+", desc: "Age-verified checkout for adult customers." },
-  { icon: PackageCheck, title: "Tiered shipping", desc: "A$20 under 5 devices, A$10 for 5+ devices." },
+  { icon: PackageCheck, title: "Tiered shipping", desc: "A$20 under 10 devices, A$10 for 10+ devices." },
   { icon: Headset, title: "Local support", desc: "Email help, usually within one business day." },
 ];
 

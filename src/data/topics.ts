@@ -177,7 +177,7 @@ export const topicHubs: TopicHub[] = [
     stats: [
       "18+ only — age verified at checkout",
       "Australia-wide shipping available",
-      "A$20 shipping under 5 devices · A$10 for 5+",
+      "A$20 shipping under 10 devices · A$10 for 10+",
       "Bank transfer payment with order tracking",
     ],
     pros: [
@@ -194,7 +194,7 @@ export const topicHubs: TopicHub[] = [
     quickAnswer: {
       question: "Where can I buy disposable vapes in Australia?",
       answer:
-        "Adults 18+ can buy disposable vapes online from authorised Australian retailers with clear shipping and authenticity policies. Alibarbar Australia stocks the Ingot 9000 range with guides, comparisons and A$20 shipping under 5 devices (A$10 for 5+).",
+        "Adults 18+ can buy disposable vapes online from authorised Australian retailers with clear shipping and authenticity policies. Alibarbar Australia stocks the Ingot 9000 range with guides, comparisons and A$20 shipping under 10 devices (A$10 for 10+).",
     },
     keyTakeaways: [
       "18+ only",

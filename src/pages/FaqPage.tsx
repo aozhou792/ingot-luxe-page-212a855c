@@ -59,7 +59,7 @@ const FaqPage = () => {
                 data={{
                   question: "What does this FAQ cover?",
                   answer:
-                    "This FAQ answers the most common questions about Alibarbar Ingot 9000 disposable vapes in Australia — including shipping (A$20 under 5 devices, A$10 for 5+), bank transfer payment, puff counts (up to 9000), 10+ flavours, authenticity, age requirements (18+) and safe storage.",
+                    "This FAQ answers the most common questions about Alibarbar Ingot 9000 disposable vapes in Australia — including shipping (A$20 under 10 devices, A$10 for 10+), bank transfer payment, puff counts (up to 9000), 10+ flavours, authenticity, age requirements (18+) and safe storage.",
                 }}
               />
             </div>

@@ -11,14 +11,14 @@ export const faqTopics: FaqTopic[] = [
     slug: "shipping",
     title: "Shipping FAQ",
     description:
-      "Shipping questions for Alibarbar Australia orders, including A$20 under 5 devices, A$10 for 5+ devices, dispatch timing, tracking and Australia-wide coverage.",
+      "Shipping questions for Alibarbar Australia orders, including A$20 under 10 devices, A$10 for 10+ devices, dispatch timing, tracking and Australia-wide coverage.",
     intro:
       "This Shipping FAQ answers the practical delivery questions customers ask before and after ordering Alibarbar Ingot 9000 devices in Australia.",
     items: [
       {
         question: "How much is shipping?",
         answer:
-          "Shipping is A$20 for orders under 5 devices and A$10 for orders of 5 or more devices. The shipping fee is added automatically at checkout so you can see the total before placing your order.",
+          "Shipping is A$20 for orders under 10 devices and A$10 for orders of 10 or more devices. The shipping fee is added automatically at checkout so you can see the total before placing your order.",
       },
       {
         question: "Do you ship Australia-wide?",
@@ -43,7 +43,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "Do you offer express shipping?",
         answer:
-          "At the moment the checkout default is Regular Post. Shipping is A$20 under 5 devices and A$10 for 5+ devices. If faster delivery options are added later, they will be shown clearly at checkout.",
+          "At the moment the checkout default is Regular Post. Shipping is A$20 under 10 devices and A$10 for 10+ devices. If faster delivery options are added later, they will be shown clearly at checkout.",
       },
       {
         question: "What if my parcel is delayed?",
@@ -238,7 +238,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "What is the 5 Flavour Custom Pack?",
         answer:
-          "The 5 Flavour Custom Pack lets you pick any five flavours from our current Alibarbar Ingot 9000 collection for A$160. Repeats are allowed, and your choices are saved with your order.",
+          "The 5 Flavour Custom Pack lets you pick any five flavours from our current Alibarbar Ingot 9000 collection for A$240. Repeats are allowed, and your choices are saved with your order.",
       },
       {
         question: "How should I store my Alibarbar Ingot?",

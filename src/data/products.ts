@@ -160,7 +160,7 @@ export const products: Product[] = [
   {
     slug: "custom-3-pack",
     name: "3 Flavour Custom Pack",
-    price: "100",
+    price: "150",
     originalPrice: "180",
     img: custom3Pack,
     tag: "3 Pack",
@@ -183,7 +183,7 @@ Each pack includes three Alibarbar Ingot 9000 Puffs devices. Select your preferr
   {
     slug: "custom-5-pack",
     name: "5 Flavour Custom Pack",
-    price: "160",
+    price: "240",
     originalPrice: "300",
     img: custom5Pack,
     tag: "Best Value",
@@ -206,7 +206,7 @@ Each pack includes five Alibarbar Ingot 9000 Puffs devices. Select your preferre
   {
     slug: "custom-10-pack",
     name: "10 Flavour Custom Pack",
-    price: "300",
+    price: "400",
     originalPrice: "600",
     img: custom10Pack,
     tag: "Bulk Pack",
@@ -229,7 +229,7 @@ Each pack includes ten Alibarbar Ingot 9000 Puffs devices. Select your preferred
   {
     slug: "quadruple-berry",
     name: "Quadruple Berry",
-    price: "35",
+    price: "55",
     originalPrice: "60",
     img: quadrupleBerry,
     tag: "Fruity",
@@ -242,7 +242,7 @@ Each pack includes ten Alibarbar Ingot 9000 Puffs devices. Select your preferred
   {
     slug: "fanta",
     name: "Fanta",
-    price: "35",
+    price: "55",
     originalPrice: "60",
     img: fanta,
     tag: "Citrus",
@@ -255,7 +255,7 @@ Each pack includes ten Alibarbar Ingot 9000 Puffs devices. Select your preferred
   {
     slug: "lychee",
     name: "Lychee",
-    price: "35",
+    price: "55",
     originalPrice: "60",
     img: lychee,
     tag: "Fruity",
@@ -268,7 +268,7 @@ Each pack includes ten Alibarbar Ingot 9000 Puffs devices. Select your preferred
   {
     slug: "peach-ice",
     name: "Peach Ice",
-    price: "35",
+    price: "55",
     originalPrice: "60",
     img: peachIce,
     tag: "Iced",
@@ -281,7 +281,7 @@ Each pack includes ten Alibarbar Ingot 9000 Puffs devices. Select your preferred
   {
     slug: "blackberry-ice",
     name: "Blackberry Ice",
-    price: "35",
+    price: "55",
     originalPrice: "60",
     img: blackberry,
     tag: "Iced",
@@ -294,7 +294,7 @@ Each pack includes ten Alibarbar Ingot 9000 Puffs devices. Select your preferred
   {
     slug: "mango-magic",
     name: "Mango Magic",
-    price: "35",
+    price: "55",
     originalPrice: "60",
     img: mango,
     tag: "Tropical",
@@ -307,7 +307,7 @@ Each pack includes ten Alibarbar Ingot 9000 Puffs devices. Select your preferred
   {
     slug: "strawberry-coconut-watermelon",
     name: "Strawberry Coconut Watermelon",
-    price: "35",
+    price: "55",
     originalPrice: "60",
     img: strawberryCoconutWatermelon,
     tag: "Tropical",
@@ -320,7 +320,7 @@ Each pack includes ten Alibarbar Ingot 9000 Puffs devices. Select your preferred
   {
     slug: "grape-ice",
     name: "Grape Ice",
-    price: "35",
+    price: "55",
     originalPrice: "60",
     img: grape,
     tag: "Iced",
@@ -333,7 +333,7 @@ Each pack includes ten Alibarbar Ingot 9000 Puffs devices. Select your preferred
   {
     slug: "strawberry-watermelon",
     name: "Strawberry Watermelon",
-    price: "35",
+    price: "55",
     originalPrice: "60",
     img: strawberryWatermelon,
     tag: "Fruity",
@@ -346,7 +346,7 @@ Each pack includes ten Alibarbar Ingot 9000 Puffs devices. Select your preferred
   {
     slug: "strawberry-ice",
     name: "Strawberry Ice",
-    price: "35",
+    price: "55",
     originalPrice: "60",
     img: strawberryIce,
     tag: "Iced",
@@ -413,7 +413,7 @@ export function getProductFaq(product: Product): { question: string; answer: str
     {
       question: "How long does delivery take in Australia?",
       answer:
-        "Orders are dispatched after your bank transfer is confirmed and typically arrive within 3-7 business days, depending on your state. Shipping is A$20 for under 5 devices and A$10 for 5+ devices.",
+        "Orders are dispatched after your bank transfer is confirmed and typically arrive within 3-7 business days, depending on your state. Shipping is A$20 for under 10 devices and A$10 for 10+ devices.",
     },
     {
       question: "Is this a genuine Alibarbar device?",

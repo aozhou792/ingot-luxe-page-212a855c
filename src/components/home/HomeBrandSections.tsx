@@ -108,7 +108,7 @@ const whyReasons = [
   {
     icon: Truck,
     title: "Tiered AU shipping",
-    desc: "A$20 under 5 devices, A$10 for 5+ devices. Dispatched after payment confirmation, typically 3–7 business days.",
+    desc: "A$20 under 10 devices, A$10 for 10+ devices. Dispatched after payment confirmation, typically 3–7 business days.",
   },
   {
     icon: Check,

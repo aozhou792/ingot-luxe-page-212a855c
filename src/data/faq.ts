@@ -11,7 +11,7 @@ export const faqItems: FaqItem[] = [
     category: "Ordering & Shipping",
     question: "How much is shipping in Australia?",
     answer:
-      "Regular Post shipping is A$20 for orders under 5 devices and A$10 for orders of 5 or more devices, calculated automatically at checkout.",
+      "Regular Post shipping is A$20 for orders under 10 devices and A$10 for orders of 10 or more devices, calculated automatically at checkout.",
   },
   {
     category: "Ordering & Shipping",
@@ -119,13 +119,13 @@ export const faqItems: FaqItem[] = [
     category: "Product & Usage",
     question: "What is the 5 Flavour Custom Pack?",
     answer:
-      "The 5 Flavour Custom Pack lets you pick any five flavours from our current Alibarbar Ingot 9000 collection for A$160. Repeats are allowed, and your choices are saved with your order.",
+      "The 5 Flavour Custom Pack lets you pick any five flavours from our current Alibarbar Ingot 9000 collection for A$240. Repeats are allowed, and your choices are saved with your order.",
   },
   {
     category: "Product & Usage",
     question: "What are the 3 and 10 Flavour Custom Packs?",
     answer:
-      "The 3 Flavour Custom Pack (A$100) and 10 Flavour Custom Pack (A$300) let you choose any three or ten flavours from the current line-up. They are ideal for trying a few options or stocking up with variety.",
+      "The 3 Flavour Custom Pack (A$150) and 10 Flavour Custom Pack (A$400) let you choose any three or ten flavours from the current line-up. They are ideal for trying a few options or stocking up with variety.",
   },
   {
     category: "Product & Usage",

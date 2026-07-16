@@ -113,7 +113,7 @@ export const blogPosts: BlogPost[] = [
       {
         question: "How much is shipping on disposable vapes in Australia?",
         answer:
-          "At Alibarbar Australia, standard shipping is A$20 for orders under 5 devices and A$10 for orders of 5 or more, with 3–7 business day delivery Australia-wide.",
+          "At Alibarbar Australia, standard shipping is A$20 for orders under 10 devices and A$10 for orders of 10 or more, with 3–7 business day delivery Australia-wide.",
       },
     ],
     sections: [
