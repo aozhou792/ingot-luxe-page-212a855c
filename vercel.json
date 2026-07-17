@@ -7,6 +7,36 @@
       "statusCode": 301
     },
     {
+      "source": "/default.html",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/products/:path*",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*.html",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/search/m",
+      "destination": "/search",
+      "statusCode": 301
+    },
+    {
+      "source": "/search/m/:path*",
+      "destination": "/search",
+      "statusCode": 301
+    },
+    {
       "source": "/verify",
       "destination": "/",
       "statusCode": 301
@@ -14,6 +44,24 @@
   ],
   "rewrites": [
     { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/cart",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/checkout",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/search",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/order-complete",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    }
   ],
   "functions": {
     "api/**/*.ts": {
