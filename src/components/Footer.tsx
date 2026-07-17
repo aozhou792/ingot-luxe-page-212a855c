@@ -147,9 +147,17 @@ export const Footer = () => (
     </div>
 
     <div className="border-t border-gold/20">
-      <div className="container py-5 sm:py-6 flex flex-col md:flex-row gap-3 md:gap-2 items-center justify-between text-xs text-muted-foreground text-center md:text-left px-2">
-        <p>© 2026 Alibarbar Australia. All rights reserved.</p>
-        <p>Strictly for adults 18+. Please vape responsibly.</p>
+      <div className="container py-5 sm:py-6 flex flex-col gap-3 items-center md:items-stretch text-xs text-muted-foreground text-center md:text-left px-2">
+        <div className="flex flex-col md:flex-row gap-3 md:gap-2 items-center justify-between">
+          <p>© 2026 Alibarbar Australia. All rights reserved.</p>
+          <p>Strictly for adults 18+. Please vape responsibly.</p>
+        </div>
+        <p>
+          Independent reviews and buying guides:{" "}
+          <a href="https://podpickguide.com" className="hover:text-primary">
+            PodPick Guide
+          </a>
+        </p>
       </div>
     </div>
   </footer>
