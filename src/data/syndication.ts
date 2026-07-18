@@ -37,6 +37,8 @@ export const syndicationArticles: SyndicationArticle[] = [
     canonicalPath: "/research/high-puff-disposable-capacity-australia-2026",
     datePublished: "2026-07-18",
     platforms: ["medium", "substack"],
+    mediumUrl:
+      "https://medium.com/@hxjspacex1/high-puff-disposable-capacity-in-australia-2026-spec-snapshot-3a3adbc1634b",
   },
   {
     slug: "vs-iget-sync",
