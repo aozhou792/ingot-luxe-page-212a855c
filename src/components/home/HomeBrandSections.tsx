@@ -143,7 +143,8 @@ export const HomeWhyChoose = () => (
       <p className="text-center mt-8 text-sm text-muted-foreground reveal max-w-2xl mx-auto leading-relaxed">
         Learn more about our standards on the{" "}
         <Link to="/why-trust-us" className="text-primary font-semibold hover:text-gold">Why Trust Us</Link>,{" "}
-        <Link to="/about" className="text-primary font-semibold hover:text-gold">About</Link> and{" "}
+        <Link to="/brand-knowledge" className="text-primary font-semibold hover:text-gold">Brand Knowledge</Link>,{" "}
+        <Link to="/research" className="text-primary font-semibold hover:text-gold">Research</Link> and{" "}
         <Link to="/editorial-policy" className="text-primary font-semibold hover:text-gold">Editorial Policy</Link> pages.
       </p>
     </div>

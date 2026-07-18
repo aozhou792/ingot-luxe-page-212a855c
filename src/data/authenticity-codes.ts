@@ -9,6 +9,7 @@ export const HONEYCOMB_SEALS = [
   { id: "ABSEAL03", label: "Seal C" },
   { id: "ABSEAL04", label: "Seal D" },
   { id: "ABSEAL05", label: "Seal E" },
+  { id: "ABSEAL06", label: "Seal F" },
 ] as const;
 
 export type HoneycombSealId = (typeof HONEYCOMB_SEALS)[number]["id"];

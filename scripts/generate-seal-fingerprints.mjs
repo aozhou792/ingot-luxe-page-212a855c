@@ -1,5 +1,5 @@
 /**
- * Precompute grayscale fingerprints for the 5 honeycomb templates.
+ * Precompute grayscale fingerprints for the honeycomb templates.
  * Used by /api/verify-authenticity photo matching.
  *
  *   node scripts/generate-seal-fingerprints.mjs
@@ -13,7 +13,7 @@ import sharp from "sharp";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 const SAMPLE = 64;
-const SEALS = ["ABSEAL01", "ABSEAL02", "ABSEAL03", "ABSEAL04", "ABSEAL05"];
+const SEALS = ["ABSEAL01", "ABSEAL02", "ABSEAL03", "ABSEAL04", "ABSEAL05", "ABSEAL06"];
 
 async function fingerprintPng(filePath) {
   const { data, info } = await sharp(filePath)
@@ -71,7 +71,7 @@ const payload = {
   threshold: 0.75,
   generatedAt: new Date().toISOString(),
   seals,
-  note: "Photo match fingerprints for Alibarbar AU honeycomb seals (5 shared templates).",
+  note: "Photo match fingerprints for Alibarbar AU honeycomb seals (6 shared templates).",
 };
 
 await writeFile(path.join(outDir, "seal-fingerprints.json"), JSON.stringify(payload));

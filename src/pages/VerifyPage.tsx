@@ -242,7 +242,7 @@ const VerifyPage = () => {
               Verify your <span className="text-gold">Alibarbar</span>
             </h1>
             <p className="text-muted-foreground mt-4 text-base leading-relaxed max-w-2xl">
-              Photograph the circular orange-ring honeycomb seal on the box. Our server compares your photo against five
+              Photograph the circular orange-ring honeycomb seal on the box. Our server compares your photo against six
               official 点阵 templates (shared seals, not one code per device — no QR inside the left seal).
             </p>
             <div className="gold-divider mt-6 max-w-[6rem]" />
@@ -359,10 +359,10 @@ const VerifyPage = () => {
               Official seal templates (print)
             </h2>
             <p className="text-sm text-muted-foreground mb-4">
-              Five shared 点阵 seals — print any at random on packaging. No QR inside these marks.
+              Six shared 点阵 seals — print any at random on packaging. No QR inside these marks.
             </p>
-            <div className="grid grid-cols-5 gap-2 sm:gap-3">
-              {["01", "02", "03", "04", "05"].map((n) => (
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-3">
+              {["01", "02", "03", "04", "05", "06"].map((n) => (
                 <a
                   key={n}
                   href={`/authenticity/honeycomb-ABSEAL${n}.png`}

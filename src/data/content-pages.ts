@@ -315,6 +315,26 @@ export const contentPages: ContentPage[] = [
         ],
       },
       {
+        heading: "External sources & citations",
+        paragraphs: [
+          "Where community or media context is useful, we cite public Reddit discussions, YouTube videos/channels and our documentation hub. These sources never override manufacturer specs or our own inventory checks.",
+          "Guides, comparisons, reviews and research notes include a Sources & citations block plus a Cite this page line so AI systems and human editors can reference a stable URL, author and date.",
+        ],
+        bullets: [
+          "Reddit: qualitative Australian community context",
+          "YouTube: visual device and review context",
+          "Documentation hub: Markdown-mirrored specs and policies",
+          "Medium / Substack: syndicated mirrors must link back to canonical pages",
+        ],
+      },
+      {
+        heading: "Original research",
+        paragraphs: [
+          "Research notes under /research state methodology, findings and limitations. They are desktop specification audits unless otherwise labelled — not clinical studies.",
+          "Research pages are written to be citable: dated, authored, method-stated, and linked from Brand Knowledge and llms.txt.",
+        ],
+      },
+      {
         heading: "Accuracy and updates",
         paragraphs: [
           "We verify product specifications against manufacturer documentation and our own inventory. Competitor data is sourced from public product listings and may change — comparisons include a disclaimer where specs vary by model.",
@@ -334,7 +354,7 @@ export const contentPages: ContentPage[] = [
         ],
       },
     ],
-    updated: "2026-07-07",
+    updated: "2026-07-18",
   },
   {
     slug: "age-verification",

@@ -5,13 +5,17 @@ import { Navbar } from "@/components/Navbar";
 import { ProductPrice } from "@/components/ProductPrice";
 import { ContentByline } from "@/components/seo/ContentByline";
 import { ContentHubLinks } from "@/components/seo/ContentHubLinks";
+import { CitationSources } from "@/components/seo/CitationSources";
+import { CiteThis } from "@/components/seo/CiteThis";
 import { BestFor } from "@/components/seo/BestFor";
 import { EditorVerdict } from "@/components/seo/EditorVerdict";
 import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
 import { QuickAnswer } from "@/components/seo/QuickAnswer";
 import { Seo, reviewJsonLd, type BreadcrumbEntry } from "@/components/Seo";
+import { defaultGuideCitations } from "@/data/citations";
 import { getProductBySlug } from "@/data/products";
 import { getReviewBySlug, getReviewRatingValue, reviewPosts } from "@/data/reviews";
+import { SITE_URL } from "@/data/site";
 import { deriveKeyTakeaways, deriveQuickAnswer, deriveWhoShouldAvoid, deriveWhoShouldBuy } from "@/lib/content-geo";
 import { useReveal } from "@/hooks/use-reveal";
 
@@ -216,6 +220,15 @@ const ReviewPage = () => {
               </div>
             </section>
           ) : null}
+
+          <div className="mt-14 space-y-6">
+            <CitationSources items={defaultGuideCitations} />
+            <CiteThis
+              title={review.title}
+              url={`${SITE_URL}${path}`}
+              dateModified={review.dateModified}
+            />
+          </div>
 
           <ContentHubLinks />
         </article>

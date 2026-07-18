@@ -15,10 +15,14 @@ const shopLinks = [
 
 const exploreLinks = [
   { label: "Topics", to: "/topics" },
+  { label: "Brand Knowledge", to: "/brand-knowledge" },
   { label: "Guides", to: "/guides" },
   { label: "Compare", to: "/compare" },
+  { label: "Research", to: "/research" },
   { label: "Reviews", to: "/reviews" },
   { label: "Brands", to: "/brands" },
+  { label: "Documentation", to: "/documentation" },
+  { label: "Syndication", to: "/syndication" },
   { label: "Blog", to: "/blog" },
   { label: "FAQ", to: "/faq" },
   { label: "Product FAQ", to: "/faq/product" },

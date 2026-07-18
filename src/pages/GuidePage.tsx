@@ -5,11 +5,15 @@ import { Footer } from "@/components/Footer";
 import { ProductPrice } from "@/components/ProductPrice";
 import { ContentByline } from "@/components/seo/ContentByline";
 import { ContentHubLinks } from "@/components/seo/ContentHubLinks";
+import { CitationSources } from "@/components/seo/CitationSources";
+import { CiteThis } from "@/components/seo/CiteThis";
 import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
 import { QuickAnswer } from "@/components/seo/QuickAnswer";
 import { Seo, articleJsonLd, type BreadcrumbEntry } from "@/components/Seo";
+import { defaultGuideCitations } from "@/data/citations";
 import { getGuideBySlug, guides } from "@/data/guides";
 import { getProductBySlug } from "@/data/products";
+import { SITE_URL } from "@/data/site";
 import { deriveKeyTakeaways, deriveQuickAnswer } from "@/lib/content-geo";
 import { useReveal } from "@/hooks/use-reveal";
 
@@ -179,6 +183,15 @@ const GuidePage = () => {
               </div>
             </section>
           ) : null}
+
+          <div className="mt-14 space-y-6">
+            <CitationSources items={defaultGuideCitations} />
+            <CiteThis
+              title={guide.title}
+              url={`${SITE_URL}${path}`}
+              dateModified={guide.dateModified}
+            />
+          </div>
 
           <ContentHubLinks />
         </article>

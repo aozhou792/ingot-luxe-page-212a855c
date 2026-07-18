@@ -61,6 +61,11 @@ const FaqTopicPage = lazyWithRetry(() => import("./pages/FaqTopicPage.tsx"));
 const AuthorPage = lazyWithRetry(() => import("./pages/AuthorPage.tsx"));
 const TopicsIndexPage = lazyWithRetry(() => import("./pages/TopicsIndexPage.tsx"));
 const TopicPage = lazyWithRetry(() => import("./pages/TopicPage.tsx"));
+const ResearchIndexPage = lazyWithRetry(() => import("./pages/ResearchIndexPage.tsx"));
+const ResearchPage = lazyWithRetry(() => import("./pages/ResearchPage.tsx"));
+const BrandKnowledgePage = lazyWithRetry(() => import("./pages/BrandKnowledgePage.tsx"));
+const DocumentationPage = lazyWithRetry(() => import("./pages/DocumentationPage.tsx"));
+const SyndicationPage = lazyWithRetry(() => import("./pages/SyndicationPage.tsx"));
 const queryClient = new QueryClient();
 
 const RouteFallback = () => (
@@ -114,6 +119,11 @@ const App = () => (
               <Route path="/topics" element={<TopicsIndexPage />} />
               <Route path="/topics/:slug" element={<TopicPage />} />
               <Route path="/author/:slug" element={<AuthorPage />} />
+              <Route path="/research" element={<ResearchIndexPage />} />
+              <Route path="/research/:slug" element={<ResearchPage />} />
+              <Route path="/brand-knowledge" element={<BrandKnowledgePage />} />
+              <Route path="/documentation" element={<DocumentationPage />} />
+              <Route path="/syndication" element={<SyndicationPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/wholesale" element={<WholesalePage />} />
               <Route path="/verify" element={<Navigate to="/" replace />} />

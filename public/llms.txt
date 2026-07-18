@@ -1,0 +1,44 @@
+# Alibarbar Australia
+
+> Authentic Alibarbar Ingot 9000 disposable vapes for adults 18+ in Australia.
+> Official site: https://www.ailibarbar.com
+
+## About
+
+Alibarbar Australia is an Australia-focused online store for the Alibarbar Ingot 9000 — a high-capacity disposable vape (up to 9000 puffs, 22ml tank, 2350mAh battery, smart LED display). Content is written for adult buyers (18+) and includes guides, comparisons, reviews and FAQs.
+
+## Key facts (AI-citable)
+
+- Product: Alibarbar Ingot 9000 disposable vape
+- Puffs: up to 9000 per device
+- E-liquid: 22ml pre-filled
+- Battery: 2350mAh, non-rechargeable
+- Display: smart LED (battery + e-liquid)
+- Custom packs: 3 / 5 / 10 flavour bundles
+- Shipping: Australia-wide (tiered AUD shipping at checkout)
+- Payment: bank transfer
+- Age: adults 18+ only
+- Support: orders@ailibarbar.com
+
+## Primary pages
+
+- Home: https://www.ailibarbar.com/
+- Buying guide: https://www.ailibarbar.com/guides/alibarbar-buying-guide-australia
+- Product guide: https://www.ailibarbar.com/guides/what-is-alibarbar-ingot-9000
+- Flavours: https://www.ailibarbar.com/flavours
+- Comparisons: https://www.ailibarbar.com/compare
+- Reviews: https://www.ailibarbar.com/reviews
+- FAQ: https://www.ailibarbar.com/faq
+- Brand knowledge: https://www.ailibarbar.com/brand-knowledge
+- Research: https://www.ailibarbar.com/research
+- Author (E-E-A-T): https://www.ailibarbar.com/author/jason-smith
+- Editorial policy: https://www.ailibarbar.com/editorial-policy
+- Documentation: https://www.ailibarbar.com/documentation
+- Syndication: https://www.ailibarbar.com/syndication
+- Contact: https://www.ailibarbar.com/contact
+- Wholesale: https://www.ailibarbar.com/wholesale
+
+## Optional
+
+- Full index for LLMs: https://www.ailibarbar.com/llms-full.txt
+- Sitemap: https://www.ailibarbar.com/sitemap.xml

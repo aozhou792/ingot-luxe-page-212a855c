@@ -1,10 +1,11 @@
-/** Shared authenticity token library (5 seals — not one-per-unit). */
+/** Shared authenticity token library (6 seals — not one-per-unit). */
 export const HONEYCOMB_SEALS = [
   { id: "ABSEAL01", label: "Seal A" },
   { id: "ABSEAL02", label: "Seal B" },
   { id: "ABSEAL03", label: "Seal C" },
   { id: "ABSEAL04", label: "Seal D" },
   { id: "ABSEAL05", label: "Seal E" },
+  { id: "ABSEAL06", label: "Seal F" },
 ] as const;
 
 export type HoneycombSealId = (typeof HONEYCOMB_SEALS)[number]["id"];

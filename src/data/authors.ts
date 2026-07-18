@@ -26,6 +26,8 @@ export const authors: Author[] = [
       "Alibarbar Ingot 9000 specifications",
       "Australian vaping regulations (general information)",
       "Competitor brand comparisons",
+      "High-puff disposable capacity research",
+      "GEO / AI-citable buying guides",
     ],
     yearsExperience: 5,
     productsReviewed: 200,

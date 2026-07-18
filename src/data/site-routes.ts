@@ -5,6 +5,7 @@ import { comparisons } from "@/data/comparisons";
 import { contentPages } from "@/data/content-pages";
 import { faqTopics } from "@/data/faq-topics";
 import { guides } from "@/data/guides";
+import { researchArticles } from "@/data/research";
 import { reviewPosts } from "@/data/reviews";
 import { topicHubs } from "@/data/topics";
 
@@ -20,6 +21,10 @@ const HUB_ROUTES: SiteRoute[] = [
   { path: "/flavours", priority: 0.8, changefreq: "weekly" },
   { path: "/compare", priority: 0.8, changefreq: "weekly" },
   { path: "/brands", priority: 0.7, changefreq: "monthly" },
+  { path: "/brand-knowledge", priority: 0.8, changefreq: "monthly" },
+  { path: "/research", priority: 0.75, changefreq: "monthly" },
+  { path: "/documentation", priority: 0.6, changefreq: "monthly" },
+  { path: "/syndication", priority: 0.5, changefreq: "monthly" },
   { path: "/blog", priority: 0.7, changefreq: "weekly" },
   { path: "/reviews", priority: 0.7, changefreq: "weekly" },
   { path: "/topics", priority: 0.8, changefreq: "weekly" },
@@ -81,6 +86,7 @@ export function getSiteRoutes(): SiteRoute[] {
     ...reviewPosts.map((r) => ({ path: `/reviews/${r.slug}`, priority: 0.6, changefreq: "monthly" as const })),
     ...faqTopics.map((t) => ({ path: `/faq/${t.slug}`, priority: 0.6, changefreq: "monthly" as const })),
     ...topicHubs.map((t) => ({ path: `/topics/${t.slug}`, priority: 0.75, changefreq: "monthly" as const })),
+    ...researchArticles.map((r) => ({ path: `/research/${r.slug}`, priority: 0.7, changefreq: "monthly" as const })),
     ...contentPages.map((p) => ({ path: `/${p.slug}`, priority: 0.5, changefreq: "monthly" as const })),
     ...authors.map((a) => ({ path: `/author/${a.slug}`, priority: 0.5, changefreq: "monthly" as const })),
   ];

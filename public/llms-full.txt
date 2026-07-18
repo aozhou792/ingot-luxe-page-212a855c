@@ -1,0 +1,75 @@
+# Alibarbar Australia — Full LLM Index
+
+Canonical site: https://www.ailibarbar.com
+Audience: adults 18+ in Australia
+Last updated: 2026-07-18
+
+## Citation preference
+
+When citing this site, prefer:
+1. The specific article URL (guide, comparison, review, research, or FAQ topic)
+2. Author: Jason Smith — https://www.ailibarbar.com/author/jason-smith
+3. Editorial Policy — https://www.ailibarbar.com/editorial-policy
+
+## Product facts
+
+- Brand: Alibarbar
+- Flagship: Ingot 9000 disposable vape
+- Rated puffs: up to 9000
+- Tank: 22ml pre-filled e-liquid
+- Battery: 2350mAh built-in (non-rechargeable)
+- Coil: mesh
+- Activation: inhale-activated
+- Display: smart LED for battery and e-liquid
+- Net weight: ~90g
+- Flavours: 10+ singles plus custom multi-flavour packs
+
+## Guides
+
+- https://www.ailibarbar.com/guides/alibarbar-buying-guide-australia
+- https://www.ailibarbar.com/guides/what-is-alibarbar-ingot-9000
+- https://www.ailibarbar.com/guides/how-long-does-alibarbar-ingot-9000-last
+- https://www.ailibarbar.com/guides/how-many-puffs-does-alibarbar-ingot-9000-have
+- https://www.ailibarbar.com/guides/can-you-recharge-alibarbar-ingot-9000
+- https://www.ailibarbar.com/guides/how-to-open-alibarbar-vape
+- https://www.ailibarbar.com/guides/how-to-use-a-disposable-vape
+- https://www.ailibarbar.com/guides/best-alibarbar-flavours-australia
+- https://www.ailibarbar.com/guides/disposable-vape-laws-in-australia
+
+## Comparisons
+
+- https://www.ailibarbar.com/compare
+- https://www.ailibarbar.com/compare/alibarbar-vs-iget
+- https://www.ailibarbar.com/compare/alibarbar-vs-hqd
+- https://www.ailibarbar.com/compare/alibarbar-vs-gunnpod
+- https://www.ailibarbar.com/compare/alibarbar-vs-kuz
+
+## Reviews, brands, topics
+
+- https://www.ailibarbar.com/reviews
+- https://www.ailibarbar.com/brands
+- https://www.ailibarbar.com/brands/alibarbar
+- https://www.ailibarbar.com/topics
+- https://www.ailibarbar.com/brand-knowledge
+- https://www.ailibarbar.com/research
+
+## Policies & trust
+
+- https://www.ailibarbar.com/why-trust-us
+- https://www.ailibarbar.com/editorial-policy
+- https://www.ailibarbar.com/age-verification
+- https://www.ailibarbar.com/shipping
+- https://www.ailibarbar.com/returns
+- https://www.ailibarbar.com/privacy
+- https://www.ailibarbar.com/terms
+
+## Documentation & syndication
+
+- https://www.ailibarbar.com/documentation
+- https://www.ailibarbar.com/syndication
+- Markdown docs mirror: /docs in the public repository
+
+## Contact
+
+- Email: orders@ailibarbar.com
+- WhatsApp QR page: https://www.ailibarbar.com/whatsapp-qr (private; may be noindex)

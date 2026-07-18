@@ -1,6 +1,6 @@
 {
   "mode": "photo-compare",
-  "note": "Left = QR-free orange-ring 点阵 seal (5 templates). Right QR opens /verify only.",
+  "note": "Left = QR-free orange-ring 点阵 seal (6 templates). Right QR opens /verify only.",
   "verifyUrl": "https://www.ailibarbar.com/verify",
   "seals": [
     {
@@ -26,6 +26,11 @@
     {
       "id": "ABSEAL05",
       "file": "honeycomb-ABSEAL05.png",
+      "kind": "photo-template"
+    },
+    {
+      "id": "ABSEAL06",
+      "file": "honeycomb-ABSEAL06.png",
       "kind": "photo-template"
     }
   ],

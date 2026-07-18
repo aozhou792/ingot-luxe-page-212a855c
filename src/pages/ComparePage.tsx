@@ -4,11 +4,15 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ContentByline } from "@/components/seo/ContentByline";
 import { ContentHubLinks } from "@/components/seo/ContentHubLinks";
+import { CitationSources } from "@/components/seo/CitationSources";
+import { CiteThis } from "@/components/seo/CiteThis";
 import { CompareShortAnswer } from "@/components/seo/CompareShortAnswer";
 import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
 import { QuickAnswer } from "@/components/seo/QuickAnswer";
 import { Seo, articleJsonLd, type BreadcrumbEntry } from "@/components/Seo";
+import { defaultCompareCitations } from "@/data/citations";
 import { getComparisonBySlug } from "@/data/comparisons";
+import { SITE_URL } from "@/data/site";
 import { deriveCompareShortAnswer, deriveKeyTakeaways, deriveQuickAnswer } from "@/lib/content-geo";
 import { useReveal } from "@/hooks/use-reveal";
 
@@ -183,6 +187,15 @@ const ComparePage = () => {
             >
               Explore flavours
             </Link>
+          </div>
+
+          <div className="mt-10 space-y-6">
+            <CitationSources items={defaultCompareCitations} />
+            <CiteThis
+              title={comparison.title}
+              url={`${SITE_URL}${path}`}
+              dateModified={comparison.dateModified}
+            />
           </div>
 
           <ContentHubLinks />
