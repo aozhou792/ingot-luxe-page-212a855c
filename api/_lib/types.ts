@@ -41,6 +41,10 @@ export type StoredOrder = OrderDetails & {
   paymentSubmittedAt?: string;
   paymentStatus?: PaymentStatus;
   paymentConfirmedAt?: string;
+  /** Set when the merchant notify email was sent successfully. */
+  notifyEmailSentAt?: string;
+  /** Set when the merchant notify email failed (order is still saved). */
+  notifyEmailError?: string;
 };
 
 export type SubmitOrderBody = {

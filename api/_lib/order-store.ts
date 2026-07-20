@@ -181,3 +181,34 @@ export async function updateOrderStatus(orderNumber: string, status: PaymentStat
   });
   return updated;
 }
+
+export async function markOrderNotifyEmailResult(
+  orderNumber: string,
+  result: { ok: true } | { ok: false; error: string },
+): Promise<StoredOrder | null> {
+  const token = blobToken();
+  const pathname = orderPath(orderNumber);
+  const existing = await readJsonBlob<StoredOrder>(pathname);
+  if (!existing) return null;
+
+  const updated: StoredOrder =
+    result.ok === true
+      ? {
+          ...existing,
+          notifyEmailSentAt: new Date().toISOString(),
+          notifyEmailError: undefined,
+        }
+      : {
+          ...existing,
+          notifyEmailError: result.error.slice(0, 500),
+        };
+
+  await put(pathname, JSON.stringify(updated), {
+    access: "private",
+    contentType: "application/json",
+    token,
+    addRandomSuffix: false,
+    allowOverwrite: true,
+  });
+  return updated;
+}

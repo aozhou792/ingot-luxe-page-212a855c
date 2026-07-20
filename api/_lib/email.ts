@@ -37,24 +37,37 @@ function buildHtml(order: StoredOrder): string {
   `;
 }
 
+function parseNotifyEmails(raw: string | undefined): string[] {
+  const fallback =
+    "wmitch714@gmail.com,517637108@qq.com,11385994@qq.com";
+  const source = raw?.trim() ? raw : fallback;
+  return source
+    .split(/[,;\s]+/)
+    .map((email) => email.trim())
+    .filter(Boolean);
+}
+
 export async function sendOrderNotificationEmail(
   order: StoredOrder,
   receipt: { dataUrl: string; name: string },
 ): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.ORDER_NOTIFY_EMAIL ?? "wmitch714@gmail.com";
+  const to = parseNotifyEmails(process.env.ORDER_NOTIFY_EMAIL);
   const from = process.env.ORDER_FROM_EMAIL ?? "Alibarbar Orders <orders@ailibarbar.com>";
 
   if (!apiKey) {
-    console.warn("RESEND_API_KEY missing — skipping email notification");
-    return;
+    throw new Error("RESEND_API_KEY missing — cannot send order notification");
+  }
+
+  if (to.length === 0) {
+    throw new Error("ORDER_NOTIFY_EMAIL empty — cannot send order notification");
   }
 
   const resend = new Resend(apiKey);
   const { buffer } = parseDataUrl(receipt.dataUrl);
   const fileName = receipt.name || `receipt-${order.orderNumber}.png`;
 
-  await resend.emails.send({
+  const { data, error } = await resend.emails.send({
     from,
     to,
     subject: `New payment ${formatReference(order.orderNumber)} — AUD ${order.total.toFixed(2)}`,
@@ -66,4 +79,18 @@ export async function sendOrderNotificationEmail(
       },
     ],
   });
+
+  if (error) {
+    throw new Error(
+      `Resend failed for ${formatReference(order.orderNumber)}: ${error.message || JSON.stringify(error)}`,
+    );
+  }
+
+  if (!data?.id) {
+    throw new Error(`Resend returned no email id for ${formatReference(order.orderNumber)}`);
+  }
+
+  console.info(
+    `Order notify email sent: ${formatReference(order.orderNumber)} id=${data.id} to=${to.join(",")}`,
+  );
 }

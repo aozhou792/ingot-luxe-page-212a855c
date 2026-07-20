@@ -17,6 +17,8 @@ export type StoredOrder = OrderDetails & {
   paymentSubmittedAt?: string;
   paymentStatus?: PaymentStatus;
   paymentConfirmedAt?: string;
+  notifyEmailSentAt?: string;
+  notifyEmailError?: string;
 };
 
 /** Next sequential order number (3870, 3871, 3872, …). */

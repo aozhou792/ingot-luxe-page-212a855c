@@ -1,4 +1,4 @@
-import { saveOrderWithReceipt } from "./_lib/order-store.js";
+import { markOrderNotifyEmailResult, saveOrderWithReceipt } from "./_lib/order-store.js";
 import { sendOrderNotificationEmail } from "./_lib/email.js";
 import { redeemCoupon } from "./_lib/coupon-store.js";
 import { completeCheckoutDraft } from "./_lib/draft-store.js";
@@ -29,12 +29,27 @@ export async function POST(request: Request): Promise<Response> {
 
     try {
       await sendOrderNotificationEmail(saved, receipt);
+      const withEmail = await markOrderNotifyEmailResult(saved.orderNumber, { ok: true });
+      return Response.json({ ok: true, order: withEmail ?? saved, emailSent: true });
     } catch (emailError) {
-      console.error("Email notification failed:", emailError);
+      const message = emailError instanceof Error ? emailError.message : String(emailError);
+      console.error(
+        `Email notification failed for VN #${saved.orderNumber}:`,
+        message,
+        emailError,
+      );
+      const withError = await markOrderNotifyEmailResult(saved.orderNumber, {
+        ok: false,
+        error: message,
+      });
       // Order is still saved even if email fails.
+      return Response.json({
+        ok: true,
+        order: withError ?? saved,
+        emailSent: false,
+        emailError: message,
+      });
     }
-
-    return Response.json({ ok: true, order: saved });
   } catch (error) {
     console.error("submit-order failed:", error);
     const message = error instanceof Error ? error.message : "Failed to submit order";

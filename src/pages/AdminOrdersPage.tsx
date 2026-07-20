@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { CheckCircle2, Clock3, Download, Loader2, RefreshCw, ZoomIn } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Clock3, Download, Loader2, RefreshCw, ZoomIn } from "lucide-react";
 import { toast } from "sonner";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -39,6 +39,19 @@ function formatDateTime(value: string): string {
     hour: "2-digit",
     minute: "2-digit",
   });
+}
+
+function formatBillingAddress(order: StoredOrder): string[] {
+  const { billing } = order;
+  return [
+    `${billing.firstName} ${billing.lastName}`.trim(),
+    billing.street,
+    billing.apartment,
+    [billing.suburb, billing.state, billing.postcode].filter(Boolean).join(" "),
+    billing.country,
+    billing.phone ? `电话 ${billing.phone}` : "",
+    billing.email ? `邮箱 ${billing.email}` : "",
+  ].filter(Boolean);
 }
 
 function apiErrorMessage(error: unknown, fallback: string): string {
@@ -413,6 +426,18 @@ const AdminOrdersPage = () => {
                     </div>
                   ) : null}
 
+                  {order.notifyEmailError ? (
+                    <div className="mb-4 flex items-start gap-2 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-sm text-amber-800 dark:text-amber-200">
+                      <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-medium">订单通知邮件发送失败</p>
+                        <p className="mt-0.5 text-amber-700/90 dark:text-amber-200/80 font-normal break-all">
+                          {order.notifyEmailError}
+                        </p>
+                      </div>
+                    </div>
+                  ) : null}
+
                   <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                     <div>
                       <p className="text-lg font-semibold text-foreground">{formatOrderReference(order.orderNumber)}</p>
@@ -445,7 +470,7 @@ const AdminOrdersPage = () => {
                     </div>
                   </div>
 
-                  <div className="mt-4 grid md:grid-cols-[1.2fr_1fr] gap-5">
+                  <div className="mt-4 grid lg:grid-cols-[1.1fr_0.9fr_1fr] gap-5">
                     <div className="rounded-xl border border-border bg-background/30 p-4">
                       <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">商品明细</p>
                       <ul className="space-y-1.5 text-sm">
@@ -471,6 +496,15 @@ const AdminOrdersPage = () => {
                           <span>合计</span>
                           <span className="tabular-nums">{formatAud(order.total)}</span>
                         </div>
+                      </div>
+                    </div>
+
+                    <div className="rounded-xl border border-border bg-background/30 p-4">
+                      <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">收货地址</p>
+                      <div className="text-sm space-y-1 leading-relaxed">
+                        {formatBillingAddress(order).map((line) => (
+                          <p key={line}>{line}</p>
+                        ))}
                       </div>
                     </div>
 
