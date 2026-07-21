@@ -7,9 +7,9 @@ import logoHeader from "@/assets/logo-header.png";
 const shopLinks = [
   { label: "Wholesale", to: "/wholesale" },
   { label: "All Flavours", to: "/flavours" },
-  { label: "3 Flavour Custom Pack", to: "/product/custom-3-pack" },
   { label: "5 Flavour Custom Pack", to: "/product/custom-5-pack" },
   { label: "10 Flavour Custom Pack", to: "/product/custom-10-pack" },
+  { label: "20 Flavour Custom Pack", to: "/product/custom-20-pack" },
   { label: "Quadruple Berry", to: "/product/quadruple-berry" },
 ];
 

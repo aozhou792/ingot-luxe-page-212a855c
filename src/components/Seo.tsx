@@ -153,7 +153,7 @@ function productImageUrl(img: string): string {
   return img.startsWith("http") ? img : `${SITE_URL}${img.startsWith("/") ? img : `/${img}`}`;
 }
 
-/** Tiered AU shipping for Offer schema (under 10 devices / 10+ devices). */
+/** Tiered AU shipping for Offer schema (under 5 / 5–19 / 20+ free). */
 export function offerShippingDetails() {
   const destination = {
     "@type": "DefinedRegion",
@@ -184,7 +184,7 @@ export function offerShippingDetails() {
         value: "20",
         currency: "AUD",
       },
-      name: "Standard shipping (under 10 devices)",
+      name: "Standard shipping (under 5 devices)",
     },
     {
       "@type": "OfferShippingDetails",
@@ -195,7 +195,18 @@ export function offerShippingDetails() {
         value: "10",
         currency: "AUD",
       },
-      name: "Reduced shipping (10 or more devices)",
+      name: "Reduced shipping (5–19 devices)",
+    },
+    {
+      "@type": "OfferShippingDetails",
+      shippingDestination: destination,
+      deliveryTime,
+      shippingRate: {
+        "@type": "MonetaryAmount",
+        value: "0",
+        currency: "AUD",
+      },
+      name: "Free shipping (20 or more devices)",
     },
   ];
 }

@@ -35,7 +35,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="Buy Alibarbar Ingot 9000 Australia | Official Disposable Vape Store"
-        description="Shop authentic Alibarbar Ingot 9000 disposable vapes in Australia. Guides, comparisons, 28+ FAQs, fast local delivery, premium flavours and custom 3/5/10-pack bundles for adults 18+."
+        description="Shop authentic Alibarbar Ingot 9000 disposable vapes in Australia. Guides, comparisons, 28+ FAQs, fast local delivery, premium flavours and custom 5/10/20-pack bundles for adults 18+."
         path="/"
         jsonLd={siteJsonLd}
       />

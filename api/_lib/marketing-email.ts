@@ -98,8 +98,8 @@ export async function sendMarketingPromoEmail(user: StoredUser): Promise<void> {
     <p>Thanks for being part of Alibarbar Australia. Here is what is new for adult vapers this week:</p>
     <ul>
       <li><strong>10 signature flavours</strong> — Quadruple Berry, Peach Ice, Mango Magic and more</li>
-      <li><strong>Custom 3 / 5 / 10 packs</strong> — mix your favourites and save on shipping</li>
-      <li><strong>Tiered AU shipping</strong> — A$10 when you order 5+ devices</li>
+      <li><strong>Custom 5 / 10 / 20 packs</strong> — mix your favourites; 20+ devices ship free</li>
+      <li><strong>Tiered AU shipping</strong> — A$10 for 5–19 devices, free for 20+</li>
     </ul>
     <p><a href="${shopUrl}" style="display:inline-block;padding:12px 24px;background:#d7b760;color:#111;text-decoration:none;border-radius:999px;font-weight:bold;">Shop flavours</a>
     &nbsp;

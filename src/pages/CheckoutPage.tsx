@@ -24,6 +24,7 @@ import {
   orderTotal,
   PAYMENT_METHOD_LABEL,
   shippingAud,
+  shippingDisplay,
   shippingRateHint,
 } from "@/lib/checkout";
 import { trackPlaceOrder } from "@/lib/analytics";
@@ -339,7 +340,7 @@ const CheckoutPage = () => {
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Shipment</span>
                   <span className="tabular-nums">
-                    {SHIPPING_LABEL}: {formatAud(shipping)}
+                    {SHIPPING_LABEL}: {shippingDisplay(deviceCount)}
                   </span>
                 </div>
                 <p className="text-xs text-muted-foreground leading-relaxed">{shippingRateHint()}</p>

@@ -1,6 +1,6 @@
 # Best Alibarbar Ingot 9000 Flavours in Australia
 
-Ten flavours in the current Australian line-up, plus Custom 3/5/10 packs. Here is how to choose.
+Ten flavours in the current Australian line-up, plus Custom 5/10/20 packs. Here is how to choose.
 
 ## Fruit lovers (no heavy ice)
 

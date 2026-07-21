@@ -34,7 +34,7 @@ The LED display shows remaining battery and e-liquid so you can plan a replaceme
 9. Strawberry Watermelon
 10. Strawberry Ice
 
-Custom 3, 5 and 10 Flavour Packs available.
+Custom 5, 10 and 20 Flavour Packs available.
 
 ## Nicotine
 

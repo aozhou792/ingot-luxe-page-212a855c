@@ -35,9 +35,9 @@ const HUB_ROUTES: SiteRoute[] = [
 
 /** Slug-only lists — avoids importing product/flavour modules with image assets in Node scripts. */
 const PRODUCT_SLUGS = [
-  "custom-3-pack",
   "custom-5-pack",
   "custom-10-pack",
+  "custom-20-pack",
   "quadruple-berry",
   "fanta",
   "lychee",
@@ -50,7 +50,7 @@ const PRODUCT_SLUGS = [
   "strawberry-ice",
 ] as const;
 
-const CUSTOM_PACK_SLUGS = new Set(["custom-3-pack", "custom-5-pack", "custom-10-pack"]);
+const CUSTOM_PACK_SLUGS = new Set(["custom-5-pack", "custom-10-pack", "custom-20-pack"]);
 
 const FLAVOUR_SLUGS = [
   "quadruple-berry",

@@ -3,11 +3,14 @@ import { COUPON_DISCOUNT_AUD, COUPON_MIN_DEVICES, validateCoupon } from "./coupo
 
 const SMALL_ORDER_SHIPPING_AUD = 20;
 const BULK_ORDER_SHIPPING_AUD = 10;
-/** Must match src/lib/checkout.ts — 10+ devices get reduced shipping. */
-const BULK_SHIPPING_THRESHOLD = 10;
+const FREE_SHIPPING_AUD = 0;
+/** Must match src/lib/checkout.ts — 5+ reduced, 20+ free. */
+const BULK_SHIPPING_THRESHOLD = 5;
+const FREE_SHIPPING_THRESHOLD = 20;
 
 function shippingAud(deviceCount: number): number {
   if (deviceCount <= 0) return 0;
+  if (deviceCount >= FREE_SHIPPING_THRESHOLD) return FREE_SHIPPING_AUD;
   return deviceCount < BULK_SHIPPING_THRESHOLD ? SMALL_ORDER_SHIPPING_AUD : BULK_ORDER_SHIPPING_AUD;
 }
 

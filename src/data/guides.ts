@@ -647,7 +647,7 @@ export const guides: Guide[] = [
     quickAnswer: {
       question: "How do I buy the right Alibarbar Ingot 9000 in Australia?",
       answer:
-        "Choose the Ingot 9000 if you want a long-lasting disposable (up to 9000 puffs, 22ml, 2350mAh) with an LED battery/e-liquid display. Pick a single flavour you already like, or a 3/5/10 custom pack to sample. Confirm you are 18+, review AU shipping at checkout, pay by bank transfer, and keep your order number for support at orders@ailibarbar.com.",
+        "Choose the Ingot 9000 if you want a long-lasting disposable (up to 9000 puffs, 22ml, 2350mAh) with an LED battery/e-liquid display. Pick a single flavour you already like, or a 5/10/20 custom pack to sample. Confirm you are 18+, review AU shipping at checkout, pay by bank transfer, and keep your order number for support at orders@ailibarbar.com.",
     },
     keyTakeaways: [
       "Best for adults who want longevity + on-device remaining-life display",

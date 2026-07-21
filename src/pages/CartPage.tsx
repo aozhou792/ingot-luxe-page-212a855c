@@ -6,12 +6,11 @@ import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
 import { formatAud } from "@/lib/format";
-import { SHIPPING_LABEL, orderTotal, shippingAud, shippingRateHint } from "@/lib/checkout";
+import { SHIPPING_LABEL, orderTotal, shippingDisplay, shippingRateHint } from "@/lib/checkout";
 
 const CartPage = () => {
   const { lines, deviceCount, subtotal, setLineQty, removeLine } = useCart();
   const hasItems = lines.length > 0;
-  const shipping = shippingAud(deviceCount);
   const total = orderTotal(subtotal, deviceCount);
 
   return (
@@ -44,7 +43,7 @@ const CartPage = () => {
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Shipping ({deviceCount} devices)</span>
-              <span className="tabular-nums">{formatAud(shipping)}</span>
+              <span className="tabular-nums">{shippingDisplay(deviceCount)}</span>
             </div>
             <div className="flex justify-between items-baseline border-t border-border pt-2 font-semibold">
               <span>Total</span>
@@ -133,7 +132,7 @@ const CartPage = () => {
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Shipping</span>
                 <span className="tabular-nums">
-                  {SHIPPING_LABEL}: {formatAud(shipping)}
+                  {SHIPPING_LABEL}: {shippingDisplay(deviceCount)}
                 </span>
               </div>
               <p className="text-xs text-muted-foreground leading-relaxed">{shippingRateHint()}</p>

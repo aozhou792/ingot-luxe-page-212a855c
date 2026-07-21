@@ -1,7 +1,7 @@
 import heroDevice from "@/assets/hero-device.png";
-import custom3Pack from "@/assets/Alibarbar-3-pcs_1800x.webp";
 import custom5Pack from "@/assets/custom-5-pack.png";
 import custom10Pack from "@/assets/Alibarbar-10-pcs_1800x.webp";
+import custom20Pack from "@/assets/custom-20-pack.png";
 import { getSelectableFlavorProducts } from "./products";
 
 const flavourCount = getSelectableFlavorProducts().length;
@@ -27,15 +27,6 @@ export const wholesaleProducts: WholesaleProduct[] = [
     whatsappMessage: "Hi, I'd like wholesale pricing for Alibarbar Ingot 9000 single units.",
   },
   {
-    name: "3 FLAVOUR CUSTOM PACK",
-    img: custom3Pack,
-    puffs: "9,000 / device",
-    flavours: "3 per pack",
-    nicotine: "Per packaging",
-    type: "Mixed pack",
-    whatsappMessage: "Hi, I'd like wholesale pricing for the Alibarbar 3 Flavour Custom Pack.",
-  },
-  {
     name: "5 FLAVOUR CUSTOM PACK",
     img: custom5Pack,
     puffs: "9,000 / device",
@@ -52,5 +43,14 @@ export const wholesaleProducts: WholesaleProduct[] = [
     nicotine: "Per packaging",
     type: "Bulk pack",
     whatsappMessage: "Hi, I'd like wholesale pricing for the Alibarbar 10 Flavour Custom Pack.",
+  },
+  {
+    name: "20 FLAVOUR CUSTOM PACK",
+    img: custom20Pack,
+    puffs: "9,000 / device",
+    flavours: "20 per pack",
+    nicotine: "Per packaging",
+    type: "Bulk pack",
+    whatsappMessage: "Hi, I'd like wholesale pricing for the Alibarbar 20 Flavour Custom Pack.",
   },
 ];

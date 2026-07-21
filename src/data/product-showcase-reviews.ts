@@ -135,7 +135,6 @@ const homeProductLabels = [
   "Strawberry Watermelon",
   "5 Flavour Custom Pack",
   "10 Flavour Custom Pack",
-  "3 Flavour Custom Pack",
   "Quadruple Berry",
   "Peach Ice",
   "Fanta",
@@ -176,15 +175,15 @@ const flavourNotes: Record<string, string> = {
   "grape-ice": "Grape Ice is bold and icy — really moreish.",
   "strawberry-watermelon": "Strawberry Watermelon is splashy, sweet and super refreshing.",
   "strawberry-ice": "Strawberry Ice is crisp, sweet and clean all the way through.",
-  "custom-3-pack": "Loved picking three flavours in one pack — all arrived sealed and genuine.",
   "custom-5-pack": "Best value custom 5-pack — every flavour I chose was fulfilled correctly.",
   "custom-10-pack": "Bulk 10-pack saved me money and every unit was authentic Ingot 9000.",
+  "custom-20-pack": "Stocked up with the 20-pack — free shipping and every flavour I picked arrived sealed.",
 };
 
 const productSlugs = [
-  "custom-3-pack",
   "custom-5-pack",
   "custom-10-pack",
+  "custom-20-pack",
   "quadruple-berry",
   "fanta",
   "lychee",

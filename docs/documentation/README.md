@@ -28,7 +28,7 @@ The **Alibarbar Ingot 9000** is a premium disposable vape for adult Australian c
 - **22ml** pre-filled e-liquid
 - **2350mAh** built-in battery (non-rechargeable)
 - Smart **LED display** for battery and e-liquid levels
-- **10 flavours** plus Custom 3/5/10 packs
+- **10 flavours** plus Custom 5/10/20 packs
 
 ## Support
 

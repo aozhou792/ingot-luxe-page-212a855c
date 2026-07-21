@@ -47,7 +47,7 @@ export const brands: Brand[] = [
     quickAnswer: {
       question: "What is Alibarbar?",
       answer:
-        "Alibarbar is a disposable vape brand best known for the Ingot 9000 — a high-capacity device rated for up to 9000 puffs, with a 22ml tank, 2350mAh battery, mesh coil and built-in smart LED display. Alibarbar Australia stocks 10+ single flavours plus 3, 5 and 10-device custom packs for adult customers nationwide.",
+        "Alibarbar is a disposable vape brand best known for the Ingot 9000 — a high-capacity device rated for up to 9000 puffs, with a 22ml tank, 2350mAh battery, mesh coil and built-in smart LED display. Alibarbar Australia stocks 10+ single flavours plus 5, 10 and 20-device custom packs for adult customers nationwide.",
     },
     faq: [
       {

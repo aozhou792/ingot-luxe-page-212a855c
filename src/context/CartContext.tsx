@@ -15,12 +15,12 @@ const STORAGE_KEY = "alibarbar-cart";
 function productForCartSlug(slug: string) {
   return (
     getProductBySlug(slug) ??
-    (slug.startsWith("custom-3-pack-")
-      ? getProductBySlug("custom-3-pack")
-      : slug.startsWith("custom-5-pack-")
-        ? getProductBySlug("custom-5-pack")
-        : slug.startsWith("custom-10-pack-")
-          ? getProductBySlug("custom-10-pack")
+    (slug.startsWith("custom-5-pack-")
+      ? getProductBySlug("custom-5-pack")
+      : slug.startsWith("custom-10-pack-")
+        ? getProductBySlug("custom-10-pack")
+        : slug.startsWith("custom-20-pack-")
+          ? getProductBySlug("custom-20-pack")
           : undefined)
   );
 }
@@ -42,11 +42,13 @@ function loadLines(): CartLine[] {
           typeof l.image === "string" &&
           typeof l.qty === "number",
       )
+      .filter((line) => line.slug !== "custom-3-pack" && !line.slug.startsWith("custom-3-pack-"))
       .map((line) => {
         const product = productForCartSlug(line.slug);
-        if (!product) return line;
+        if (!product || product.isPlaceholder || !product.inStock) return null;
         return { ...line, price: Number.parseFloat(product.price), image: product.img };
-      });
+      })
+      .filter((line): line is CartLine => line !== null);
   } catch {
     return [];
   }
@@ -55,7 +57,7 @@ function loadLines(): CartLine[] {
 type CartContextValue = {
   lines: CartLine[];
   itemCount: number;
-  /** Actual vape devices in cart, so custom packs count as 3/5/10 devices. */
+  /** Actual vape devices in cart, so custom packs count as 5/10/20 devices. */
   deviceCount: number;
   subtotal: number;
   addToCart: (item: { slug: string; name: string; price: string; image: string; qty?: number }) => void;

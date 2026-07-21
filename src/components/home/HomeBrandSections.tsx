@@ -25,7 +25,7 @@ export const HomeIntroduction = () => (
         <p>
           Every device we sell is a genuine Alibarbar Ingot 9000 with the signature gold ingot design, built-in smart LED
           display, 22ml pre-filled e-liquid capacity and up to 9000 puffs per unit. We ship Australia-wide with tiered
-          Regular Post rates — A$20 for orders under five devices and A$10 for five or more — and accept payment by
+          Regular Post rates — A$20 for orders under five devices, A$10 for five to nineteen, and free for twenty or more — and accept payment by
           secure bank transfer.
         </p>
         <p>
@@ -108,7 +108,7 @@ const whyReasons = [
   {
     icon: Truck,
     title: "Tiered AU shipping",
-    desc: "A$20 under 10 devices, A$10 for 10+ devices. Dispatched after payment confirmation, typically 3–7 business days.",
+    desc: "A$20 under 5, A$10 for 5–19, free for 20+ devices. Dispatched after payment confirmation, typically 3–7 business days.",
   },
   {
     icon: Check,

@@ -8,9 +8,9 @@ import grape from "@/assets/flavor-grape.png";
 import mango from "@/assets/flavor-mango.png";
 import strawberryWatermelon from "@/assets/flavor-strawberry-watermelon.png";
 import strawberryIce from "@/assets/flavor-strawberry-ice.png";
-import custom3Pack from "@/assets/Alibarbar-3-pcs_1800x.webp";
 import custom5Pack from "@/assets/custom-5-pack.png";
 import custom10Pack from "@/assets/Alibarbar-10-pcs_1800x.webp";
+import custom20Pack from "@/assets/custom-20-pack.png";
 
 export type Product = {
   slug: string;
@@ -158,33 +158,10 @@ const strawberryIceSpecs = [
 
 export const products: Product[] = [
   {
-    slug: "custom-3-pack",
-    name: "3 Flavour Custom Pack",
-    price: "150",
-    originalPrice: "180",
-    img: custom3Pack,
-    tag: "3 Pack",
-    excerpt:
-      "Choose any three Alibarbar Ingot flavours from the current collection and build your own mixed 3-piece pack.",
-    description: `Build your own Alibarbar Ingot 3-piece pack by choosing any three flavours from the current collection.
-
-Each pack includes three Alibarbar Ingot 9000 Puffs devices. Select your preferred flavour for each slot before adding the pack to cart, and your choices will be saved into the order for fulfilment.`,
-    specs: [
-      "3 × ALIBARBAR Ingot disposable vape devices",
-      "Choose any 3 flavours from the current collection",
-      "Pre-charged and inhale-activated — ready to use out of the box",
-      "Delivers up to 9000+ puffs per device",
-      "Built-in LED display for monitoring battery level and e-liquid usage",
-    ],
-    inStock: true,
-    isCustomPack: true,
-    customPackSize: 3,
-  },
-  {
     slug: "custom-5-pack",
     name: "5 Flavour Custom Pack",
-    price: "240",
-    originalPrice: "300",
+    price: "200",
+    originalPrice: "275",
     img: custom5Pack,
     tag: "Best Value",
     excerpt:
@@ -206,8 +183,8 @@ Each pack includes five Alibarbar Ingot 9000 Puffs devices. Select your preferre
   {
     slug: "custom-10-pack",
     name: "10 Flavour Custom Pack",
-    price: "400",
-    originalPrice: "600",
+    price: "350",
+    originalPrice: "550",
     img: custom10Pack,
     tag: "Bulk Pack",
     excerpt:
@@ -225,6 +202,30 @@ Each pack includes ten Alibarbar Ingot 9000 Puffs devices. Select your preferred
     inStock: true,
     isCustomPack: true,
     customPackSize: 10,
+  },
+  {
+    slug: "custom-20-pack",
+    name: "20 Flavour Custom Pack",
+    price: "600",
+    originalPrice: "1100",
+    img: custom20Pack,
+    tag: "Free Shipping",
+    excerpt:
+      "Choose any twenty Alibarbar Ingot flavours from the current collection and build your own mixed 20-piece pack — free Regular Post shipping included.",
+    description: `Build your own Alibarbar Ingot 20-piece pack by choosing any twenty flavours from the current collection.
+
+Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your preferred flavour for each slot before adding the pack to cart, and your choices will be saved into the order for fulfilment. Orders of 20 or more devices ship free via Regular Post.`,
+    specs: [
+      "20 × ALIBARBAR Ingot disposable vape devices",
+      "Choose any 20 flavours from the current collection",
+      "Free Regular Post shipping on this pack (20+ devices)",
+      "Pre-charged and inhale-activated — ready to use out of the box",
+      "Delivers up to 9000+ puffs per device",
+      "Built-in LED display for monitoring battery level and e-liquid usage",
+    ],
+    inStock: true,
+    isCustomPack: true,
+    customPackSize: 20,
   },
   {
     slug: "quadruple-berry",
@@ -381,11 +382,15 @@ export const howToUseSteps: string[] = [
 export function getProductFaq(product: Product): { question: string; answer: string }[] {
   if (product.isCustomPack) {
     const packSize = product.customPackSize ?? 5;
+    const freeShipNote =
+      packSize >= 20
+        ? " This pack qualifies for free Regular Post shipping (20+ devices)."
+        : "";
     return [
       {
         question: `How does the ${packSize} Flavour Custom Pack work?`,
         answer:
-          `Choose any ${packSize} flavours from the current Alibarbar Ingot collection before adding the pack to your cart. Repeats are allowed and your selections are saved with your order for fulfilment.`,
+          `Choose any ${packSize} flavours from the current Alibarbar Ingot collection before adding the pack to your cart. Repeats are allowed and your selections are saved with your order for fulfilment.${freeShipNote}`,
       },
       {
         question: "Is the custom pack cheaper than buying singles?",
@@ -413,7 +418,7 @@ export function getProductFaq(product: Product): { question: string; answer: str
     {
       question: "How long does delivery take in Australia?",
       answer:
-        "Orders are dispatched after your bank transfer is confirmed and typically arrive within 3-7 business days, depending on your state. Shipping is A$20 for under 10 devices and A$10 for 10+ devices.",
+        "Orders are dispatched after your bank transfer is confirmed and typically arrive within 3-7 business days, depending on your state. Shipping is A$20 for under 5 devices, A$10 for 5–19 devices, and free for 20+ devices.",
     },
     {
       question: "Is this a genuine Alibarbar device?",
@@ -433,5 +438,5 @@ export function getSelectableFlavorProducts(): Product[] {
 }
 
 export function getRelatedProducts(slug: string, limit = 4): Product[] {
-  return products.filter((p) => p.slug !== slug).slice(0, limit);
+  return products.filter((p) => p.slug !== slug && !p.isPlaceholder).slice(0, limit);
 }

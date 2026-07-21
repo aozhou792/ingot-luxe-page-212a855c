@@ -51,7 +51,7 @@ export const brandKnowledge = {
     {
       heading: "Flavour & pack knowledge",
       paragraphs: [
-        "The live catalogue includes ten-plus single flavours spanning fruit, iced fruit, soda-inspired and tropical profiles, plus build-your-own 3, 5 and 10 flavour custom packs.",
+        "The live catalogue includes ten-plus single flavours spanning fruit, iced fruit, soda-inspired and tropical profiles, plus build-your-own 5, 10 and 20 flavour custom packs.",
         "Flavour pages and editorial reviews score sweetness, cooling and smoothness so buyers can match taste preference without relying on packaging alone.",
       ],
     },

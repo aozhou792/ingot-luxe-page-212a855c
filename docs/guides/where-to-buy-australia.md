@@ -42,9 +42,9 @@ Try several flavours in one order:
 
 | Pack | Price |
 |------|-------|
-| 3 Flavour Custom Pack | A$100 |
-| 5 Flavour Custom Pack | A$160 |
-| 10 Flavour Custom Pack | A$300 |
+| 5 Flavour Custom Pack | A$200 |
+| 10 Flavour Custom Pack | A$350 |
+| 20 Flavour Custom Pack | A$600 (free shipping) |
 
 ---
 

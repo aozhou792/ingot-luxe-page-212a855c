@@ -4,7 +4,7 @@
 
 ## How much is shipping?
 
-Shipping is **A$20** for orders under 5 devices and **A$10** for orders of 5 or more devices. The fee is added automatically at checkout.
+Shipping is **A$20** for orders under 5 devices, **A$10** for 5–19 devices, and **free** for 20 or more devices. The fee is added automatically at checkout.
 
 ## Do you ship Australia-wide?
 

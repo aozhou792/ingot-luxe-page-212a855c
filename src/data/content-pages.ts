@@ -87,14 +87,14 @@ export const contentPages: ContentPage[] = [
     slug: "shipping",
     title: "Shipping & Delivery Policy",
     description:
-      "How Alibarbar Australia ships disposable vapes — A$20 shipping under 10 devices, A$10 for 10+ devices, dispatch timing, delivery estimates and tracking for Australian customers.",
+      "How Alibarbar Australia ships disposable vapes — A$20 under 5 devices, A$10 for 5–19, free for 20+, dispatch timing, delivery estimates and tracking for Australian customers.",
     intro:
       "We ship Alibarbar Ingot 9000 devices Australia-wide. This page explains our shipping costs, dispatch process and estimated delivery times.",
     sections: [
       {
         heading: "Shipping cost",
         paragraphs: [
-          "Regular Post shipping is A$20 for orders under 10 devices and A$10 for orders of 10 or more devices, added automatically at checkout. There are no hidden handling fees.",
+          "Regular Post shipping is A$20 for orders under 5 devices, A$10 for 5–19 devices, and free for 20 or more devices, added automatically at checkout. There are no hidden handling fees.",
         ],
       },
       {

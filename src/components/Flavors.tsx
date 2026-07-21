@@ -79,12 +79,16 @@ const FlavorCard = ({ f, revealIndex, goToProduct }: FlavorCardProps) => {
           >
             {f.name}
           </Link>
-          <ProductPrice
-            price={f.price}
-            originalPrice={f.originalPrice}
-            className="shrink-0"
-            priceClassName="text-sm sm:text-base md:text-lg"
-          />
+          {f.isPlaceholder ? (
+            <span className="shrink-0 text-sm sm:text-base md:text-lg font-bold text-muted-foreground">TBA</span>
+          ) : (
+            <ProductPrice
+              price={f.price}
+              originalPrice={f.originalPrice}
+              className="shrink-0"
+              priceClassName="text-sm sm:text-base md:text-lg"
+            />
+          )}
         </div>
         <p className="text-[11px] sm:text-xs text-muted-foreground leading-snug line-clamp-2 min-h-[2lh]">
           {f.isCustomPack
@@ -132,8 +136,9 @@ export const Flavors = () => {
     });
   };
 
-  const regularProducts = products.filter((p) => !p.isPlaceholder);
-  const placeholderProducts = products.filter((p) => p.isPlaceholder);
+  // Keep custom-pack placeholders in the main grid (e.g. 20-pack slot after 5/10).
+  const regularProducts = products.filter((p) => !p.isPlaceholder || p.isCustomPack);
+  const placeholderProducts = products.filter((p) => p.isPlaceholder && !p.isCustomPack);
 
   return (
     <section id="flavors" className="pt-8 sm:pt-10 md:pt-12 pb-16 sm:pb-20 md:pb-28 relative scroll-mt-20">
@@ -147,7 +152,7 @@ export const Flavors = () => {
             Explore Our <span className="text-gold">Signature Flavors</span>
           </h2>
           <p className="text-muted-foreground mt-3 sm:mt-4 text-sm sm:text-base px-2">
-            Ten signature flavours plus 3, 5 and 10-piece custom packs.
+            Ten signature flavours plus 5, 10 and 20-piece custom packs.
           </p>
           <div className="gold-divider mt-6 sm:mt-8 max-w-xs mx-auto" />
         </div>

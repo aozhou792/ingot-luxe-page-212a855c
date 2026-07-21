@@ -178,18 +178,22 @@ const ProductPage = () => {
         path={productPath}
         image={product.img}
         type="product"
-        jsonLd={productJsonLd({
-          name: `Alibarbar Ingot 9000 ${product.name}`,
-          description: product.excerpt,
-          image: product.img,
-          price: product.price,
-          inStock: product.inStock,
-          path: productPath,
-          rating: schemaRating.count > 0 ? schemaRating : undefined,
-          reviews: schemaReviews.length > 0 ? schemaReviews : undefined,
-          breadcrumbs,
-          faq: productFaq,
-        })}
+        jsonLd={
+          product.isPlaceholder
+            ? undefined
+            : productJsonLd({
+                name: `Alibarbar Ingot 9000 ${product.name}`,
+                description: product.excerpt,
+                image: product.img,
+                price: product.price,
+                inStock: product.inStock,
+                path: productPath,
+                rating: schemaRating.count > 0 ? schemaRating : undefined,
+                reviews: schemaReviews.length > 0 ? schemaReviews : undefined,
+                breadcrumbs,
+                faq: productFaq,
+              })
+        }
       />
       {/* Ambient background — matches landing luxury feel */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
@@ -288,12 +292,16 @@ const ProductPage = () => {
                 ) : null}
 
                 <div className="flex flex-wrap items-end gap-2 sm:gap-4 pt-1">
-                  <ProductPrice
-                    price={product.price}
-                    originalPrice={product.originalPrice}
-                    priceClassName="text-3xl sm:text-4xl md:text-5xl"
-                    originalClassName="text-lg sm:text-xl pb-1 sm:pb-1.5"
-                  />
+                  {product.isPlaceholder ? (
+                    <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-muted-foreground">TBA</span>
+                  ) : (
+                    <ProductPrice
+                      price={product.price}
+                      originalPrice={product.originalPrice}
+                      priceClassName="text-3xl sm:text-4xl md:text-5xl"
+                      originalClassName="text-lg sm:text-xl pb-1 sm:pb-1.5"
+                    />
+                  )}
                   <span className="text-xs sm:text-sm text-muted-foreground pb-1 sm:pb-1.5 max-w-[12rem] sm:max-w-none leading-snug">
                     {product.isCustomPack
                       ? `${customPackSize} devices · choose your flavours`
@@ -304,7 +312,7 @@ const ProductPage = () => {
 
               {product.isPlaceholder ? (
                 <p className="text-xs sm:text-sm text-primary/85 font-medium leading-relaxed">
-                  Placeholder listing — final hero photography and on-sale date TBA.
+                  Placeholder listing — final hero photography, pricing and on-sale date TBA.
                 </p>
               ) : null}
 
@@ -322,7 +330,7 @@ const ProductPage = () => {
                 </p>
               ) : null}
 
-              {product.isCustomPack ? (
+              {product.isCustomPack && !product.isPlaceholder ? (
                 <div className="rounded-2xl border border-gold/35 bg-card/70 p-4 sm:p-6 space-y-4">
                   <div>
                     <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-primary/80 font-semibold">
@@ -332,7 +340,7 @@ const ProductPage = () => {
                       Select any {customPackSize} from the current flavour collection. Repeats are allowed.
                     </p>
                   </div>
-                  <div className="grid sm:grid-cols-2 gap-3">
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
                     {selectedCustomFlavors.map((value, index) => (
                       <Select
                         key={index}
@@ -365,6 +373,7 @@ const ProductPage = () => {
               ) : null}
 
               {/* Purchase panel */}
+              {!product.isPlaceholder ? (
               <div className="rounded-2xl border border-gold/35 bg-gradient-to-br from-card/95 via-card/60 to-background/95 p-4 sm:p-6 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)]">
                 <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-primary/80 mb-3 sm:mb-4 font-semibold">
                   {product.isCustomPack ? "Pack quantity & checkout" : "Quantity & checkout"}
@@ -411,6 +420,7 @@ const ProductPage = () => {
                   </div>
                 </div>
               </div>
+              ) : null}
 
               {/* Trust chips */}
               <ul className="flex flex-wrap gap-2 sm:gap-3">

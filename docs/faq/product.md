@@ -43,9 +43,9 @@ Quadruple Berry, Fanta, Lychee, Peach Ice, Blackberry Ice, Mango Magic, Strawber
 
 | Pack | Price | Devices |
 |------|-------|---------|
-| 3 Flavour | A$100 | 3 |
-| 5 Flavour | A$160 | 5 |
-| 10 Flavour | A$300 | 10 |
+| 5 Flavour | A$200 | 5 |
+| 10 Flavour | A$350 | 10 |
+| 20 Flavour | A$600 (free shipping) | 20 |
 
 Repeats are allowed. Pick any flavours from the current line-up.
 

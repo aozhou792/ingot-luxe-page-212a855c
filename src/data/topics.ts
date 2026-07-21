@@ -177,7 +177,7 @@ export const topicHubs: TopicHub[] = [
     stats: [
       "18+ only — age verified at checkout",
       "Australia-wide shipping available",
-      "A$20 shipping under 10 devices · A$10 for 10+",
+      "A$20 under 5 · A$10 for 5–19 · free for 20+",
       "Bank transfer payment with order tracking",
     ],
     pros: [
@@ -194,7 +194,7 @@ export const topicHubs: TopicHub[] = [
     quickAnswer: {
       question: "Where can I buy disposable vapes in Australia?",
       answer:
-        "Adults 18+ can buy disposable vapes online from authorised Australian retailers with clear shipping and authenticity policies. Alibarbar Australia stocks the Ingot 9000 range with guides, comparisons and A$20 shipping under 10 devices (A$10 for 10+).",
+        "Adults 18+ can buy disposable vapes online from authorised Australian retailers with clear shipping and authenticity policies. Alibarbar Australia stocks the Ingot 9000 range with guides, comparisons and A$20 shipping under 5 devices (A$10 for 5–19, free for 20+).",
     },
     keyTakeaways: [
       "18+ only",
@@ -246,7 +246,7 @@ export const topicHubs: TopicHub[] = [
       "Up to 9000 puffs",
       "22ml pre-filled capacity",
       "2350mAh battery",
-      "10+ single flavours + 3/5/10 custom packs",
+      "10+ single flavours + 5/10/20 custom packs",
       "Smart LED display",
     ],
     pros: [
@@ -263,7 +263,7 @@ export const topicHubs: TopicHub[] = [
     quickAnswer: {
       question: "What is the Alibarbar Ingot 9000?",
       answer:
-        "The Alibarbar Ingot 9000 is a high-capacity disposable vape with up to 9000 puffs, 22ml e-liquid, mesh coil, 2350mAh battery and a smart LED display. Alibarbar Australia sells authentic devices with 10+ flavours and custom 3, 5 and 10 packs.",
+        "The Alibarbar Ingot 9000 is a high-capacity disposable vape with up to 9000 puffs, 22ml e-liquid, mesh coil, 2350mAh battery and a smart LED display. Alibarbar Australia sells authentic devices with 10+ flavours and custom 5, 10 and 20 packs.",
     },
     keyTakeaways: [
       "Flagship Alibarbar model for Australia",
@@ -274,7 +274,7 @@ export const topicHubs: TopicHub[] = [
     faq: [
       {
         question: "Where to buy Alibarbar Ingot 9000 in Australia?",
-        answer: "Alibarbar Australia at www.ailibarbar.com stocks authentic Ingot 9000 devices with Australia-wide shipping.",
+        answer: "Alibarbar Australia at ailibarbar.com stocks authentic Ingot 9000 devices with Australia-wide shipping.",
       },
     ],
     guides: [
