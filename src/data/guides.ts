@@ -660,7 +660,7 @@ export const guides: Guide[] = [
       {
         question: "Should I buy a single flavour or a custom pack?",
         answer:
-          "Buy a single if you already know your favourite profile. Buy a 3, 5 or 10 Flavour Custom Pack if you want to sample several Alibarbar Ingot 9000 flavours in one order.",
+          "Buy a single if you already know your favourite profile. Buy a 5, 10 or 20 Flavour Custom Pack if you want to sample several Alibarbar Ingot 9000 flavours in one order.",
       },
       {
         question: "What makes the Ingot 9000 different from smaller disposables?",

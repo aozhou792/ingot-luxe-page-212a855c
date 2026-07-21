@@ -14,8 +14,10 @@ import {
 import { products } from "@/data/products";
 import { fetchReviews, type PublicReview } from "@/lib/reviews-api";
 
+const DISCONTINUED_REVIEW_SLUGS = new Set(["custom-3-pack"]);
+
 const reviewProducts = products
-  .filter((product) => !product.isPlaceholder)
+  .filter((product) => product.inStock && !product.isPlaceholder && !DISCONTINUED_REVIEW_SLUGS.has(product.slug))
   .map((product) => ({ slug: product.slug, name: product.name }));
 
 export const CustomerReviews = () => {

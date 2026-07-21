@@ -4,7 +4,7 @@ const steps = [
   {
     icon: ShoppingBag,
     title: "1. Choose your device",
-    desc: "Pick a signature flavour or build a 3, 5 or 10 Flavour Custom Pack, then add it to your cart and check out.",
+    desc: "Pick a signature flavour or build a 5, 10 or 20 Flavour Custom Pack, then add it to your cart and check out.",
   },
   {
     icon: Banknote,
