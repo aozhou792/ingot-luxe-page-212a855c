@@ -57,6 +57,8 @@ export const syndicationArticles: SyndicationArticle[] = [
     canonicalPath: "/guides/how-to-spot-fake-alibarbar-ingot",
     datePublished: "2026-07-22",
     platforms: ["medium", "substack"],
+    mediumUrl:
+      "https://medium.com/@hxjspacex1/how-to-spot-a-fake-alibarbar-ingot-9000-australia-2df91ff95cf7",
   },
   {
     slug: "best-iced-sync",
@@ -76,6 +78,17 @@ export const syndicationArticles: SyndicationArticle[] = [
     datePublished: "2026-07-22",
     platforms: ["medium", "substack"],
   },
+  {
+    slug: "blackberry-vs-peach-sync",
+    title: "Blackberry Ice vs Peach Ice: Which Alibarbar Flavour Is Better?",
+    excerpt:
+      "Chill level, fruit profile, who each suits, and which iced Ingot 9000 to try first in Australia.",
+    canonicalPath: "/guides/blackberry-ice-vs-peach-ice",
+    datePublished: "2026-07-22",
+    platforms: ["medium", "substack"],
+    mediumUrl:
+      "https://medium.com/@hxjspacex1/blackberry-ice-vs-peach-ice-which-alibarbar-flavour-is-better-642c91c01246",
+  },
 ];
 
 export const syndicationHub = {
@@ -84,7 +97,7 @@ export const syndicationHub = {
     "How Alibarbar Australia syncs buying guides, research and comparisons to Medium and Substack while keeping ailibarbar.com as the canonical source.",
   intro:
     "We republish selected knowledge articles to Medium and Substack so readers on those platforms can discover Alibarbar Australia content. Every mirrored post should point back to the canonical URL on this site.",
-  dateModified: "2026-07-18",
+  dateModified: "2026-07-22",
   rules: [
     "Canonical URL always lives on www.ailibarbar.com",
     "Medium / Substack posts include a top link to the canonical article",
