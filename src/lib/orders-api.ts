@@ -1,18 +1,35 @@
 import type { OrderDetails, PaymentStatus, StoredOrder } from "@/lib/orders";
 
 const ADMIN_KEY_STORAGE = "alibarbar-admin-key";
+const ADMIN_KEY_REMEMBER = "alibarbar-admin-key-remember";
 
 export function getAdminKey(): string {
   if (typeof window === "undefined") return "";
-  return sessionStorage.getItem(ADMIN_KEY_STORAGE) ?? "";
+  return localStorage.getItem(ADMIN_KEY_STORAGE) ?? sessionStorage.getItem(ADMIN_KEY_STORAGE) ?? "";
 }
 
-export function setAdminKey(key: string): void {
-  sessionStorage.setItem(ADMIN_KEY_STORAGE, key.trim());
+export function isAdminKeyRemembered(): boolean {
+  if (typeof window === "undefined") return false;
+  return localStorage.getItem(ADMIN_KEY_REMEMBER) === "1" && Boolean(localStorage.getItem(ADMIN_KEY_STORAGE));
+}
+
+export function setAdminKey(key: string, remember = false): void {
+  const trimmed = key.trim();
+  if (remember) {
+    localStorage.setItem(ADMIN_KEY_STORAGE, trimmed);
+    localStorage.setItem(ADMIN_KEY_REMEMBER, "1");
+    sessionStorage.removeItem(ADMIN_KEY_STORAGE);
+  } else {
+    sessionStorage.setItem(ADMIN_KEY_STORAGE, trimmed);
+    localStorage.removeItem(ADMIN_KEY_STORAGE);
+    localStorage.removeItem(ADMIN_KEY_REMEMBER);
+  }
 }
 
 export function clearAdminKey(): void {
   sessionStorage.removeItem(ADMIN_KEY_STORAGE);
+  localStorage.removeItem(ADMIN_KEY_STORAGE);
+  localStorage.removeItem(ADMIN_KEY_REMEMBER);
 }
 
 function authHeaders(): HeadersInit {

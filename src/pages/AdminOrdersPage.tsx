@@ -6,7 +6,9 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogContent,
@@ -21,6 +23,7 @@ import {
   fetchOrdersFromBackend,
   fetchReceiptBlobUrl,
   getAdminKey,
+  isAdminKeyRemembered,
   setAdminKey,
   updateOrderStatusOnBackend,
 } from "@/lib/orders-api";
@@ -170,6 +173,7 @@ const ReceiptImage = ({ order }: { order: StoredOrder }) => {
 
 const AdminOrdersPage = () => {
   const [adminKeyInput, setAdminKeyInput] = useState("");
+  const [rememberKey, setRememberKey] = useState(() => isAdminKeyRemembered());
   const [authed, setAuthed] = useState(() => Boolean(getAdminKey()));
   const [orders, setOrders] = useState<StoredOrder[]>([]);
   const [query, setQuery] = useState("");
@@ -224,13 +228,15 @@ const AdminOrdersPage = () => {
       toast.error("请输入管理员密钥。");
       return;
     }
-    setAdminKey(adminKeyInput.trim());
+    setAdminKey(adminKeyInput.trim(), rememberKey);
     setAuthed(true);
-    toast.success("登录成功。");
+    toast.success(rememberKey ? "登录成功，已记住密钥。" : "登录成功。");
   };
 
   const logout = () => {
     clearAdminKey();
+    setRememberKey(false);
+    setAdminKeyInput("");
     setAuthed(false);
     setOrders([]);
   };
@@ -286,6 +292,16 @@ const AdminOrdersPage = () => {
                 if (e.key === "Enter") login();
               }}
             />
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="remember-admin-key"
+                checked={rememberKey}
+                onCheckedChange={(checked) => setRememberKey(checked === true)}
+              />
+              <Label htmlFor="remember-admin-key" className="text-sm font-normal cursor-pointer">
+                记住密钥
+              </Label>
+            </div>
             <Button className="w-full" onClick={login}>
               登录
             </Button>
