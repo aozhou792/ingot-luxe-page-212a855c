@@ -1,0 +1,17 @@
+# Local-only files
+.env*
+.vercel
+.tmp-*
+.vercel-login.txt
+vercel-logs.txt
+
+# Dependency/build output
+node_modules
+dist
+dist-ssr
+
+# Scratch/import data not used by the app build
+333/
+_github-db/
+src/assets/DM_*
+src/assets/alibarbar-logo-source.png

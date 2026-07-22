@@ -231,7 +231,11 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     relatedProducts: ["mango-magic", "peach-ice", "custom-5-pack"],
-    relatedGuides: ["best-alibarbar-flavours-australia"],
+    relatedGuides: [
+      "best-alibarbar-flavours-australia",
+      "best-iced-alibarbar-flavours-australia",
+      "blackberry-ice-vs-peach-ice",
+    ],
   },
   {
     slug: "how-to-make-your-disposable-vape-last-longer",

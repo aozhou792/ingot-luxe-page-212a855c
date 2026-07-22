@@ -373,7 +373,7 @@ export const contentPages: ContentPage[] = [
       {
         heading: "How we verify age",
         paragraphs: [
-          "Every visitor must confirm they are 18+ via our age gate before browsing the store. At checkout you confirm again that you meet the legal age requirement. We reserve the right to cancel orders where age cannot be verified.",
+          "By placing an order you confirm you are 18 years or older and of legal age to purchase vaping products where you live. We reserve the right to cancel orders where age cannot be verified, and carriers may request proof of age on delivery.",
         ],
       },
       {

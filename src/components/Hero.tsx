@@ -17,15 +17,44 @@ export const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [loadVideo, setLoadVideo] = useState(false);
 
-  // Defer the ~1.7MB hero MP4 so first paint / fonts / product images win the network.
+  // LCP: keep a static poster as the hero paint. Only load the ~1.7MB MP4 after
+  // idle / interaction / long delay so mobile CWV is not blocked by video.
   useEffect(() => {
     let cancelled = false;
-    const timer = window.setTimeout(() => {
+    const startVideo = () => {
       if (!cancelled) setLoadVideo(true);
-    }, 700);
+    };
+
+    const connection =
+      typeof navigator !== "undefined"
+        ? (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection
+        : undefined;
+    const slowNetwork =
+      Boolean(connection?.saveData) ||
+      connection?.effectiveType === "slow-2g" ||
+      connection?.effectiveType === "2g";
+
+    if (slowNetwork) return;
+
+    const onInteract = () => startVideo();
+    window.addEventListener("pointerdown", onInteract, { once: true, passive: true });
+    window.addEventListener("keydown", onInteract, { once: true });
+
+    let idleId: number | undefined;
+    let timer = window.setTimeout(startVideo, 4500);
+    const ric = window.requestIdleCallback;
+    if (typeof ric === "function") {
+      idleId = ric(() => startVideo(), { timeout: 5000 });
+    }
+
     return () => {
       cancelled = true;
       window.clearTimeout(timer);
+      window.removeEventListener("pointerdown", onInteract);
+      window.removeEventListener("keydown", onInteract);
+      if (idleId != null && typeof window.cancelIdleCallback === "function") {
+        window.cancelIdleCallback(idleId);
+      }
     };
   }, []);
 
@@ -130,19 +159,31 @@ export const Hero = () => {
                 className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] shadow-[inset_0_0_80px_rgba(212,175,55,0.08)]"
                 aria-hidden
               />
-              <video
-                ref={videoRef}
-                className="relative z-0 block w-full aspect-[3/4] sm:aspect-[4/5] object-cover object-center"
-                autoPlay={loadVideo}
-                muted
-                loop
-                playsInline
-                preload="none"
-                poster={heroDevice}
-                aria-label="Alibarbar Ingot 9000 Puffs gold luxury vape device — product showcase video"
-              >
-                {loadVideo ? <source src="/hero-alibarbar.mp4" type="video/mp4" /> : null}
-              </video>
+              {!loadVideo ? (
+                <img
+                  src={heroDevice}
+                  alt="Alibarbar Ingot 9000 disposable vape — gold device showcase"
+                  width={800}
+                  height={1000}
+                  decoding="async"
+                  fetchPriority="high"
+                  className="relative z-0 block w-full aspect-[3/4] sm:aspect-[4/5] object-cover object-center"
+                />
+              ) : (
+                <video
+                  ref={videoRef}
+                  className="relative z-0 block w-full aspect-[3/4] sm:aspect-[4/5] object-cover object-center"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                  poster={heroDevice}
+                  aria-label="Alibarbar Ingot 9000 Puffs gold luxury vape device — product showcase video"
+                >
+                  <source src="/hero-alibarbar.mp4" type="video/mp4" />
+                </video>
+              )}
             </div>
           </div>
         </div>

@@ -49,6 +49,33 @@ export const syndicationArticles: SyndicationArticle[] = [
     datePublished: "2026-07-14",
     platforms: ["medium", "substack"],
   },
+  {
+    slug: "spot-fake-sync",
+    title: "How to Spot a Fake Alibarbar Ingot 9000 (Australia)",
+    excerpt:
+      "Packaging, LED, vapour and spec checks so adult AU buyers can reduce counterfeit risk.",
+    canonicalPath: "/guides/how-to-spot-fake-alibarbar-ingot",
+    datePublished: "2026-07-22",
+    platforms: ["medium", "substack"],
+  },
+  {
+    slug: "best-iced-sync",
+    title: "Best Iced Alibarbar Flavours in Australia (Ranked)",
+    excerpt:
+      "Peach Ice, Blackberry Ice, Grape Ice and Strawberry Ice ranked by chill level and who each suits.",
+    canonicalPath: "/guides/best-iced-alibarbar-flavours-australia",
+    datePublished: "2026-07-22",
+    platforms: ["medium", "substack"],
+  },
+  {
+    slug: "led-finished-sync",
+    title: "How to Read the Alibarbar LED (When Is It Finished?)",
+    excerpt:
+      "What the Ingot 9000 battery and e-liquid indicators mean, and when to replace the device.",
+    canonicalPath: "/guides/how-to-read-alibarbar-led-when-finished",
+    datePublished: "2026-07-22",
+    platforms: ["medium", "substack"],
+  },
 ];
 
 export const syndicationHub = {

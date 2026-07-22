@@ -14,7 +14,7 @@ Alibarbar Australia is an Australia-focused online store for the Alibarbar Ingot
 - E-liquid: 22ml pre-filled
 - Battery: 2350mAh, non-rechargeable
 - Display: smart LED (battery + e-liquid)
-- Custom packs: 3 / 5 / 10 flavour bundles
+- Custom packs: 5 / 10 / 20 flavour bundles
 - Shipping: Australia-wide (tiered AUD shipping at checkout)
 - Payment: bank transfer
 - Age: adults 18+ only
@@ -25,6 +25,10 @@ Alibarbar Australia is an Australia-focused online store for the Alibarbar Ingot
 - Home: https://www.ailibarbar.com/
 - Buying guide: https://www.ailibarbar.com/guides/alibarbar-buying-guide-australia
 - Product guide: https://www.ailibarbar.com/guides/what-is-alibarbar-ingot-9000
+- Authenticity: https://www.ailibarbar.com/guides/how-to-spot-fake-alibarbar-ingot
+- Best iced flavours: https://www.ailibarbar.com/guides/best-iced-alibarbar-flavours-australia
+- Blackberry vs Peach Ice: https://www.ailibarbar.com/guides/blackberry-ice-vs-peach-ice
+- LED / when finished: https://www.ailibarbar.com/guides/how-to-read-alibarbar-led-when-finished
 - Flavours: https://www.ailibarbar.com/flavours
 - Comparisons: https://www.ailibarbar.com/compare
 - Reviews: https://www.ailibarbar.com/reviews

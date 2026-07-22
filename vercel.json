@@ -41,6 +41,41 @@
       "source": "/verify",
       "destination": "/",
       "statusCode": 301
+    },
+    {
+      "source": "/contact-us",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/product/custom-3-pack",
+      "destination": "/product/custom-5-pack",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/the-ultimate-guide-to-alibarbar-ingot-9000",
+      "destination": "/guides/what-is-alibarbar-ingot-9000",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/disposable-vape-performance-australia",
+      "destination": "/research/high-puff-disposable-capacity-australia-2026",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/flavours-ranking-vape-alibarbar",
+      "destination": "/blog/top-alibarbar-flavours-ranked",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/best-disposable-vape-australia-2024",
+      "destination": "/blog/best-disposable-vape-australia-2026",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/best-disposable-vape-australia-2023",
+      "destination": "/blog/best-disposable-vape-australia-2026",
+      "statusCode": 301
     }
   ],
   "rewrites": [

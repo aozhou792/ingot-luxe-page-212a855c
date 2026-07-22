@@ -253,7 +253,7 @@ export const guides: Guide[] = [
     category: "Battery Guide",
     readTime: "6 min read",
     datePublished: "2026-02-10",
-    dateModified: "2026-07-13",
+    dateModified: "2026-07-22",
     intro:
       "Searches like how to recharge an Alibarbar, recharge Alibarbar vape, or how to recharge a Alibarbar all point to the same question. The important answer is simple: the Ingot 9000 is a non-rechargeable disposable device, so it should not be charged or modified. This guide explains why, how the battery is designed to work, and how to know when it is time to replace the device.",
     quickAnswer: {
@@ -335,6 +335,7 @@ export const guides: Guide[] = [
     ],
     relatedProducts: ["custom-5-pack", "peach-ice", "quadruple-berry"],
     relatedGuides: [
+      "how-to-read-alibarbar-led-when-finished",
       "how-many-puffs-does-alibarbar-ingot-9000-have",
       "how-to-open-alibarbar-vape",
       "how-long-does-alibarbar-ingot-9000-last",
@@ -551,7 +552,7 @@ export const guides: Guide[] = [
       {
         heading: "Best iced flavours",
         paragraphs: [
-          "For a cool finish, the iced range delivers. Peach Ice, Grape Ice, Blackberry Ice and Strawberry Ice all pair ripe fruit with a crisp menthol exhale, making them ideal for warm Australian days.",
+          "For a cool finish, the iced range delivers. Peach Ice, Grape Ice, Blackberry Ice and Strawberry Ice all pair ripe fruit with a crisp menthol exhale, making them ideal for warm Australian days. For a full iced ranking — chill level and who each suits — see our best iced Alibarbar flavours guide.",
         ],
       },
       {
@@ -568,7 +569,11 @@ export const guides: Guide[] = [
       },
     ],
     relatedProducts: ["quadruple-berry", "peach-ice", "custom-5-pack"],
-    relatedGuides: ["what-is-alibarbar-ingot-9000", "how-to-use-a-disposable-vape"],
+    relatedGuides: [
+      "best-iced-alibarbar-flavours-australia",
+      "blackberry-ice-vs-peach-ice",
+      "what-is-alibarbar-ingot-9000",
+    ],
   },
   {
     slug: "disposable-vape-laws-in-australia",
@@ -728,6 +733,390 @@ export const guides: Guide[] = [
       "what-is-alibarbar-ingot-9000",
       "best-alibarbar-flavours-australia",
       "disposable-vape-laws-in-australia",
+    ],
+  },
+  {
+    slug: "how-to-spot-fake-alibarbar-ingot",
+    title: "How to Spot a Fake Alibarbar Ingot 9000 (Australia Guide)",
+    description:
+      "How to spot a fake Alibarbar Ingot 9000 in Australia — packaging checks, LED display, vapour quality, and why buying from a trusted AU retailer matters.",
+    category: "Authenticity Guide",
+    readTime: "7 min read",
+    datePublished: "2026-07-22",
+    dateModified: "2026-07-22",
+    intro:
+      "Counterfeit disposables are a real risk in any high-demand category. This guide shows adult Australian buyers how to spot a fake Alibarbar Ingot 9000 using practical checks — packaging, branding, LED behaviour and vapour quality — and how to reduce risk before you order.",
+    quickAnswer: {
+      question: "How do you spot a fake Alibarbar Ingot 9000?",
+      answer:
+        "Check for clear ALIBARBAR branding on packaging, a working smart LED that shows battery and e-liquid, consistent mesh-coil vapour, and specs that match the real device (up to 9000 puffs, 22ml, 2350mAh). The safest approach is buying from a trusted Australian retailer rather than unverified grey-market listings.",
+    },
+    keyTakeaways: [
+      "Real Ingot 9000 units include a working LED for battery and e-liquid",
+      "Packaging and ALIBARBAR branding should be consistent and clear",
+      "Specs should align: ~22ml tank, 2350mAh, up to 9000 puffs",
+      "Burnt taste, missing LED, or odd packaging are red flags",
+      "Buy from trusted AU sellers — authenticity starts with the supply chain",
+    ],
+    sections: [
+      {
+        heading: "Why authenticity matters in Australia",
+        paragraphs: [
+          "High-puff disposables attract lookalike stock. A fake device can mean inconsistent nicotine delivery, poor coil quality, leaking tanks, or unsafe battery behaviour. For adult buyers in Australia, authenticity is both a safety issue and a value issue — a counterfeit rarely delivers the rated life of a genuine Ingot 9000.",
+          "This page is a practical checklist, not a laboratory test. If anything feels off, stop using the device and contact the seller.",
+        ],
+      },
+      {
+        heading: "Packaging and branding checks",
+        paragraphs: ["Before you even take a draw, inspect the box and wrap:"],
+        bullets: [
+          "ALIBARBAR / Ingot branding should be sharp — not blurry, misspelled, or poorly printed",
+          "Flavour name on the pack should match the device label",
+          "Seals and wrap should look intentional, not re-taped or crushed",
+          "Avoid listings that refuse clear product photos or use only stock images from unrelated brands",
+        ],
+      },
+      {
+        heading: "LED display behaviour (strong signal)",
+        paragraphs: [
+          "A genuine Alibarbar Ingot 9000 includes a smart LED display that helps you monitor remaining battery and e-liquid. If a seller describes an Ingot 9000 with no display, or the screen never lights / shows nonsense readings, treat that as a major authenticity warning.",
+          "The LED is one of the easiest consumer-facing differences versus many generic high-puff sticks — use it.",
+        ],
+      },
+      {
+        heading: "Spec sanity check",
+        paragraphs: [
+          "Marketing numbers get copied by fakes. Cross-check claimed specs against the known Ingot 9000 package:",
+        ],
+        bullets: [
+          "Up to 9000 puffs (usage dependent)",
+          "About 22ml pre-filled e-liquid",
+          "About 2350mAh non-rechargeable battery",
+          "Inhale-activated mesh coil — no user charging port for consumer recharge",
+        ],
+      },
+      {
+        heading: "Vapour and flavour red flags",
+        paragraphs: [
+          "A brand-new authentic device should produce consistent vapour on gentle draws without an immediate burnt taste. Early harsh burnt notes, heavy leaking, or flavour that collapses within the first day are common complaints with low-grade clones.",
+          "One bad unit can be a manufacturing fault — repeated issues from the same seller pattern toward supply-chain problems.",
+        ],
+      },
+      {
+        heading: "Buying safely in Australia",
+        paragraphs: [
+          "The most reliable authenticity control is the retailer. Prefer Australian-facing stores that specialise in the product, publish clear specs, and provide support after payment. Extreme underpricing versus normal AU street prices is often a warning, not a bargain.",
+          "Alibarbar Australia focuses on genuine Ingot 9000 devices with the LED + capacity package described above. If you need help verifying a unit you already own, email orders@ailibarbar.com with clear photos of the packaging and device.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "How can I tell if my Alibarbar Ingot 9000 is fake?",
+        answer:
+          "Check branding quality, confirm the smart LED works, and compare specs to the real Ingot 9000 (22ml, 2350mAh, up to 9000 puffs). Missing LED, blurry packaging, or immediate burnt taste are common warning signs.",
+      },
+      {
+        question: "Does a real Alibarbar Ingot 9000 have an LED screen?",
+        answer:
+          "Yes. The genuine Ingot 9000 includes a smart LED display for battery and e-liquid levels. A unit sold as Ingot 9000 without a working display should be treated with caution.",
+      },
+      {
+        question: "Where should I buy Alibarbar in Australia to avoid fakes?",
+        answer:
+          "Buy from trusted Australian retailers that publish clear specs and support. Avoid anonymous grey-market listings with prices far below normal AU ranges and no after-sales contact.",
+      },
+    ],
+    relatedProducts: ["custom-5-pack", "peach-ice", "blackberry-ice"],
+    relatedGuides: [
+      "what-is-alibarbar-ingot-9000",
+      "alibarbar-buying-guide-australia",
+      "can-you-recharge-alibarbar-ingot-9000",
+    ],
+  },
+  {
+    slug: "best-iced-alibarbar-flavours-australia",
+    title: "Best Iced Alibarbar Flavours in Australia (Ranked)",
+    description:
+      "Best iced Alibarbar Ingot 9000 flavours in Australia — Peach Ice, Blackberry Ice, Grape Ice and Strawberry Ice ranked by chill level and who each suits.",
+    category: "Flavour Guide",
+    readTime: "7 min read",
+    datePublished: "2026-07-22",
+    dateModified: "2026-07-22",
+    intro:
+      "Looking for the best iced Alibarbar flavours in Australia? The Ingot 9000 iced range is short but distinct. This guide ranks Peach Ice, Blackberry Ice, Grape Ice and Strawberry Ice by cooling strength and everyday usability — the same style of answer Google already rewards on our flavour ranking pages.",
+    quickAnswer: {
+      question: "What is the best iced Alibarbar flavour in Australia?",
+      answer:
+        "Start with Peach Ice if you want a moderate chill and an easy all-day profile. Prefer a stronger cool and darker berry? Choose Blackberry Ice. Grape Ice sits in between with a candy-grape note; Strawberry Ice is the brightest fruit-plus-ice option. Unsure — put all four in a 5 Flavour Custom Pack.",
+    },
+    keyTakeaways: [
+      "Peach Ice is the safest first iced pick (moderate cool)",
+      "Blackberry Ice is the strongest chill in the current iced set",
+      "Grape Ice and Strawberry Ice cover candy-grape and bright berry-ice",
+      "Iced ≠ pure menthol — fruit still leads on every Ingot 9000 ice SKU",
+      "A custom pack beats guessing a single iced flavour",
+    ],
+    sections: [
+      {
+        heading: "How we ranked the iced range",
+        paragraphs: [
+          "We ranked for Australian adult buyers who already vape and want a clear first choice — not a marketing list. Criteria: cooling intensity, fruit clarity, all-day comfort, and how often the flavour is requested versus other iced SKUs.",
+          "If you hate menthol, skip this page and read our fruity picks instead. If you only want ice, start here.",
+        ],
+      },
+      {
+        heading: "1. Peach Ice — best overall iced pick",
+        paragraphs: [
+          "Peach Ice pairs ripe orchard peach with a moderate cool finish. The fruit leads; the ice shows up on the exhale without numbing the palate. That balance is why it is our default recommendation for anyone trying iced Alibarbar for the first time.",
+          "Choose Peach Ice for warm-weather all-day use, or if you normally vape pure fruit and want a gentle step into chill.",
+        ],
+      },
+      {
+        heading: "2. Blackberry Ice — best for a stronger chill",
+        paragraphs: [
+          "Blackberry Ice is darker and cooler than Peach Ice. Jammy blackberry sits up front, then a cleaner menthol edge finishes the draw. Menthol fans and dark-berry drinkers usually land here.",
+          "If Peach Ice feels too soft, try Blackberry Ice next — or read our Blackberry Ice vs Peach Ice guide before you commit.",
+        ],
+      },
+      {
+        heading: "3. Grape Ice — candy grape with a crisp finish",
+        paragraphs: [
+          "Grape Ice leans sweeter and more candy-like than blackberry, with a cool exhale that keeps it from tasting syrupy. It sits between Peach Ice and Blackberry Ice on chill for many users.",
+        ],
+      },
+      {
+        heading: "4. Strawberry Ice — brightest fruit-plus-ice",
+        paragraphs: [
+          "Strawberry Ice keeps the berry note lighter and more familiar, with ice for lift rather than a heavy menthol blast. It is a good pick if you like strawberry profiles but want a cooler finish than plain fruit SKUs.",
+        ],
+      },
+      {
+        heading: "Quick picker (Australia)",
+        paragraphs: ["Use this if you only want a one-line answer:"],
+        bullets: [
+          "First iced device ever → Peach Ice",
+          "Want colder + darker berry → Blackberry Ice",
+          "Want candy grape → Grape Ice",
+          "Want bright strawberry + ice → Strawberry Ice",
+          "Want to compare ice levels → 5 Flavour Custom Pack with all four",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "What is the best iced Alibarbar flavour?",
+        answer:
+          "Peach Ice is the best all-round iced pick for most adult buyers in Australia. Blackberry Ice wins if you want a stronger cool and darker berry.",
+      },
+      {
+        question: "Which Alibarbar ice flavour is the coldest?",
+        answer:
+          "Blackberry Ice typically feels colder than Peach Ice. Grape Ice and Strawberry Ice sit closer to a medium chill for many users.",
+      },
+      {
+        question: "How many iced Alibarbar Ingot 9000 flavours are there?",
+        answer:
+          "Four in the current line-up: Peach Ice, Blackberry Ice, Grape Ice and Strawberry Ice.",
+      },
+      {
+        question: "Should I buy Peach Ice or Blackberry Ice?",
+        answer:
+          "Peach Ice for a softer chill and easier all-day peach profile; Blackberry Ice for darker berry and a stronger cool. See our head-to-head guide for a full breakdown.",
+      },
+    ],
+    relatedProducts: ["peach-ice", "blackberry-ice", "grape-ice", "strawberry-ice", "custom-5-pack"],
+    relatedGuides: [
+      "best-alibarbar-flavours-australia",
+      "blackberry-ice-vs-peach-ice",
+      "what-is-alibarbar-ingot-9000",
+    ],
+  },
+  {
+    slug: "blackberry-ice-vs-peach-ice",
+    title: "Blackberry Ice vs Peach Ice: Which Alibarbar Flavour Is Better?",
+    description:
+      "Blackberry Ice vs Peach Ice on the Alibarbar Ingot 9000 — chill level, fruit profile, who each suits, and which to buy first in Australia.",
+    category: "Flavour Compare",
+    readTime: "6 min read",
+    datePublished: "2026-07-22",
+    dateModified: "2026-07-22",
+    intro:
+      "Blackberry Ice and Peach Ice are the two iced Alibarbar flavours Australian buyers ask about most. Both are Ingot 9000 disposables with the same device specs — the difference is taste and cooling. Here is a direct, practical comparison.",
+    quickAnswer: {
+      question: "Is Blackberry Ice or Peach Ice better?",
+      answer:
+        "Peach Ice is better if you want a moderate chill and a soft peach all-day vape. Blackberry Ice is better if you want darker berry and a stronger cool finish. Same device (up to 9000 puffs, 22ml, LED) — pick the flavour profile, not the hardware.",
+    },
+    keyTakeaways: [
+      "Same Ingot 9000 hardware — only the e-liquid profile changes",
+      "Peach Ice = softer fruit + moderate ice",
+      "Blackberry Ice = darker berry + stronger chill",
+      "New to ice → start Peach Ice",
+      "Menthol / dark-berry fans → Blackberry Ice",
+    ],
+    sections: [
+      {
+        heading: "Short answer",
+        paragraphs: [
+          "There is no universal winner. Peach Ice wins for approachability. Blackberry Ice wins for intensity. If you are splitting a custom pack, include both and decide after a few days — that is usually cheaper than guessing wrong on a single.",
+        ],
+      },
+      {
+        heading: "Side-by-side differences",
+        paragraphs: ["What actually changes between the two SKUs:"],
+        bullets: [
+          "Fruit: soft orchard peach vs jammy/tart blackberry",
+          "Cooling: moderate (Peach Ice) vs stronger (Blackberry Ice)",
+          "Sweetness: both mid-sweet; peach reads juicier, blackberry reads deeper",
+          "Best time of day: Peach Ice is the easier all-day; Blackberry Ice often preferred when you want a brisker hit",
+        ],
+      },
+      {
+        heading: "Who should buy Peach Ice",
+        paragraphs: [
+          "Choose Peach Ice if you usually like fruit without heavy menthol, or you are stepping into iced flavours for the first time. It is also the safer pick for long sessions in warm weather when a harsh cool becomes tiring.",
+        ],
+      },
+      {
+        heading: "Who should buy Blackberry Ice",
+        paragraphs: [
+          "Choose Blackberry Ice if you already like menthol-forward disposables or dark berry drinks. GSC interest in Blackberry Ice product pages suggests this profile is already being searched — match the listing only if you want that stronger finish.",
+        ],
+      },
+      {
+        heading: "Same device specs (do not overthink hardware)",
+        paragraphs: [
+          "Both are Alibarbar Ingot 9000 units: up to 9000 puffs, about 22ml e-liquid, 2350mAh non-rechargeable battery, smart LED, inhale-activated. You are not choosing between two devices — only between two flavour fills.",
+        ],
+      },
+      {
+        heading: "Still unsure?",
+        paragraphs: [
+          "Order a 5 Flavour Custom Pack with Peach Ice and Blackberry Ice plus two other profiles (for example Grape Ice and Quadruple Berry). That is the fastest way to map your preference without locking into one SKU.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Which is colder — Blackberry Ice or Peach Ice?",
+        answer:
+          "Blackberry Ice is generally colder. Peach Ice keeps a moderate cool so the peach note stays clear.",
+      },
+      {
+        question: "Can I get both in one order?",
+        answer:
+          "Yes. Use a 5 Flavour Custom Pack and select both Peach Ice and Blackberry Ice among your five flavours.",
+      },
+      {
+        question: "Is Blackberry Ice the same as Cool Mint?",
+        answer:
+          "No. Blackberry Ice is a fruit-plus-ice profile. Older Cool Mint listings on this site redirect to Blackberry Ice as the closest current iced berry option — always check the flavour name on the product page.",
+      },
+    ],
+    relatedProducts: ["blackberry-ice", "peach-ice", "custom-5-pack"],
+    relatedGuides: [
+      "best-iced-alibarbar-flavours-australia",
+      "best-alibarbar-flavours-australia",
+      "how-to-spot-fake-alibarbar-ingot",
+    ],
+  },
+  {
+    slug: "how-to-read-alibarbar-led-when-finished",
+    title: "How to Read the Alibarbar LED (When Is It Finished?)",
+    description:
+      "How to read the Alibarbar Ingot 9000 LED display — what battery and e-liquid indicators mean, and how to know when the device is finished and should be replaced.",
+    category: "How-To Guide",
+    readTime: "6 min read",
+    datePublished: "2026-07-22",
+    dateModified: "2026-07-22",
+    intro:
+      "Searches like how to read Alibarbar LED, when is my Alibarbar finished, or Alibarbar flashing light all point to the same problem: understanding the smart display before the device dies mid-day. This guide explains what the Ingot 9000 LED is telling you and when to replace it.",
+    quickAnswer: {
+      question: "How do you know when an Alibarbar Ingot 9000 is finished?",
+      answer:
+        "Check the smart LED: if e-liquid is empty, the device is finished even if some battery remains. If the battery indicator is empty and vapour drops, replace it. Weak vapour, burnt taste, or a flash with no vapour usually means end of life — do not try to recharge it.",
+    },
+    keyTakeaways: [
+      "LED shows remaining battery and e-liquid — use both, not just one",
+      "Empty e-liquid = finished, even with battery left",
+      "Empty battery + weak vapour = finished",
+      "Flashing / no vapour / burnt taste are end-of-life signals",
+      "Ingot 9000 is non-rechargeable — replace, do not charge",
+    ],
+    sections: [
+      {
+        heading: "What the Alibarbar LED is for",
+        paragraphs: [
+          "The Alibarbar Ingot 9000 includes a smart LED display so you can see remaining battery and e-liquid at a glance. That is the main advantage over many blind high-puff sticks that die without warning.",
+          "Glance at the screen after your first draws when you unbox a device, then check it again when flavour or vapour starts to change. The display is a planning tool — not a toy to ignore until the device fails.",
+        ],
+      },
+      {
+        heading: "How to read battery vs e-liquid",
+        paragraphs: [
+          "Treat the two indicators separately:",
+        ],
+        bullets: [
+          "E-liquid empty → device is finished for practical use, even if battery still shows some charge",
+          "Battery empty + vapour dropping → replace the device",
+          "Both healthy + normal vapour → keep using; plan a replacement before a long day out",
+        ],
+      },
+      {
+        heading: "Signs it is finished (even without staring at the screen)",
+        paragraphs: [
+          "Not every end-of-life moment is a perfect empty icon. Common real-world signals:",
+        ],
+        bullets: [
+          "Light flash with little or no vapour",
+          "Harsh or burnt taste that does not clear after a few gentle draws",
+          "Sudden drop in vapour density compared with earlier in the device's life",
+          "Flavour collapsing even though you have been storing the device upright and cool",
+        ],
+      },
+      {
+        heading: "What not to do",
+        paragraphs: [
+          "Do not open the casing, add improvised chargers, or follow videos that show wiring a disposable for a top-up. The Ingot 9000 is non-rechargeable. When it is finished, replace it and recycle the old unit through an e-waste or battery drop-off where available.",
+          "For the full recharge answer, see our how to recharge Alibarbar guide — the short version is: you cannot.",
+        ],
+      },
+      {
+        heading: "Plan replacements like a daily driver",
+        paragraphs: [
+          "If the LED shows e-liquid or battery getting low before a commute or weekend, order your next flavour early. Custom packs help you stay stocked without guessing a single SKU again.",
+          "Also see how long an Ingot 9000 typically lasts for usage context — LED status still beats calendar guesses.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "What does the Alibarbar LED show?",
+        answer:
+          "The Ingot 9000 smart LED is designed to show remaining battery and e-liquid so you can plan a replacement before the device dies.",
+      },
+      {
+        question: "When is my Alibarbar finished?",
+        answer:
+          "When e-liquid is empty, or when battery is empty and vapour production drops. Burnt taste or a flash with no vapour also usually means replace the device.",
+      },
+      {
+        question: "My Alibarbar is flashing — what should I do?",
+        answer:
+          "A flash with little or no vapour usually means the device is at end of life. Stop forcing draws, replace the unit, and recycle the old one responsibly. Do not attempt to recharge it.",
+      },
+      {
+        question: "Can I recharge it when the battery LED is low?",
+        answer:
+          "No. The Alibarbar Ingot 9000 is non-rechargeable. Low battery means plan a replacement, not a charge cycle.",
+      },
+    ],
+    relatedProducts: ["custom-5-pack", "peach-ice", "blackberry-ice"],
+    relatedGuides: [
+      "can-you-recharge-alibarbar-ingot-9000",
+      "how-long-does-alibarbar-ingot-9000-last",
+      "how-to-use-a-disposable-vape",
     ],
   },
 ];
