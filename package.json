@@ -12,6 +12,7 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
+    "indexnow": "tsx scripts/submit-indexnow.mts",
     "test": "vitest run",
     "test:watch": "vitest"
   },
