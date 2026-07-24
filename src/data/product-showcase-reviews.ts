@@ -129,6 +129,41 @@ const reviewPool: ReviewTemplate[] = [
     photos: [`${R}/review-13.jpg`],
     createdAt: "2026-06-20",
   },
+  {
+    author: "B**n",
+    rating: 5,
+    body: "Grabbed four flavours in one order — California Sunset, Blackberry Ice, Quadruple Berry and Chuppa Chupps Strawberry. Every box arrived sealed with the proper AU warning labels. Genuine Ingot 9000, will be back for more.",
+    photos: [`${R}/review-14.png`],
+    createdAt: "2026-07-22",
+  },
+  {
+    author: "H**y",
+    rating: 5,
+    body: "Went big and ordered a whole carton for me and my mates — Quadruple Berry, Strawberry Coconut Watermelon and Peach Ice. Every single unit sealed and authentic. Best bulk value I've found in Australia by far.",
+    photos: [`${R}/review-15.png`],
+    createdAt: "2026-07-20",
+  },
+  {
+    author: "N**k",
+    rating: 5,
+    body: "Chuppa Chupps Strawberry arrived factory sealed in shrink wrap — you can feel the embossed ALIBARBAR logo on the box, definitely the real deal. Tastes just like the lolly, sweet without being sickly.",
+    photos: [`${R}/review-16.png`],
+    createdAt: "2026-07-18",
+  },
+  {
+    author: "G**m",
+    rating: 5,
+    body: "Grape Ice is my go-to and this batch is spot on — bold grape with a proper icy finish. Correct warning label on the box and the seal was intact. Took about 3 days to reach Melbourne.",
+    photos: [`${R}/review-17.png`],
+    createdAt: "2026-07-15",
+  },
+  {
+    author: "W**l",
+    rating: 5,
+    body: "Restock day — three full display boxes of Grape Ice, California Sunset and Blackberry Ice. Flavour cards included and everything genuine. Split them with the crew and everyone's stoked.",
+    photos: [`${R}/review-18.png`],
+    createdAt: "2026-07-12",
+  },
 ];
 
 const homeProductLabels = [
@@ -144,6 +179,12 @@ const homeProductLabels = [
   "Strawberry Watermelon",
   "Mango Magic",
   "Grape Ice",
+  "",
+  "5 Flavour Custom Pack",
+  "20 Flavour Custom Pack",
+  "Chuppa Chupps Strawberry",
+  "Grape Ice",
+  "10 Flavour Custom Pack",
 ] as const;
 
 export const homeShowcaseReviews: ShowcaseReview[] = sortReviewsForDisplay(
