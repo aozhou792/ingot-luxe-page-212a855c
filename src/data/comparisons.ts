@@ -378,6 +378,79 @@ export const comparisons: Comparison[] = [
     datePublished: "2026-03-13",
     dateModified: "2026-07-14",
   },
+  {
+    slug: "alibarbar-vs-geek-bar",
+    competitor: "Geek Bar",
+    title: "Alibarbar Ingot 9000 vs Geek Bar: Which Disposable Is Better?",
+    description:
+      "Alibarbar Ingot 9000 vs Geek Bar disposable vapes — puff count, display, flavours and value for Australian adult buyers.",
+    intro:
+      "Geek Bar is a frequently searched disposable brand alongside Alibarbar in Australia. Here is a fair format-level comparison focused on what adult buyers actually decide on: longevity, display, flavour approach and convenience. " +
+      SHARED_DISCLAIMER,
+    competitorOverview: [
+      "Geek Bar is known for a wide disposable catalogue with multiple puff classes and flavour lines. Exact specs vary heavily by model — always check the specific device.",
+      "Its strength is brand recognition and a large flavour shelf across markets; Alibarbar’s Ingot 9000 focuses on a single high-capacity platform with an on-device LED.",
+    ],
+    rows: [
+      { feature: "Typical format", alibarbar: "Ingot 9000 sealed disposable", competitor: "Multiple disposable models" },
+      { feature: "Puff count", alibarbar: "Up to 9000", competitor: "Varies widely by model" },
+      { feature: "E-liquid capacity", alibarbar: "22ml", competitor: "Varies by model" },
+      { feature: "Battery", alibarbar: "2350mAh, non-rechargeable", competitor: "Varies; some models rechargeable" },
+      { feature: "Display", alibarbar: "Smart LED (battery + e-liquid)", competitor: "Varies by model" },
+      { feature: "Custom multi-flavour pack", alibarbar: "Yes — 5/10/20 packs", competitor: "Usually single-flavour units" },
+    ],
+    alibarbarStrengths: [
+      "Clear high-capacity specs on one flagship device",
+      "Smart LED for remaining battery and e-liquid",
+      "Build-your-own custom flavour packs",
+    ],
+    competitorStrengths: [
+      "Broad model and flavour catalogue",
+      "Strong brand recognition in many markets",
+      "Options across different puff classes",
+    ],
+    shortAnswer: {
+      alibarbar:
+        "Pick Alibarbar Ingot 9000 if you want a single long-life disposable with LED remaining-life display and custom multi-flavour packs.",
+      competitor:
+        "Pick Geek Bar if you already prefer a specific Geek Bar model or flavour line from its wider catalogue.",
+    },
+    quickAnswer: {
+      question: "Is Alibarbar or Geek Bar better?",
+      answer:
+        "For Australian adults who want one high-capacity disposable with a smart LED and custom flavour packs, the Alibarbar Ingot 9000 is the clearer pick. Geek Bar can win if you specifically want a model from its broader multi-line catalogue — compare that model’s tank, battery and display before deciding.",
+    },
+    keyTakeaways: [
+      "Ingot 9000 is a single high-capacity platform (up to 9000 puffs / 22ml / LED)",
+      "Geek Bar spans many models — specs are not one-size-fits-all",
+      "Alibarbar offers build-your-own multi-flavour packs",
+      "Choose Alibarbar for longevity + display; Geek Bar for a known Geek Bar SKU",
+      "Always verify the exact Geek Bar model specs",
+    ],
+    verdict: [
+      "Choose the Alibarbar Ingot 9000 when you want predictable longevity, an LED remaining-life display, and the option to sample flavours via a custom pack.",
+      "Choose Geek Bar when you already know the exact Geek Bar model and flavour you want from its wider range.",
+    ],
+    faq: [
+      {
+        question: "Does Geek Bar have an LED like Alibarbar?",
+        answer:
+          "Some Geek Bar models include screens or indicators; many do not. Check the specific model. The Ingot 9000 always includes a smart LED for battery and e-liquid.",
+      },
+      {
+        question: "Which lasts longer — Alibarbar or Geek Bar?",
+        answer:
+          "The Ingot 9000 is rated for up to 9000 puffs with a 22ml tank. Geek Bar longevity depends entirely on which model you buy — compare that model’s puff rating and tank size.",
+      },
+      {
+        question: "Where can I see Alibarbar flavour rankings?",
+        answer:
+          "See Best Alibarbar Australia 2026 for podium winners, a comparison table and city-season picks.",
+      },
+    ],
+    datePublished: "2026-07-27",
+    dateModified: "2026-07-27",
+  },
 ];
 
 export function getComparisonBySlug(slug: string | undefined): Comparison | undefined {

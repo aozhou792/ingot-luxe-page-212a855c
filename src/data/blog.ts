@@ -174,7 +174,7 @@ export const blogPosts: BlogPost[] = [
     datePublished: "2026-04-08",
     dateModified: "2026-07-27",
     intro:
-      "With ten flavours plus a custom pack, the Alibarbar range covers a lot of ground for adult buyers in Australia. Here are our favourites grouped by style — with a clear \"try this first\" pick in each group so you can jump straight to what you like.",
+      "With ten flavours plus a custom pack, the Alibarbar range covers a lot of ground for adult buyers in Australia. Here are our favourites grouped by style — with a clear \"try this first\" pick in each group. For the full podium, comparison table and city picks, see Best Alibarbar Australia 2026.",
     quickAnswer: {
       question: "What are the best Alibarbar Ingot 9000 flavours?",
       answer:

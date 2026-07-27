@@ -206,6 +206,44 @@ export const brands: Brand[] = [
     datePublished: "2026-03-24",
     dateModified: "2026-07-14",
   },
+  {
+    slug: "geek-bar",
+    name: "Geek Bar",
+    title: "Geek Bar Brand Guide (and How Alibarbar Compares)",
+    description:
+      "What Geek Bar is known for, how its multi-model disposable catalogue differs from the Alibarbar Ingot 9000, and when each brand suits Australian adult buyers.",
+    intro:
+      "Geek Bar is a widely searched disposable brand with many models and flavour lines. Alibarbar’s Ingot 9000 takes a different approach: one high-capacity platform with a smart LED and custom multi-flavour packs.",
+    overview: [
+      "Geek Bar spans multiple puff classes and device designs. Specs — tank size, battery, display and whether a model is rechargeable — depend on the exact SKU.",
+      "That breadth is useful if you already know a Geek Bar model. If you want a single predictable high-puff disposable with remaining-life display, compare against the Ingot 9000 instead.",
+    ],
+    knownFor: [
+      "Broad disposable catalogue",
+      "Multiple puff / model classes",
+      "Wide flavour shelf across markets",
+      "Strong brand recognition",
+    ],
+    positioning: [
+      "Geek Bar wins when you want a specific Geek Bar model or flavour from its wider range.",
+      "Alibarbar Ingot 9000 wins when you want up to 9000 puffs, a 22ml tank, smart LED and build-your-own packs on one clear platform.",
+    ],
+    compareSlug: "alibarbar-vs-geek-bar",
+    quickAnswer: {
+      question: "What is Geek Bar compared with Alibarbar?",
+      answer:
+        "Geek Bar is a multi-model disposable brand; specs vary by device. Alibarbar Ingot 9000 is a single high-capacity platform (up to 9000 puffs, 22ml, 2350mAh, smart LED) with custom flavour packs — often the simpler default when comparing brands in Australia.",
+    },
+    faq: [
+      {
+        question: "Is Geek Bar the same as Alibarbar?",
+        answer:
+          "No. Both sell disposables, but Geek Bar has many models while Alibarbar Australia focuses on the Ingot 9000 platform. Compare the exact Geek Bar SKU against Ingot 9000 specs before buying.",
+      },
+    ],
+    datePublished: "2026-07-27",
+    dateModified: "2026-07-27",
+  },
 ];
 
 export function getBrandBySlug(slug: string | undefined): Brand | undefined {

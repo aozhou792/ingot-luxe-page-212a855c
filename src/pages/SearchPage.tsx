@@ -10,6 +10,8 @@ import { faqItems } from "@/data/faq";
 import { comparisons } from "@/data/comparisons";
 import { blogPosts } from "@/data/blog";
 import { reviewPosts } from "@/data/reviews";
+import { bestAlibarbarPage } from "@/data/best-alibarbar";
+import { brandKnowledge } from "@/data/brand-knowledge";
 
 type SearchHit = { title: string; description: string; to: string; type: string };
 
@@ -18,6 +20,26 @@ function searchSite(query: string): SearchHit[] {
   if (!q) return [];
 
   const hits: SearchHit[] = [];
+
+  const hubHay = `${bestAlibarbarPage.title} ${bestAlibarbarPage.h1} ${bestAlibarbarPage.description}`.toLowerCase();
+  if (hubHay.includes(q) || (q.includes("best") && q.includes("alibarbar"))) {
+    hits.push({
+      title: bestAlibarbarPage.h1,
+      description: bestAlibarbarPage.description,
+      to: bestAlibarbarPage.path,
+      type: "Ranked Guide",
+    });
+  }
+
+  const aboutHay = `${brandKnowledge.title} ${brandKnowledge.description}`.toLowerCase();
+  if (aboutHay.includes(q) || q.includes("about alibarbar") || q.includes("what is alibarbar")) {
+    hits.push({
+      title: brandKnowledge.title,
+      description: brandKnowledge.description,
+      to: brandKnowledge.path,
+      type: "Brand",
+    });
+  }
 
   for (const p of products.filter((x) => !x.isPlaceholder)) {
     const hay = `${p.name} ${p.excerpt} ${p.tag}`.toLowerCase();

@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 
 const HUB_LINKS = [
+  { label: "Best Alibarbar Australia", to: "/best-alibarbar-australia", description: "2026 ranked Ingot 9000 guide" },
   { label: "Topics", to: "/topics", description: "Entity hubs for brand & comparison searches" },
-  { label: "Brand Knowledge", to: "/brand-knowledge", description: "Canonical Alibarbar facts for AI & humans" },
+  { label: "About Alibarbar Australia", to: "/about-alibarbar-australia", description: "Canonical Alibarbar facts for AI & humans" },
   { label: "Guides", to: "/guides", description: "How-to and product guides" },
   { label: "Compare", to: "/compare", description: "Alibarbar vs competitors" },
   { label: "Research", to: "/research", description: "Original capacity & spec research" },
-  { label: "Reviews", to: "/reviews", description: "Editorial flavour reviews" },
+  { label: "Reviews", to: "/reviews", description: "Device & flavour reviews" },
   { label: "FAQ", to: "/faq", description: "40+ answered questions" },
   { label: "Documentation", to: "/documentation", description: "Specs, ordering & safety docs" },
   { label: "Syndication", to: "/syndication", description: "Medium / Substack sync map" },

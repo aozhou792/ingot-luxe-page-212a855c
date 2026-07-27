@@ -66,6 +66,7 @@ const ResearchPage = lazyWithRetry(() => import("./pages/ResearchPage.tsx"));
 const BrandKnowledgePage = lazyWithRetry(() => import("./pages/BrandKnowledgePage.tsx"));
 const DocumentationPage = lazyWithRetry(() => import("./pages/DocumentationPage.tsx"));
 const SyndicationPage = lazyWithRetry(() => import("./pages/SyndicationPage.tsx"));
+const BestAlibarbarPage = lazyWithRetry(() => import("./pages/BestAlibarbarPage.tsx"));
 const queryClient = new QueryClient();
 
 const RouteFallback = () => (
@@ -90,6 +91,15 @@ const App = () => (
             <Suspense fallback={<RouteFallback />}>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/best-alibarbar-australia" element={<BestAlibarbarPage />} />
+              <Route path="/about-alibarbar-australia" element={<BrandKnowledgePage />} />
+              <Route path="/alibarbar-ingot-9000-review" element={<Navigate to="/reviews/alibarbar-ingot-9000-review" replace />} />
+              <Route path="/alibarbar-flavours-ranked" element={<Navigate to="/blog/top-alibarbar-flavours-ranked" replace />} />
+              <Route path="/best-alibarbar-flavours-australia" element={<Navigate to="/guides/best-alibarbar-flavours-australia" replace />} />
+              <Route path="/alibarbar-grape-ice-review" element={<Navigate to="/reviews/alibarbar-grape-ice-review" replace />} />
+              <Route path="/alibarbar-blackberry-ice-review" element={<Navigate to="/reviews/alibarbar-blackberry-ice-review" replace />} />
+              <Route path="/alibarbar-vs-geek-bar" element={<Navigate to="/compare/alibarbar-vs-geek-bar" replace />} />
+              <Route path="/alibarbar-vs-iget" element={<Navigate to="/compare/alibarbar-vs-iget" replace />} />
               <Route path="/product/cool-mint" element={<Navigate to="/product/blackberry-ice" replace />} />
               <Route
                 path="/product/chupa-strawberry"
@@ -121,7 +131,7 @@ const App = () => (
               <Route path="/author/:slug" element={<AuthorPage />} />
               <Route path="/research" element={<ResearchIndexPage />} />
               <Route path="/research/:slug" element={<ResearchPage />} />
-              <Route path="/brand-knowledge" element={<BrandKnowledgePage />} />
+              <Route path="/brand-knowledge" element={<Navigate to="/about-alibarbar-australia" replace />} />
               <Route path="/documentation" element={<DocumentationPage />} />
               <Route path="/syndication" element={<SyndicationPage />} />
               <Route path="/contact" element={<ContactPage />} />

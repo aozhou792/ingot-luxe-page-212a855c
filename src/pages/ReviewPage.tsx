@@ -41,7 +41,7 @@ const ReviewPage = () => {
 
   if (!review) return <Navigate to="/reviews" replace />;
 
-  const product = getProductBySlug(review.productSlug);
+  const product = review.productSlug ? getProductBySlug(review.productSlug) : undefined;
   const path = `/reviews/${review.slug}`;
   const breadcrumbs: BreadcrumbEntry[] = [
     { name: "Home", path: "/" },
@@ -52,6 +52,12 @@ const ReviewPage = () => {
     .map((relatedSlug) => reviewPosts.find((item) => item.slug === relatedSlug))
     .filter((item): item is NonNullable<typeof item> => Boolean(item));
 
+  const schemaProductName =
+    product != null
+      ? `Alibarbar Ingot 9000 ${product.name}`
+      : (review.productName ?? "Alibarbar Ingot 9000");
+  const schemaProductPath = product != null ? `/product/${product.slug}` : (review.productPath ?? path);
+
   const jsonLd = reviewJsonLd({
     title: review.title,
     description: review.description,
@@ -59,8 +65,8 @@ const ReviewPage = () => {
     image: product?.img,
     datePublished: review.datePublished,
     dateModified: review.dateModified,
-    productName: product ? `Alibarbar Ingot 9000 ${product.name}` : review.title,
-    productPath: product ? `/product/${product.slug}` : path,
+    productName: schemaProductName,
+    productPath: schemaProductPath,
     ratingValue: getReviewRatingValue(review),
     breadcrumbs,
     faq: review.faq,
@@ -113,7 +119,22 @@ const ReviewPage = () => {
                     Shop {product.name}
                   </Link>
                 </div>
-              ) : null}
+              ) : (
+                <div className="mt-6 flex flex-wrap items-center gap-3">
+                  <Link
+                    to="/best-alibarbar-australia"
+                    className="inline-flex items-center justify-center min-h-[48px] px-6 rounded-full bg-gold text-primary-foreground font-bold uppercase tracking-widest text-xs shadow-gold hover:opacity-95 transition"
+                  >
+                    See 2026 ranking
+                  </Link>
+                  <Link
+                    to="/#flavors"
+                    className="inline-flex items-center justify-center min-h-[48px] px-6 rounded-full border border-gold/40 text-foreground font-bold uppercase tracking-widest text-xs hover:border-gold transition"
+                  >
+                    Shop flavours
+                  </Link>
+                </div>
+              )}
             </header>
           </div>
 

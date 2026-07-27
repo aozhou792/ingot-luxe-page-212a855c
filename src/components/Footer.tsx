@@ -14,8 +14,9 @@ const shopLinks = [
 ];
 
 const exploreLinks = [
+  { label: "Best Alibarbar Australia", to: "/best-alibarbar-australia" },
   { label: "Topics", to: "/topics" },
-  { label: "Brand Knowledge", to: "/brand-knowledge" },
+  { label: "About Alibarbar Australia", to: "/about-alibarbar-australia" },
   { label: "Guides", to: "/guides" },
   { label: "Compare", to: "/compare" },
   { label: "Research", to: "/research" },

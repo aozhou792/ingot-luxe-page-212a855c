@@ -6,7 +6,11 @@ export type ReviewDimension = {
 
 export type ReviewPost = {
   slug: string;
-  productSlug: string;
+  /** Flavour product slug; omit for device-level reviews. */
+  productSlug?: string;
+  /** Schema / CTA overrides when productSlug is absent. */
+  productName?: string;
+  productPath?: string;
   title: string;
   description: string;
   category: string;
@@ -35,6 +39,115 @@ export type ReviewPost = {
 };
 
 export const reviewPosts: ReviewPost[] = [
+  {
+    slug: "alibarbar-ingot-9000-review",
+    productName: "Alibarbar Ingot 9000",
+    productPath: "/best-alibarbar-australia",
+    title: "Alibarbar Ingot 9000 Review (Australia 2026)",
+    description:
+      "Honest Alibarbar Ingot 9000 review for Australian adults — puff count, LED display, draw, value, who should buy, and whether it is worth it in 2026.",
+    category: "Device Review",
+    readTime: "9 min read",
+    datePublished: "2026-07-27",
+    dateModified: "2026-07-27",
+    intro:
+      "The Alibarbar Ingot 9000 is one of the most searched high-puff disposables in Australia. This review covers real-world longevity, the smart LED, flavour consistency, and who should skip it — then points you to our ranked flavour guide.",
+    quickAnswer: {
+      question: "Is the Alibarbar Ingot 9000 worth buying in Australia?",
+      answer:
+        "Yes for adult vapers who want a long-lasting disposable with up to 9000 puffs, a 22ml tank, 2350mAh battery and an on-device LED for battery and e-liquid. Skip it if you want a tiny low-capacity stick or a rechargeable open system.",
+    },
+    keyTakeaways: [
+      "Flagship Alibarbar disposable for the Australian market",
+      "Up to 9000 puffs · 22ml · 2350mAh · mesh coil · smart LED",
+      "Strong value when flavour match is right",
+      "Non-rechargeable — replace when finished",
+      "Pair this review with our Best Alibarbar Australia ranking",
+    ],
+    whoShouldBuy: [
+      "Adults who want fewer device swaps per month",
+      "Buyers who want a visible battery and e-liquid readout",
+      "Anyone comparing high-puff disposables in Australia",
+    ],
+    whoShouldAvoid: [
+      "People who prefer pocket-size 600–2000 puff sticks",
+      "Anyone looking for a rechargeable / refillable kit",
+      "Non-smokers and anyone under 18",
+    ],
+    dimensions: [
+      { label: "Longevity", value: 5, note: "Large tank + battery sized to match the 9000-puff class." },
+      { label: "Display usefulness", value: 5, note: "LED battery + e-liquid readout removes guesswork." },
+      { label: "Draw comfort", value: 4, note: "Smooth inhale activation; not a tight cigarette clone." },
+      { label: "Flavour consistency", value: 4, note: "Mesh coil holds flavour well across most of the device life." },
+      { label: "Value", value: 5, note: "Cost per puff is competitive when you finish the tank." },
+    ],
+    sections: [
+      {
+        heading: "What we tested",
+        paragraphs: [
+          "We evaluate the Ingot 9000 as a device platform — build, LED accuracy, draw, and how flavour holds up across the rated life — then score individual flavours separately in our flavour reviews.",
+          "Criteria match our published method: flavour accuracy, sweetness, cooling, aftertaste and daily usability. See Best Alibarbar Australia for the 2026 flavour ranking.",
+        ],
+      },
+      {
+        heading: "Design and LED display",
+        paragraphs: [
+          "The gold ingot-bar shape is distinctive and easy to spot. The smart LED showing remaining battery and e-liquid is the practical differentiator versus many opaque disposables — you know when a swap is coming.",
+        ],
+      },
+      {
+        heading: "Battery, tank and puff count",
+        paragraphs: [
+          "Headline specs: up to 9000 puffs, 22ml pre-filled e-liquid, 2350mAh non-rechargeable battery, mesh coil, inhale activation. Real-world life still depends on puff length and draw style.",
+          "The device is not designed to be recharged. When the LED or vapour quality says you are done, replace it — do not attempt DIY charging.",
+        ],
+      },
+      {
+        heading: "Flavour platform",
+        paragraphs: [
+          "Flavour quality varies by SKU more than by the hardware. Our current Australian stock covers fruit, iced fruit, soda and tropical profiles. Start with the ranked guide if you are undecided.",
+        ],
+      },
+    ],
+    pros: [
+      "High capacity with matching battery",
+      "Smart LED for battery and e-liquid",
+      "Mesh coil and smooth inhale draw",
+      "Custom multi-flavour packs available",
+    ],
+    cons: [
+      "Larger than compact disposables",
+      "Non-rechargeable by design",
+      "Wrong flavour choice wastes a long device life — sample via custom pack if unsure",
+    ],
+    verdict: [
+      "The Alibarbar Ingot 9000 is worth buying in Australia if you want longevity and an on-device remaining-life display in a sealed disposable.",
+      "Pick flavour carefully — use our Best Alibarbar Australia ranking or a 5 Flavour Custom Pack before committing to a single SKU.",
+    ],
+    faq: [
+      {
+        question: "Is Alibarbar Ingot 9000 rechargeable?",
+        answer:
+          "No. It arrives pre-charged and is not designed to be recharged. Replace the device when the battery or e-liquid is finished.",
+      },
+      {
+        question: "How long does an Ingot 9000 last?",
+        answer:
+          "At roughly 300 puffs a day, many adults get about 3–4 weeks. Light use lasts longer; heavy or long draws shorten it. See our longevity guide for a fuller breakdown.",
+      },
+      {
+        question: "What is the best Alibarbar flavour for the Ingot 9000?",
+        answer:
+          "Our 2026 best overall pick is Quadruple Berry. Peach Ice is the safest first iced option. Full ranking: Best Alibarbar Australia.",
+      },
+    ],
+    relatedReviews: [
+      "alibarbar-quadruple-berry-review",
+      "alibarbar-peach-ice-review",
+      "alibarbar-grape-ice-review",
+      "alibarbar-blackberry-ice-review",
+    ],
+  },
   {
     slug: "alibarbar-quadruple-berry-review",
     productSlug: "quadruple-berry",

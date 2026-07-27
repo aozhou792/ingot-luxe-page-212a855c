@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -13,12 +13,16 @@ import { defaultGuideCitations } from "@/data/citations";
 import { SITE_URL } from "@/data/site";
 import { useReveal } from "@/hooks/use-reveal";
 
+const CANONICAL_PATH = brandKnowledge.path;
+
 const BrandKnowledgePage = () => {
   useReveal();
-  const path = "/brand-knowledge";
+  const location = useLocation();
+  const isAboutAlias = location.pathname === "/about-alibarbar-australia";
+  const path = CANONICAL_PATH;
   const breadcrumbs: BreadcrumbEntry[] = [
     { name: "Home", path: "/" },
-    { name: "Brand Knowledge", path },
+    { name: isAboutAlias ? "About Alibarbar Australia" : "Brand Knowledge", path },
   ];
 
   const jsonLd = articleJsonLd({
@@ -43,9 +47,11 @@ const BrandKnowledgePage = () => {
       <main className="pt-[calc(6rem+env(safe-area-inset-top))] pb-16 sm:pb-24">
         <article className="container max-w-3xl">
           <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground mb-6">
-            <Link to="/" className="hover:text-primary">Home</Link>
+            <Link to="/" className="hover:text-primary">
+              Home
+            </Link>
             <span className="mx-2">/</span>
-            <span className="text-foreground">Brand Knowledge</span>
+            <span className="text-foreground">{isAboutAlias ? "About Alibarbar Australia" : "Brand Knowledge"}</span>
           </nav>
 
           <header className="mb-8">

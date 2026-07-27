@@ -46,17 +46,21 @@ const ReviewsIndexPage = () => {
           <header className="mb-10 sm:mb-14 max-w-2xl">
             <p className="text-xs uppercase tracking-[0.25em] text-primary mb-3 font-semibold">Reviews</p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
-              Alibarbar <span className="text-gold">flavour reviews</span>
+              Alibarbar <span className="text-gold">reviews</span>
             </h1>
             <p className="text-muted-foreground mt-4 text-sm sm:text-base leading-relaxed">
-              Editorial reviews focused on real buying questions: what each flavour tastes like, who it suits, what it
-              does well, and where another flavour may be a better fit.
+              Device and flavour reviews for the Alibarbar Ingot 9000 in Australia — what it tastes like, who it suits,
+              and which option to buy first. Start with the{" "}
+              <Link to="/best-alibarbar-australia" className="text-primary hover:underline">
+                Best Alibarbar Australia ranking
+              </Link>
+              .
             </p>
           </header>
 
           <div className="grid sm:grid-cols-3 gap-4 sm:gap-6">
             {reviewPosts.map((review) => {
-              const product = getProductBySlug(review.productSlug);
+              const product = review.productSlug ? getProductBySlug(review.productSlug) : undefined;
               return (
                 <Link
                   key={review.slug}

@@ -453,6 +453,8 @@ export function articleJsonLd(article: {
   faq?: { question: string; answer: string }[];
   howToSteps?: { name: string; text: string }[];
   howToTotalTime?: string;
+  /** Ranked list for “best of” pages (ItemList schema). */
+  itemList?: { position: number; name: string; url: string; description?: string }[];
 }) {
   const graph: Record<string, unknown>[] = [
     personNode(article.authorSlug ?? getDefaultAuthor().slug),
@@ -483,6 +485,22 @@ export function articleJsonLd(article: {
         name: step.name,
         text: step.text,
         url: `${absoluteUrl(article.path)}#step-${index + 1}`,
+      })),
+    });
+  }
+
+  if (article.itemList && article.itemList.length > 0) {
+    graph.push({
+      "@type": "ItemList",
+      name: article.title,
+      itemListOrder: "https://schema.org/ItemListOrderAscending",
+      numberOfItems: article.itemList.length,
+      itemListElement: article.itemList.map((item) => ({
+        "@type": "ListItem",
+        position: item.position,
+        name: item.name,
+        url: absoluteUrl(item.url),
+        description: item.description,
       })),
     });
   }

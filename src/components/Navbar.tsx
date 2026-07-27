@@ -8,6 +8,7 @@ import logoHeader from "@/assets/logo-header.png";
 
 const links = [
   { label: "Shop", to: "/#flavors" },
+  { label: "Best", to: "/best-alibarbar-australia" },
   { label: "Flavours", to: "/flavours" },
   { label: "Guides", to: "/guides" },
   { label: "Compare", to: "/compare" },

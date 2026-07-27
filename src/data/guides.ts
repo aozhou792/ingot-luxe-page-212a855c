@@ -538,24 +538,24 @@ export const guides: Guide[] = [
     slug: "best-alibarbar-flavours-australia",
     title: "The Best Alibarbar Ingot 9000 Flavours in Australia",
     description:
-      "A rundown of the most popular Alibarbar Ingot 9000 flavours in Australia, from fruity to iced, to help you choose your next device.",
+      "Best Alibarbar flavours Australia — fruity, iced and tropical picks for the Ingot 9000, with links to our full 2026 ranked guide and flavour reviews.",
     category: "Buying Guide",
     readTime: "6 min read",
     datePublished: "2026-02-16",
-    dateModified: "2026-07-14",
+    dateModified: "2026-07-27",
     intro:
-      "With ten flavours in the current line-up plus a build-your-own custom pack, choosing can be tricky. Here is a guide to the most popular Alibarbar Ingot 9000 flavours and who each one suits.",
+      "With ten flavours in the current line-up plus a build-your-own custom pack, choosing can be tricky. Here is a guide to the most popular Alibarbar Ingot 9000 flavours and who each one suits — then jump to our full Best Alibarbar Australia ranking for the comparison table.",
     quickAnswer: {
       question: "What are the best Alibarbar flavours in Australia?",
       answer:
-        "Fruit lovers usually start with Quadruple Berry, Mango Magic or Strawberry Watermelon. For ice, Peach Ice is the most balanced; Grape Ice and Blackberry Ice run colder. Want something different — try Fanta or Lychee. Unsure? Build a 5 Flavour Custom Pack.",
+        "Fruit lovers usually start with Quadruple Berry, Mango Magic or Strawberry Watermelon. For ice, Peach Ice is the most balanced; Grape Ice and Blackberry Ice run colder. Want something different — try Fanta or Lychee. Unsure? Build a 5 Flavour Custom Pack. Full podium + table: Best Alibarbar Australia 2026.",
     },
     keyTakeaways: [
       "Quadruple Berry is the top all-round fruity pick",
       "Peach Ice is the easiest iced recommendation",
       "Fanta and Lychee cover soda and floral change-ups",
       "Ten single flavours plus custom packs cover most tastes",
-      "A custom pack is the fastest way to sample the range",
+      "See Best Alibarbar Australia for the ranked comparison table",
     ],
     faq: [
       {
@@ -568,8 +568,19 @@ export const guides: Guide[] = [
         answer:
           "The current Ingot 9000 line-up includes ten single flavours, plus build-your-own custom packs so you can mix several in one order.",
       },
+      {
+        question: "Where is the full Alibarbar ranking for Australia?",
+        answer:
+          "Our Best Alibarbar Australia 2026 page has quick winners, a flavour comparison table, testing method and city-season picks for Sydney, Melbourne, Brisbane, Perth and Adelaide.",
+      },
     ],
     sections: [
+      {
+        heading: "How we choose the best flavours",
+        paragraphs: [
+          "We compare flavour accuracy, sweetness, cooling strength, aftertaste and daily usability on current Australian stock — the same method used on Best Alibarbar Australia. We do not invent review counts.",
+        ],
+      },
       {
         heading: "Best for fruit lovers",
         paragraphs: [
@@ -579,13 +590,19 @@ export const guides: Guide[] = [
       {
         heading: "Best iced flavours",
         paragraphs: [
-          "For a cool finish, the iced range delivers. Peach Ice, Grape Ice, Blackberry Ice and Strawberry Ice all pair ripe fruit with a crisp menthol exhale, making them ideal for warm Australian days. For a full iced ranking — chill level and who each suits — see our best iced Alibarbar flavours guide.",
+          "For a cool finish, the iced range delivers. Peach Ice, Grape Ice, Blackberry Ice and Strawberry Ice all pair ripe fruit with a crisp menthol exhale, making them ideal for warm Australian days — especially Sydney, Brisbane, Perth and Adelaide summers. For a full iced ranking — chill level and who each suits — see our best iced Alibarbar flavours guide.",
         ],
       },
       {
         heading: "Best for something different",
         paragraphs: [
           "Fanta brings a fizzy orange-soda twist, while Lychee offers a delicate, floral sweetness that stands out from the usual berry and ice profiles. Strawberry Coconut Watermelon adds a creamy, tropical layer for those who want something richer.",
+        ],
+      },
+      {
+        heading: "Australian city quick picks",
+        paragraphs: [
+          "Sydney & Brisbane heat: Blackberry Ice or Grape Ice, with Strawberry Watermelon as a no-ice backup. Melbourne: Quadruple Berry or Peach Ice as the daily base. Perth & Adelaide dry heat: Peach Ice all-day, Grape Ice when you want sweeter candy notes.",
         ],
       },
       {
@@ -600,6 +617,7 @@ export const guides: Guide[] = [
       "best-iced-alibarbar-flavours-australia",
       "blackberry-ice-vs-peach-ice",
       "what-is-alibarbar-ingot-9000",
+      "where-to-buy-alibarbar-australia",
     ],
   },
   {
@@ -759,7 +777,94 @@ export const guides: Guide[] = [
     relatedGuides: [
       "what-is-alibarbar-ingot-9000",
       "best-alibarbar-flavours-australia",
+      "where-to-buy-alibarbar-australia",
       "disposable-vape-laws-in-australia",
+    ],
+  },
+  {
+    slug: "where-to-buy-alibarbar-australia",
+    title: "Where to Buy Alibarbar in Australia (Genuine Ingot 9000)",
+    description:
+      "Where to buy genuine Alibarbar Ingot 9000 in Australia — authenticity checklist, red flags, shipping expectations and how to avoid counterfeits.",
+    category: "Buying Guide",
+    readTime: "7 min read",
+    datePublished: "2026-07-27",
+    dateModified: "2026-07-27",
+    intro:
+      "Searching where to buy Alibarbar Australia usually means one thing: find authentic Ingot 9000 stock without grey-market surprises. This guide is the checklist we recommend before you pay.",
+    quickAnswer: {
+      question: "Where can I buy genuine Alibarbar in Australia?",
+      answer:
+        "Buy from a specialist Australian retailer that lists accurate Ingot 9000 specs (up to 9000 puffs, 22ml, LED display), sells to adults 18+ only, and publishes clear shipping and authenticity guidance. Avoid unusually low prices and listings that omit the smart LED.",
+    },
+    keyTakeaways: [
+      "Prefer specialist Alibarbar / Ingot 9000 retailers over mystery marketplaces",
+      "Verify 22ml + LED + 9000-puff specs on the product page",
+      "18+ age gate and AU shipping details should be explicit",
+      "Counterfeits often cut corners on packaging and display",
+      "See Best Alibarbar Australia for flavour ranking before you order",
+    ],
+    faq: [
+      {
+        question: "Where to buy Alibarbar Ingot 9000 in Australia?",
+        answer:
+          "Order from an Australia-focused specialist store that stocks authentic Ingot 9000 devices, shows AUD pricing, and ships Australia-wide. Alibarbar Australia at ailibarbar.com is one such option.",
+      },
+      {
+        question: "How do I know Alibarbar stock is genuine?",
+        answer:
+          "Check for sealed packaging, correct warning labels, a working smart LED, and specs that match 22ml / 2350mAh / up to 9000 puffs. Read our how-to-spot-fake guide for a full checklist.",
+      },
+      {
+        question: "Do you ship to Sydney, Melbourne, Brisbane, Perth and Adelaide?",
+        answer:
+          "Yes — Australia-wide shipping is available. Metro areas such as Sydney, Melbourne, Brisbane, Perth and Adelaide are usually on the faster end of the 3–7 business day window after payment clears.",
+      },
+    ],
+    sections: [
+      {
+        heading: "Best place to buy: specialist vs general marketplace",
+        paragraphs: [
+          "For Alibarbar Ingot 9000, a specialist retailer is usually safer than a random marketplace listing. Specialists tend to keep accurate specs, flavour notes and authenticity guidance in one place — which also helps if you need support after delivery.",
+          "If a listing only says “9000 puffs” with no tank size, battery or LED details, treat it as incomplete.",
+        ],
+      },
+      {
+        heading: "Authenticity checklist before you pay",
+        paragraphs: ["Confirm these on the product page and at checkout:"],
+        bullets: [
+          "Specs list ~22ml e-liquid, 2350mAh battery and smart LED display",
+          "Adults 18+ requirement is stated clearly",
+          "AUD pricing and Australian shipping policy are visible",
+          "Support email / contact path is published",
+          "Price is not wildly below typical AU retail for a sealed Ingot 9000",
+        ],
+      },
+      {
+        heading: "Red flags",
+        paragraphs: [
+          "Unusually cheap “bulk mystery” lots, missing LED mentions, no age gate, and sellers who cannot describe flavour profiles accurately are common warning signs.",
+          "If you already received a device, compare it against our how-to-spot-fake Alibarbar guide.",
+        ],
+      },
+      {
+        heading: "What to buy once you have a trusted seller",
+        paragraphs: [
+          "Know your flavour? Order a single Ingot 9000. Unsure? Use a 5 Flavour Custom Pack. For ranked picks by taste and city climate, open Best Alibarbar Australia 2026.",
+        ],
+      },
+      {
+        heading: "Delivery expectations (Australia)",
+        paragraphs: [
+          "After bank transfer is confirmed, dispatch is typically followed by 3–7 business day delivery depending on state. Sydney, Melbourne, Brisbane, Perth and Adelaide metro postcodes are usually faster than regional routes.",
+        ],
+      },
+    ],
+    relatedProducts: ["custom-5-pack", "quadruple-berry", "peach-ice"],
+    relatedGuides: [
+      "how-to-spot-fake-alibarbar-ingot",
+      "alibarbar-buying-guide-australia",
+      "best-alibarbar-flavours-australia",
     ],
   },
   {

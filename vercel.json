@@ -76,6 +76,51 @@
       "source": "/blog/best-disposable-vape-australia-2023",
       "destination": "/blog/best-disposable-vape-australia-2026",
       "statusCode": 301
+    },
+    {
+      "source": "/brand-knowledge",
+      "destination": "/about-alibarbar-australia",
+      "statusCode": 301
+    },
+    {
+      "source": "/guides/where-to-buy-alibarbar-ingot-9000-australia",
+      "destination": "/guides/where-to-buy-alibarbar-australia",
+      "statusCode": 301
+    },
+    {
+      "source": "/alibarbar-ingot-9000-review",
+      "destination": "/reviews/alibarbar-ingot-9000-review",
+      "statusCode": 301
+    },
+    {
+      "source": "/alibarbar-flavours-ranked",
+      "destination": "/blog/top-alibarbar-flavours-ranked",
+      "statusCode": 301
+    },
+    {
+      "source": "/best-alibarbar-flavours-australia",
+      "destination": "/guides/best-alibarbar-flavours-australia",
+      "statusCode": 301
+    },
+    {
+      "source": "/alibarbar-grape-ice-review",
+      "destination": "/reviews/alibarbar-grape-ice-review",
+      "statusCode": 301
+    },
+    {
+      "source": "/alibarbar-blackberry-ice-review",
+      "destination": "/reviews/alibarbar-blackberry-ice-review",
+      "statusCode": 301
+    },
+    {
+      "source": "/alibarbar-vs-geek-bar",
+      "destination": "/compare/alibarbar-vs-geek-bar",
+      "statusCode": 301
+    },
+    {
+      "source": "/alibarbar-vs-iget",
+      "destination": "/compare/alibarbar-vs-iget",
+      "statusCode": 301
     }
   ],
   "rewrites": [

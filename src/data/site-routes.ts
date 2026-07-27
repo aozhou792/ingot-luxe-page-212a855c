@@ -17,11 +17,12 @@ export type SiteRoute = {
 
 const HUB_ROUTES: SiteRoute[] = [
   { path: "/", priority: 1.0, changefreq: "weekly" },
+  { path: "/best-alibarbar-australia", priority: 0.95, changefreq: "weekly" },
+  { path: "/about-alibarbar-australia", priority: 0.85, changefreq: "monthly" },
   { path: "/guides", priority: 0.8, changefreq: "weekly" },
   { path: "/flavours", priority: 0.8, changefreq: "weekly" },
   { path: "/compare", priority: 0.8, changefreq: "weekly" },
   { path: "/brands", priority: 0.7, changefreq: "monthly" },
-  { path: "/brand-knowledge", priority: 0.8, changefreq: "monthly" },
   { path: "/research", priority: 0.75, changefreq: "monthly" },
   { path: "/documentation", priority: 0.6, changefreq: "monthly" },
   { path: "/syndication", priority: 0.5, changefreq: "monthly" },

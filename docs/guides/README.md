@@ -18,8 +18,9 @@ In-depth guides for adult Australian customers buying and using the **Alibarbar 
 
 | Guide | Markdown | Live site |
 |-------|----------|-----------|
-| Where to Buy in Australia | [where-to-buy-australia.md](./where-to-buy-australia.md) | [Site](https://www.ailibarbar.com/guides/where-to-buy-alibarbar-ingot-9000-australia) |
+| Where to Buy in Australia | [where-to-buy-australia.md](./where-to-buy-australia.md) | [Site](https://www.ailibarbar.com/guides/where-to-buy-alibarbar-australia) |
 | Best Flavours in Australia | [best-flavours-australia.md](./best-flavours-australia.md) | [Site](https://www.ailibarbar.com/guides/best-alibarbar-flavours-australia) |
+| **Best Alibarbar Australia (ranked hub)** | — | [Site](https://www.ailibarbar.com/best-alibarbar-australia) |
 
 ## Usage & legal
 

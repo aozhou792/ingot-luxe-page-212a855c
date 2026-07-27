@@ -278,29 +278,34 @@ export const topicHubs: TopicHub[] = [
       },
     ],
     guides: [
+      { label: "Best Alibarbar Australia", path: "/best-alibarbar-australia", description: "2026 ranked guide" },
       { label: "Complete Ingot 9000 Guide", path: "/guides/what-is-alibarbar-ingot-9000", description: "Specs and overview" },
+      { label: "Where to Buy Australia", path: "/guides/where-to-buy-alibarbar-australia", description: "Authenticity checklist" },
       { label: "How Many Puffs in an Alibarbar?", path: "/guides/how-many-puffs-does-alibarbar-ingot-9000-have", description: "Puff count explained" },
       { label: "How to Recharge an Alibarbar", path: "/guides/can-you-recharge-alibarbar-ingot-9000", description: "Non-rechargeable safety guide" },
-      { label: "How to Open an Alibarbar Vape", path: "/guides/how-to-open-alibarbar-vape", description: "Unboxing and first use" },
     ],
     products: [
       { label: "Shop All Products", path: "/#flavors", description: "Browse flavours" },
     ],
     comparisons: [
       { label: "vs IGET", path: "/compare/alibarbar-vs-iget", description: "Head-to-head" },
+      { label: "vs Geek Bar", path: "/compare/alibarbar-vs-geek-bar", description: "Head-to-head" },
     ],
     reviews: [
-      { label: "Fanta Review", path: "/reviews/alibarbar-fanta-review", description: "Soda flavour review" },
+      { label: "Ingot 9000 Device Review", path: "/reviews/alibarbar-ingot-9000-review", description: "Full device review" },
+      { label: "Quadruple Berry Review", path: "/reviews/alibarbar-quadruple-berry-review", description: "Best overall flavour" },
+      { label: "Grape Ice Review", path: "/reviews/alibarbar-grape-ice-review", description: "Iced flavour review" },
     ],
     flavours: [
       { label: "Quadruple Berry", path: "/flavours/quadruple-berry", description: "Top fruit pick" },
+      { label: "Peach Ice", path: "/flavours/peach-ice", description: "Best first iced pick" },
     ],
     relatedTopics: [
       { label: "Mesh Coil", path: "/topics/mesh-coil", description: "Coil technology" },
       { label: "9000 Puffs", path: "/topics/9000-puffs", description: "Capacity class" },
     ],
     datePublished: "2026-07-09",
-    dateModified: "2026-07-09",
+    dateModified: "2026-07-27",
   },
   {
     slug: "alibarbar-vs-iget",

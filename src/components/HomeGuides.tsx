@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { guides } from "@/data/guides";
 
-/** Priority guides aligned to early Search Console query demand. */
+/** Priority guides aligned to ranking + Search Console demand. */
 const FEATURED_GUIDE_SLUGS = [
+  "best-alibarbar-flavours-australia",
+  "where-to-buy-alibarbar-australia",
   "how-many-puffs-does-alibarbar-ingot-9000-have",
-  "can-you-recharge-alibarbar-ingot-9000",
-  "how-to-open-alibarbar-vape",
 ] as const;
 
 /** Surfaces the knowledge centre on the homepage for internal linking + GEO. */
@@ -27,8 +27,14 @@ export const HomeGuides = () => {
               Alibarbar <span className="text-gold">guides</span>
             </h2>
             <p className="text-muted-foreground mt-3 text-sm sm:text-base">
-              Puff count, charging myths, and how to open your Ingot 9000 for first use.
+              Ranked flavours, where to buy genuine stock, and Ingot 9000 specs for adult buyers in Australia.
             </p>
+            <Link
+              to="/best-alibarbar-australia"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-gold mt-3 hover:text-primary transition-colors"
+            >
+              Best Alibarbar Australia 2026 <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
           <Link
             to="/guides"
