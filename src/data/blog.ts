@@ -170,11 +170,11 @@ export const blogPosts: BlogPost[] = [
     description:
       "Our pick of the best Alibarbar Ingot 9000 flavours in Australia, grouped by fruity, iced and tropical, to help you choose your next device.",
     category: "Flavour Review",
-    readTime: "6 min read",
+    readTime: "8 min read",
     datePublished: "2026-04-08",
-    dateModified: "2026-07-14",
+    dateModified: "2026-07-27",
     intro:
-      "With ten flavours plus a custom pack, the Alibarbar range covers a lot of ground. Here are our favourites grouped by style, so you can jump straight to what you like.",
+      "With ten flavours plus a custom pack, the Alibarbar range covers a lot of ground for adult buyers in Australia. Here are our favourites grouped by style — with a clear \"try this first\" pick in each group so you can jump straight to what you like.",
     quickAnswer: {
       question: "What are the best Alibarbar Ingot 9000 flavours?",
       answer:
@@ -194,9 +194,19 @@ export const blogPosts: BlogPost[] = [
           "Quadruple Berry and Strawberry Watermelon are the easiest starting points — familiar fruit profiles with no heavy menthol. If you usually like iced drinks, try Peach Ice next.",
       },
       {
+        question: "What is the best Alibarbar flavour for everyday use?",
+        answer:
+          "Quadruple Berry is our top daily pick: balanced berry sweetness without heavy ice. If you prefer a cooler everyday draw, Peach Ice is the safest iced option that still works all day.",
+      },
+      {
         question: "Which Alibarbar flavours are iced?",
         answer:
           "Peach Ice, Grape Ice, Blackberry Ice and Strawberry Ice all include a cooling finish. Peach Ice is moderate; Grape Ice and Blackberry Ice hit colder.",
+      },
+      {
+        question: "Which Alibarbar flavour has the strongest ice?",
+        answer:
+          "Blackberry Ice is the coldest of the current iced set, with Grape Ice close behind. Start with Peach Ice if you want chill without the full freeze.",
       },
       {
         question: "How do I try multiple Alibarbar flavours at once?",
@@ -208,25 +218,47 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Best fruity flavours",
         paragraphs: [
-          "Quadruple Berry is the standout all-rounder — a balanced four-berry blend with no menthol. Strawberry Watermelon is a close second for an easy, summery daily vape.",
+          "Try this first: Quadruple Berry. It is the strongest all-round fruity pick for Australian buyers who want a familiar, no-menthol daily vape — balanced four-berry sweetness that stays clear across a long session.",
+          "Strawberry Watermelon is the close second: lighter, summery and easy to share as a \"safe\" second device. Both sit in the fruit lane without cooling, so they are the best place to start if you are unsure about ice.",
+          "Who this group suits: adults who like soft drinks and berry snacks more than menthol cigarettes, or anyone stocking a first Ingot 9000 before exploring iced options.",
+        ],
+        bullets: [
+          "1st — Quadruple Berry: best daily fruity all-rounder",
+          "2nd — Strawberry Watermelon: easy, summery fruit blend",
         ],
       },
       {
         heading: "Best iced flavours",
         paragraphs: [
-          "Peach Ice leads for a moderate, refreshing chill, while Grape Ice and Blackberry Ice bring a bigger cool hit. Strawberry Ice is the familiar, crowd-pleasing iced option.",
+          "Try this first: Peach Ice. It leads the iced range with a moderate, refreshing chill and a soft peach profile that works as an all-day device rather than a novelty freeze.",
+          "Want a stronger cool? Blackberry Ice is the coldest in the current set; Grape Ice sits close behind with a darker fruit note. Strawberry Ice is the familiar, crowd-pleasing iced option if you already like strawberry profiles.",
+          "Still deciding between the two most-asked iced flavours? See our Blackberry Ice vs Peach Ice comparison, and the full Best Iced Alibarbar Flavours ranking — both linked at the end of this post.",
+          "Who this group suits: adults who want a cooling finish after fruit, or who already prefer iced disposables over warm-sweet profiles.",
+        ],
+        bullets: [
+          "1st — Peach Ice: safest first iced pick (moderate cool)",
+          "Stronger chill — Blackberry Ice, then Grape Ice",
+          "Familiar iced fruit — Strawberry Ice",
         ],
       },
       {
         heading: "Best tropical and unique flavours",
         paragraphs: [
-          "Mango Magic is the flagship tropical pick, and Strawberry Coconut Watermelon adds a creamy twist for something richer. For a complete change of pace, Fanta and Lychee stand apart from the fruit-ice crowd.",
+          "Try this first: Mango Magic. It is the flagship tropical pick — ripe mango forward without relying on heavy ice — and the clearest \"holiday\" flavour in the line-up.",
+          "Strawberry Coconut Watermelon adds a creamier tropical twist for something richer than straight fruit. For a complete change of pace, Fanta leans bright and soda-like, while Lychee stands apart with a floral-sweet stone-fruit profile outside the usual fruit-ice crowd.",
+          "Who this group suits: adults who want variety beyond berry and peach, or who are building a custom pack with at least one tropical or unique slot.",
+        ],
+        bullets: [
+          "1st — Mango Magic: flagship tropical",
+          "Creamier tropical — Strawberry Coconut Watermelon",
+          "Unique lanes — Fanta, Lychee",
         ],
       },
       {
         heading: "Not sure? Build a custom pack",
         paragraphs: [
-          "If you want to explore, the 5 Flavour Custom Pack lets you try five profiles in one order — the easiest way to find your favourite before committing.",
+          "If you want to explore, the 5 Flavour Custom Pack lets you try five profiles in one order — the easiest way to find your favourite before committing to singles.",
+          "A simple starter mix for Australia: Quadruple Berry + Peach Ice + Mango Magic, then add one stronger iced (Blackberry or Grape) and one wild card (Fanta, Lychee or Strawberry Coconut Watermelon).",
         ],
       },
     ],

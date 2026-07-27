@@ -251,9 +251,9 @@ export const guides: Guide[] = [
     description:
       "How to recharge an Alibarbar vape? You cannot — the Ingot 9000 is non-rechargeable. Learn why, how to read the LED display, and what to do when the battery or e-liquid is finished.",
     category: "Battery Guide",
-    readTime: "6 min read",
+    readTime: "7 min read",
     datePublished: "2026-02-10",
-    dateModified: "2026-07-22",
+    dateModified: "2026-07-27",
     intro:
       "Searches like how to recharge an Alibarbar, recharge Alibarbar vape, or how to recharge a Alibarbar all point to the same question. The important answer is simple: the Ingot 9000 is a non-rechargeable disposable device, so it should not be charged or modified. This guide explains why, how the battery is designed to work, and how to know when it is time to replace the device.",
     quickAnswer: {
@@ -297,10 +297,22 @@ export const guides: Guide[] = [
         ],
       },
       {
+        heading: "Common myths about recharging Alibarbar",
+        paragraphs: [
+          "Online forums and short videos sometimes claim you can crack open a disposable, attach a USB cable, or \"jump\" the battery to squeeze more puffs out of an Alibarbar. Those tips are not supported by the product design and are not safe for consumers.",
+          "The Ingot 9000 is sealed for a reason: the battery, coil and tank are matched for one service life. DIY charging can short the cells, create heat, or damage the LED electronics. If vapour has already dropped or the e-liquid indicator is empty, replacement is the correct next step — not a home repair.",
+        ],
+        bullets: [
+          "Myth: \"Just open it and charge with a USB wire\" — false and unsafe",
+          "Myth: \"Any disposable can be recharged once\" — the Ingot 9000 is not designed for that",
+          "Myth: \"Battery left on the LED means keep charging\" — empty e-liquid still means finished",
+        ],
+      },
+      {
         heading: "How to tell when it is finished",
         paragraphs: [
-          "The built-in LED display is the easiest way to understand the device's remaining life. If the e-liquid level is empty, the device is finished even if a small amount of battery remains. If the battery level is empty and vapour production drops, it is also time to replace it.",
-          "A flashing light, weak vapour, burnt taste, or very little flavour usually means the device has reached the end of its usable life.",
+          "The built-in LED display is the easiest way to understand the device's remaining life. Check both indicators: if the e-liquid level is empty, the device is finished even if a small amount of battery remains. If the battery level is empty and vapour production drops, it is also time to replace it.",
+          "A flashing light, weak vapour, burnt taste, or very little flavour usually means the device has reached the end of its usable life. For a full walkthrough of each LED reading (battery vs e-liquid, and what \"finished\" looks like), see our companion guide How to Read the Alibarbar LED — linked at the end of this page.",
         ],
       },
       {
@@ -318,14 +330,29 @@ export const guides: Guide[] = [
           "You cannot. The Alibarbar Ingot 9000 is non-rechargeable. When the battery or e-liquid is finished, replace the device.",
       },
       {
+        question: "Can you recharge an Alibarbar?",
+        answer:
+          "No. Can you recharge an Alibarbar Ingot 9000? You cannot — it arrives pre-charged and has no consumer charging workflow. Replace it when the LED or vapour output shows it is finished.",
+      },
+      {
         question: "Does the Alibarbar Ingot 9000 have a charging port?",
         answer:
           "No. It is a non-rechargeable disposable vape and is not designed to be charged by the user.",
       },
       {
+        question: "Does Alibarbar have a USB or charging port?",
+        answer:
+          "No. There is no USB or user-facing charging port on the Alibarbar Ingot 9000. Any video that shows drilling, wiring or attaching a cable is modifying a sealed disposable and should not be copied.",
+      },
+      {
         question: "What should I do if the battery indicator is empty?",
         answer:
           "If the battery indicator is empty and vapour production has dropped, the device has reached the end of its life and should be replaced.",
+      },
+      {
+        question: "What if the LED still shows battery but there is no vapour?",
+        answer:
+          "Trust the e-liquid side of the display and how the device tastes. If the tank indicator is empty, vapour is weak, or you get a burnt flavour, the device is finished even if some battery remains — replace it rather than trying to charge it.",
       },
       {
         question: "Is it safe to open the device and charge the battery manually?",
