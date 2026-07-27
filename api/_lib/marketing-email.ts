@@ -8,6 +8,7 @@ const TELEGRAM_URL = "https://t.me/ailibarbar";
 const WHATSAPP_PHONE_DISPLAY = "+86 176 8897 1179";
 const WHATSAPP_URL = "https://wa.me/8617688971179";
 const SUPPORT_EMAIL = "orders@ailibarbar.com";
+const DEFAULT_REPLY_TO = "orders@ailibarbar.com";
 
 function appBaseUrl(): string {
   return (process.env.SITE_URL || DEFAULT_SITE_URL).replace(/\/+$/, "");
@@ -17,6 +18,13 @@ function fromAddress(): string {
   return process.env.ORDER_FROM_EMAIL ?? "Alibarbar Orders <orders@ailibarbar.com>";
 }
 
+/** Customer replies go to orders@ (Cloudflare Email Routing → Gmail). */
+function replyToAddress(): string {
+  const explicit = process.env.ORDER_REPLY_TO?.trim();
+  if (explicit) return explicit;
+  return DEFAULT_REPLY_TO;
+}
+
 async function sendEmail(to: string, subject: string, html: string, text: string): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
@@ -24,7 +32,14 @@ async function sendEmail(to: string, subject: string, html: string, text: string
     return;
   }
   const resend = new Resend(apiKey);
-  await resend.emails.send({ from: fromAddress(), to, subject, html, text });
+  await resend.emails.send({
+    from: fromAddress(),
+    to,
+    replyTo: replyToAddress(),
+    subject,
+    html,
+    text,
+  });
 }
 
 function orderLinesHtml(draft: CheckoutDraft): string {
