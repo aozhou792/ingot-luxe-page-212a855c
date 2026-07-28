@@ -23,8 +23,8 @@
       "statusCode": 301
     },
     {
-      "source": "/products/:path*",
-      "destination": "/",
+      "source": "/products/:slug",
+      "destination": "/product/:slug",
       "statusCode": 301
     },
     {
@@ -161,10 +161,27 @@
       "source": "/alibarbar-vs-iget",
       "destination": "/compare/alibarbar-vs-iget",
       "statusCode": 301
+    },
+    {
+      "source": "/product/cool-mint",
+      "destination": "/product/blackberry-ice",
+      "statusCode": 301
+    },
+    {
+      "source": "/product/chupa-strawberry",
+      "destination": "/product/strawberry-coconut-watermelon",
+      "statusCode": 301
     }
   ],
   "rewrites": [
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    { "source": "/cart", "destination": "/index.html" },
+    { "source": "/checkout", "destination": "/index.html" },
+    { "source": "/order-complete", "destination": "/index.html" },
+    { "source": "/orders2589", "destination": "/index.html" },
+    { "source": "/whatsapp-qr", "destination": "/index.html" },
+    { "source": "/reset-password", "destination": "/index.html" },
+    { "source": "/search", "destination": "/index.html" },
+    { "source": "/search/:path*", "destination": "/index.html" }
   ],
   "headers": [
     {

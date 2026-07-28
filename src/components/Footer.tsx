@@ -5,11 +5,13 @@ import { SITE_SOCIAL } from "@/data/site";
 import logoHeader from "@/assets/logo-header.png";
 
 const shopLinks = [
+  { label: "Shop all", to: "/shop" },
   { label: "Wholesale", to: "/wholesale" },
   { label: "All Flavours", to: "/flavours" },
   { label: "5 Flavour Custom Pack", to: "/product/custom-5-pack" },
   { label: "10 Flavour Custom Pack", to: "/product/custom-10-pack" },
   { label: "20 Flavour Custom Pack", to: "/product/custom-20-pack" },
+  { label: "Blackberry Ice", to: "/product/blackberry-ice" },
   { label: "Quadruple Berry", to: "/product/quadruple-berry" },
 ];
 

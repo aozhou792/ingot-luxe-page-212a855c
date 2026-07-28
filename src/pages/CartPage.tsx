@@ -56,7 +56,7 @@ const CartPage = () => {
           <div className="rounded-xl border border-border bg-card/50 p-8 text-center max-w-lg mx-auto">
             <p className="text-muted-foreground mb-6">Your cart is empty.</p>
             <Button asChild>
-              <Link to="/#flavors">Browse flavours</Link>
+              <Link to="/shop">Browse flavours</Link>
             </Button>
           </div>
         ) : (
@@ -144,7 +144,7 @@ const CartPage = () => {
                 <Link to="/checkout">Proceed to checkout</Link>
               </Button>
               <Button asChild variant="outline" className="w-full bg-background">
-                <Link to="/#flavors">Continue shopping</Link>
+                <Link to="/shop">Continue shopping</Link>
               </Button>
             </aside>
           </div>

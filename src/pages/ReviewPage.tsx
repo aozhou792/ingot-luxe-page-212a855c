@@ -128,7 +128,7 @@ const ReviewPage = () => {
                     See 2026 ranking
                   </Link>
                   <Link
-                    to="/#flavors"
+                    to="/shop"
                     className="inline-flex items-center justify-center min-h-[48px] px-6 rounded-full border border-gold/40 text-foreground font-bold uppercase tracking-widest text-xs hover:border-gold transition"
                   >
                     Shop flavours

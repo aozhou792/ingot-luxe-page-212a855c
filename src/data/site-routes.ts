@@ -17,6 +17,7 @@ export type SiteRoute = {
 
 const HUB_ROUTES: SiteRoute[] = [
   { path: "/", priority: 1.0, changefreq: "weekly" },
+  { path: "/shop", priority: 0.95, changefreq: "weekly" },
   { path: "/best-alibarbar-australia", priority: 0.95, changefreq: "weekly" },
   { path: "/about-alibarbar-australia", priority: 0.85, changefreq: "monthly" },
   { path: "/guides", priority: 0.8, changefreq: "weekly" },
@@ -76,7 +77,7 @@ export function getSiteRoutes(): SiteRoute[] {
       changefreq: "weekly" as const,
     })),
     ...guides.map((g) => ({ path: `/guides/${g.slug}`, priority: 0.7, changefreq: "monthly" as const })),
-    ...FLAVOUR_SLUGS.map((slug) => ({ path: `/flavours/${slug}`, priority: 0.7, changefreq: "monthly" as const })),
+    ...FLAVOUR_SLUGS.map((slug) => ({ path: `/flavours/${slug}`, priority: 0.4, changefreq: "monthly" as const })),
     ...comparisons.map((c) => ({ path: `/compare/${c.slug}`, priority: 0.7, changefreq: "monthly" as const })),
     ...brands.map((b) => ({ path: `/brands/${b.slug}`, priority: 0.6, changefreq: "monthly" as const })),
     ...blogPosts.map((b) => ({

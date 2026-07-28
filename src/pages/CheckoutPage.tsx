@@ -188,7 +188,7 @@ const CheckoutPage = () => {
             <h1 className="text-2xl font-semibold text-foreground mb-3">Your cart is empty</h1>
             <p className="text-muted-foreground mb-6">Add products before checking out.</p>
             <Button asChild>
-              <Link to="/#flavors">Browse flavours</Link>
+              <Link to="/shop">Browse flavours</Link>
             </Button>
           </div>
         ) : (

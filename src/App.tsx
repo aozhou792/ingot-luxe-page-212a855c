@@ -49,6 +49,7 @@ const WholesalePage = lazyWithRetry(() => import("./pages/WholesalePage.tsx"));
 const ContentPage = lazyWithRetry(() => import("./pages/ContentPage.tsx"));
 const FlavoursIndexPage = lazyWithRetry(() => import("./pages/FlavoursIndexPage.tsx"));
 const FlavourPage = lazyWithRetry(() => import("./pages/FlavourPage.tsx"));
+const ShopPage = lazyWithRetry(() => import("./pages/ShopPage.tsx"));
 const CompareIndexPage = lazyWithRetry(() => import("./pages/CompareIndexPage.tsx"));
 const ComparePage = lazyWithRetry(() => import("./pages/ComparePage.tsx"));
 const BrandsIndexPage = lazyWithRetry(() => import("./pages/BrandsIndexPage.tsx"));
@@ -114,6 +115,7 @@ const App = () => (
               <Route path="/reset-password" element={<ResetPasswordPage />} />
               <Route path="/guides" element={<GuidesIndexPage />} />
               <Route path="/guides/:slug" element={<GuidePage />} />
+              <Route path="/shop" element={<ShopPage />} />
               <Route path="/flavours" element={<FlavoursIndexPage />} />
               <Route path="/flavours/:slug" element={<FlavourPage />} />
               <Route path="/compare" element={<CompareIndexPage />} />

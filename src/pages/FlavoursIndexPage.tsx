@@ -49,7 +49,11 @@ const FlavoursIndexPage = () => {
             </h1>
             <p className="text-muted-foreground mt-4 text-sm sm:text-base leading-relaxed">
               Every flavour in the current Alibarbar Ingot 9000 range, with honest taste notes, sweetness and cooling
-              ratings, and who each one suits. Tap a flavour to read the full profile.
+              ratings, and who each one suits. Ready to buy?{" "}
+              <Link to="/shop" className="text-primary font-semibold hover:text-gold">
+                Open the shop
+              </Link>
+              .
             </p>
           </header>
 

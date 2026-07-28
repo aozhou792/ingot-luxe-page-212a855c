@@ -108,7 +108,16 @@ const ProductPage = () => {
 
   const paragraphs = product.description.split("\n\n").filter(Boolean);
   const productPath = `/product/${product.slug}`;
-  const seoDescription = product.excerpt.length > 155 ? `${product.excerpt.slice(0, 152).trim()}...` : product.excerpt;
+  const seoDescription =
+    product.slug === "blackberry-ice"
+      ? "Buy Alibarbar Ingot 9000 Blackberry Ice in Australia. Authentic iced blackberry flavour, clear AU pricing, tiered shipping and secure bank-transfer checkout for adults 18+."
+      : product.excerpt.length > 155
+        ? `${product.excerpt.slice(0, 152).trim()}...`
+        : product.excerpt;
+  const seoTitle =
+    product.slug === "blackberry-ice"
+      ? "Buy Blackberry Ice Alibarbar Ingot 9000 Australia | In Stock"
+      : `Buy ${product.name} | Alibarbar Ingot 9000 Australia`;
   const productFaq = getProductFaq(product);
   const flavourProfile = getFlavourBySlug(product.slug);
   const productQuickAnswer = deriveProductQuickAnswer(product, flavourProfile);
@@ -142,7 +151,7 @@ const ProductPage = () => {
   );
   const breadcrumbs: BreadcrumbEntry[] = [
     { name: "Home", path: "/" },
-    { name: "Shop", path: "/#flavors" },
+    { name: "Shop", path: "/shop" },
     { name: product.name, path: productPath },
   ];
 
@@ -173,7 +182,7 @@ const ProductPage = () => {
   return (
     <div className="min-h-screen bg-background relative">
       <Seo
-        title={`${product.name} | Alibarbar Ingot 9000 Australia`}
+        title={seoTitle}
         description={seoDescription}
         path={productPath}
         image={product.img}
@@ -214,7 +223,7 @@ const ProductPage = () => {
               Home
             </Link>
             <span className="text-muted-foreground/50 text-sm">/</span>
-            <Link to="/#flavors" state={backHomeState} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            <Link to="/shop" state={backHomeState} className="text-sm text-muted-foreground hover:text-primary transition-colors">
               Shop
             </Link>
             <span className="text-muted-foreground/50 text-sm">/</span>
@@ -541,7 +550,7 @@ const ProductPage = () => {
                   <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">Related products</h2>
                 </div>
                 <Link
-                  to="/#flavors"
+                  to="/shop"
                   className="text-sm font-semibold text-primary hover:text-gold transition-colors inline-flex items-center gap-1 self-start sm:self-auto"
                 >
                   View all flavors <ChevronRight className="w-4 h-4" />

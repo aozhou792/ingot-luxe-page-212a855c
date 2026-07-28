@@ -20,6 +20,8 @@ type SeoProps = {
   title: string;
   description: string;
   path?: string;
+  /** When set, overrides `path` for canonical + hreflang (e.g. flavour guide → product URL). */
+  canonicalPath?: string;
   image?: string;
   type?: "website" | "product";
   noindex?: boolean;
@@ -59,6 +61,7 @@ export function Seo({
   title,
   description,
   path = "/",
+  canonicalPath,
   image = DEFAULT_IMAGE,
   type = "website",
   noindex = false,
@@ -66,7 +69,8 @@ export function Seo({
   jsonLd,
 }: SeoProps) {
   useEffect(() => {
-    const url = absoluteUrl(path);
+    const pageUrl = absoluteUrl(path);
+    const canonicalUrl = absoluteUrl(canonicalPath ?? path);
     const imageUrl = absoluteUrl(image);
 
     document.title = title;
@@ -77,7 +81,7 @@ export function Seo({
     setMeta("property", "og:title", title);
     setMeta("property", "og:description", description);
     setMeta("property", "og:type", type);
-    setMeta("property", "og:url", url);
+    setMeta("property", "og:url", pageUrl);
     setMeta("property", "og:image", imageUrl);
     setMeta("property", "og:image:alt", title);
     setMeta("property", "og:locale", "en_AU");
@@ -90,15 +94,15 @@ export function Seo({
     if (noCanonical) {
       document.head.querySelectorAll('link[rel="canonical"], link[rel="alternate"][hreflang]').forEach((el) => el.remove());
     } else {
-      setLink("canonical", url);
-      setLink("alternate", url, { hreflang: "en-AU" });
-      setLink("alternate", url, { hreflang: "x-default" });
+      setLink("canonical", canonicalUrl);
+      setLink("alternate", canonicalUrl, { hreflang: "en-AU" });
+      setLink("alternate", canonicalUrl, { hreflang: "x-default" });
     }
 
     const scriptId = "site-json-ld";
     const existing = document.getElementById(scriptId);
     if (jsonLd) {
-      const script = existing ?? document.createElement("script");
+      const script = (existing as HTMLScriptElement | null) ?? document.createElement("script");
       script.id = scriptId;
       script.type = "application/ld+json";
       script.textContent = JSON.stringify(jsonLd);
@@ -109,7 +113,7 @@ export function Seo({
 
     document.documentElement.dataset.seoReady = "true";
     document.dispatchEvent(new Event("seo-ready"));
-  }, [description, image, jsonLd, noCanonical, noindex, path, title, type]);
+  }, [canonicalPath, description, image, jsonLd, noCanonical, noindex, path, title, type]);
 
   return null;
 }
@@ -146,14 +150,6 @@ const websiteNode = {
   url: SITE_URL,
   inLanguage: "en-AU",
   publisher: { "@id": `${SITE_URL}/#organization` },
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: `${SITE_URL}/search?q={search_term_string}`,
-    },
-    "query-input": "required name=search_term_string",
-  },
 };
 
 function productImageUrl(img: string): string {

@@ -285,7 +285,7 @@ export const topicHubs: TopicHub[] = [
       { label: "How to Recharge an Alibarbar", path: "/guides/can-you-recharge-alibarbar-ingot-9000", description: "Non-rechargeable safety guide" },
     ],
     products: [
-      { label: "Shop All Products", path: "/#flavors", description: "Browse flavours" },
+      { label: "Shop All Products", path: "/shop", description: "Browse flavours" },
     ],
     comparisons: [
       { label: "vs IGET", path: "/compare/alibarbar-vs-iget", description: "Head-to-head" },

@@ -197,7 +197,7 @@ const OrderCompletePage = () => {
               resume payment.
             </p>
             <Button asChild>
-              <Link to="/#flavors">Browse flavours</Link>
+              <Link to="/shop">Browse flavours</Link>
             </Button>
           </div>
         </main>

@@ -169,7 +169,7 @@ const VerifyPage = () => {
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
                 <Button asChild className="bg-gold text-primary-foreground hover:bg-primary">
-                  <Link to="/#flavors">Shop flavours</Link>
+                  <Link to="/shop">Shop flavours</Link>
                 </Button>
                 <Button type="button" variant="outline" className="border-gold/40" onClick={resetCheck}>
                   Check another

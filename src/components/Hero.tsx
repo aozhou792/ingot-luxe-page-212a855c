@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import heroDevice from "@/assets/hero-device.png";
 import { TELEGRAM_COMMUNITY_URL } from "@/data/site";
 
@@ -111,13 +112,13 @@ export const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center justify-center lg:justify-start">
-            <a
-              href="#flavors"
+            <Link
+              to="/shop"
               className="group relative inline-flex items-center justify-center min-h-[48px] px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gold text-primary-foreground font-bold uppercase tracking-widest text-xs sm:text-sm shadow-gold animate-pulse-glow active:scale-[0.98] sm:hover:scale-105 transition-transform"
             >
               Shop Now
               <span className="ml-2 sm:group-hover:translate-x-1 transition-transform">→</span>
-            </a>
+            </Link>
             <a
               href={TELEGRAM_COMMUNITY_URL}
               target="_blank"

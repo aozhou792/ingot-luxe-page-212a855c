@@ -7,7 +7,7 @@ import { AuthModal } from "@/components/AuthModal";
 import logoHeader from "@/assets/logo-header.png";
 
 const links = [
-  { label: "Shop", to: "/#flavors" },
+  { label: "Shop", to: "/shop" },
   { label: "Best", to: "/best-alibarbar-australia" },
   { label: "Flavours", to: "/flavours" },
   { label: "Guides", to: "/guides" },

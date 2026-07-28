@@ -171,7 +171,7 @@ const WholesalePage = () => {
               <h3 className="text-lg font-bold mb-2">Retail orders</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 For single-unit or small mixed packs, shop online with secure bank transfer checkout.{" "}
-                <Link to="/#flavors" className="text-primary font-semibold hover:text-gold">
+                <Link to="/shop" className="text-primary font-semibold hover:text-gold">
                   Browse flavours
                 </Link>{" "}
                 or{" "}

@@ -37,6 +37,7 @@ const FlavourPage = () => {
   const product = getFlavourProduct(flavour.slug);
   const editorialReview = getReviewByProductSlug(flavour.slug);
   const path = `/flavours/${flavour.slug}`;
+  const productPath = product ? `/product/${product.slug}` : undefined;
   const breadcrumbs: BreadcrumbEntry[] = [
     { name: "Home", path: "/" },
     { name: "Flavours", path: "/flavours" },
@@ -66,8 +67,9 @@ const FlavourPage = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title={`${flavour.name} Flavour Guide | Alibarbar Ingot 9000 Australia`}
-        description={`${flavour.name}: ${flavour.tagline} Taste notes, sweetness and cooling ratings, and who it suits.`}
+        description={`${flavour.name}: ${flavour.tagline} Taste notes, sweetness and cooling ratings, and who it suits. Buy the matching device on the product page.`}
         path={path}
+        canonicalPath={productPath}
         image={product?.img}
         jsonLd={jsonLd}
       />
