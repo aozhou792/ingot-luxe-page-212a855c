@@ -25,7 +25,7 @@ export const HomeIntroduction = () => (
         <p>
           Every device we sell is a genuine Alibarbar Ingot 9000 with the signature gold ingot design, built-in smart LED
           display, 22ml pre-filled e-liquid capacity and up to 9000 puffs per unit. We ship Australia-wide with tiered
-          Regular Post rates — A$20 for orders under five devices, A$10 for five to nineteen, and free for twenty or more — and accept payment by
+          Regular Post rates — A$15 for 1–9 devices, A$10 for 10–19, and free for twenty or more — and accept payment by
           secure bank transfer.
         </p>
         <p>
@@ -108,7 +108,7 @@ const whyReasons = [
   {
     icon: Truck,
     title: "Tiered AU shipping",
-    desc: "A$20 under 5, A$10 for 5–19, free for 20+ devices. Dispatched after payment confirmation, typically 3–7 business days.",
+    desc: "A$15 for 1–9, A$10 for 10–19, free for 20+ devices. Dispatched after payment confirmation, typically 3–7 business days.",
   },
   {
     icon: Check,
@@ -295,8 +295,8 @@ export const HomeShippingTrust = () => (
         <p className="text-xs uppercase tracking-[0.25em] text-primary font-semibold">Shipping &amp; trust</p>
         <h2 className="text-2xl sm:text-3xl font-extrabold">Fast local delivery &amp; EEAT transparency</h2>
         <p className="text-muted-foreground text-sm sm:text-base leading-[1.8]">
-          We dispatch Australia-wide via Regular Post after your bank transfer is verified. Shipping is A$20 for orders
-          under five devices and A$10 for five or more. Most metro deliveries arrive within 3–7 business days. Payment is
+          We dispatch Australia-wide via Regular Post after your bank transfer is verified. Shipping is A$15 for
+          1–9 devices and A$10 for 10–19 devices (free for 20+). Most metro deliveries arrive within 3–7 business days. Payment is
           by direct bank transfer only — we never store card numbers.
         </p>
         <p className="text-muted-foreground text-sm sm:text-base leading-[1.8]">

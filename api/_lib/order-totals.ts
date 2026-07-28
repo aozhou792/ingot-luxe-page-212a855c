@@ -1,11 +1,11 @@
 import type { OrderDetails } from "./types.js";
 import { COUPON_DISCOUNT_AUD, COUPON_MIN_DEVICES, validateCoupon } from "./coupon-store.js";
 
-const SMALL_ORDER_SHIPPING_AUD = 20;
+const SMALL_ORDER_SHIPPING_AUD = 15;
 const BULK_ORDER_SHIPPING_AUD = 10;
 const FREE_SHIPPING_AUD = 0;
-/** Must match src/lib/checkout.ts — 5+ reduced, 20+ free. */
-const BULK_SHIPPING_THRESHOLD = 5;
+/** Must match src/lib/checkout.ts — under 10 = A$15, 10–19 = A$10, 20+ free. */
+const BULK_SHIPPING_THRESHOLD = 10;
 const FREE_SHIPPING_THRESHOLD = 20;
 
 function shippingAud(deviceCount: number): number {

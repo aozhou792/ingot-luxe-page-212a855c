@@ -91,8 +91,9 @@ Alibarbar Ingot 9000
 
 | Order size | Shipping |
 |------------|----------|
-| Under 5 devices | A$20 |
-| 5 or more devices | A$10 |
+| 1–9 devices | A$15 |
+| 10–19 devices | A$10 |
+| 20+ devices | Free |
 
 Delivery: **3–7 business days** after bank transfer confirmed. Ships to all states and territories.
 

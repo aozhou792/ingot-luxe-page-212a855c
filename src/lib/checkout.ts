@@ -4,16 +4,16 @@ import { formatAud } from "@/lib/format";
 export const SHIPPING_LABEL = "Regular Post";
 
 /** Shipping is based on the actual number of vape devices in the cart. */
-export const SMALL_ORDER_SHIPPING_AUD = 20;
+export const SMALL_ORDER_SHIPPING_AUD = 15;
 export const BULK_ORDER_SHIPPING_AUD = 10;
 export const FREE_SHIPPING_AUD = 0;
-/** 5+ devices get reduced shipping (covers 5-pack and 10-pack). */
-export const BULK_SHIPPING_THRESHOLD = 5;
+/** 10+ devices get reduced shipping (covers 10-pack). */
+export const BULK_SHIPPING_THRESHOLD = 10;
 /** 20+ devices ship free (covers 20-pack). */
 export const FREE_SHIPPING_THRESHOLD = 20;
 
 export function shippingRateHint(): string {
-  return `${formatAud(SMALL_ORDER_SHIPPING_AUD)} for 1-4 devices; ${formatAud(BULK_ORDER_SHIPPING_AUD)} for ${BULK_SHIPPING_THRESHOLD}–${FREE_SHIPPING_THRESHOLD - 1} devices; free shipping for ${FREE_SHIPPING_THRESHOLD}+ devices.`;
+  return `${formatAud(SMALL_ORDER_SHIPPING_AUD)} for 1–${BULK_SHIPPING_THRESHOLD - 1} devices; ${formatAud(BULK_ORDER_SHIPPING_AUD)} for ${BULK_SHIPPING_THRESHOLD}–${FREE_SHIPPING_THRESHOLD - 1} devices; free shipping for ${FREE_SHIPPING_THRESHOLD}+ devices.`;
 }
 
 export function shippingAud(deviceCount: number): number {

@@ -19,8 +19,9 @@ A pre-filled, pre-charged disposable vape rated for up to **9000 puffs**. It has
 
 ### How much is shipping?
 
-- **A$20** for orders under 5 devices
-- **A$10** for orders of 5 or more devices
+- **A$15** for orders of 1–9 devices
+- **A$10** for orders of 10–19 devices
+- **Free** for 20 or more devices
 
 Shipping is added automatically at checkout.
 

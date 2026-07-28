@@ -29,7 +29,7 @@ Ten flavours in the current Australian line-up, plus Custom 5/10/20 packs. Here 
 
 ## Can't decide?
 
-The **5 Flavour Custom Pack** (A$160) lets you pick any five flavours — repeats allowed. Ideal for finding your favourite before committing to a single flavour.
+The **5 Flavour Custom Pack** (A$190) lets you pick any five flavours — repeats allowed. Ideal for finding your favourite before committing to a single flavour.
 
 **Shop:** https://www.ailibarbar.com/product/custom-5-pack
 

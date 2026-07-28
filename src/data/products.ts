@@ -160,8 +160,8 @@ export const products: Product[] = [
   {
     slug: "custom-5-pack",
     name: "5 Flavour Custom Pack",
-    price: "200",
-    originalPrice: "275",
+    price: "190",
+    originalPrice: "200",
     img: custom5Pack,
     tag: "Best Value",
     excerpt:
@@ -230,8 +230,8 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "quadruple-berry",
     name: "Quadruple Berry",
-    price: "55",
-    originalPrice: "60",
+    price: "40",
+    originalPrice: "55",
     img: quadrupleBerry,
     tag: "Fruity",
     excerpt:
@@ -243,8 +243,8 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "fanta",
     name: "Fanta",
-    price: "55",
-    originalPrice: "60",
+    price: "40",
+    originalPrice: "55",
     img: fanta,
     tag: "Citrus",
     excerpt:
@@ -256,8 +256,8 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "lychee",
     name: "Lychee",
-    price: "55",
-    originalPrice: "60",
+    price: "40",
+    originalPrice: "55",
     img: lychee,
     tag: "Fruity",
     excerpt:
@@ -269,8 +269,8 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "peach-ice",
     name: "Peach Ice",
-    price: "55",
-    originalPrice: "60",
+    price: "40",
+    originalPrice: "55",
     img: peachIce,
     tag: "Iced",
     excerpt:
@@ -282,8 +282,8 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "blackberry-ice",
     name: "Blackberry Ice",
-    price: "55",
-    originalPrice: "60",
+    price: "40",
+    originalPrice: "55",
     img: blackberry,
     tag: "Iced",
     excerpt:
@@ -295,8 +295,8 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "mango-magic",
     name: "Mango Magic",
-    price: "55",
-    originalPrice: "60",
+    price: "40",
+    originalPrice: "55",
     img: mango,
     tag: "Tropical",
     excerpt:
@@ -308,8 +308,8 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "strawberry-coconut-watermelon",
     name: "Strawberry Coconut Watermelon",
-    price: "55",
-    originalPrice: "60",
+    price: "40",
+    originalPrice: "55",
     img: strawberryCoconutWatermelon,
     tag: "Tropical",
     excerpt:
@@ -321,8 +321,8 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "grape-ice",
     name: "Grape Ice",
-    price: "55",
-    originalPrice: "60",
+    price: "40",
+    originalPrice: "55",
     img: grape,
     tag: "Iced",
     excerpt:
@@ -334,8 +334,8 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "strawberry-watermelon",
     name: "Strawberry Watermelon",
-    price: "55",
-    originalPrice: "60",
+    price: "40",
+    originalPrice: "55",
     img: strawberryWatermelon,
     tag: "Fruity",
     excerpt:
@@ -347,8 +347,8 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "strawberry-ice",
     name: "Strawberry Ice",
-    price: "55",
-    originalPrice: "60",
+    price: "40",
+    originalPrice: "55",
     img: strawberryIce,
     tag: "Iced",
     excerpt:
@@ -418,7 +418,7 @@ export function getProductFaq(product: Product): { question: string; answer: str
     {
       question: "How long does delivery take in Australia?",
       answer:
-        "Orders are dispatched after your bank transfer is confirmed and typically arrive within 3-7 business days, depending on your state. Shipping is A$20 for under 5 devices, A$10 for 5–19 devices, and free for 20+ devices.",
+        "Orders are dispatched after your bank transfer is confirmed and typically arrive within 3-7 business days, depending on your state. Shipping is A$15 for 1–9 devices, A$10 for 10–19 devices, and free for 20+ devices.",
     },
     {
       question: "Is this a genuine Alibarbar device?",

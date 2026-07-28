@@ -215,7 +215,7 @@ export async function sendMarketingPromoEmail(user: StoredUser): Promise<void> {
     <ul>
       <li><strong>10 signature flavours</strong> — Quadruple Berry, Peach Ice, Mango Magic and more</li>
       <li><strong>Custom 5 / 10 / 20 packs</strong> — mix your favourites; 20+ devices ship free</li>
-      <li><strong>Tiered AU shipping</strong> — A$10 for 5–19 devices, free for 20+</li>
+      <li><strong>Tiered AU shipping</strong> — A$15 for 1–9 devices, A$10 for 10–19, free for 20+</li>
     </ul>
     <p><a href="${shopUrl}" style="display:inline-block;padding:12px 24px;background:#d7b760;color:#111;text-decoration:none;border-radius:999px;font-weight:bold;">Shop flavours</a>
     &nbsp;

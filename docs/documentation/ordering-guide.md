@@ -10,8 +10,9 @@ Visit https://www.ailibarbar.com and browse individual flavours or Custom Packs 
 
 Enter delivery details and confirm you are **18 or older**. Review your total including shipping:
 
-- **A$20** shipping under 5 devices
-- **A$10** shipping for 5+ devices
+- **A$15** shipping for 1–9 devices
+- **A$10** shipping for 10–19 devices
+- **Free** shipping for 20+ devices
 
 ## Step 3: Bank transfer
 
