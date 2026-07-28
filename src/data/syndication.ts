@@ -30,6 +30,17 @@ export const syndicationArticles: SyndicationArticle[] = [
       "https://medium.com/@hxjspacex1/best-alibarbar-australia-2026-ingot-9000-flavours-ranked-fc2fbb1440c8",
   },
   {
+    slug: "ingot-9000-review-sync",
+    title: "Is Alibarbar Ingot 9000 Worth Buying in Australia? (2026)",
+    excerpt:
+      "Device verdict for adult AU buyers — specs, who should buy, who should skip — with link to the full Ingot 9000 review.",
+    canonicalPath: "/reviews/alibarbar-ingot-9000-review",
+    datePublished: "2026-07-28",
+    platforms: ["medium", "substack"],
+    mediumUrl:
+      "https://medium.com/@hxjspacex1/is-alibarbar-ingot-9000-worth-buying-in-australia-2026-e992ff2ef8d0",
+  },
+  {
     slug: "buying-guide-sync",
     title: "Alibarbar Ingot 9000 Buying Guide for Australia",
     excerpt:
