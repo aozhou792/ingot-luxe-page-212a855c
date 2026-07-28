@@ -1,5 +1,6 @@
 import { markOrderNotifyEmailResult, saveOrderWithReceipt } from "./_lib/order-store.js";
 import { sendOrderNotificationEmail } from "./_lib/email.js";
+import { sendCustomerReceiptReceivedEmail } from "./_lib/marketing-email.js";
 import { redeemCoupon } from "./_lib/coupon-store.js";
 import { completeCheckoutDraft } from "./_lib/draft-store.js";
 import { assertOrderTotals } from "./_lib/order-totals.js";
@@ -26,6 +27,13 @@ export async function POST(request: Request): Promise<Response> {
       await redeemCoupon(order.discountCode, order.orderNumber);
     }
     await completeCheckoutDraft(order.orderNumber);
+
+    void sendCustomerReceiptReceivedEmail(saved).catch((emailError) => {
+      console.error(
+        `Customer receipt email failed for VN #${saved.orderNumber}:`,
+        emailError instanceof Error ? emailError.message : emailError,
+      );
+    });
 
     try {
       await sendOrderNotificationEmail(saved, receipt);

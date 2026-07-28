@@ -1,4 +1,5 @@
-import { saveCheckoutDraft } from "./_lib/draft-store.js";
+import { getCheckoutDraft, saveCheckoutDraft } from "./_lib/draft-store.js";
+import { sendCustomerOrderReceivedEmail } from "./_lib/marketing-email.js";
 import type { OrderDetails } from "./_lib/types.js";
 
 export async function POST(request: Request): Promise<Response> {
@@ -10,14 +11,32 @@ export async function POST(request: Request): Promise<Response> {
       return Response.json({ error: "Invalid draft payload" }, { status: 400 });
     }
 
+    const existing = await getCheckoutDraft(order.orderNumber);
     const draft = await saveCheckoutDraft({
       orderNumber: order.orderNumber,
       order: { ...order, deviceCount },
       deviceCount,
-      createdAt: new Date().toISOString(),
+      createdAt: existing?.createdAt || new Date().toISOString(),
+      abandonedReminderSentAt: existing?.abandonedReminderSentAt,
+      couponCode: existing?.couponCode,
+      completedAt: existing?.completedAt,
     });
 
-    return Response.json({ ok: true, orderNumber: draft.orderNumber });
+    let customerEmailSent = false;
+    // Only email on first draft create to avoid duplicates on overwrite/retry.
+    if (!existing) {
+      try {
+        await sendCustomerOrderReceivedEmail(draft.order);
+        customerEmailSent = true;
+      } catch (emailError) {
+        console.error(
+          `Customer order email failed for VN #${draft.orderNumber}:`,
+          emailError instanceof Error ? emailError.message : emailError,
+        );
+      }
+    }
+
+    return Response.json({ ok: true, orderNumber: draft.orderNumber, customerEmailSent });
   } catch (error) {
     console.error("save-checkout-draft failed:", error);
     const message = error instanceof Error ? error.message : "Failed to save checkout draft";

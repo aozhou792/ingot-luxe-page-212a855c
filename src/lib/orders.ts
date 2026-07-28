@@ -2,6 +2,8 @@ import type { OrderDetails } from "@/types/navigation";
 
 const ORDER_SEQ_KEY = "alibarbar-order-seq";
 const ORDERS_STORAGE_KEY = "alibarbar-orders";
+/** Pending unpaid order snapshot so refresh/share on /order-complete still works. */
+const PENDING_ORDER_KEY = "alibarbar-pending-order";
 
 /** First order number when no prior sequence exists in localStorage. */
 export const ORDER_SEQ_INITIAL = 3870;
@@ -53,6 +55,42 @@ function loadOrders(): StoredOrder[] {
 
 export function getStoredOrders(): StoredOrder[] {
   return loadOrders();
+}
+
+/** Persist unpaid order so /order-complete survives refresh in the same browser. */
+export function cachePendingOrder(order: OrderDetails): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(PENDING_ORDER_KEY, JSON.stringify(order));
+  } catch {
+    /* ignore quota / private mode */
+  }
+}
+
+export function loadPendingOrder(): OrderDetails | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(PENDING_ORDER_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as OrderDetails;
+    if (!parsed?.orderNumber || !parsed?.billing?.email) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+export function clearPendingOrder(orderNumber?: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    if (orderNumber) {
+      const current = loadPendingOrder();
+      if (current && current.orderNumber !== orderNumber) return;
+    }
+    window.localStorage.removeItem(PENDING_ORDER_KEY);
+  } catch {
+    /* ignore */
+  }
 }
 
 /** Persist order + payment screenshot locally as a cache after cloud backup succeeds. */

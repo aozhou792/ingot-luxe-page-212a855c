@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Check, Copy, ImagePlus, X } from "lucide-react";
 import { toast } from "sonner";
 import { Navbar } from "@/components/Navbar";
@@ -13,10 +13,13 @@ import {
   formatOrderReference,
   readReceiptFile,
   cacheOrderLocally,
+  cachePendingOrder,
+  clearPendingOrder,
+  loadPendingOrder,
   RECEIPT_ACCEPT,
 } from "@/lib/orders";
 import { trackPlaceOrder, trackPurchase } from "@/lib/analytics";
-import { submitOrderToBackend } from "@/lib/orders-api";
+import { fetchResumeOrderFromApi, submitOrderToBackend } from "@/lib/orders-api";
 import { AU_STATES } from "@/data/australia";
 import type { OrderAddress, OrderDetails } from "@/types/navigation";
 
@@ -80,7 +83,18 @@ const CopyValue = ({ value }: { value: string }) => {
 const OrderCompletePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const order = (location.state as OrderDetails | null) ?? null;
+  const [searchParams] = useSearchParams();
+  const stateOrder = (location.state as OrderDetails | null) ?? null;
+  const queryOrder = searchParams.get("order")?.trim() ?? "";
+  const queryEmail = searchParams.get("email")?.trim() ?? "";
+
+  const [order, setOrder] = useState<OrderDetails | null>(() => {
+    if (stateOrder?.orderNumber) return stateOrder;
+    const pending = loadPendingOrder();
+    if (pending && (!queryOrder || pending.orderNumber === queryOrder)) return pending;
+    return null;
+  });
+  const [loadingResume, setLoadingResume] = useState(() => Boolean(queryOrder && queryEmail && !stateOrder));
   const [payOpen, setPayOpen] = useState(false);
   const [receipt, setReceipt] = useState<{ dataUrl: string; name: string } | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -98,9 +112,72 @@ const OrderCompletePage = () => {
   }, [order?.orderNumber]);
 
   useEffect(() => {
+    if (stateOrder?.orderNumber) {
+      cachePendingOrder(stateOrder);
+      setOrder(stateOrder);
+      setLoadingResume(false);
+      return;
+    }
+
+    const pending = loadPendingOrder();
+    if (pending && (!queryOrder || pending.orderNumber === queryOrder)) {
+      setOrder(pending);
+      setLoadingResume(false);
+      return;
+    }
+
+    if (!queryOrder || !queryEmail) {
+      setLoadingResume(false);
+      return;
+    }
+
+    let cancelled = false;
+    setLoadingResume(true);
+    void fetchResumeOrderFromApi(queryOrder, queryEmail)
+      .then((resumed) => {
+        if (cancelled) return;
+        cachePendingOrder(resumed);
+        setOrder(resumed);
+      })
+      .catch((error) => {
+        if (cancelled) return;
+        toast.error(error instanceof Error ? error.message : "Could not resume this order.");
+        setOrder(null);
+      })
+      .finally(() => {
+        if (!cancelled) setLoadingResume(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [stateOrder, queryOrder, queryEmail]);
+
+  useEffect(() => {
     if (!order) return;
     void trackPlaceOrder(order);
   }, [order]);
+
+  if (loadingResume) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Seo
+          title="Loading Order | Alibarbar Australia"
+          description="Loading your Alibarbar Australia order confirmation."
+          path="/order-complete"
+          noindex
+        />
+        <Navbar />
+        <main className="container pt-[calc(6rem+env(safe-area-inset-top))] pb-20 max-w-lg text-center">
+          <div className="rounded-2xl border border-border bg-card p-8">
+            <h1 className="text-2xl font-semibold text-foreground mb-3">Loading your order…</h1>
+            <p className="text-muted-foreground">Please wait while we restore your order details.</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!order) {
     return (
@@ -115,7 +192,10 @@ const OrderCompletePage = () => {
         <main className="container pt-[calc(6rem+env(safe-area-inset-top))] pb-20 max-w-lg text-center">
           <div className="rounded-2xl border border-border bg-card p-8">
             <h1 className="text-2xl font-semibold text-foreground mb-3">No recent order</h1>
-            <p className="text-muted-foreground mb-6">Place an order to see your confirmation here.</p>
+            <p className="text-muted-foreground mb-6">
+              Place an order to see your confirmation here. If you received an email, open the link from that message to
+              resume payment.
+            </p>
             <Button asChild>
               <Link to="/#flavors">Browse flavours</Link>
             </Button>
@@ -154,6 +234,7 @@ const OrderCompletePage = () => {
     try {
       const saved = await submitOrderToBackend(order, receipt);
       cacheOrderLocally(saved);
+      clearPendingOrder(order.orderNumber);
       trackPurchase(order);
       setPaymentDone(true);
       setPayOpen(false);
@@ -173,6 +254,7 @@ const OrderCompletePage = () => {
   };
 
   const cancelOrder = () => {
+    clearPendingOrder(order.orderNumber);
     toast.message("Order cancelled");
     navigate("/");
   };
@@ -277,6 +359,12 @@ const OrderCompletePage = () => {
               <AddressBlock title="Billing address" address={order.billing} />
               {order.shipToDifferent ? <AddressBlock title="Shipping address" address={order.billing} /> : null}
             </div>
+            {order.notes?.trim() ? (
+              <div className="mt-8">
+                <h3 className="text-base font-semibold text-foreground mb-2">Order notes</h3>
+                <p className="text-sm text-muted-foreground whitespace-pre-wrap leading-relaxed">{order.notes.trim()}</p>
+              </div>
+            ) : null}
           </section>
 
           <aside className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-6">

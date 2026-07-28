@@ -522,6 +522,12 @@ const AdminOrdersPage = () => {
                           <p key={line}>{line}</p>
                         ))}
                       </div>
+                      {order.notes?.trim() ? (
+                        <div className="mt-3 border-t border-border pt-3">
+                          <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">订单备注</p>
+                          <p className="text-sm whitespace-pre-wrap leading-relaxed">{order.notes.trim()}</p>
+                        </div>
+                      ) : null}
                     </div>
 
                     <div className="rounded-xl border border-border bg-background/30 p-4">

@@ -29,6 +29,7 @@ function buildHtml(order: StoredOrder): string {
     <p><strong>Total:</strong> AUD ${order.total.toFixed(2)}</p>
     <p><strong>Customer:</strong> ${order.billing.firstName} ${order.billing.lastName}</p>
     <p><strong>Email:</strong> ${order.billing.email}</p>
+    ${order.notes?.trim() ? `<p><strong>Order notes:</strong> ${order.notes.trim()}</p>` : ""}
     <h3>Items</h3>
     <ul>${lines}</ul>
     <h3>Billing address</h3>

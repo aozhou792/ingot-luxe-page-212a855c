@@ -43,6 +43,8 @@ export type OrderDetails = {
   billing: OrderAddress;
   shipToDifferent: boolean;
   deviceCount: number;
+  /** Optional delivery / order notes from checkout. */
+  notes?: string;
   discountCode?: string;
   discountAmount?: number;
 };

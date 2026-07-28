@@ -37,6 +37,10 @@ async function readJson<T>(pathname: string): Promise<T | null> {
   return (await response.json()) as T;
 }
 
+export async function getCheckoutDraft(orderNumber: string): Promise<CheckoutDraft | null> {
+  return readJson<CheckoutDraft>(draftPath(orderNumber));
+}
+
 export async function saveCheckoutDraft(draft: CheckoutDraft): Promise<CheckoutDraft> {
   const token = blobToken();
   const record: CheckoutDraft = {

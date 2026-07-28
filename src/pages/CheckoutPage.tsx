@@ -29,7 +29,7 @@ import {
 } from "@/lib/checkout";
 import { trackPlaceOrder } from "@/lib/analytics";
 import { saveCheckoutDraft } from "@/lib/marketing-api";
-import { nextOrderNumber } from "@/lib/orders";
+import { cachePendingOrder, nextOrderNumber } from "@/lib/orders";
 import { fetchNextOrderNumberFromApi } from "@/lib/orders-api";
 import type { OrderDetails } from "@/types/navigation";
 
@@ -69,6 +69,7 @@ const CheckoutPage = () => {
   const { lines, deviceCount, subtotal, clearCart } = useCart();
   const [form, setForm] = useState<BillingForm>(initialForm);
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [placing, setPlacing] = useState(false);
 
   const hasItems = lines.length > 0;
   const shipping = shippingAud(deviceCount);
@@ -98,13 +99,14 @@ const CheckoutPage = () => {
     if (!form.suburb.trim()) next.suburb = "Suburb is required";
     if (!form.state) next.state = "State is required";
     if (!/^\d{4}$/.test(form.postcode.trim())) next.postcode = "Enter a valid 4-digit postcode";
+    if (!form.phone.trim()) next.phone = "Phone is required";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) next.email = "Enter a valid email address";
     return next;
   };
 
   const placeOrder = async (event: FormEvent) => {
     event.preventDefault();
-    if (!hasItems) return;
+    if (!hasItems || placing) return;
 
     const nextErrors = validate();
     setErrors(nextErrors);
@@ -115,41 +117,50 @@ const CheckoutPage = () => {
       return;
     }
 
-    let orderNumber: string;
+    setPlacing(true);
     try {
-      orderNumber = await fetchNextOrderNumberFromApi();
-    } catch {
-      orderNumber = nextOrderNumber();
+      let orderNumber: string;
+      try {
+        orderNumber = await fetchNextOrderNumberFromApi();
+      } catch {
+        orderNumber = nextOrderNumber();
+      }
+
+      const notes = form.orderNotes.trim();
+      const order: OrderDetails = {
+        orderNumber,
+        date: new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "numeric" }).format(new Date()),
+        lines: lines.map((l) => ({ slug: l.slug, name: l.name, qty: l.qty, price: l.price })),
+        subtotal,
+        shipping,
+        total,
+        paymentMethod: PAYMENT_METHOD_LABEL,
+        deviceCount,
+        notes: notes || undefined,
+        billing: {
+          firstName: form.firstName.trim(),
+          lastName: form.lastName.trim(),
+          street: form.street.trim(),
+          apartment: form.apartment.trim() || undefined,
+          suburb: form.suburb.trim(),
+          state: form.state,
+          postcode: form.postcode.trim(),
+          country: form.country,
+          phone: form.phone.trim(),
+          email: form.email.trim(),
+        },
+        shipToDifferent: false,
+      };
+
+      cachePendingOrder(order);
+      void saveCheckoutDraft(order, deviceCount);
+      await trackPlaceOrder(order);
+      navigate(`/order-complete?order=${encodeURIComponent(orderNumber)}`, { state: order, replace: true });
+      requestAnimationFrame(() => clearCart());
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not place order. Please try again.");
+      setPlacing(false);
     }
-
-    const order: OrderDetails = {
-      orderNumber,
-      date: new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "numeric" }).format(new Date()),
-      lines: lines.map((l) => ({ slug: l.slug, name: l.name, qty: l.qty, price: l.price })),
-      subtotal,
-      shipping,
-      total,
-      paymentMethod: PAYMENT_METHOD_LABEL,
-      deviceCount,
-      billing: {
-        firstName: form.firstName.trim(),
-        lastName: form.lastName.trim(),
-        street: form.street.trim(),
-        apartment: form.apartment.trim() || undefined,
-        suburb: form.suburb.trim(),
-        state: form.state,
-        postcode: form.postcode.trim(),
-        country: form.country,
-        phone: form.phone.trim() || undefined,
-        email: form.email.trim(),
-      },
-      shipToDifferent: false,
-    };
-
-    void saveCheckoutDraft(order, deviceCount);
-    await trackPlaceOrder(order);
-    navigate("/order-complete", { state: order });
-    requestAnimationFrame(() => clearCart());
   };
 
   return (
@@ -277,11 +288,12 @@ const CheckoutPage = () => {
                 </div>
 
                 <div className="mt-4 grid sm:grid-cols-2 gap-4">
-                  <Field label="Phone" hint="optional">
+                  <Field label="Phone" required error={errors.phone}>
                     <Input
                       value={form.phone}
                       onChange={(e) => setField("phone", e.target.value)}
                       type="tel"
+                      data-invalid={errors.phone ? "true" : undefined}
                       autoComplete="tel"
                     />
                   </Field>
@@ -358,8 +370,8 @@ const CheckoutPage = () => {
                 </p>
               </div>
 
-              <Button type="submit" size="lg" className="w-full min-h-[48px] hidden lg:flex">
-                Place order
+              <Button type="submit" size="lg" className="w-full min-h-[48px] hidden lg:flex" disabled={placing}>
+                {placing ? "Placing order…" : "Place order"}
               </Button>
               <Button asChild variant="outline" className="w-full bg-background">
                 <Link to="/cart">Back to cart</Link>
@@ -378,8 +390,8 @@ const CheckoutPage = () => {
                 <p className="text-xs text-muted-foreground">Order total</p>
                 <p className="text-xl font-bold text-primary tabular-nums">{formatAud(total)}</p>
               </div>
-              <Button type="submit" form="checkout-form" size="lg" className="shrink-0 min-h-[48px] px-6">
-                Place order
+              <Button type="submit" form="checkout-form" size="lg" className="shrink-0 min-h-[48px] px-6" disabled={placing}>
+                {placing ? "Placing…" : "Place order"}
               </Button>
             </div>
           </div>

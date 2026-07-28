@@ -2,6 +2,8 @@ import { Resend } from "resend";
 import type { CheckoutDraft } from "./draft-store.js";
 import { COUPON_DISCOUNT_AUD, COUPON_VALID_DAYS } from "./coupon-store.js";
 import type { StoredUser } from "./user-store.js";
+import type { OrderDetails } from "./types.js";
+import { BANK_TRANSFER } from "./bank.js";
 
 const DEFAULT_SITE_URL = "https://www.ailibarbar.com";
 const TELEGRAM_URL = "https://t.me/ailibarbar";
@@ -42,17 +44,116 @@ async function sendEmail(to: string, subject: string, html: string, text: string
   });
 }
 
-function orderLinesHtml(draft: CheckoutDraft): string {
-  return draft.order.lines
+function orderLinesHtml(order: Pick<OrderDetails, "lines">): string {
+  return order.lines
     .map((l) => `<li>${l.name} × ${l.qty} — AUD ${(l.price * l.qty).toFixed(2)}</li>`)
     .join("");
 }
 
+function formatReference(orderNumber: string): string {
+  return `VN #${orderNumber}`;
+}
+
+function resumeOrderUrl(orderNumber: string, email: string): string {
+  const params = new URLSearchParams({
+    order: orderNumber,
+    email: email.trim().toLowerCase(),
+  });
+  return `${appBaseUrl()}/order-complete?${params.toString()}`;
+}
+
+function bankDetailsHtml(): string {
+  return `
+    <table style="width:100%;border-collapse:collapse;margin:16px 0;font-size:14px;">
+      <tr><td style="padding:6px 0;color:#666;">Account Name</td><td style="padding:6px 0;text-align:right;"><strong>${BANK_TRANSFER.accountName}</strong></td></tr>
+      <tr><td style="padding:6px 0;color:#666;">BSB</td><td style="padding:6px 0;text-align:right;"><strong>${BANK_TRANSFER.bsb}</strong></td></tr>
+      <tr><td style="padding:6px 0;color:#666;">Account Number</td><td style="padding:6px 0;text-align:right;"><strong>${BANK_TRANSFER.accountNumber}</strong></td></tr>
+      <tr><td style="padding:6px 0;color:#666;">Swift/BIC</td><td style="padding:6px 0;text-align:right;"><strong>${BANK_TRANSFER.swift}</strong></td></tr>
+      <tr><td style="padding:6px 0;color:#666;">Bank</td><td style="padding:6px 0;text-align:right;">${BANK_TRANSFER.bankName}</td></tr>
+    </table>
+  `;
+}
+
+/** Sent when checkout draft is saved — customer confirmation with pay instructions. */
+export async function sendCustomerOrderReceivedEmail(order: OrderDetails): Promise<void> {
+  const email = order.billing.email;
+  const reference = formatReference(order.orderNumber);
+  const resumeUrl = resumeOrderUrl(order.orderNumber, email);
+  const notesBlock = order.notes?.trim()
+    ? `<p><strong>Your notes:</strong> ${order.notes.trim()}</p>`
+    : "";
+
+  const subject = `Order ${reference} received — please complete bank transfer`;
+  const html = `
+    <h2>Thanks for your order, ${order.billing.firstName}</h2>
+    <p>We have received order <strong>${reference}</strong>. Please transfer <strong>AUD ${order.total.toFixed(2)}</strong> and upload your payment screenshot to confirm.</p>
+    <h3>Items</h3>
+    <ul>${orderLinesHtml(order)}</ul>
+    <p><strong>Subtotal:</strong> AUD ${order.subtotal.toFixed(2)}<br/>
+    <strong>Shipping:</strong> AUD ${order.shipping.toFixed(2)}<br/>
+    <strong>Total:</strong> AUD ${order.total.toFixed(2)}</p>
+    ${notesBlock}
+    <h3>Bank transfer details</h3>
+    ${bankDetailsHtml()}
+    <p>Use reference <strong>${reference}</strong> on your transfer so we can match your payment.</p>
+    <p><a href="${resumeUrl}" style="display:inline-block;padding:12px 24px;background:#d7b760;color:#111;text-decoration:none;border-radius:999px;font-weight:bold;">Upload payment receipt</a></p>
+    <p style="font-size:12px;color:#666;">Questions? Reply to this email or contact ${SUPPORT_EMAIL}.</p>
+  `;
+
+  const text = [
+    `Hi ${order.billing.firstName},`,
+    "",
+    `Order ${reference} received. Please transfer AUD ${order.total.toFixed(2)}.`,
+    "",
+    ...order.lines.map((l) => `- ${l.name} x${l.qty}`),
+    "",
+    `Total: AUD ${order.total.toFixed(2)}`,
+    order.notes?.trim() ? `Notes: ${order.notes.trim()}` : "",
+    "",
+    `Account: ${BANK_TRANSFER.accountName}`,
+    `BSB: ${BANK_TRANSFER.bsb}`,
+    `Account number: ${BANK_TRANSFER.accountNumber}`,
+    `Reference: ${reference}`,
+    "",
+    `Upload receipt: ${resumeUrl}`,
+    "",
+    `Support: ${SUPPORT_EMAIL}`,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  await sendEmail(email, subject, html, text);
+}
+
+/** Sent after payment screenshot is submitted. */
+export async function sendCustomerReceiptReceivedEmail(order: OrderDetails): Promise<void> {
+  const email = order.billing.email;
+  const reference = formatReference(order.orderNumber);
+  const subject = `Payment receipt received for ${reference}`;
+  const html = `
+    <h2>Receipt received</h2>
+    <p>Hi ${order.billing.firstName},</p>
+    <p>We have received your payment screenshot for order <strong>${reference}</strong> (AUD ${order.total.toFixed(2)}).</p>
+    <p>Our team will confirm the bank transfer shortly. Once confirmed, your order will be packed and shipped.</p>
+    <p style="font-size:12px;color:#666;">Questions? Contact ${SUPPORT_EMAIL} with reference ${reference}.</p>
+  `;
+  const text = [
+    `Hi ${order.billing.firstName},`,
+    "",
+    `We received your payment screenshot for ${reference} (AUD ${order.total.toFixed(2)}).`,
+    "We will confirm the transfer shortly, then pack and ship your order.",
+    "",
+    `Support: ${SUPPORT_EMAIL}`,
+  ].join("\n");
+
+  await sendEmail(email, subject, html, text);
+}
+
 export async function sendAbandonedCheckoutEmail(draft: CheckoutDraft, couponCode?: string): Promise<void> {
   const email = draft.order.billing.email;
-  const checkoutUrl = `${appBaseUrl()}/checkout`;
-  const reference = `VN #${draft.order.orderNumber}`;
-  const lines = orderLinesHtml(draft);
+  const resumeUrl = resumeOrderUrl(draft.order.orderNumber, email);
+  const reference = formatReference(draft.order.orderNumber);
+  const lines = orderLinesHtml(draft.order);
 
   const withCoupon = Boolean(couponCode);
   const subject = withCoupon
@@ -64,7 +165,7 @@ export async function sendAbandonedCheckoutEmail(draft: CheckoutDraft, couponCod
       <p style="margin:16px 0;padding:16px;background:#1a1a1a;border:1px solid #d7b760;border-radius:8px;">
         <strong>Your exclusive code: ${couponCode}</strong><br/>
         Save <strong>A$${COUPON_DISCOUNT_AUD.toFixed(2)}</strong> on this order (3+ devices required).<br/>
-        Expires in ${COUPON_VALID_DAYS} days — complete checkout before it ends.
+        Expires in ${COUPON_VALID_DAYS} days — complete payment before it ends.
       </p>
     `
     : "";
@@ -79,9 +180,9 @@ export async function sendAbandonedCheckoutEmail(draft: CheckoutDraft, couponCod
     <strong>Shipping:</strong> AUD ${draft.order.shipping.toFixed(2)}<br/>
     <strong>Total:</strong> AUD ${draft.order.total.toFixed(2)}</p>
     ${couponBlock}
-    <p>Return to checkout and upload your payment screenshot to confirm your order.</p>
-    <p><a href="${checkoutUrl}" style="display:inline-block;padding:12px 24px;background:#d7b760;color:#111;text-decoration:none;border-radius:999px;font-weight:bold;">Complete my order</a></p>
-    <p style="font-size:12px;color:#666;">If you already paid, please upload your receipt on the order page or email orders@ailibarbar.com with reference ${reference}.</p>
+    <p>Open your order page and upload your payment screenshot to confirm.</p>
+    <p><a href="${resumeUrl}" style="display:inline-block;padding:12px 24px;background:#d7b760;color:#111;text-decoration:none;border-radius:999px;font-weight:bold;">Complete my order</a></p>
+    <p style="font-size:12px;color:#666;">If you already paid, upload your receipt on the order page or email ${SUPPORT_EMAIL} with reference ${reference}.</p>
   `;
 
   const text = [
@@ -94,7 +195,7 @@ export async function sendAbandonedCheckoutEmail(draft: CheckoutDraft, couponCod
     `Total: AUD ${draft.order.total.toFixed(2)}`,
     withCoupon ? `Your code: ${couponCode} (A$${COUPON_DISCOUNT_AUD} off, 3+ devices, expires in ${COUPON_VALID_DAYS} days)` : "",
     "",
-    `Complete your order: ${checkoutUrl}`,
+    `Complete your order: ${resumeUrl}`,
   ]
     .filter(Boolean)
     .join("\n");

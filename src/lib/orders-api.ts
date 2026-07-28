@@ -53,6 +53,20 @@ export async function fetchNextOrderNumberFromApi(): Promise<string> {
   return data.orderNumber;
 }
 
+export async function fetchResumeOrderFromApi(
+  orderNumber: string,
+  email: string,
+): Promise<OrderDetails> {
+  const params = new URLSearchParams({
+    orderNumber,
+    email: email.trim().toLowerCase(),
+  });
+  const response = await fetch(`/api/resume-checkout?${params.toString()}`);
+  if (!response.ok) throw new Error(await parseError(response));
+  const data = (await response.json()) as { order: OrderDetails };
+  return data.order;
+}
+
 export async function submitOrderToBackend(
   order: OrderDetails,
   receipt: { dataUrl: string; name: string },
