@@ -16,6 +16,7 @@ const NotFound = () => {
         description="The requested Alibarbar Australia page could not be found."
         path={location.pathname}
         noindex
+        noCanonical
       />
       <div className="text-center">
         <h1 className="mb-4 text-4xl font-bold">404</h1>

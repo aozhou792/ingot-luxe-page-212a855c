@@ -18,6 +18,11 @@
       "statusCode": 301
     },
     {
+      "source": "/products/alibar-10-pack",
+      "destination": "/product/custom-10-pack",
+      "statusCode": 301
+    },
+    {
       "source": "/products/:path*",
       "destination": "/",
       "statusCode": 301
@@ -48,8 +53,28 @@
       "statusCode": 301
     },
     {
+      "source": "/product/alo-vape-10pack",
+      "destination": "/product/custom-10-pack",
+      "statusCode": 301
+    },
+    {
       "source": "/product/custom-3-pack",
       "destination": "/product/custom-5-pack",
+      "statusCode": 301
+    },
+    {
+      "source": "/guide-how-to-open-all-bar-vape",
+      "destination": "/guides/how-to-open-alibarbar-vape",
+      "statusCode": 301
+    },
+    {
+      "source": "/guide-how-to-open-ali-bar-vape",
+      "destination": "/guides/how-to-open-alibarbar-vape",
+      "statusCode": 301
+    },
+    {
+      "source": "/guide/how-to-open-alibarbar-vape",
+      "destination": "/guides/how-to-open-alibarbar-vape",
       "statusCode": 301
     },
     {
@@ -73,8 +98,23 @@
       "statusCode": 301
     },
     {
+      "source": "/blog/best-disposable-vape-australia-2024/",
+      "destination": "/blog/best-disposable-vape-australia-2026",
+      "statusCode": 301
+    },
+    {
       "source": "/blog/best-disposable-vape-australia-2023",
       "destination": "/blog/best-disposable-vape-australia-2026",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/best-disposable-vape-australia-2023/",
+      "destination": "/blog/best-disposable-vape-australia-2026",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
       "statusCode": 301
     },
     {

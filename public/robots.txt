@@ -9,5 +9,7 @@ Disallow: /order-complete
 Disallow: /orders2589
 Disallow: /whatsapp-qr
 Disallow: /reset-password
+Disallow: /search
+Disallow: /search/
 
 Sitemap: https://www.ailibarbar.com/sitemap.xml

@@ -23,6 +23,8 @@ type SeoProps = {
   image?: string;
   type?: "website" | "product";
   noindex?: boolean;
+  /** Skip canonical/hreflang — use on soft-404 SPA routes so Google does not treat junk URLs as self-canonical. */
+  noCanonical?: boolean;
   jsonLd?: Record<string, unknown>;
 };
 
@@ -60,6 +62,7 @@ export function Seo({
   image = DEFAULT_IMAGE,
   type = "website",
   noindex = false,
+  noCanonical = false,
   jsonLd,
 }: SeoProps) {
   useEffect(() => {
@@ -84,9 +87,13 @@ export function Seo({
     setMeta("name", "twitter:description", description);
     setMeta("name", "twitter:image", imageUrl);
 
-    setLink("canonical", url);
-    setLink("alternate", url, { hreflang: "en-AU" });
-    setLink("alternate", url, { hreflang: "x-default" });
+    if (noCanonical) {
+      document.head.querySelectorAll('link[rel="canonical"], link[rel="alternate"][hreflang]').forEach((el) => el.remove());
+    } else {
+      setLink("canonical", url);
+      setLink("alternate", url, { hreflang: "en-AU" });
+      setLink("alternate", url, { hreflang: "x-default" });
+    }
 
     const scriptId = "site-json-ld";
     const existing = document.getElementById(scriptId);
@@ -102,7 +109,7 @@ export function Seo({
 
     document.documentElement.dataset.seoReady = "true";
     document.dispatchEvent(new Event("seo-ready"));
-  }, [description, image, jsonLd, noindex, path, title, type]);
+  }, [description, image, jsonLd, noCanonical, noindex, path, title, type]);
 
   return null;
 }
