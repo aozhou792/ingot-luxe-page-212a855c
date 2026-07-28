@@ -19,6 +19,17 @@ export type SyndicationArticle = {
  */
 export const syndicationArticles: SyndicationArticle[] = [
   {
+    slug: "best-alibarbar-australia-sync",
+    title: "Best Alibarbar Australia 2026: Ingot 9000 Flavours Ranked",
+    excerpt:
+      "Quick winners, tasting method and Australian city picks — full comparison table lives on the canonical ranked guide.",
+    canonicalPath: "/best-alibarbar-australia",
+    datePublished: "2026-07-28",
+    platforms: ["medium", "substack"],
+    mediumUrl:
+      "https://medium.com/@hxjspacex1/best-alibarbar-australia-2026-ingot-9000-flavours-ranked-fc2fbb1440c8",
+  },
+  {
     slug: "buying-guide-sync",
     title: "Alibarbar Ingot 9000 Buying Guide for Australia",
     excerpt:
@@ -97,7 +108,7 @@ export const syndicationHub = {
     "How Alibarbar Australia syncs buying guides, research and comparisons to Medium and Substack while keeping ailibarbar.com as the canonical source.",
   intro:
     "We republish selected knowledge articles to Medium and Substack so readers on those platforms can discover Alibarbar Australia content. Every mirrored post should point back to the canonical URL on this site.",
-  dateModified: "2026-07-22",
+  dateModified: "2026-07-28",
   rules: [
     "Canonical URL always lives on www.ailibarbar.com",
     "Medium / Substack posts include a top link to the canonical article",
