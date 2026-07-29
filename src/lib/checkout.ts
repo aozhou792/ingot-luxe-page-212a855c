@@ -37,14 +37,14 @@ export function orderTotal(subtotal: number, deviceCount: number, discountAud = 
 export const COUPON_MIN_DEVICES = 3;
 export const COUPON_DISCOUNT_AUD = 10;
 
-/** Wise (bank transfer) account the storefront collects payment into. */
+/** Australian bank transfer account the storefront collects payment into. */
 export const BANK_TRANSFER = {
-  accountName: "XIAOHONG HUANG",
-  bsb: "774-001",
-  accountNumber: "246121333",
-  swift: "TRWIAUS1XXX",
-  bankName: "Wise Australia Pty Ltd",
-  bankAddress: "Suite 1, Level 11, 66 Goulburn Street, Sydney, NSW, 2000, Australia",
+  accountName: "XINLEI QIU",
+  bsb: "063-019",
+  accountNumber: "10531547",
+  swift: "CTBAAU2S",
+  bankName: "Commonwealth Bank of Australia",
+  bankAddress: "Ground Floor, Tower 1, 201 Sussex Street, Sydney, NSW, 2000, Australia",
 } as const;
 
 export const PAYMENT_METHOD_LABEL = "Bank Transfer";
