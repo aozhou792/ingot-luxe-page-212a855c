@@ -180,6 +180,9 @@ export async function sendAbandonedCheckoutEmail(draft: CheckoutDraft, couponCod
     <strong>Shipping:</strong> AUD ${draft.order.shipping.toFixed(2)}<br/>
     <strong>Total:</strong> AUD ${draft.order.total.toFixed(2)}</p>
     ${couponBlock}
+    <h3>Bank transfer details</h3>
+    <p>Please transfer <strong>AUD ${draft.order.total.toFixed(2)}</strong> using reference <strong>${reference}</strong>:</p>
+    ${bankDetailsHtml()}
     <p>Open your order page and upload your payment screenshot to confirm.</p>
     <p><a href="${resumeUrl}" style="display:inline-block;padding:12px 24px;background:#d7b760;color:#111;text-decoration:none;border-radius:999px;font-weight:bold;">Complete my order</a></p>
     <p style="font-size:12px;color:#666;">If you already paid, upload your receipt on the order page or email ${SUPPORT_EMAIL} with reference ${reference}.</p>
@@ -194,6 +197,13 @@ export async function sendAbandonedCheckoutEmail(draft: CheckoutDraft, couponCod
     "",
     `Total: AUD ${draft.order.total.toFixed(2)}`,
     withCoupon ? `Your code: ${couponCode} (A$${COUPON_DISCOUNT_AUD} off, 3+ devices, expires in ${COUPON_VALID_DAYS} days)` : "",
+    "",
+    "Bank transfer details:",
+    `Account: ${BANK_TRANSFER.accountName}`,
+    `BSB: ${BANK_TRANSFER.bsb}`,
+    `Account number: ${BANK_TRANSFER.accountNumber}`,
+    `Bank: ${BANK_TRANSFER.bankName}`,
+    `Reference: ${reference}`,
     "",
     `Complete your order: ${resumeUrl}`,
   ]
