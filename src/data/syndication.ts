@@ -70,6 +70,19 @@ export const syndicationArticles: SyndicationArticle[] = [
     canonicalPath: "/compare/alibarbar-vs-iget",
     datePublished: "2026-07-14",
     platforms: ["medium", "substack"],
+    mediumUrl:
+      "https://medium.com/@hxjspacex1/alibarbar-ingot-9000-vs-iget-which-disposable-vape-is-better-bb5a98a6bba2",
+  },
+  {
+    slug: "how-long-lasts-sync",
+    title: "How Long Does the Alibarbar Ingot 9000 Last?",
+    excerpt:
+      "Realistic lifespan by daily puff count — light, average and heavy use — plus tips to make each device last longer.",
+    canonicalPath: "/guides/how-long-does-alibarbar-ingot-9000-last",
+    datePublished: "2026-07-29",
+    platforms: ["medium", "substack"],
+    mediumUrl:
+      "https://medium.com/@hxjspacex1/how-long-does-the-alibarbar-ingot-9000-last-93254d2b3184",
   },
   {
     slug: "spot-fake-sync",
