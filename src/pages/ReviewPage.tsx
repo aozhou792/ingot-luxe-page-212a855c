@@ -42,6 +42,8 @@ const ReviewPage = () => {
   if (!review) return <Navigate to="/reviews" replace />;
 
   const product = review.productSlug ? getProductBySlug(review.productSlug) : undefined;
+  // Device-level reviews may not bind a SKU; use a representative in-stock flavour for offers.
+  const offerProduct = product ?? getProductBySlug("quadruple-berry");
   const path = `/reviews/${review.slug}`;
   const breadcrumbs: BreadcrumbEntry[] = [
     { name: "Home", path: "/" },
@@ -56,17 +58,24 @@ const ReviewPage = () => {
     product != null
       ? `Alibarbar Ingot 9000 ${product.name}`
       : (review.productName ?? "Alibarbar Ingot 9000");
-  const schemaProductPath = product != null ? `/product/${product.slug}` : (review.productPath ?? path);
+  const schemaProductPath =
+    product != null
+      ? `/product/${product.slug}`
+      : offerProduct
+        ? `/product/${offerProduct.slug}`
+        : (review.productPath ?? "/shop");
 
   const jsonLd = reviewJsonLd({
     title: review.title,
     description: review.description,
     path,
-    image: product?.img,
+    image: product?.img ?? offerProduct?.img,
     datePublished: review.datePublished,
     dateModified: review.dateModified,
     productName: schemaProductName,
     productPath: schemaProductPath,
+    price: offerProduct?.price ?? "40",
+    inStock: offerProduct?.inStock ?? true,
     ratingValue: getReviewRatingValue(review),
     breadcrumbs,
     faq: review.faq,

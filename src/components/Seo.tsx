@@ -539,10 +539,25 @@ export function reviewJsonLd(review: {
   authorSlug?: string;
   productName: string;
   productPath: string;
+  /** Required for Product rich-result validity on itemReviewed. */
+  price: string;
+  inStock?: boolean;
   ratingValue: number;
   breadcrumbs?: BreadcrumbEntry[];
   faq?: { question: string; answer: string }[];
 }) {
+  const itemReviewed: Record<string, unknown> = {
+    "@type": "Product",
+    name: review.productName,
+    url: absoluteUrl(review.productPath),
+    brand: { "@type": "Brand", name: "ALIBARBAR" },
+    // Google Product snippets require offers, review, or aggregateRating.
+    offers: productOffer(review.productPath, review.price, review.inStock ?? true),
+  };
+  if (review.image) {
+    itemReviewed.image = absoluteUrl(review.image);
+  }
+
   const graph: Record<string, unknown>[] = [
     personNode(review.authorSlug ?? getDefaultAuthor().slug),
     {
@@ -560,12 +575,7 @@ export function reviewJsonLd(review: {
         bestRating: 5,
         worstRating: 1,
       },
-      itemReviewed: {
-        "@type": "Product",
-        name: review.productName,
-        url: absoluteUrl(review.productPath),
-        brand: { "@type": "Brand", name: "ALIBARBAR" },
-      },
+      itemReviewed,
     },
   ];
 

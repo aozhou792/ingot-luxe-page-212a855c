@@ -42,7 +42,8 @@ export const reviewPosts: ReviewPost[] = [
   {
     slug: "alibarbar-ingot-9000-review",
     productName: "Alibarbar Ingot 9000",
-    productPath: "/best-alibarbar-australia",
+    /** Prefer a real PDP URL so Product itemReviewed can carry a valid Offer. */
+    productPath: "/product/quadruple-berry",
     title: "Alibarbar Ingot 9000 Review (Australia 2026)",
     description:
       "Honest Alibarbar Ingot 9000 review for Australian adults — puff count, LED display, draw, value, who should buy, and whether it is worth it in 2026.",
