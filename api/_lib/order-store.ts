@@ -1,4 +1,4 @@
-import { del, list, put } from "@vercel/blob";
+import { del, list, put } from "./blob.js";
 import type { PaymentStatus, StoredOrder } from "./types.js";
 
 const ORDER_SEQ_INITIAL = 3870;

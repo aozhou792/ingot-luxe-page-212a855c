@@ -1,4 +1,4 @@
-import { list, put } from "@vercel/blob";
+import { list, put } from "./blob.js";
 import type { OrderDetails } from "./types.js";
 
 const DRAFT_PREFIX = "drafts/";

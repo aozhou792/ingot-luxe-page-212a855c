@@ -1,4 +1,4 @@
-import { head } from "@vercel/blob";
+import { head } from "./blob.js";
 
 const ALLOWED_PREFIX = "reviews/photos/";
 

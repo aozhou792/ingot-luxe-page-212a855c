@@ -1,4 +1,4 @@
-import { list, put } from "@vercel/blob";
+import { list, put } from "./blob.js";
 import { createHash, randomBytes, randomUUID, timingSafeEqual } from "node:crypto";
 import { sendPasswordResetEmail } from "./password-reset-email.js";
 import { getUserByEmail, setUserPasswordById, type PublicUser } from "./user-store.js";

@@ -1,5 +1,6 @@
 {
   "ignoreCommand": "test \"$VERCEL_GIT_COMMIT_REF\" = \"gh-pages\"",
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/:path*",
@@ -175,12 +176,19 @@
   ],
   "rewrites": [
     { "source": "/cart", "destination": "/index.html" },
+    { "source": "/cart/", "destination": "/index.html" },
     { "source": "/checkout", "destination": "/index.html" },
+    { "source": "/checkout/", "destination": "/index.html" },
     { "source": "/order-complete", "destination": "/index.html" },
+    { "source": "/order-complete/", "destination": "/index.html" },
     { "source": "/orders2589", "destination": "/index.html" },
+    { "source": "/orders2589/", "destination": "/index.html" },
     { "source": "/whatsapp-qr", "destination": "/index.html" },
+    { "source": "/whatsapp-qr/", "destination": "/index.html" },
     { "source": "/reset-password", "destination": "/index.html" },
+    { "source": "/reset-password/", "destination": "/index.html" },
     { "source": "/search", "destination": "/index.html" },
+    { "source": "/search/", "destination": "/index.html" },
     { "source": "/search/:path*", "destination": "/index.html" }
   ],
   "headers": [

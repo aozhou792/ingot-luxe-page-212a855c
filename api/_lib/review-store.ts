@@ -1,4 +1,4 @@
-import { list, put } from "@vercel/blob";
+import { list, put } from "./blob.js";
 import { randomUUID } from "node:crypto";
 import { parseDataUrl } from "./order-store.js";
 

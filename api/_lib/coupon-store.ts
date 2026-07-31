@@ -1,4 +1,4 @@
-import { list, put } from "@vercel/blob";
+import { list, put } from "./blob.js";
 import { randomBytes } from "node:crypto";
 
 const COUPONS_PATH = "marketing/coupons.json";
