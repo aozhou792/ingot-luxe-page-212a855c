@@ -53,7 +53,7 @@ export const faqItems: FaqItem[] = [
     category: "Payment",
     question: "What currency are prices in?",
     answer:
-      "All prices on Alibarbar Australia are shown and charged in Australian dollars (AUD).",
+      "All prices on Alibarbar Australia are shown and charged in Australian dollars (AUD). For single and pack pricing plus shipping tiers, see /guides/alibarbar-ingot-9000-price-guide-australia.",
   },
   {
     category: "Product & Usage",
@@ -179,7 +179,7 @@ export const faqItems: FaqItem[] = [
     category: "Product & Usage",
     question: "What nicotine strength is in the Alibarbar Ingot 9000?",
     answer:
-      "Nicotine strength varies by batch and region. Check the packaging on your device for the exact mg/ml rating. If you need help identifying your unit, email orders@ailibarbar.com with your order number.",
+      "Nicotine strength varies by batch and region. Check the packaging on your device for the exact mg/ml rating. If you need help identifying your unit, email orders@ailibarbar.com with your order number. Full guide: /guides/alibarbar-nicotine-strength-australia.",
   },
   {
     category: "Product & Usage",
@@ -191,7 +191,7 @@ export const faqItems: FaqItem[] = [
     category: "Product & Usage",
     question: "How can I tell if my Alibarbar Ingot is genuine?",
     answer:
-      "Genuine Alibarbar Ingot 9000 devices have the smart LED display showing battery and e-liquid levels, up to 9000 puffs, 22ml capacity and the ALIBARBAR branding on packaging. Buying from Alibarbar Australia ensures authentic stock — avoid unusually cheap listings on unofficial marketplaces.",
+      "Genuine Alibarbar Ingot 9000 devices have the smart LED display showing battery and e-liquid levels, up to 9000 puffs, 22ml capacity and the ALIBARBAR branding on packaging. Buying from Alibarbar Australia ensures authentic stock — avoid unusually cheap listings on unofficial marketplaces (see /guides/alibarbar-ingot-9000-price-guide-australia and /guides/how-to-spot-fake-alibarbar-ingot).",
   },
   {
     category: "Product & Usage",

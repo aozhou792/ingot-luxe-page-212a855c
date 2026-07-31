@@ -106,6 +106,8 @@ export const guides: Guide[] = [
       "how-many-puffs-does-alibarbar-ingot-9000-have",
       "how-to-open-alibarbar-vape",
       "how-long-does-alibarbar-ingot-9000-last",
+      "alibarbar-nicotine-strength-australia",
+      "alibarbar-ingot-9000-price-guide-australia",
     ],
   },
   {
@@ -681,7 +683,11 @@ export const guides: Guide[] = [
         ],
       },
     ],
-    relatedGuides: ["how-to-use-a-disposable-vape", "what-is-alibarbar-ingot-9000"],
+    relatedGuides: [
+      "how-to-use-a-disposable-vape",
+      "what-is-alibarbar-ingot-9000",
+      "alibarbar-nicotine-strength-australia",
+    ],
   },
   {
     slug: "alibarbar-buying-guide-australia",
@@ -779,6 +785,8 @@ export const guides: Guide[] = [
       "best-alibarbar-flavours-australia",
       "where-to-buy-alibarbar-australia",
       "disposable-vape-laws-in-australia",
+      "alibarbar-nicotine-strength-australia",
+      "alibarbar-ingot-9000-price-guide-australia",
     ],
   },
   {
@@ -865,6 +873,8 @@ export const guides: Guide[] = [
       "how-to-spot-fake-alibarbar-ingot",
       "alibarbar-buying-guide-australia",
       "best-alibarbar-flavours-australia",
+      "alibarbar-ingot-9000-price-guide-australia",
+      "alibarbar-nicotine-strength-australia",
     ],
   },
   {
@@ -964,6 +974,8 @@ export const guides: Guide[] = [
       "what-is-alibarbar-ingot-9000",
       "alibarbar-buying-guide-australia",
       "can-you-recharge-alibarbar-ingot-9000",
+      "alibarbar-ingot-9000-price-guide-australia",
+      "where-to-buy-alibarbar-australia",
     ],
   },
   {
@@ -1249,6 +1261,265 @@ export const guides: Guide[] = [
       "can-you-recharge-alibarbar-ingot-9000",
       "how-long-does-alibarbar-ingot-9000-last",
       "how-to-use-a-disposable-vape",
+    ],
+  },
+  {
+    slug: "alibarbar-nicotine-strength-australia",
+    title: "Alibarbar Ingot 9000 Nicotine Strength in Australia",
+    description:
+      "What nicotine strength is in the Alibarbar Ingot 9000 in Australia — how to read the packaging, why batch and region matter, and what adults 18+ should verify before use.",
+    category: "Product Guide",
+    readTime: "12 min read",
+    datePublished: "2026-07-31",
+    dateModified: "2026-07-31",
+    intro:
+      "Nicotine strength is one of the most searched questions about the Alibarbar Ingot 9000 in Australia. This guide explains how to find the exact rating on your device, why numbers can differ by batch and region, and how to decide whether a sealed disposable fits your existing nicotine habits — for adults 18+ only.",
+    quickAnswer: {
+      question: "What nicotine strength is in the Alibarbar Ingot 9000?",
+      answer:
+        "Nicotine strength on Alibarbar Ingot 9000 devices varies by batch and region. Always check the packaging (and any on-device label) for the exact mg/ml or percentage printed for your unit. Do not rely on a single website figure if your pack shows a different rating — the printed label is the source of truth.",
+    },
+    keyTakeaways: [
+      "Nicotine strength can vary by batch and region — read the pack",
+      "mg/ml and percentage labels describe the same concentration in different formats",
+      "Match strength to your existing smoking or vaping habit, not curiosity",
+      "Counterfeits may misstate nicotine — authenticity checks matter",
+      "Australian rules change; this page is general information, not legal advice",
+      "Email orders@ailibarbar.com with photos if your label is unclear",
+    ],
+    sections: [
+      {
+        heading: "What nicotine strength means on a disposable",
+        paragraphs: [
+          "On disposable vapes, nicotine strength tells you how concentrated the nicotine is in the e-liquid. It is usually printed as milligrams per millilitre (mg/ml) or as a percentage. Higher numbers mean more nicotine per puff for the same draw style — but puff length, coil temperature and personal tolerance still change how strong a device feels.",
+          "For the Alibarbar Ingot 9000, treat nicotine as a labelled product attribute, not a marketing slogan. Capacity (up to 9000 puffs, 22ml tank) describes how long the device lasts; nicotine strength describes how intense each draw can feel.",
+        ],
+      },
+      {
+        heading: "How to read the Alibarbar packaging label",
+        paragraphs: [
+          "Before you take a first puff, find the nicotine declaration on the outer box or wrap, then confirm it matches any secondary label on the device itself.",
+        ],
+        bullets: [
+          "Look for a clear mg/ml figure or nicotine percentage near the warning panel",
+          "Confirm the flavour name on the pack matches the device",
+          "Keep the packaging until you are sure the device works and the label is readable",
+          "Photograph the nicotine panel if you need support later",
+        ],
+      },
+      {
+        heading: "Why batch and region can differ",
+        paragraphs: [
+          "Manufacturers often produce the same device family for multiple markets. Formulation, warning text and nicotine declaration can be updated between batches. That is why Alibarbar Australia does not publish a single fixed mg/ml number as if every carton worldwide were identical.",
+          "If you compare two Ingot 9000 devices bought months apart, check both labels. A difference in printed strength is a packaging fact to respect — not something to average out or guess from memory.",
+        ],
+      },
+      {
+        heading: "Who this strength profile suits — and who should avoid it",
+        paragraphs: [
+          "Sealed nicotine disposables are intended for adults 18+ who already smoke or vape and understand how nicotine affects them. If you are new to nicotine, a high-capacity disposable is the wrong place to experiment.",
+        ],
+        bullets: [
+          "Suitable: existing adult smokers or vapers who can read and accept the labelled strength",
+          "Avoid: anyone under 18, non-nicotine users, people who are pregnant or breastfeeding",
+          "Pause and ask a health professional if you are unsure about nicotine use for your situation",
+          "Stop using a device that feels unexpectedly harsh relative to products you already know",
+        ],
+      },
+      {
+        heading: "Authenticity and mislabelled nicotine",
+        paragraphs: [
+          "Counterfeit or grey-market sticks sometimes copy branding while using unknown liquid. A missing smart LED, blurry print, or a nicotine claim that does not match genuine packaging style is a red flag. Authenticity is part of nicotine safety — not only flavour quality.",
+          "Use our how-to-spot-fake Alibarbar guide alongside this page, and buy from retailers that ship sealed stock with clear support contacts.",
+        ],
+      },
+      {
+        heading: "Australian rules — stay current",
+        paragraphs: [
+          "Nicotine and disposable vape rules in Australia are complex and change over time. State and territory expectations can differ. This guide is general product information for adult customers — it is not legal advice.",
+          "Read our disposable vape laws overview for the broader context, then check official guidance for your jurisdiction before you order or travel with a device.",
+        ],
+      },
+      {
+        heading: "Practical checklist before you vape",
+        paragraphs: [
+          "A short pre-use routine reduces surprises:",
+        ],
+        bullets: [
+          "Confirm you are 18+ and the product is for your own adult use",
+          "Read the nicotine strength printed on your pack",
+          "Take short first puffs to gauge intensity versus devices you already know",
+          "Store upright, cool and dry — heat can change how a device performs",
+          "Contact orders@ailibarbar.com with your order number if the label is damaged or unclear",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "What nicotine strength is in the Alibarbar Ingot 9000?",
+        answer:
+          "It varies by batch and region. Check the packaging on your specific device for the exact mg/ml or percentage. That printed figure overrides any general online description.",
+      },
+      {
+        question: "Why won’t Alibarbar Australia list one fixed mg/ml number?",
+        answer:
+          "Because formulations and labels can differ by batch and market. Publishing one number as if every unit were identical would mislead buyers whose packs show a different rating.",
+      },
+      {
+        question: "Is the Alibarbar Ingot 9000 suitable for nicotine beginners?",
+        answer:
+          "No. It is for adults 18+ who already smoke or vape. Non-nicotine users and minors should not use these devices.",
+      },
+      {
+        question: "What if my pack nicotine label is hard to read?",
+        answer:
+          "Email orders@ailibarbar.com with your order number and clear photos of the packaging and device. Do not guess the strength from memory or from an unrelated listing.",
+      },
+      {
+        question: "Does a fake device change nicotine risk?",
+        answer:
+          "Yes. Counterfeits may contain unknown liquid or incorrect labels. Prefer trusted Australian retailers and run authenticity checks (branding, LED, specs) before use.",
+      },
+      {
+        question: "Where can I read about Australian disposable vape laws?",
+        answer:
+          "See our disposable vape laws in Australia guide for general context, then verify current rules with official state or territory sources. We do not provide legal advice.",
+      },
+    ],
+    relatedProducts: ["custom-5-pack", "peach-ice", "quadruple-berry"],
+    relatedGuides: [
+      "disposable-vape-laws-in-australia",
+      "alibarbar-buying-guide-australia",
+      "what-is-alibarbar-ingot-9000",
+      "how-to-spot-fake-alibarbar-ingot",
+      "alibarbar-ingot-9000-price-guide-australia",
+    ],
+  },
+  {
+    slug: "alibarbar-ingot-9000-price-guide-australia",
+    title: "Alibarbar Ingot 9000 Price Guide Australia (2026)",
+    description:
+      "Alibarbar Ingot 9000 price in Australia — single device and 5/10/20 custom pack costs, shipping tiers, value per device, and how to spot suspiciously cheap listings.",
+    category: "Buying Guide",
+    readTime: "14 min read",
+    datePublished: "2026-07-31",
+    dateModified: "2026-07-31",
+    intro:
+      "If you are comparing Alibarbar Ingot 9000 prices in Australia, you need more than a headline dollar figure. This 2026 guide breaks down single-device and custom-pack pricing at Alibarbar Australia, adds shipping into the true cost, and explains why unusually low marketplace deals are often a risk — not a bargain.",
+    quickAnswer: {
+      question: "How much does the Alibarbar Ingot 9000 cost in Australia?",
+      answer:
+        "At Alibarbar Australia, single Ingot 9000 flavours are typically A$40 each (promotional vs a higher compare-at price). Custom packs are A$190 for 5, A$350 for 10 and A$600 for 20 devices. Regular Post is A$15 for 1–9 devices, A$10 for 10–19, and free for 20+. Prices are AUD and can change — confirm at checkout.",
+    },
+    keyTakeaways: [
+      "Singles typically A$40 AUD at Alibarbar Australia (confirm live cart)",
+      "Custom packs: A$190 / A$350 / A$600 for 5 / 10 / 20 devices",
+      "Shipping: A$15 (1–9), A$10 (10–19), free (20+)",
+      "Packs usually beat buying the same count as singles",
+      "Extreme underpricing is a common counterfeit or grey-market signal",
+      "All checkout amounts are in Australian dollars",
+    ],
+    sections: [
+      {
+        heading: "Current single-device price",
+        paragraphs: [
+          "Individual Alibarbar Ingot 9000 flavours on Alibarbar Australia are listed at A$40, with a higher compare-at / original price shown when a promotion is active (commonly A$55 struck through). That unit price applies across the current flavour range unless a product page states otherwise.",
+          "Prices can change with stock and promotions. Always treat the amount in your cart and bank-transfer instructions as final — not a screenshot from an older article.",
+        ],
+      },
+      {
+        heading: "Custom pack pricing and value per device",
+        paragraphs: [
+          "Custom packs lower the effective price per device when you want variety or volume:",
+        ],
+        bullets: [
+          "5 Flavour Custom Pack — A$190 (A$38 per device vs A$40 singles)",
+          "10 Flavour Custom Pack — A$350 (A$35 per device)",
+          "20 Flavour Custom Pack — A$600 (A$30 per device) with free Regular Post",
+          "Compare-at pack prices are higher — the live promotional price is what you pay at checkout",
+        ],
+      },
+      {
+        heading: "How shipping changes the true cost",
+        paragraphs: [
+          "Alibarbar Australia uses tiered Regular Post by device count: A$15 for orders of 1–9 devices, A$10 for 10–19 devices, and free shipping for 20 or more. A single A$40 device with A$15 shipping is A$55 landed before you think about future reorders.",
+          "A 10-pack at A$350 plus A$10 shipping, or a 20-pack at A$600 with free shipping, usually wins on cost per device for adults who already know they will use the stock. Light triallers often start with a 5-pack despite a slightly higher per-unit figure than the largest packs.",
+        ],
+      },
+      {
+        heading: "Singles vs packs — which should you buy?",
+        paragraphs: [
+          "Buy a single if you already have a favourite flavour and only need one replacement. Buy a 5-pack if you are still mapping fruity vs iced vs tropical. Buy 10 or 20 when you want the lowest per-device rate and can store sealed devices cool and upright.",
+          "Packs do not change the device itself — each stick is still a full Ingot 9000 with up to 9000 puffs, 22ml e-liquid, 2350mAh battery and smart LED.",
+        ],
+      },
+      {
+        heading: "Why suspiciously cheap listings are a red flag",
+        paragraphs: [
+          "High-puff disposables attract underpriced grey-market and counterfeit stock. A listing far below normal Australian street prices, with no clear seller identity, no LED mentioned, or recycled stock photos, is a warning — not a win.",
+          "Pair this price guide with our where-to-buy and how-to-spot-fake pages before you pay an unknown seller. Authenticity protects both safety and value: a fake rarely delivers the rated life you paid for.",
+        ],
+      },
+      {
+        heading: "What you are paying for (spec checklist)",
+        paragraphs: [
+          "A fair Ingot 9000 price should correspond to the real product package:",
+        ],
+        bullets: [
+          "Up to 9000 puffs (usage dependent)",
+          "About 22ml pre-filled e-liquid",
+          "About 2350mAh non-rechargeable battery",
+          "Mesh coil, inhale-activated — no consumer recharge",
+          "Smart LED for battery and e-liquid levels",
+        ],
+      },
+      {
+        heading: "Payment and currency",
+        paragraphs: [
+          "All Alibarbar Australia prices are in Australian dollars (AUD). Checkout uses bank transfer with order confirmation steps shown after you place the order. Keep your order number for tracking and support at orders@ailibarbar.com.",
+          "Wholesale enquiries are separate from retail singles and custom packs — see the wholesale page if you need carton volumes.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "How much is one Alibarbar Ingot 9000 in Australia?",
+        answer:
+          "Single flavours at Alibarbar Australia are typically A$40 each during current promotions. Confirm the live product page and cart total before you transfer payment.",
+      },
+      {
+        question: "How much are the 5, 10 and 20 custom packs?",
+        answer:
+          "The 5 Flavour Custom Pack is A$190, the 10-pack is A$350, and the 20-pack is A$600. Larger packs reduce the price per device; the 20-pack includes free Regular Post shipping.",
+      },
+      {
+        question: "How much is shipping?",
+        answer:
+          "Regular Post is A$15 for 1–9 devices, A$10 for 10–19 devices, and free for 20 or more devices, added automatically at checkout.",
+      },
+      {
+        question: "Are prices in Australian dollars?",
+        answer:
+          "Yes. All prices on Alibarbar Australia are shown and charged in AUD.",
+      },
+      {
+        question: "Why is a marketplace listing much cheaper?",
+        answer:
+          "Extreme underpricing often signals grey-market or counterfeit stock. Prefer specialist Australian retailers with clear specs, LED confirmation and after-sales contact.",
+      },
+      {
+        question: "Do pack prices include different devices?",
+        answer:
+          "No. Custom packs contain the same authentic Ingot 9000 devices as singles — you only choose the flavour mix and quantity.",
+      },
+    ],
+    relatedProducts: ["custom-5-pack", "custom-10-pack", "custom-20-pack", "peach-ice"],
+    relatedGuides: [
+      "where-to-buy-alibarbar-australia",
+      "how-to-spot-fake-alibarbar-ingot",
+      "alibarbar-buying-guide-australia",
+      "what-is-alibarbar-ingot-9000",
+      "alibarbar-nicotine-strength-australia",
     ],
   },
 ];

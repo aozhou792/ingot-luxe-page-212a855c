@@ -163,7 +163,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "What currency are prices in?",
         answer:
-          "All prices are shown in Australian dollars (AUD), including product prices and the tiered Regular Post shipping fee.",
+          "All prices are shown in Australian dollars (AUD), including product prices and the tiered Regular Post shipping fee. See /guides/alibarbar-ingot-9000-price-guide-australia for singles, packs and shipping tiers.",
       },
       {
         question: "Will I get a receipt?",
@@ -263,7 +263,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "What nicotine strength is in the Alibarbar Ingot 9000?",
         answer:
-          "Nicotine strength varies by batch and region. Check the packaging on your device for the exact mg/ml rating. If you need help identifying your unit, email orders@ailibarbar.com with your order number.",
+          "Nicotine strength varies by batch and region. Check the packaging on your device for the exact mg/ml rating. If you need help identifying your unit, email orders@ailibarbar.com with your order number. Full guide: /guides/alibarbar-nicotine-strength-australia.",
       },
       {
         question: "Is there a warranty on disposable vapes?",
@@ -318,7 +318,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "Why are some Alibarbar listings much cheaper online?",
         answer:
-          "Unusually low prices on unofficial marketplaces often indicate grey-market or counterfeit stock. Genuine Ingot 9000 devices include a 22ml capacity and smart LED display — if those features are missing or inconsistent, treat the listing with caution.",
+          "Unusually low prices on unofficial marketplaces often indicate grey-market or counterfeit stock. Genuine Ingot 9000 devices include a 22ml capacity and smart LED display — if those features are missing or inconsistent, treat the listing with caution. Compare fair AU pricing at /guides/alibarbar-ingot-9000-price-guide-australia.",
       },
       {
         question: "Where can I buy authentic Alibarbar in Australia?",
