@@ -16,6 +16,7 @@ import { Seo, breadcrumbNode } from "@/components/Seo";
 import { useReveal } from "@/hooks/use-reveal";
 import { Button } from "@/components/ui/button";
 import { fileToVerifyDataUrl, VERIFY_PAGE_URL, verifySealPhoto } from "@/data/authenticity-codes";
+import type { VerifySealApiResult } from "@/data/authenticity-codes";
 
 type VerifyOutcome =
   | { status: "idle" }
@@ -40,9 +41,16 @@ const VerifyPage = () => {
     setCameraOn(false);
   }, []);
 
-  const applyApiResult = useCallback((result: Awaited<ReturnType<typeof verifySealPhoto>>) => {
-    if (!result.ok) {
-      setOutcome({ status: "error", message: result.error });
+  // Compare against the literal rather than testing falsiness: strictNullChecks
+  // is off here, and truthiness alone won't discriminate the union. Anything
+  // that isn't an explicit success must surface as an error — falling through
+  // would label the customer's product counterfeit on a malformed response.
+  const applyApiResult = useCallback((result: VerifySealApiResult) => {
+    if (result.ok !== true) {
+      setOutcome({
+        status: "error",
+        message: result.error || "Could not verify that photo. Please try again.",
+      });
       return;
     }
     if (result.authentic) {

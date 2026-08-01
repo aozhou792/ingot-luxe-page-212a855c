@@ -1,4 +1,5 @@
-import type { OrderDetails, PaymentStatus, StoredOrder } from "@/lib/orders";
+import type { OrderDetails } from "@/types/navigation";
+import type { PaymentStatus, StoredOrder } from "@/lib/orders";
 
 const ADMIN_KEY_STORAGE = "alibarbar-admin-key";
 const ADMIN_KEY_REMEMBER = "alibarbar-admin-key-remember";
