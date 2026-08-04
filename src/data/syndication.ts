@@ -103,6 +103,8 @@ export const syndicationArticles: SyndicationArticle[] = [
     canonicalPath: "/guides/best-iced-alibarbar-flavours-australia",
     datePublished: "2026-07-22",
     platforms: ["medium", "substack"],
+    mediumUrl:
+      "https://medium.com/@hxjspacex1/best-iced-alibarbar-flavours-in-australia-ranked-4548eb95799d",
   },
   {
     slug: "led-finished-sync",
@@ -112,6 +114,8 @@ export const syndicationArticles: SyndicationArticle[] = [
     canonicalPath: "/guides/how-to-read-alibarbar-led-when-finished",
     datePublished: "2026-07-22",
     platforms: ["medium", "substack"],
+    mediumUrl:
+      "https://medium.com/@hxjspacex1/how-to-read-the-alibarbar-led-when-is-it-finished-29d2090ba1a9",
   },
   {
     slug: "blackberry-vs-peach-sync",
