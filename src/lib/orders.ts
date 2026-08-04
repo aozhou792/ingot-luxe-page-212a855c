@@ -8,7 +8,7 @@ const PENDING_ORDER_KEY = "alibarbar-pending-order";
 /** First order number when no prior sequence exists in localStorage. */
 export const ORDER_SEQ_INITIAL = 3870;
 
-export const MAX_RECEIPT_BYTES = 5 * 1024 * 1024;
+export const MAX_RECEIPT_BYTES = 10 * 1024 * 1024;
 export const RECEIPT_ACCEPT = "image/jpeg,image/png,image/webp,image/heic,image/heif";
 
 export type PaymentStatus = "pending" | "confirmed";
@@ -137,7 +137,7 @@ export function readReceiptFile(file: File): Promise<{ dataUrl: string; name: st
     return Promise.reject(new Error("Please upload an image file (JPG, PNG, or WebP)."));
   }
   if (file.size > MAX_RECEIPT_BYTES) {
-    return Promise.reject(new Error("Image must be 5 MB or smaller."));
+    return Promise.reject(new Error("Image must be 10 MB or smaller."));
   }
 
   return new Promise((resolve, reject) => {

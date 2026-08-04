@@ -64,6 +64,10 @@ const ReviewPage = () => {
       : offerProduct
         ? `/product/${offerProduct.slug}`
         : (review.productPath ?? "/shop");
+  const schemaProductDescription =
+    product?.excerpt ??
+    offerProduct?.excerpt ??
+    review.description;
 
   const jsonLd = reviewJsonLd({
     title: review.title,
@@ -74,6 +78,7 @@ const ReviewPage = () => {
     dateModified: review.dateModified,
     productName: schemaProductName,
     productPath: schemaProductPath,
+    productDescription: schemaProductDescription,
     price: offerProduct?.price ?? "40",
     inStock: offerProduct?.inStock ?? true,
     ratingValue: getReviewRatingValue(review),

@@ -249,15 +249,15 @@ export const guides: Guide[] = [
   },
   {
     slug: "can-you-recharge-alibarbar-ingot-9000",
-    title: "How to Recharge an Alibarbar Vape (Ingot 9000 Guide)",
+    title: "Can You Recharge an Alibarbar? How to Charge Ingot 9000",
     description:
-      "How to recharge an Alibarbar vape? You cannot — the Ingot 9000 is non-rechargeable. Learn why, how to read the LED display, and what to do when the battery or e-liquid is finished.",
+      "Can you recharge an Alibarbar? No — and there is no safe way to charge the Ingot 9000. Why it is non-rechargeable, LED end-of-life signs, and what to do next.",
     category: "Battery Guide",
     readTime: "7 min read",
     datePublished: "2026-02-10",
-    dateModified: "2026-07-27",
+    dateModified: "2026-08-04",
     intro:
-      "Searches like how to recharge an Alibarbar, recharge Alibarbar vape, or how to recharge a Alibarbar all point to the same question. The important answer is simple: the Ingot 9000 is a non-rechargeable disposable device, so it should not be charged or modified. This guide explains why, how the battery is designed to work, and how to know when it is time to replace the device.",
+      "Searches like how to recharge an Alibarbar, how to charge an Alibarbar vape, can you recharge Alibarbar, or recharge Alibarbar vape all point to the same question. The important answer is simple: the Ingot 9000 is a non-rechargeable disposable device, so it should not be charged or modified. This guide explains why, how the battery is designed to work, and how to know when it is time to replace the device.",
     quickAnswer: {
       question: "How do you recharge an Alibarbar vape?",
       answer:
@@ -332,6 +332,11 @@ export const guides: Guide[] = [
           "You cannot. The Alibarbar Ingot 9000 is non-rechargeable. When the battery or e-liquid is finished, replace the device.",
       },
       {
+        question: "How do I charge an Alibarbar vape?",
+        answer:
+          "You cannot charge an Alibarbar Ingot 9000. There is no consumer charging port or safe charge cycle — when battery or e-liquid is finished, replace the device.",
+      },
+      {
         question: "Can you recharge an Alibarbar?",
         answer:
           "No. Can you recharge an Alibarbar Ingot 9000? You cannot — it arrives pre-charged and has no consumer charging workflow. Replace it when the LED or vapour output shows it is finished.",
@@ -374,11 +379,11 @@ export const guides: Guide[] = [
     slug: "how-to-open-alibarbar-vape",
     title: "How to Open an Alibarbar Vape: Unboxing & First Use",
     description:
-      "How to open an Alibarbar vape safely — unbox the Ingot 9000, remove the mouthpiece cap, take your first puff, and know what not to open or force.",
+      "How to open an Alibarbar vape — unboxing the Ingot 9000, removing the seal and mouthpiece cap, first-use tips, and what you should never force open.",
     category: "Beginner Guide",
     readTime: "4 min read",
     datePublished: "2026-07-13",
-    dateModified: "2026-07-13",
+    dateModified: "2026-08-04",
     intro:
       "Looking for how to open an Alibarbar vape? Opening it means unboxing and removing the protective cap so you can vape — not cracking open the metal casing. This guide walks through each safe step for the Alibarbar Ingot 9000.",
     quickAnswer: {
@@ -1265,19 +1270,19 @@ export const guides: Guide[] = [
   },
   {
     slug: "alibarbar-nicotine-strength-australia",
-    title: "Alibarbar Ingot 9000 Nicotine Strength in Australia",
+    title: "Alibarbar Ingot 9000 Nicotine Content & Strength (Australia)",
     description:
-      "What nicotine strength is in the Alibarbar Ingot 9000 in Australia — how to read the packaging, why batch and region matter, and what adults 18+ should verify before use.",
+      "How much nicotine is in an Alibarbar Ingot 9000? Nicotine content and strength in Australia — how to read the pack, why batch and region matter, and what adults 18+ should verify before use.",
     category: "Product Guide",
     readTime: "12 min read",
     datePublished: "2026-07-31",
-    dateModified: "2026-07-31",
+    dateModified: "2026-08-04",
     intro:
-      "Nicotine strength is one of the most searched questions about the Alibarbar Ingot 9000 in Australia. This guide explains how to find the exact rating on your device, why numbers can differ by batch and region, and how to decide whether a sealed disposable fits your existing nicotine habits — for adults 18+ only.",
+      "How much nicotine is in an Alibarbar, and what is the Alibarbar Ingot 9000 nicotine content in Australia? Nicotine strength is one of the most searched questions about this device. This guide explains how to find the exact rating on your pack, why numbers can differ by batch and region, and how to decide whether a sealed disposable fits your existing nicotine habits — for adults 18+ only.",
     quickAnswer: {
-      question: "What nicotine strength is in the Alibarbar Ingot 9000?",
+      question: "How much nicotine is in an Alibarbar Ingot 9000?",
       answer:
-        "Nicotine strength on Alibarbar Ingot 9000 devices varies by batch and region. Always check the packaging (and any on-device label) for the exact mg/ml or percentage printed for your unit. Do not rely on a single website figure if your pack shows a different rating — the printed label is the source of truth.",
+        "Nicotine content on Alibarbar Ingot 9000 devices varies by batch and region. Always check the packaging (and any on-device label) for the exact mg/ml or percentage printed for your unit. Do not rely on a single website figure if your pack shows a different rating — the printed label is the source of truth.",
     },
     keyTakeaways: [
       "Nicotine strength can vary by batch and region — read the pack",
@@ -1356,6 +1361,11 @@ export const guides: Guide[] = [
     ],
     faq: [
       {
+        question: "How much nicotine is in an Alibarbar?",
+        answer:
+          "Alibarbar Ingot 9000 nicotine content varies by batch and region. Read the mg/ml or percentage on your pack — that printed label is the source of truth for your device.",
+      },
+      {
         question: "What nicotine strength is in the Alibarbar Ingot 9000?",
         answer:
           "It varies by batch and region. Check the packaging on your specific device for the exact mg/ml or percentage. That printed figure overrides any general online description.",
@@ -1397,13 +1407,13 @@ export const guides: Guide[] = [
   },
   {
     slug: "alibarbar-ingot-9000-price-guide-australia",
-    title: "Alibarbar Ingot 9000 Price Guide Australia (2026)",
+    title: "Alibarbar Ingot 9000 Price in Australia (2026 Guide)",
     description:
       "Alibarbar Ingot 9000 price in Australia — single device and 5/10/20 custom pack costs, shipping tiers, value per device, and how to spot suspiciously cheap listings.",
     category: "Buying Guide",
     readTime: "14 min read",
     datePublished: "2026-07-31",
-    dateModified: "2026-07-31",
+    dateModified: "2026-08-04",
     intro:
       "If you are comparing Alibarbar Ingot 9000 prices in Australia, you need more than a headline dollar figure. This 2026 guide breaks down single-device and custom-pack pricing at Alibarbar Australia, adds shipping into the true cost, and explains why unusually low marketplace deals are often a risk — not a bargain.",
     quickAnswer: {

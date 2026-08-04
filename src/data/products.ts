@@ -287,7 +287,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
     img: blackberry,
     tag: "Iced",
     excerpt:
-      "The Alibarbar Ingot Blackberry Ice combines the rich, juicy taste of ripe blackberries with a crisp icy twist. This refreshing fusion delivers a smooth, cooling sensation, making it an ideal choice for anyone who enjoys fruity flavours with a cool menthol edge.",
+      "The Alibarbar Ingot 9000 Blackberry Ice combines the rich, juicy taste of ripe blackberries with a crisp icy twist. This refreshing fusion delivers a smooth, cooling sensation, making it an ideal choice for anyone who enjoys fruity flavours with a cool menthol edge.",
     description: `${sharedBody}`,
     specs: sharedSpecs,
     inStock: true,

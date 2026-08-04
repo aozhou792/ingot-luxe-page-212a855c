@@ -539,6 +539,8 @@ export function reviewJsonLd(review: {
   authorSlug?: string;
   productName: string;
   productPath: string;
+  /** Product description for Merchant Listings / Product rich results. */
+  productDescription: string;
   /** Required for Product rich-result validity on itemReviewed. */
   price: string;
   inStock?: boolean;
@@ -549,6 +551,7 @@ export function reviewJsonLd(review: {
   const itemReviewed: Record<string, unknown> = {
     "@type": "Product",
     name: review.productName,
+    description: review.productDescription,
     url: absoluteUrl(review.productPath),
     brand: { "@type": "Brand", name: "ALIBARBAR" },
     // Google Product snippets require offers, review, or aggregateRating.

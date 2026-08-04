@@ -488,7 +488,7 @@ const OrderCompletePage = () => {
               >
                 <ImagePlus className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
                 <p className="text-sm font-medium text-foreground">Tap to upload receipt</p>
-                <p className="text-xs text-muted-foreground mt-1">JPG, PNG or WebP · max 5 MB</p>
+                <p className="text-xs text-muted-foreground mt-1">JPG, PNG or WebP · max 10 MB</p>
               </button>
             )}
           </div>

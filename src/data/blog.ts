@@ -215,15 +215,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "top-alibarbar-flavours-ranked",
-    title: "Top Alibarbar Ingot 9000 Flavours, Ranked by Type",
+    title: "Alibarbar Ingot 9000 Flavours List (Ranked by Type)",
     description:
-      "Our pick of the best Alibarbar Ingot 9000 flavours in Australia, grouped by fruity, iced and tropical, to help you choose your next device.",
+      "Alibarbar Ingot 9000 flavours list for Australia — fruity, iced and tropical picks ranked, plus who each flavour suits.",
     category: "Flavour Review",
     readTime: "14 min read",
     datePublished: "2026-04-08",
-    dateModified: "2026-07-31",
+    dateModified: "2026-08-04",
     intro:
-      "With ten flavours plus a custom pack, the Alibarbar range covers a lot of ground for adult buyers in Australia. Here are our favourites grouped by style — with tasting notes on sweetness and coolness, and a clear “try this first” pick in each group. For the full podium, comparison table and city picks, see Best Alibarbar Australia 2026.",
+      "Here is the current Ingot 9000 flavours list for adult buyers in Australia — ten flavours plus a custom pack, grouped by style with tasting notes on sweetness and coolness, and a clear “try this first” pick in each group. For the full podium, comparison table and city picks, see Best Alibarbar Australia; for a dedicated flavour-buying guide, see Best Alibarbar Flavours Australia.",
     quickAnswer: {
       question: "What are the best Alibarbar Ingot 9000 flavours?",
       answer:
@@ -273,8 +273,8 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "How we taste and rank flavours",
         paragraphs: [
-          "Notes below come from structured tasting: sweetness, coolness and smoothness on a consistent scale, plus whether a profile stays clear across a long session on the Ingot 9000’s mesh coil. Rankings are editorial — not paid placement.",
-          "This post groups by style so you can decide a lane first. For a full Australia podium and city-oriented picks, use the Best Alibarbar Australia hub; use this article when you want flavour-family guidance and pack-building ideas.",
+          "Here is the current Ingot 9000 flavours list, ranked by type for Australian adult buyers. Notes below come from structured tasting: sweetness, coolness and smoothness on a consistent scale, plus whether a profile stays clear across a long session on the Ingot 9000’s mesh coil. Rankings are editorial — not paid placement.",
+          "This post groups by style so you can decide a lane first. For a full Australia podium and city-oriented picks, use the Best Alibarbar Australia hub; for a dedicated buying shortlist, use Best Alibarbar Flavours Australia. Use this article when you want flavour-family guidance and pack-building ideas.",
         ],
       },
       {

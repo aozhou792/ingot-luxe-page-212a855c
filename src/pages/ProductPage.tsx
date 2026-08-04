@@ -110,13 +110,13 @@ const ProductPage = () => {
   const productPath = `/product/${product.slug}`;
   const seoDescription =
     product.slug === "blackberry-ice"
-      ? "Buy Alibarbar Ingot 9000 Blackberry Ice in Australia. Authentic iced blackberry flavour, clear AU pricing, tiered shipping and secure bank-transfer checkout for adults 18+."
+      ? "Blackberry Ice Alibarbar Ingot 9000 — dark blackberry with a clean icy finish. Specs, taste notes and AU pricing for adults 18+."
       : product.excerpt.length > 155
         ? `${product.excerpt.slice(0, 152).trim()}...`
         : product.excerpt;
   const seoTitle =
     product.slug === "blackberry-ice"
-      ? "Buy Blackberry Ice Alibarbar Ingot 9000 Australia | In Stock"
+      ? "Blackberry Ice Alibarbar Ingot 9000 | Buy in Australia"
       : `Buy ${product.name} | Alibarbar Ingot 9000 Australia`;
   const productFaq = getProductFaq(product);
   const flavourProfile = getFlavourBySlug(product.slug);
@@ -268,7 +268,7 @@ const ProductPage = () => {
               <div className="space-y-4">
                 <div className="flex flex-wrap items-center gap-3">
                   <p className="text-[11px] sm:text-xs uppercase tracking-[0.28em] text-primary/90 font-semibold">
-                    Alibarbar Ingot
+                    Alibarbar Ingot 9000
                   </p>
                   <span
                     className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-md border ${
