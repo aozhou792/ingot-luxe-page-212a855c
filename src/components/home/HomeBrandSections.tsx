@@ -309,6 +309,7 @@ export const HomeShippingTrust = () => (
             { label: "Returns & refunds", to: "/returns" },
             { label: "Privacy", to: "/privacy" },
             { label: "Age verification", to: "/age-verification" },
+            { label: "18+ how it works", to: "/guides/alibarbar-18-plus-age-verification-australia" },
             { label: "Why trust us", to: "/why-trust-us" },
             { label: "Contact", to: "/contact" },
           ].map((l) => (

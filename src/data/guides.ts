@@ -654,7 +654,7 @@ export const guides: Guide[] = [
       {
         question: "Who can buy disposable vapes in Australia?",
         answer:
-          "Alibarbar Australia only sells to adults aged 18 and over. Confirm you meet the legal age requirement before ordering.",
+          "Alibarbar Australia only sells to adults aged 18 and over. First-time visitors see an age gate; checkout requires an explicit 18+ confirmation. See /age-verification.",
       },
       {
         question: "Is this page legal advice?",
@@ -666,7 +666,7 @@ export const guides: Guide[] = [
       {
         heading: "Strictly 18+",
         paragraphs: [
-          "Vaping products in Australia are for adults aged 18 and over. Alibarbar Australia requires every customer to confirm they meet the legal age requirement before ordering, and we do not sell to minors under any circumstances.",
+          "Vaping products in Australia are for adults aged 18 and over. Alibarbar Australia requires age confirmation on first visit (entry age gate) and an explicit 18+ tick at checkout. We do not sell to minors under any circumstances. See /guides/alibarbar-18-plus-age-verification-australia and /age-verification.",
         ],
       },
       {
@@ -692,6 +692,117 @@ export const guides: Guide[] = [
       "how-to-use-a-disposable-vape",
       "what-is-alibarbar-ingot-9000",
       "alibarbar-nicotine-strength-australia",
+      "alibarbar-18-plus-age-verification-australia",
+    ],
+  },
+  {
+    slug: "alibarbar-18-plus-age-verification-australia",
+    title: "Alibarbar 18+ Age Verification in Australia: How It Works",
+    description:
+      "Why Alibarbar Australia is strictly 18+, how the entry age gate and checkout confirmation work, and what adult buyers should know before ordering disposable vapes.",
+    category: "Australia Guide",
+    readTime: "7 min read",
+    datePublished: "2026-08-11",
+    dateModified: "2026-08-11",
+    intro:
+      "Alibarbar Australia sells nicotine disposable vapes only to adults. This guide explains why the 18+ rule exists on our store, how age confirmation works from first visit through checkout and delivery, and what responsible adult buyers should expect — general information only, not legal advice.",
+    quickAnswer: {
+      question: "How does Alibarbar Australia verify age 18+?",
+      answer:
+        "First-time visitors see an on-site age gate confirming they are 18+. At checkout, every order requires an explicit 18+ checkbox before you can place the order. Carriers may also ask for proof of age on delivery. We may cancel orders where age cannot be verified. Full policy: /age-verification.",
+    },
+    keyTakeaways: [
+      "Strictly adults 18+ — no sales to minors",
+      "Entry age gate on first visit (saved locally on your device)",
+      "Mandatory 18+ checkbox at checkout before place order",
+      "Delivery may include signature or ID checks",
+      "Intended for existing adult smokers or vapers only",
+      "This page is general information — not legal advice",
+    ],
+    faq: [
+      {
+        question: "Do I need to be over 18 to buy from Alibarbar Australia?",
+        answer:
+          "Yes. You must be 18 years or older and of legal age to purchase vaping products where you live. The person ordering and receiving the parcel must meet that requirement.",
+      },
+      {
+        question: "Why do I see an 18+ popup on the website?",
+        answer:
+          "The entry age gate confirms you are an adult before browsing continues. It is part of our Age Verification Policy and appears for first-time visitors (or after clearing site data).",
+      },
+      {
+        question: "Is ticking the checkout box enough?",
+        answer:
+          "The checkout checkbox is required to place an order, but it sits alongside the entry gate and our right to cancel orders where age cannot be verified. Delivery partners may also request ID.",
+      },
+      {
+        question: "Is this legal advice?",
+        answer:
+          "No. Age and nicotine rules can vary by state and territory and change over time. Check official guidance where you live. See also /guides/disposable-vape-laws-in-australia.",
+      },
+    ],
+    sections: [
+      {
+        heading: "Why Alibarbar Australia is strictly 18+",
+        paragraphs: [
+          "Nicotine disposable vapes are adult products. Alibarbar Australia specialises in the Alibarbar Ingot 9000 for adult Australians who already smoke or vape — not for curiosity use by non-nicotine users, and never for anyone under 18.",
+          "A clear age policy protects minors, sets expectations for buyers, and matches how responsible Australian retailers should sell restricted products online.",
+        ],
+      },
+      {
+        heading: "Step 1 — Entry age gate",
+        paragraphs: [
+          "On your first visit, a sitewide age gate asks you to confirm you are 18 or older before you continue. Choosing “I am 18 or older” stores that confirmation locally in your browser so you are not interrupted on every page load.",
+          "If you clear cookies/site data, use a private window, or open the site on a new device, you may see the gate again. That is expected.",
+        ],
+        bullets: [
+          "Confirms adult status before browsing continues",
+          "Stored locally on your device — not a government ID upload",
+          "Exit option leaves the store for visitors who are not 18+",
+        ],
+      },
+      {
+        heading: "Step 2 — Checkout 18+ confirmation",
+        paragraphs: [
+          "When you check out, you must tick an explicit confirmation that you are 18 years or older and of legal age to purchase vaping products where you live. The place-order button will not accept the order without that tick.",
+          "This second step matters because browsing and buying are different intents. The gate covers entry; the checkbox covers the purchase decision.",
+        ],
+      },
+      {
+        heading: "Step 3 — Delivery and possible ID checks",
+        paragraphs: [
+          "Depending on the carrier and your area, parcels may need a signature or proof of age on delivery. By ordering, you accept that an adult may need to present ID.",
+          "If delivery fails because age cannot be confirmed, contact orders@ailibarbar.com with your order number so we can help as far as policy allows.",
+        ],
+      },
+      {
+        heading: "Who should not buy",
+        paragraphs: [
+          "Do not order if you are under 18, if you do not already smoke or vape, or if nicotine products are unsuitable for your health situation. If you are pregnant or breastfeeding, these products are not appropriate.",
+          "If you are unsure about nicotine for your circumstances, speak with a qualified health professional. Our guides are shopping and product information — not medical advice.",
+        ],
+      },
+      {
+        heading: "How this fits with Australian rules",
+        paragraphs: [
+          "Vaping regulation in Australia is detailed and can differ by state or territory. Our store policy is simple and strict: adults 18+ only, with on-site confirmation at entry and checkout.",
+          "For a broader plain-English overview of adult purchasing context, read our disposable vape laws page. Always verify current official rules where you live before you buy or travel with a device.",
+        ],
+      },
+      {
+        heading: "Where to read the full policy",
+        paragraphs: [
+          "The formal Age Verification Policy lives at /age-verification. Related trust pages include Terms of Service, Privacy Policy, Why Trust Us and Editorial Policy — all linked in the site footer.",
+        ],
+      },
+    ],
+    relatedProducts: ["peach-ice", "quadruple-berry", "custom-5-pack"],
+    relatedGuides: [
+      "disposable-vape-laws-in-australia",
+      "alibarbar-buying-guide-australia",
+      "where-to-buy-alibarbar-australia",
+      "alibarbar-nicotine-strength-australia",
+      "how-to-spot-fake-alibarbar-ingot",
     ],
   },
   {
@@ -715,7 +826,7 @@ export const guides: Guide[] = [
       "Core specs: up to 9000 puffs · 22ml · 2350mAh · mesh coil · LED",
       "Singles for a known favourite; custom packs for discovery",
       "AU shipping + bank transfer checkout",
-      "18+ only — read Age Verification and Editorial Policy for trust context",
+      "18+ only — read Age Verification policy and the 18+ verification guide",
     ],
     faq: [
       {
@@ -770,7 +881,7 @@ export const guides: Guide[] = [
         heading: "Checkout checklist (Australia)",
         paragraphs: ["Before you transfer payment, confirm:"],
         bullets: [
-          "You meet the 18+ requirement",
+          "You meet the 18+ requirement (age gate + checkout confirmation)",
           "Shipping destination is in Australia",
           "Cart shows the correct flavours / pack size",
           "You understand bank-transfer payment and order confirmation steps",
@@ -790,6 +901,7 @@ export const guides: Guide[] = [
       "best-alibarbar-flavours-australia",
       "where-to-buy-alibarbar-australia",
       "disposable-vape-laws-in-australia",
+      "alibarbar-18-plus-age-verification-australia",
       "alibarbar-nicotine-strength-australia",
       "alibarbar-ingot-9000-price-guide-australia",
     ],

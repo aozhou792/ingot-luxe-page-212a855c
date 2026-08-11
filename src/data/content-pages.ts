@@ -360,26 +360,72 @@ export const contentPages: ContentPage[] = [
     slug: "age-verification",
     title: "Age Verification Policy",
     description:
-      "How Alibarbar Australia verifies that customers are 18 or older before selling disposable vapes in Australia.",
+      "How Alibarbar Australia verifies adults 18+: entry age gate, checkout confirmation, delivery ID checks and who may purchase disposable vapes in Australia.",
     intro:
-      "Vaping products are restricted to adults. Alibarbar Australia operates a strict 18+ policy aligned with Australian state and territory laws.",
+      "Vaping products are restricted to adults. Alibarbar Australia operates a strict 18+ policy aligned with Australian state and territory age rules. This page explains who may buy, how we verify age on-site, and what happens at checkout and delivery.",
     sections: [
       {
         heading: "Who may purchase",
         paragraphs: [
           "You must be 18 years or older and of legal age to purchase vaping products where you live. Products are intended only for existing adult smokers or vapers — not for non-smokers, minors, or anyone who is pregnant or breastfeeding.",
+          "The person who places the order and the person who receives the parcel must both meet the legal age requirement. We do not sell to anyone under 18 under any circumstances.",
+        ],
+        bullets: [
+          "Adults 18+ only",
+          "Existing adult smokers or vapers only",
+          "Not for minors, non-smokers, pregnancy or breastfeeding",
         ],
       },
       {
-        heading: "How we verify age",
+        heading: "How we verify age on Alibarbar Australia",
         paragraphs: [
-          "First visit: an on-site age gate asks you to confirm you are 18+ before browsing continues (stored locally on your device). Checkout: you must tick an explicit 18+ confirmation before placing an order. By ordering you also confirm you are of legal age to purchase vaping products where you live. We reserve the right to cancel orders where age cannot be verified, and carriers may request proof of age on delivery.",
+          "We use layered confirmation so the 18+ rule is explicit before browsing continues and again before money is taken:",
+        ],
+        bullets: [
+          "Entry age gate: first-time visitors confirm they are 18+ (saved locally on your device)",
+          "Checkout tick: every order requires an explicit “I am 18 or older” confirmation",
+          "Order declaration: placing an order reconfirms you meet the legal age where you live",
+          "Cancellation rights: we may cancel orders where age cannot be verified",
+          "Delivery: carriers may request proof of age or a signature on arrival",
         ],
       },
       {
-        heading: "Delivery",
+        heading: "Entry age gate",
         paragraphs: [
-          "Parcels may require signature or ID check depending on carrier practice in your area. By ordering you accept that proof of age may be requested on delivery.",
+          "On your first visit, an on-site age gate asks you to confirm you are 18 years or older before you continue browsing. Your confirmation is stored locally in your browser so you are not asked again on every page — clearing site data or using a new device may show the gate again.",
+          "Crawlers and automated browsers used for search indexing are not blocked by the gate, so product and policy pages remain crawlable. Human visitors still see the confirmation flow.",
+        ],
+      },
+      {
+        heading: "Checkout confirmation",
+        paragraphs: [
+          "Before you can place an order, checkout requires a mandatory checkbox confirming you are 18 or older and of legal age to purchase vaping products where you live. Orders cannot be submitted without that tick.",
+          "Bank-transfer checkout does not remove the age requirement — payment only proceeds after the adult confirmation is completed.",
+        ],
+      },
+      {
+        heading: "Delivery and proof of age",
+        paragraphs: [
+          "Parcels may require a signature or ID check depending on carrier practice in your area. By ordering you accept that proof of age may be requested on delivery.",
+          "If a recipient cannot confirm they are 18+, the carrier may refuse delivery. Contact orders@ailibarbar.com with your order number if you need help rearranging delivery as an adult customer.",
+        ],
+      },
+      {
+        heading: "What we will not do",
+        paragraphs: [
+          "We will not knowingly sell to minors, accept orders that fail the checkout age confirmation, or keep an order active when age cannot be verified and we have a reasonable basis to cancel.",
+        ],
+      },
+      {
+        heading: "Related reading",
+        paragraphs: [
+          "For a plain-English overview of adult purchasing rules, see our guide on Alibarbar age verification in Australia and our disposable vape laws overview. Neither page is legal advice — always check the current rules in your state or territory.",
+        ],
+        bullets: [
+          "/guides/alibarbar-18-plus-age-verification-australia",
+          "/guides/disposable-vape-laws-in-australia",
+          "/faq/legal",
+          "/terms",
         ],
       },
     ],

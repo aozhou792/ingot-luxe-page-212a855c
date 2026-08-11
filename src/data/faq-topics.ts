@@ -358,7 +358,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "Do I need to be over 18 to order?",
         answer:
-          "Yes. You must be 18 years or older to purchase from Alibarbar Australia. By placing an order you confirm you meet the legal age requirement in your state or territory.",
+          "Yes. You must be 18 years or older to purchase from Alibarbar Australia. First-time visitors see an age gate, and checkout requires an explicit 18+ confirmation. By placing an order you confirm you meet the legal age requirement in your state or territory. Full policy: /age-verification.",
       },
       {
         question: "Is vaping suitable for non-smokers?",
