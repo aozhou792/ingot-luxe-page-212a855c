@@ -14,22 +14,22 @@ function routeToFile(route: string): string {
   return join(DIST, route.replace(/^\//, ""), "index.html");
 }
 
-const homeTitle = "Alibarbar Ingot 9000 Australia | Flavours & Authentic Store";
+const homeTitleHtml = "Alibarbar Ingot 9000 Australia | Flavours &amp; Authentic Store";
 
 const samples: { route: string; mustInclude: string[]; mustNotInclude?: string[] }[] = [
   {
     route: "/",
-    mustInclude: ["<title>", homeTitle, 'rel="canonical"', "https://www.ailibarbar.com/", 'data-seo-ready="true"'],
+    mustInclude: ["<title>", homeTitleHtml, 'rel="canonical"', "https://www.ailibarbar.com/", 'data-seo-ready="true"'],
   },
   {
     route: "/shop",
     mustInclude: ["<title>", "/shop", 'rel="canonical"', 'data-seo-ready="true"'],
-    mustNotInclude: [`<title>${homeTitle}</title>`],
+    mustNotInclude: [`<title>${homeTitleHtml}</title>`],
   },
   {
     route: "/product/peach-ice",
     mustInclude: ["<title>", "Peach Ice", "/product/peach-ice", 'rel="canonical"', 'data-seo-ready="true"'],
-    mustNotInclude: [`<title>${homeTitle}</title>`],
+    mustNotInclude: [`<title>${homeTitleHtml}</title>`],
   },
 ];
 

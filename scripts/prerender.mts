@@ -144,30 +144,27 @@ async function runPool(browser: import("puppeteer").Browser, routes: string[]) {
 }
 
 /** Spot-check that crawlers will not see homepage title on deep URLs. */
-function verifyPrerenderArtifacts(routes: string[]) {
-  const homeTitle = "Alibarbar Ingot 9000 Australia | Flavours & Authentic Store";
+function verifyPrerenderArtifacts(_routes: string[]) {
+  // Puppeteer serializes `&` in titles as `&amp;` — match the HTML entity form.
+  const homeTitleHtml = "Alibarbar Ingot 9000 Australia | Flavours &amp; Authentic Store";
   const samples: { route: string; mustInclude: string[]; mustNotInclude?: string[] }[] = [
     {
       route: "/",
-      mustInclude: ["<title>", homeTitle, 'rel="canonical"', "https://www.ailibarbar.com/", 'data-seo-ready="true"'],
+      mustInclude: ["<title>", homeTitleHtml, 'rel="canonical"', "https://www.ailibarbar.com/", 'data-seo-ready="true"'],
     },
     {
       route: "/shop",
       mustInclude: ["<title>", "/shop", 'rel="canonical"', 'data-seo-ready="true"'],
-      mustNotInclude: [`<title>${homeTitle}</title>`],
+      mustNotInclude: [`<title>${homeTitleHtml}</title>`],
     },
     {
       route: "/product/peach-ice",
       mustInclude: ["<title>", "Peach Ice", "/product/peach-ice", 'rel="canonical"', 'data-seo-ready="true"'],
-      mustNotInclude: [`<title>${homeTitle}</title>`],
+      mustNotInclude: [`<title>${homeTitleHtml}</title>`],
     },
   ];
 
-  const available = new Set(routes);
   for (const sample of samples) {
-    if (!available.has(sample.route) && sample.route !== "/") {
-      // Still verify if file exists after prerender of overlapping set
-    }
     const file = routeToFile(sample.route);
     if (!existsSync(file)) {
       throw new Error(`Prerender verify failed: missing ${file}`);
