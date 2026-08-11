@@ -107,13 +107,13 @@ export const faqItems: FaqItem[] = [
     category: "Product & Usage",
     question: "Which Alibarbar flavour is best?",
     answer:
-      "It depends on your taste. Fruit lovers tend to choose Quadruple Berry, Mango Magic or Strawberry Watermelon, while those who prefer a cool finish go for Peach Ice, Grape Ice, Blackberry Ice or Strawberry Ice. Fanta and Lychee are popular for something different.",
+      "It depends on your taste. Fruit lovers tend to choose Quadruple Berry, Mango Magic or Strawberry Watermelon, while those who prefer a cool finish go for Peach Ice, Grape Ice, Blackberry Ice or Strawberry Ice. Fanta is popular for a soda-style change-up.",
   },
   {
     category: "Product & Usage",
     question: "Which flavours are available?",
     answer:
-      "The current line-up includes Quadruple Berry, Fanta, Lychee, Peach Ice, Blackberry Ice, Mango Magic, Strawberry Coconut Watermelon, Grape Ice, Strawberry Watermelon, and Strawberry Ice.",
+      "The current line-up includes Quadruple Berry, Fanta, Peach Ice, Blackberry Ice, Mango Magic, Strawberry Coconut Watermelon, Grape Ice, Strawberry Watermelon, and Strawberry Ice.",
   },
   {
     category: "Product & Usage",
@@ -197,7 +197,7 @@ export const faqItems: FaqItem[] = [
     category: "Product & Usage",
     question: "Which Alibarbar flavour is best for beginners?",
     answer:
-      "Mild fruit blends such as Mango Magic, Strawberry Watermelon or Lychee are popular starting points. If you prefer a cooler finish, try Peach Ice or Grape Ice with shorter first puffs until you find your comfortable draw.",
+      "Mild fruit blends such as Mango Magic or Strawberry Watermelon are popular starting points. If you prefer a cooler finish, try Peach Ice or Grape Ice with shorter first puffs until you find your comfortable draw.",
   },
   {
     category: "Legal & Safety",

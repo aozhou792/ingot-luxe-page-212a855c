@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import heroDevice from "@/assets/hero-device.png";
 import { TELEGRAM_COMMUNITY_URL } from "@/data/site";
+
+/** Stable public path used for HTML preload (matches index.html). */
+const HERO_LCP_SRC = "/hero-lcp.png";
 
 function TelegramIcon({ className }: { className?: string }) {
   return (
@@ -18,13 +20,16 @@ export const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [loadVideo, setLoadVideo] = useState(false);
 
-  // LCP: keep a static poster as the hero paint. Only load the ~1.7MB MP4 after
-  // idle / interaction / long delay so mobile CWV is not blocked by video.
+  // LCP: keep a static <img> as the hero paint forever in the DOM.
+  // Never auto-start the ~1.7MB MP4 (prerender / idle used to bake <video> into HTML and tank CWV).
+  // Load video only after real user interaction, and never under Puppeteer/webdriver.
   useEffect(() => {
     let cancelled = false;
     const startVideo = () => {
       if (!cancelled) setLoadVideo(true);
     };
+
+    if (typeof navigator !== "undefined" && navigator.webdriver) return;
 
     const connection =
       typeof navigator !== "undefined"
@@ -41,21 +46,10 @@ export const Hero = () => {
     window.addEventListener("pointerdown", onInteract, { once: true, passive: true });
     window.addEventListener("keydown", onInteract, { once: true });
 
-    let idleId: number | undefined;
-    let timer = window.setTimeout(startVideo, 4500);
-    const ric = window.requestIdleCallback;
-    if (typeof ric === "function") {
-      idleId = ric(() => startVideo(), { timeout: 5000 });
-    }
-
     return () => {
       cancelled = true;
-      window.clearTimeout(timer);
       window.removeEventListener("pointerdown", onInteract);
       window.removeEventListener("keydown", onInteract);
-      if (idleId != null && typeof window.cancelIdleCallback === "function") {
-        window.cancelIdleCallback(idleId);
-      }
     };
   }, []);
 
@@ -92,7 +86,8 @@ export const Hero = () => {
       </div>
 
       <div className="container grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-        <div className="reveal space-y-6 sm:space-y-8 order-2 lg:order-1 text-center lg:text-left">
+        {/* No .reveal here — opacity:0 until JS would destroy LCP / FCP on first paint */}
+        <div className="space-y-6 sm:space-y-8 order-2 lg:order-1 text-center lg:text-left">
           <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-gold bg-primary/5 max-w-full">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse-glow shrink-0" />
             <span className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.25em] text-primary whitespace-normal text-left leading-snug">
@@ -142,7 +137,7 @@ export const Hero = () => {
               <div className="text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground">Puffs</div>
             </div>
             <div className="text-center sm:text-left min-w-0 flex-1 sm:flex-none">
-              <div className="text-2xl sm:text-3xl font-extrabold text-gold">10</div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-gold">9</div>
               <div className="text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground">Flavors</div>
             </div>
             <div className="text-center sm:text-left min-w-0 flex-1 sm:flex-none">
@@ -152,7 +147,7 @@ export const Hero = () => {
           </div>
         </div>
 
-        <div className="relative reveal order-1 lg:order-2 px-4 sm:px-0">
+        <div className="relative order-1 lg:order-2 px-4 sm:px-0">
           <div className="pointer-events-none absolute -inset-4 sm:-inset-8 bg-gradient-to-tr from-primary/25 via-transparent to-primary-glow/15 blur-3xl rounded-[3rem] scale-90 sm:scale-100" />
           <div className="relative mx-auto max-w-[min(100%,28rem)] animate-float">
             <div className="relative rounded-2xl sm:rounded-[1.75rem] overflow-hidden border border-gold/25 bg-black/30 shadow-[0_28px_90px_rgba(0,0,0,0.55),0_0_0_1px_rgba(212,175,55,0.15)_inset]">
@@ -160,31 +155,31 @@ export const Hero = () => {
                 className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] shadow-[inset_0_0_80px_rgba(212,175,55,0.08)]"
                 aria-hidden
               />
-              {!loadVideo ? (
-                <img
-                  src={heroDevice}
-                  alt="Alibarbar Ingot 9000 disposable vape — gold device showcase"
-                  width={800}
-                  height={1000}
-                  decoding="async"
-                  fetchPriority="high"
-                  className="relative z-0 block w-full aspect-[3/4] sm:aspect-[4/5] object-cover object-center"
-                />
-              ) : (
+              {/* Always keep the static LCP image in the DOM; video overlays after interaction only */}
+              <img
+                src={HERO_LCP_SRC}
+                alt="Alibarbar Ingot 9000 disposable vape — gold device showcase"
+                width={800}
+                height={1000}
+                decoding="sync"
+                fetchPriority="high"
+                className={`relative z-0 block w-full aspect-[3/4] sm:aspect-[4/5] object-cover object-center ${loadVideo ? "invisible" : ""}`}
+              />
+              {loadVideo ? (
                 <video
                   ref={videoRef}
-                  className="relative z-0 block w-full aspect-[3/4] sm:aspect-[4/5] object-cover object-center"
+                  className="absolute inset-0 z-[1] block h-full w-full object-cover object-center"
                   autoPlay
                   muted
                   loop
                   playsInline
                   preload="none"
-                  poster={heroDevice}
+                  poster={HERO_LCP_SRC}
                   aria-label="Alibarbar Ingot 9000 Puffs gold luxury vape device — product showcase video"
                 >
                   <source src="/hero-alibarbar.mp4" type="video/mp4" />
                 </video>
-              )}
+              ) : null}
             </div>
           </div>
         </div>

@@ -137,7 +137,10 @@ export const Flavors = () => {
   };
 
   // Keep custom-pack placeholders in the main grid (e.g. 20-pack slot after 5/10).
-  const regularProducts = products.filter((p) => !p.isPlaceholder || p.isCustomPack);
+  // Hide discontinued / out-of-stock singles from the shoppable collection grid.
+  const regularProducts = products.filter(
+    (p) => (p.inStock && !p.isPlaceholder) || (p.isCustomPack && !p.isPlaceholder),
+  );
   const placeholderProducts = products.filter((p) => p.isPlaceholder && !p.isCustomPack);
 
   return (
@@ -152,7 +155,7 @@ export const Flavors = () => {
             Explore Our <span className="text-gold">Signature Flavors</span>
           </h2>
           <p className="text-muted-foreground mt-3 sm:mt-4 text-sm sm:text-base px-2">
-            Ten signature flavours plus 5, 10 and 20-piece custom packs.
+            Nine signature flavours plus 5, 10 and 20-piece custom packs.
           </p>
           <div className="gold-divider mt-6 sm:mt-8 max-w-xs mx-auto" />
         </div>

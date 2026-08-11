@@ -54,7 +54,7 @@ const BlogPostPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title={`${post.title} | Alibarbar Australia`} description={post.description} path={path} jsonLd={jsonLd} />
+      <Seo title={`${post.title} | Alibarbar Australia`} description={post.description} path={path} type="article" jsonLd={jsonLd} />
       <Navbar />
       <main className="pt-[calc(6rem+env(safe-area-inset-top))] pb-16 sm:pb-24">
         <article className="container max-w-3xl">

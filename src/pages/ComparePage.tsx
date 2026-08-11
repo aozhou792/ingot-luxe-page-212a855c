@@ -46,7 +46,7 @@ const ComparePage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title={`${comparison.title} | Alibarbar Australia`} description={comparison.description} path={path} jsonLd={jsonLd} />
+      <Seo title={`${comparison.title} | Alibarbar Australia`} description={comparison.description} path={path} type="article" jsonLd={jsonLd} />
       <Navbar />
       <main className="pt-[calc(6rem+env(safe-area-inset-top))] pb-16 sm:pb-24">
         <article className="container max-w-3xl">
@@ -181,12 +181,20 @@ const ComparePage = () => {
 
           <div className="rounded-2xl border border-gold/25 bg-card/60 p-6 text-center">
             <p className="text-sm text-muted-foreground mb-4">Ready to try the Alibarbar Ingot 9000 for yourself?</p>
-            <Link
-              to="/flavours"
-              className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-full bg-gold text-primary-foreground font-bold uppercase tracking-widest text-xs shadow-gold hover:opacity-95 transition"
-            >
-              Explore flavours
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
+              <Link
+                to="/shop"
+                className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-full bg-gold text-primary-foreground font-bold uppercase tracking-widest text-xs shadow-gold hover:opacity-95 transition"
+              >
+                Shop Ingot 9000
+              </Link>
+              <Link
+                to="/flavours"
+                className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-full border border-gold text-primary font-bold uppercase tracking-widest text-xs hover:bg-primary/10 transition"
+              >
+                Explore flavours
+              </Link>
+            </div>
           </div>
 
           <div className="mt-10 space-y-6">

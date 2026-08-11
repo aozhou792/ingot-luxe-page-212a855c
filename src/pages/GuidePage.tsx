@@ -69,7 +69,7 @@ const GuidePage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title={`${guide.title} | Alibarbar Australia`} description={guide.description} path={path} jsonLd={jsonLd} />
+      <Seo title={`${guide.title} | Alibarbar Australia`} description={guide.description} path={path} type="article" jsonLd={jsonLd} />
       <Navbar />
       <main className="pt-[calc(6rem+env(safe-area-inset-top))] pb-16 sm:pb-24">
         <article className="container max-w-3xl">

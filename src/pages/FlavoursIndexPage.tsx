@@ -58,7 +58,9 @@ const FlavoursIndexPage = () => {
           </header>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {flavourProfiles.map((flavour) => {
+            {flavourProfiles
+              .filter((flavour) => getFlavourProduct(flavour.slug)?.inStock !== false)
+              .map((flavour) => {
               const product = getFlavourProduct(flavour.slug);
               return (
                 <Link

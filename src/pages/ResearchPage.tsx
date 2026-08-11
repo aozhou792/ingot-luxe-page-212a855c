@@ -39,7 +39,7 @@ const ResearchPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title={`${article.title} | Alibarbar Australia`} description={article.description} path={path} jsonLd={jsonLd} />
+      <Seo title={`${article.title} | Alibarbar Australia`} description={article.description} path={path} type="article" jsonLd={jsonLd} />
       <Navbar />
       <main className="pt-[calc(6rem+env(safe-area-inset-top))] pb-16 sm:pb-24">
         <article className="container max-w-3xl">

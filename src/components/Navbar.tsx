@@ -11,6 +11,7 @@ const links = [
   { label: "Best", to: "/best-alibarbar-australia" },
   { label: "Flavours", to: "/flavours" },
   { label: "Guides", to: "/guides" },
+  { label: "Blog", to: "/blog" },
   { label: "Compare", to: "/compare" },
   { label: "Reviews", to: "/reviews" },
   { label: "FAQ", to: "/faq" },

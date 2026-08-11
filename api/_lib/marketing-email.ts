@@ -74,57 +74,6 @@ function bankDetailsHtml(): string {
   `;
 }
 
-/** Sent when checkout draft is saved — customer confirmation with pay instructions. */
-export async function sendCustomerOrderReceivedEmail(order: OrderDetails): Promise<void> {
-  const email = order.billing.email;
-  const reference = formatReference(order.orderNumber);
-  const resumeUrl = resumeOrderUrl(order.orderNumber, email);
-  const notesBlock = order.notes?.trim()
-    ? `<p><strong>Your notes:</strong> ${order.notes.trim()}</p>`
-    : "";
-
-  const subject = `Order ${reference} received — please complete bank transfer`;
-  const html = `
-    <h2>Thanks for your order, ${order.billing.firstName}</h2>
-    <p>We have received order <strong>${reference}</strong>. Please transfer <strong>AUD ${order.total.toFixed(2)}</strong> and upload your payment screenshot to confirm.</p>
-    <h3>Items</h3>
-    <ul>${orderLinesHtml(order)}</ul>
-    <p><strong>Subtotal:</strong> AUD ${order.subtotal.toFixed(2)}<br/>
-    <strong>Shipping:</strong> AUD ${order.shipping.toFixed(2)}<br/>
-    <strong>Total:</strong> AUD ${order.total.toFixed(2)}</p>
-    ${notesBlock}
-    <h3>Bank transfer details</h3>
-    ${bankDetailsHtml()}
-    <p>Use reference <strong>${reference}</strong> on your transfer so we can match your payment.</p>
-    <p><a href="${resumeUrl}" style="display:inline-block;padding:12px 24px;background:#d7b760;color:#111;text-decoration:none;border-radius:999px;font-weight:bold;">Upload payment receipt</a></p>
-    <p style="font-size:12px;color:#666;">Questions? Reply to this email or contact ${SUPPORT_EMAIL}.</p>
-  `;
-
-  const text = [
-    `Hi ${order.billing.firstName},`,
-    "",
-    `Order ${reference} received. Please transfer AUD ${order.total.toFixed(2)}.`,
-    "",
-    ...order.lines.map((l) => `- ${l.name} x${l.qty}`),
-    "",
-    `Total: AUD ${order.total.toFixed(2)}`,
-    order.notes?.trim() ? `Notes: ${order.notes.trim()}` : "",
-    "",
-    `Account: ${BANK_TRANSFER.accountName}`,
-    `BSB: ${BANK_TRANSFER.bsb}`,
-    `Account number: ${BANK_TRANSFER.accountNumber}`,
-    `Reference: ${reference}`,
-    "",
-    `Upload receipt: ${resumeUrl}`,
-    "",
-    `Support: ${SUPPORT_EMAIL}`,
-  ]
-    .filter(Boolean)
-    .join("\n");
-
-  await sendEmail(email, subject, html, text);
-}
-
 /** Sent after payment screenshot is submitted. */
 export async function sendCustomerReceiptReceivedEmail(order: OrderDetails): Promise<void> {
   const email = order.billing.email;
@@ -223,7 +172,7 @@ export async function sendMarketingPromoEmail(user: StoredUser): Promise<void> {
     <h2>Hi ${user.displayName},</h2>
     <p>Thanks for being part of Alibarbar Australia. Here is what is new for adult vapers this week:</p>
     <ul>
-      <li><strong>10 signature flavours</strong> — Quadruple Berry, Peach Ice, Mango Magic and more</li>
+      <li><strong>9 signature flavours</strong> — Quadruple Berry, Peach Ice, Mango Magic and more</li>
       <li><strong>Custom 5 / 10 / 20 packs</strong> — mix your favourites; 20+ devices ship free</li>
       <li><strong>Tiered AU shipping</strong> — A$15 for 1–9 devices, A$10 for 10–19, free for 20+</li>
     </ul>

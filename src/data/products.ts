@@ -264,7 +264,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
       "The Alibarbar Ingot Lychee delivers delicate ripe lychee sweetness with a light floral lift — juicy, fragrant, and refreshingly smooth from start to finish.",
     description: lycheeDescription,
     specs: sharedSpecs,
-    inStock: true,
+    inStock: false,
   },
   {
     slug: "peach-ice",
@@ -434,9 +434,11 @@ export function getProductBySlug(slug: string | undefined): Product | undefined 
 }
 
 export function getSelectableFlavorProducts(): Product[] {
-  return products.filter((p) => !p.isPlaceholder && !p.isCustomPack);
+  return products.filter((p) => !p.isPlaceholder && !p.isCustomPack && p.inStock);
 }
 
 export function getRelatedProducts(slug: string, limit = 4): Product[] {
-  return products.filter((p) => p.slug !== slug && !p.isPlaceholder).slice(0, limit);
+  return products
+    .filter((p) => p.slug !== slug && !p.isPlaceholder && p.inStock)
+    .slice(0, limit);
 }

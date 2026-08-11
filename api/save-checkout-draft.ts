@@ -1,5 +1,4 @@
 import { getCheckoutDraft, saveCheckoutDraft } from "./_lib/draft-store.js";
-import { sendCustomerOrderReceivedEmail } from "./_lib/marketing-email.js";
 import type { OrderDetails } from "./_lib/types.js";
 
 export async function POST(request: Request): Promise<Response> {
@@ -22,21 +21,8 @@ export async function POST(request: Request): Promise<Response> {
       completedAt: existing?.completedAt,
     });
 
-    let customerEmailSent = false;
-    // Only email on first draft create to avoid duplicates on overwrite/retry.
-    if (!existing) {
-      try {
-        await sendCustomerOrderReceivedEmail(draft.order);
-        customerEmailSent = true;
-      } catch (emailError) {
-        console.error(
-          `Customer order email failed for VN #${draft.orderNumber}:`,
-          emailError instanceof Error ? emailError.message : emailError,
-        );
-      }
-    }
-
-    return Response.json({ ok: true, orderNumber: draft.orderNumber, customerEmailSent });
+    // Draft only — order details are shown on /order-complete (no customer email on place order).
+    return Response.json({ ok: true, orderNumber: draft.orderNumber });
   } catch (error) {
     console.error("save-checkout-draft failed:", error);
     const message = error instanceof Error ? error.message : "Failed to save checkout draft";

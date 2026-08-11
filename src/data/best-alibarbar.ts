@@ -145,15 +145,6 @@ export const bestAlibarbarPage = {
       reviewSlug: "alibarbar-fanta-review",
     },
     {
-      flavour: "Lychee",
-      productSlug: "lychee",
-      category: "Floral fruit",
-      cooling: "None",
-      sweetness: "Medium",
-      bestFor: "Something different",
-      reviewSlug: "alibarbar-lychee-review",
-    },
-    {
       flavour: "Strawberry Coconut Watermelon",
       productSlug: "strawberry-coconut-watermelon",
       category: "Tropical cream",

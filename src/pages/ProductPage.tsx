@@ -28,6 +28,7 @@ import { ContentByline } from "@/components/seo/ContentByline";
 import { BestFor } from "@/components/seo/BestFor";
 import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
 import { QuickAnswer } from "@/components/seo/QuickAnswer";
+import { ProductClusterLinks } from "@/components/seo/ProductClusterLinks";
 import {
   deriveProductAvoid,
   deriveProductBestFor,
@@ -541,6 +542,12 @@ const ProductPage = () => {
           ) : null}
 
           <ProductReviews slug={product.slug} onSchemaData={handleSchemaReviews} />
+
+          <ProductClusterLinks
+            productSlug={product.slug}
+            productName={product.name}
+            isCustomPack={Boolean(product.isCustomPack)}
+          />
 
           {related.length > 0 && (
             <section className="mt-12 sm:mt-16 md:mt-20 lg:mt-28">

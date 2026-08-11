@@ -8,7 +8,7 @@ import { products } from "@/data/products";
 import { SITE_URL } from "@/data/site";
 import { useReveal } from "@/hooks/use-reveal";
 
-const shopProducts = products.filter((p) => !p.isPlaceholder);
+const shopProducts = products.filter((p) => !p.isPlaceholder && p.inStock);
 
 const ShopPage = () => {
   useReveal();
@@ -81,35 +81,42 @@ const ShopPage = () => {
             </p>
           </header>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6 lg:gap-8">
             {shopProducts.map((product) => (
               <Link
                 key={product.slug}
                 to={`/product/${product.slug}`}
-                className="reveal group rounded-2xl border border-gold/20 bg-card/60 overflow-hidden flex flex-col hover:border-gold/50 transition-colors"
+                className="reveal group rounded-xl sm:rounded-2xl border border-gold/20 bg-card/60 overflow-hidden flex flex-col min-w-0 hover:border-gold/50 transition-colors"
               >
                 <div className="relative aspect-square bg-gradient-to-br from-secondary to-background">
                   <img
                     src={product.img}
                     alt={`Buy Alibarbar Ingot 9000 ${product.name} Australia`}
                     loading="lazy"
-                    className="w-full h-full object-contain p-5 group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-contain p-3 sm:p-5 group-hover:scale-105 transition-transform duration-500"
                   />
                   {!product.inStock ? (
-                    <span className="absolute top-3 left-3 rounded-full bg-background/90 border border-gold/30 px-3 py-1 text-[10px] uppercase tracking-wide text-muted-foreground">
+                    <span className="absolute top-2 left-2 sm:top-3 sm:left-3 rounded-full bg-background/90 border border-gold/30 px-2 py-0.5 sm:px-3 sm:py-1 text-[8px] sm:text-[10px] uppercase tracking-wide text-muted-foreground">
                       Out of stock
                     </span>
                   ) : null}
                 </div>
-                <div className="p-4 sm:p-5 flex flex-col gap-2 border-t border-gold/15 flex-1">
-                  <span className="text-[10px] uppercase tracking-wide text-primary">{product.tag}</span>
-                  <h2 className="text-base sm:text-lg font-bold leading-snug group-hover:text-primary transition-colors">
+                <div className="p-2.5 sm:p-4 md:p-5 flex flex-col gap-1.5 sm:gap-2 border-t border-gold/15 flex-1">
+                  <span className="text-[8px] sm:text-[10px] uppercase tracking-wide text-primary truncate">
+                    {product.tag}
+                  </span>
+                  <h2 className="text-sm sm:text-base md:text-lg font-bold leading-snug line-clamp-2 group-hover:text-primary transition-colors">
                     {product.name}
                   </h2>
-                  <ProductPrice price={product.price} originalPrice={product.originalPrice} className="text-sm" />
-                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-gold mt-auto pt-1">
+                  <ProductPrice
+                    price={product.price}
+                    originalPrice={product.originalPrice}
+                    className="text-sm"
+                    priceClassName="text-sm sm:text-base"
+                  />
+                  <span className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-gold mt-auto pt-1">
                     {product.inStock ? "View product" : "View details"}
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </div>
               </Link>

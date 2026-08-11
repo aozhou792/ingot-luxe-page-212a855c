@@ -36,7 +36,7 @@ export const flavourProfiles: FlavourProfile[] = [
       "If you like mixed-berry profiles and want something crowd-pleasing rather than polarising, this is the safest first pick in the collection.",
     ],
     bestFor: ["All-day fruity vapers", "Anyone who dislikes strong menthol", "First-time Alibarbar buyers"],
-    similar: ["strawberry-watermelon", "lychee"],
+    similar: ["strawberry-watermelon", "mango-magic"],
     faq: [
       {
         question: "Is Quadruple Berry an iced flavour?",
@@ -62,7 +62,7 @@ export const flavourProfiles: FlavourProfile[] = [
       "Because it is distinctive, it works well as a change-up flavour in a mixed pack rather than something everyone vapes non-stop.",
     ],
     bestFor: ["Soda and citrus lovers", "Vapers wanting a non-berry option", "Mixed-pack variety"],
-    similar: ["lychee", "mango-magic"],
+    similar: ["mango-magic", "peach-ice"],
     faq: [
       {
         question: "Does Fanta taste like real orange soda?",

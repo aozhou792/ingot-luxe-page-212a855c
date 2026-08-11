@@ -551,16 +551,16 @@ export const guides: Guide[] = [
     datePublished: "2026-02-16",
     dateModified: "2026-07-27",
     intro:
-      "With ten flavours in the current line-up plus a build-your-own custom pack, choosing can be tricky. Here is a guide to the most popular Alibarbar Ingot 9000 flavours and who each one suits — then jump to our full Best Alibarbar Australia ranking for the comparison table.",
+      "With nine flavours in the current line-up plus a build-your-own custom pack, choosing can be tricky. Here is a guide to the most popular Alibarbar Ingot 9000 flavours and who each one suits — then jump to our full Best Alibarbar Australia ranking for the comparison table.",
     quickAnswer: {
       question: "What are the best Alibarbar flavours in Australia?",
       answer:
-        "Fruit lovers usually start with Quadruple Berry, Mango Magic or Strawberry Watermelon. For ice, Peach Ice is the most balanced; Grape Ice and Blackberry Ice run colder. Want something different — try Fanta or Lychee. Unsure? Build a 5 Flavour Custom Pack. Full podium + table: Best Alibarbar Australia 2026.",
+        "Fruit lovers usually start with Quadruple Berry, Mango Magic or Strawberry Watermelon. For ice, Peach Ice is the most balanced; Grape Ice and Blackberry Ice run colder. Want something different — try Fanta or Strawberry Coconut Watermelon. Unsure? Build a 5 Flavour Custom Pack. Full podium + table: Best Alibarbar Australia 2026.",
     },
     keyTakeaways: [
       "Quadruple Berry is the top all-round fruity pick",
       "Peach Ice is the easiest iced recommendation",
-      "Fanta and Lychee cover soda and floral change-ups",
+      "Fanta and Strawberry Coconut Watermelon cover soda and tropical change-ups",
       "Ten single flavours plus custom packs cover most tastes",
       "See Best Alibarbar Australia for the ranked comparison table",
     ],
@@ -603,7 +603,7 @@ export const guides: Guide[] = [
       {
         heading: "Best for something different",
         paragraphs: [
-          "Fanta brings a fizzy orange-soda twist, while Lychee offers a delicate, floral sweetness that stands out from the usual berry and ice profiles. Strawberry Coconut Watermelon adds a creamy, tropical layer for those who want something richer.",
+          "Fanta brings a fizzy orange-soda twist, while Strawberry Coconut Watermelon adds a creamy, tropical layer for those who want something richer than straight fruit or ice.",
         ],
       },
       {
@@ -762,7 +762,7 @@ export const guides: Guide[] = [
       {
         heading: "Flavour decision tree",
         paragraphs: [
-          "Fruit without heavy ice → start with Quadruple Berry, Mango Magic or Strawberry Watermelon. Moderate ice → Peach Ice. Stronger chill → Grape Ice, Blackberry Ice or Strawberry Ice. Something different → Fanta, Lychee or Strawberry Coconut Watermelon.",
+          "Fruit without heavy ice → start with Quadruple Berry, Mango Magic or Strawberry Watermelon. Moderate ice → Peach Ice. Stronger chill → Grape Ice, Blackberry Ice or Strawberry Ice. Something different → Fanta or Strawberry Coconut Watermelon.",
           "Unsure after reading flavour pages? Build a custom pack instead of guessing a single SKU.",
         ],
       },

@@ -23,7 +23,7 @@ type SeoProps = {
   /** When set, overrides `path` for canonical + hreflang (e.g. flavour guide → product URL). */
   canonicalPath?: string;
   image?: string;
-  type?: "website" | "product";
+  type?: "website" | "product" | "article";
   noindex?: boolean;
   /** Skip canonical/hreflang — use on soft-404 SPA routes so Google does not treat junk URLs as self-canonical. */
   noCanonical?: boolean;
@@ -215,14 +215,26 @@ export function offerShippingDetails() {
 }
 
 function productOffer(path: string, price: string, inStock: boolean) {
+  const priceValidUntil = new Date();
+  priceValidUntil.setUTCFullYear(priceValidUntil.getUTCFullYear() + 1);
   return {
     "@type": "Offer",
     url: absoluteUrl(path),
     price,
     priceCurrency: "AUD",
+    priceValidUntil: priceValidUntil.toISOString().slice(0, 10),
     availability: inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
     seller: { "@id": `${SITE_URL}/#organization` },
     shippingDetails: offerShippingDetails(),
+    hasMerchantReturnPolicy: {
+      "@type": "MerchantReturnPolicy",
+      applicableCountry: "AU",
+      returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+      merchantReturnDays: 14,
+      returnMethod: "https://schema.org/ReturnByMail",
+      returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
+      url: absoluteUrl("/returns"),
+    },
   };
 }
 
@@ -270,6 +282,18 @@ function homepageProductNodes() {
     });
 }
 
+/** High-intent FAQs only on the homepage — full set lives on /faq to avoid rich-result competition. */
+const HOMEPAGE_FAQ_QUESTIONS = new Set([
+  "How much is shipping in Australia?",
+  "How do I pay for my order?",
+  "Do I need to be over 18 to order?",
+  "What is the Alibarbar Ingot 9000?",
+  "How many puffs does the Alibarbar Ingot 9000 have?",
+  "Are your products authentic?",
+  "What nicotine strength is in the Alibarbar Ingot 9000?",
+  "Which Alibarbar flavour is best?",
+]);
+
 export const siteJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -311,14 +335,16 @@ export const siteJsonLd = {
     {
       "@type": "FAQPage",
       "@id": `${SITE_URL}/#faq`,
-      mainEntity: faqItems.map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.answer,
-        },
-      })),
+      mainEntity: faqItems
+        .filter((item) => HOMEPAGE_FAQ_QUESTIONS.has(item.question))
+        .map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+          },
+        })),
     },
   ],
 } as const;
@@ -460,6 +486,7 @@ export function articleJsonLd(article: {
   itemList?: { position: number; name: string; url: string; description?: string }[];
 }) {
   const graph: Record<string, unknown>[] = [
+    organizationNode,
     personNode(article.authorSlug ?? getDefaultAuthor().slug),
     {
       "@type": "Article",
@@ -562,6 +589,7 @@ export function reviewJsonLd(review: {
   }
 
   const graph: Record<string, unknown>[] = [
+    organizationNode,
     personNode(review.authorSlug ?? getDefaultAuthor().slug),
     {
       "@type": "Review",

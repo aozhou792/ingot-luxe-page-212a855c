@@ -93,7 +93,7 @@ const ReviewPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title={`${review.title} | Alibarbar Australia`} description={review.description} path={path} image={product?.img} jsonLd={jsonLd} />
+      <Seo title={`${review.title} | Alibarbar Australia`} description={review.description} path={path} image={product?.img} type="article" jsonLd={jsonLd} />
       <Navbar />
       <main className="pt-[calc(6rem+env(safe-area-inset-top))] pb-16 sm:pb-24">
         <article className="container max-w-4xl">

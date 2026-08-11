@@ -25,11 +25,21 @@
     },
     {
       "source": "/products/:slug",
-      "destination": "/product/:slug",
+      "destination": "/shop",
+      "statusCode": 301
+    },
+    {
+      "source": "/search.htm",
+      "destination": "/search",
       "statusCode": 301
     },
     {
       "source": "/:path*.html",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*.htm",
       "destination": "/",
       "statusCode": 301
     },

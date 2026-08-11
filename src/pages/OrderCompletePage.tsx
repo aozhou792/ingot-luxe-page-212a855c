@@ -193,8 +193,8 @@ const OrderCompletePage = () => {
           <div className="rounded-2xl border border-border bg-card p-8">
             <h1 className="text-2xl font-semibold text-foreground mb-3">No recent order</h1>
             <p className="text-muted-foreground mb-6">
-              Place an order to see your confirmation here. If you received an email, open the link from that message to
-              resume payment.
+              Place an order to see your confirmation and payment details here. Keep this browser open until you finish
+              bank transfer, or bookmark the page with your order number.
             </p>
             <Button asChild>
               <Link to="/shop">Browse flavours</Link>
@@ -368,15 +368,22 @@ const OrderCompletePage = () => {
           </section>
 
           <aside className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-6">
-            <p className="text-emerald-600 dark:text-emerald-400 font-medium mb-4">
+            <p className="text-emerald-600 dark:text-emerald-400 font-medium mb-1">
               Thank you. Your order has been received.
             </p>
-            <ul className="space-y-2 text-sm text-foreground">
-              <li>
-                <span className="text-muted-foreground">Order number:</span> {reference}
+            <p className="text-sm text-muted-foreground mb-4">
+              Your order details are below — please keep your order number for payment and support.
+            </p>
+            <ul className="space-y-2.5 text-sm text-foreground">
+              <li className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span className="text-muted-foreground shrink-0">Order number:</span>
+                <CopyValue value={reference} />
               </li>
               <li>
                 <span className="text-muted-foreground">Date:</span> {order.date}
+              </li>
+              <li>
+                <span className="text-muted-foreground">Email:</span> {order.billing.email}
               </li>
               <li>
                 <span className="text-muted-foreground">Total:</span> {formatAud(order.total)}
@@ -388,7 +395,12 @@ const OrderCompletePage = () => {
                 <li className="text-emerald-600 dark:text-emerald-400">
                   Payment receipt submitted — awaiting confirmation.
                 </li>
-              ) : null}
+              ) : (
+                <li className="text-muted-foreground pt-1">
+                  Next: tap <span className="text-foreground font-medium">Pay now</span>, transfer the total with this
+                  order number as the reference, then upload your screenshot.
+                </li>
+              )}
             </ul>
           </aside>
         </div>
