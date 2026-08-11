@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 const STORAGE_KEY = "ailibarbar-age-verified-v1";
@@ -12,48 +12,60 @@ function isAutomationOrBot(): boolean {
   );
 }
 
+function readVerified(): boolean {
+  try {
+    return window.localStorage.getItem(STORAGE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function writeVerified() {
+  try {
+    window.localStorage.setItem(STORAGE_KEY, "1");
+  } catch {
+    /* private mode */
+  }
+}
+
 /**
  * First-visit 18+ confirmation. Skipped for crawlers/automation so prerender + SEO
  * HTML stay indexable. Deferred past first paint so it does not steal homepage LCP.
  */
 export function AgeGate() {
   const [open, setOpen] = useState(false);
+  const settledRef = useRef(false);
+  const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (isAutomationOrBot()) return;
-    try {
-      if (window.localStorage.getItem(STORAGE_KEY) === "1") return;
-    } catch {
-      /* private mode — still show gate */
+    if (isAutomationOrBot() || readVerified()) {
+      settledRef.current = true;
+      return;
     }
 
-    let cancelled = false;
     const reveal = () => {
-      if (!cancelled) setOpen(true);
+      if (settledRef.current || readVerified()) return;
+      setOpen(true);
     };
 
-    // Let LCP paint first (hero image / H1), then show the gate.
-    const idle =
-      typeof window.requestIdleCallback === "function"
-        ? window.requestIdleCallback(reveal, { timeout: 2800 })
-        : undefined;
-    const fallback = window.setTimeout(reveal, idle == null ? 1200 : 3200);
+    // Single delayed reveal — do not stack idleCallback + timeout (that reopened after confirm).
+    timerRef.current = window.setTimeout(reveal, 1400);
 
     return () => {
-      cancelled = true;
-      window.clearTimeout(fallback);
-      if (idle != null && typeof window.cancelIdleCallback === "function") {
-        window.cancelIdleCallback(idle);
+      if (timerRef.current != null) {
+        window.clearTimeout(timerRef.current);
+        timerRef.current = null;
       }
     };
   }, []);
 
   const confirm = () => {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, "1");
-    } catch {
-      /* ignore */
+    settledRef.current = true;
+    if (timerRef.current != null) {
+      window.clearTimeout(timerRef.current);
+      timerRef.current = null;
     }
+    writeVerified();
     setOpen(false);
   };
 
