@@ -20,7 +20,15 @@
     <link rel="alternate" hreflang="x-default" href="https://www.ailibarbar.com/" />
     <link rel="llms" href="https://www.ailibarbar.com/llms.txt" />
     <link rel="describedby" href="https://www.ailibarbar.com/llms.txt" />
-    <link rel="preload" as="image" href="/hero-lcp.png" fetchpriority="high" />
+    <link
+      rel="preload"
+      as="image"
+      href="/hero-lcp.webp"
+      type="image/webp"
+      imagesrcset="/hero-lcp-640.webp 640w, /hero-lcp.webp 800w"
+      imagesizes="(max-width: 640px) 100vw, 28rem"
+      fetchpriority="high"
+    />
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
     <link rel="dns-prefetch" href="//fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -61,16 +69,23 @@
       content="Shop Alibarbar Ingot 9000 flavours in Australia. Authentic disposable vapes, custom packs, AU shipping and secure bank-transfer checkout for adults 18+."
     />
     <meta name="twitter:image" content="https://www.ailibarbar.com/og-image.png" />
-    <!-- Google tag (gtag.js) — Measurement ID G-D07SJ2E2D4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D07SJ2E2D4"></script>
+    <!-- Google tag — deferred until after load so it does not contend with LCP -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
       window.gtag = gtag;
-      gtag("js", new Date());
-      gtag("config", "G-D07SJ2E2D4", { anonymize_ip: true });
+      window.addEventListener("load", function () {
+        var s = document.createElement("script");
+        s.async = true;
+        s.src = "https://www.googletagmanager.com/gtag/js?id=G-D07SJ2E2D4";
+        s.onload = function () {
+          gtag("js", new Date());
+          gtag("config", "G-D07SJ2E2D4", { anonymize_ip: true });
+        };
+        document.head.appendChild(s);
+      });
     </script>
     <script id="site-json-ld" type="application/ld+json">
       {

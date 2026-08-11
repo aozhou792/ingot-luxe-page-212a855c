@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { TELEGRAM_COMMUNITY_URL } from "@/data/site";
 
-/** Stable public path used for HTML preload (matches index.html). */
-const HERO_LCP_SRC = "/hero-lcp.png";
+/** Stable public paths used for HTML preload (matches index.html). */
+const HERO_LCP_WEBP = "/hero-lcp.webp";
+const HERO_LCP_WEBP_640 = "/hero-lcp-640.webp";
+const HERO_LCP_PNG = "/hero-lcp.png";
 
 function TelegramIcon({ className }: { className?: string }) {
   return (
@@ -149,22 +151,29 @@ export const Hero = () => {
 
         <div className="relative order-1 lg:order-2 px-4 sm:px-0">
           <div className="pointer-events-none absolute -inset-4 sm:-inset-8 bg-gradient-to-tr from-primary/25 via-transparent to-primary-glow/15 blur-3xl rounded-[3rem] scale-90 sm:scale-100" />
-          <div className="relative mx-auto max-w-[min(100%,28rem)] animate-float">
+          <div className="relative mx-auto max-w-[min(100%,28rem)]">
             <div className="relative rounded-2xl sm:rounded-[1.75rem] overflow-hidden border border-gold/25 bg-black/30 shadow-[0_28px_90px_rgba(0,0,0,0.55),0_0_0_1px_rgba(212,175,55,0.15)_inset]">
               <div
                 className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] shadow-[inset_0_0_80px_rgba(212,175,55,0.08)]"
                 aria-hidden
               />
               {/* Always keep the static LCP image in the DOM; video overlays after interaction only */}
-              <img
-                src={HERO_LCP_SRC}
-                alt="Alibarbar Ingot 9000 disposable vape — gold device showcase"
-                width={800}
-                height={1000}
-                decoding="sync"
-                fetchPriority="high"
-                className={`relative z-0 block w-full aspect-[3/4] sm:aspect-[4/5] object-cover object-center ${loadVideo ? "invisible" : ""}`}
-              />
+              <picture className={loadVideo ? "invisible" : undefined}>
+                <source
+                  type="image/webp"
+                  srcSet={`${HERO_LCP_WEBP_640} 640w, ${HERO_LCP_WEBP} 800w`}
+                  sizes="(max-width: 640px) 100vw, 28rem"
+                />
+                <img
+                  src={HERO_LCP_PNG}
+                  alt="Alibarbar Ingot 9000 disposable vape — gold device showcase"
+                  width={800}
+                  height={1000}
+                  decoding="async"
+                  fetchPriority="high"
+                  className="relative z-0 block w-full aspect-[3/4] sm:aspect-[4/5] object-cover object-center"
+                />
+              </picture>
               {loadVideo ? (
                 <video
                   ref={videoRef}
@@ -174,7 +183,7 @@ export const Hero = () => {
                   loop
                   playsInline
                   preload="none"
-                  poster={HERO_LCP_SRC}
+                  poster={HERO_LCP_WEBP}
                   aria-label="Alibarbar Ingot 9000 Puffs gold luxury vape device — product showcase video"
                 >
                   <source src="/hero-alibarbar.mp4" type="video/mp4" />

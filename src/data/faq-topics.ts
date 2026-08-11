@@ -393,7 +393,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "What is your age verification policy?",
         answer:
-          "By placing an order you confirm you are 18+. We may cancel orders where age cannot be verified. See /age-verification for the full policy.",
+          "By placing an order you confirm you are 18+. First-time visitors also see an age gate; checkout requires an explicit 18+ tick. We may cancel orders where age cannot be verified. See /age-verification for the full policy.",
       },
       {
         question: "Can I use a disposable vape while pregnant?",

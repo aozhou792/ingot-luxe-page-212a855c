@@ -373,7 +373,7 @@ export const contentPages: ContentPage[] = [
       {
         heading: "How we verify age",
         paragraphs: [
-          "By placing an order you confirm you are 18 years or older and of legal age to purchase vaping products where you live. We reserve the right to cancel orders where age cannot be verified, and carriers may request proof of age on delivery.",
+          "First visit: an on-site age gate asks you to confirm you are 18+ before browsing continues (stored locally on your device). Checkout: you must tick an explicit 18+ confirmation before placing an order. By ordering you also confirm you are of legal age to purchase vaping products where you live. We reserve the right to cancel orders where age cannot be verified, and carriers may request proof of age on delivery.",
         ],
       },
       {
@@ -383,7 +383,7 @@ export const contentPages: ContentPage[] = [
         ],
       },
     ],
-    updated: "2026-07-07",
+    updated: "2026-08-11",
   },
 ];
 

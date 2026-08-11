@@ -1,6 +1,12 @@
 /**
  * Post-build prerender for Vercel + local.
  * Uses full puppeteer locally; puppeteer-core + @sparticuz/chromium on Vercel CI.
+ *
+ * Guardrails:
+ * - SKIP_PRERENDER blocked on Vercel (prevents shipping SPA shell meta to all URLs)
+ * - Per-route failures fail the build (exit 1)
+ * - seo-ready wait has a hard timeout
+ * - Spot-check sample HTML for unique title/canonical + data-seo-ready
  */
 import { createServer } from "node:http";
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
@@ -12,6 +18,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = resolve(__dirname, "../dist");
 const PORT = 4173;
 const CONCURRENCY = 3;
+const SEO_READY_TIMEOUT_MS = 45_000;
+const NAV_TIMEOUT_MS = 90_000;
 let spaShell = "";
 
 function routeToFile(route: string): string {
@@ -72,50 +80,126 @@ async function launchBrowser() {
   });
 }
 
+async function waitForSeoReady(page: import("puppeteer").Page) {
+  await Promise.race([
+    page.evaluate(
+      () =>
+        new Promise<void>((resolve) => {
+          if (document.documentElement.dataset.seoReady === "true") {
+            resolve();
+            return;
+          }
+          document.addEventListener("seo-ready", () => resolve(), { once: true });
+        }),
+    ),
+    new Promise<never>((_, reject) => {
+      setTimeout(() => reject(new Error(`seo-ready timeout after ${SEO_READY_TIMEOUT_MS}ms`)), SEO_READY_TIMEOUT_MS);
+    }),
+  ]);
+}
+
 async function prerenderRoute(page: import("puppeteer").Page, route: string) {
   const url = `http://127.0.0.1:${PORT}${route}`;
-  await page.goto(url, { waitUntil: "load", timeout: 90_000 });
-  await page.waitForSelector("h1", { timeout: 90_000 });
-  await page.evaluate(() =>
-    new Promise<void>((resolve) => {
-      if (document.documentElement.dataset.seoReady === "true") {
-        resolve();
-        return;
-      }
-      document.addEventListener("seo-ready", () => resolve(), { once: true });
-    }),
-  );
+  await page.goto(url, { waitUntil: "load", timeout: NAV_TIMEOUT_MS });
+  await page.waitForSelector("h1", { timeout: NAV_TIMEOUT_MS });
+  await waitForSeoReady(page);
   const html = await page.content();
+  if (!html.includes('data-seo-ready="true"') && !html.includes("data-seo-ready='true'")) {
+    throw new Error(`${route}: rendered HTML missing data-seo-ready`);
+  }
   const out = routeToFile(route);
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, html, "utf-8");
 }
 
-async function runPool(
-  browser: import("puppeteer").Browser,
-  routes: string[],
-) {
+async function runPool(browser: import("puppeteer").Browser, routes: string[]) {
   let index = 0;
+  const failures: { route: string; message: string }[] = [];
+
   async function worker() {
     const page = await browser.newPage();
     try {
       while (index < routes.length) {
         const route = routes[index++];
-        page.on("pageerror", (error) => console.error(`[${route}]`, error.message));
         process.stdout.write(`prerender ${route}\n`);
-        await prerenderRoute(page, route);
+        try {
+          await prerenderRoute(page, route);
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error);
+          console.error(`[${route}] ${message}`);
+          failures.push({ route, message });
+        }
       }
     } finally {
       await page.close();
     }
   }
+
   await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()));
+
+  if (failures.length > 0) {
+    const summary = failures.map((f) => `  - ${f.route}: ${f.message}`).join("\n");
+    throw new Error(`Prerender failed for ${failures.length} route(s):\n${summary}`);
+  }
+}
+
+/** Spot-check that crawlers will not see homepage title on deep URLs. */
+function verifyPrerenderArtifacts(routes: string[]) {
+  const homeTitle = "Alibarbar Ingot 9000 Australia | Flavours & Authentic Store";
+  const samples: { route: string; mustInclude: string[]; mustNotInclude?: string[] }[] = [
+    {
+      route: "/",
+      mustInclude: ["<title>", homeTitle, 'rel="canonical"', "https://www.ailibarbar.com/", 'data-seo-ready="true"'],
+    },
+    {
+      route: "/shop",
+      mustInclude: ["<title>", "/shop", 'rel="canonical"', 'data-seo-ready="true"'],
+      mustNotInclude: [`<title>${homeTitle}</title>`],
+    },
+    {
+      route: "/product/peach-ice",
+      mustInclude: ["<title>", "Peach Ice", "/product/peach-ice", 'rel="canonical"', 'data-seo-ready="true"'],
+      mustNotInclude: [`<title>${homeTitle}</title>`],
+    },
+  ];
+
+  const available = new Set(routes);
+  for (const sample of samples) {
+    if (!available.has(sample.route) && sample.route !== "/") {
+      // Still verify if file exists after prerender of overlapping set
+    }
+    const file = routeToFile(sample.route);
+    if (!existsSync(file)) {
+      throw new Error(`Prerender verify failed: missing ${file}`);
+    }
+    const html = readFileSync(file, "utf-8");
+    for (const needle of sample.mustInclude) {
+      if (!html.includes(needle)) {
+        throw new Error(`Prerender verify failed for ${sample.route}: missing "${needle}"`);
+      }
+    }
+    for (const needle of sample.mustNotInclude ?? []) {
+      if (html.includes(needle)) {
+        throw new Error(`Prerender verify failed for ${sample.route}: unexpected "${needle}"`);
+      }
+    }
+  }
+
+  console.log("Prerender verify OK (/, /shop, /product/peach-ice).");
 }
 
 async function main() {
   if (process.env.SKIP_PRERENDER === "1") {
-    console.log("SKIP_PRERENDER=1 — skipping post-build prerender.");
+    if (process.env.VERCEL === "1") {
+      console.error("SKIP_PRERENDER=1 is not allowed on Vercel. Refusing to ship SPA-shell HTML.");
+      process.exit(1);
+    }
+    console.log("SKIP_PRERENDER=1 — skipping post-build prerender (local only).");
     return;
+  }
+
+  if (!existsSync(join(DIST, "index.html"))) {
+    throw new Error(`Missing ${join(DIST, "index.html")} — run vite build first.`);
   }
 
   const routes = getPrerenderRoutes();
@@ -126,6 +210,7 @@ async function main() {
   try {
     console.log(`Prerendering ${routes.length} routes…`);
     await runPool(browser, routes);
+    verifyPrerenderArtifacts(routes);
     console.log("Prerender complete.");
   } finally {
     await browser.close();

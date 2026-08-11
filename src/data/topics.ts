@@ -175,7 +175,7 @@ export const topicHubs: TopicHub[] = [
     definition:
       "Buying a disposable vape in Australia as an adult 18+ means choosing a genuine device from a seller with clear shipping and payment policies. Laws vary by state; this site provides general information only, not legal advice.",
     stats: [
-      "18+ only — age verified at checkout",
+      "18+ only — age gate on entry and confirmation at checkout",
       "Australia-wide shipping available",
       "A$15 for 1–9 · A$10 for 10–19 · free for 20+",
       "Bank transfer payment with order tracking",

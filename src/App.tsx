@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Analytics } from "@/components/Analytics";
 import { RouteErrorBoundary } from "@/components/RouteErrorBoundary";
+import { AgeGate } from "@/components/AgeGate";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { AuthProvider } from "@/context/AuthContext";
 import { CartProvider } from "@/context/CartContext";
@@ -154,6 +155,7 @@ const App = () => (
             </Suspense>
             </RouteErrorBoundary>
             <WhatsAppFloat />
+            <AgeGate />
           </CartProvider>
         </AuthProvider>
       </BrowserRouter>

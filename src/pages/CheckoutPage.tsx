@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -61,7 +62,7 @@ const initialForm: BillingForm = {
   orderNotes: "",
 };
 
-type FieldErrors = Partial<Record<keyof BillingForm, string>>;
+type FieldErrors = Partial<Record<keyof BillingForm | "ageConfirmed", string>>;
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -70,6 +71,7 @@ const CheckoutPage = () => {
   const [form, setForm] = useState<BillingForm>(initialForm);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [placing, setPlacing] = useState(false);
+  const [ageConfirmed, setAgeConfirmed] = useState(false);
 
   const hasItems = lines.length > 0;
   const shipping = shippingAud(deviceCount);
@@ -101,6 +103,7 @@ const CheckoutPage = () => {
     if (!/^\d{4}$/.test(form.postcode.trim())) next.postcode = "Enter a valid 4-digit postcode";
     if (!form.phone.trim()) next.phone = "Phone is required";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) next.email = "Enter a valid email address";
+    if (!ageConfirmed) next.ageConfirmed = "Confirm you are 18 or older to place an order";
     return next;
   };
 
@@ -368,6 +371,31 @@ const CheckoutPage = () => {
                   Please transfer money to our Bank Transfer account. Put your order number to help us process your order
                   accurately.
                 </p>
+              </div>
+
+              <div
+                className="space-y-2 rounded-lg border border-border bg-background/60 p-4"
+                data-invalid={errors.ageConfirmed ? "true" : undefined}
+              >
+                <div className="flex items-start gap-3">
+                  <Checkbox
+                    id="checkout-age-confirm"
+                    checked={ageConfirmed}
+                    onCheckedChange={(value) => {
+                      setAgeConfirmed(value === true);
+                      setErrors((prev) => (prev.ageConfirmed ? { ...prev, ageConfirmed: undefined } : prev));
+                    }}
+                    className="mt-0.5"
+                    aria-invalid={Boolean(errors.ageConfirmed)}
+                  />
+                  <Label htmlFor="checkout-age-confirm" className="text-sm leading-relaxed font-normal cursor-pointer">
+                    I confirm I am 18 years or older and of legal age to purchase vaping products where I live.{" "}
+                    <Link to="/age-verification" className="text-primary font-semibold underline underline-offset-2">
+                      Age policy
+                    </Link>
+                  </Label>
+                </div>
+                {errors.ageConfirmed ? <p className="text-xs text-destructive">{errors.ageConfirmed}</p> : null}
               </div>
 
               <Button type="submit" size="lg" className="w-full min-h-[48px] hidden lg:flex" disabled={placing}>
