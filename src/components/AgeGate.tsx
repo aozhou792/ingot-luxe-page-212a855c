@@ -81,6 +81,8 @@ export function AgeGate() {
       role="dialog"
       aria-modal="true"
       aria-labelledby="age-gate-title"
+      onPointerDown={(event) => event.stopPropagation()}
+      onKeyDown={(event) => event.stopPropagation()}
     >
       <div className="w-full max-w-md rounded-2xl border border-gold/40 bg-background p-6 sm:p-8 shadow-none">
         <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-3">Alibarbar Australia</p>

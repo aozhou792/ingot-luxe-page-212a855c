@@ -45,6 +45,8 @@ export const Hero = () => {
     if (slowNetwork) return;
 
     const onInteract = () => startVideo();
+    // Capture phase so AgeGate's stopPropagation on the dialog still wins for gate clicks;
+    // use bubble + once for normal page interaction after the gate is dismissed.
     window.addEventListener("pointerdown", onInteract, { once: true, passive: true });
     window.addEventListener("keydown", onInteract, { once: true });
 

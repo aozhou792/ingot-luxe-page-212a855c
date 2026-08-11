@@ -81,21 +81,29 @@ async function launchBrowser() {
 }
 
 async function waitForSeoReady(page: import("puppeteer").Page) {
-  await Promise.race([
-    page.evaluate(
-      () =>
-        new Promise<void>((resolve) => {
-          if (document.documentElement.dataset.seoReady === "true") {
-            resolve();
-            return;
-          }
-          document.addEventListener("seo-ready", () => resolve(), { once: true });
-        }),
-    ),
-    new Promise<never>((_, reject) => {
-      setTimeout(() => reject(new Error(`seo-ready timeout after ${SEO_READY_TIMEOUT_MS}ms`)), SEO_READY_TIMEOUT_MS);
-    }),
-  ]);
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  try {
+    await Promise.race([
+      page.evaluate(
+        () =>
+          new Promise<void>((resolve) => {
+            if (document.documentElement.dataset.seoReady === "true") {
+              resolve();
+              return;
+            }
+            document.addEventListener("seo-ready", () => resolve(), { once: true });
+          }),
+      ),
+      new Promise<never>((_, reject) => {
+        timeoutId = setTimeout(
+          () => reject(new Error(`seo-ready timeout after ${SEO_READY_TIMEOUT_MS}ms`)),
+          SEO_READY_TIMEOUT_MS,
+        );
+      }),
+    ]);
+  } finally {
+    if (timeoutId != null) clearTimeout(timeoutId);
+  }
 }
 
 async function prerenderRoute(page: import("puppeteer").Page, route: string) {
