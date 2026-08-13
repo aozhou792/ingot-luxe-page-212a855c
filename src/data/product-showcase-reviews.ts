@@ -259,7 +259,7 @@ export function getShowcaseReviews(slug: string): ShowcaseReview[] {
   return pickReviewsForSlug(slug);
 }
 
-/** Photo showcase reviews for a product — used in Product JSON-LD. */
+/** Photo showcase reviews for a product — on-page testimonials only. Do not emit in Product JSON-LD. */
 export function getVerifiedShowcaseReviews(slug: string): ShowcaseReview[] {
   const picked = getShowcaseReviews(slug).filter((r) => isVerifiedPurchase(r));
   const extras: ShowcaseReview[] = [];

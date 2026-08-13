@@ -57,9 +57,16 @@ export const siteCitations: Citation[] = [
   {
     id: "official-site",
     kind: "web",
-    title: "Alibarbar Australia — official store",
+    title: "Alibarbar Australia — catalogue website",
     url: SITE_URL,
-    note: "Primary source for pricing, stock, shipping and authenticity claims.",
+    note: "Primary source for listed specifications, pricing in code, shipping policy and authenticity checklists. Not a determination of lawful supply.",
+  },
+  {
+    id: "tga-vaping-hub",
+    kind: "web",
+    title: "TGA vaping hub (Australian Government)",
+    url: "https://www.tga.gov.au/products/unapproved-therapeutic-goods/vaping-hub",
+    note: "Official Australian regulatory source for current vaping supply, advertising and nicotine-strength conditions.",
   },
 ];
 
@@ -69,6 +76,7 @@ export function citationsByIds(ids: string[]): Citation[] {
 }
 
 export const defaultGuideCitations = citationsByIds([
+  "tga-vaping-hub",
   "reddit-au-vapers",
   "youtube-channel",
   "github-docs",

@@ -58,7 +58,7 @@ export const brands: Brand[] = [
       {
         question: "Is Alibarbar legal in Australia?",
         answer:
-          "Nicotine vaping products are regulated in Australia. Alibarbar Australia sells to adults 18+ only. Laws vary by state and territory — our Legal FAQ hub explains the general rules. This is information only, not legal advice.",
+          "Nicotine vaping products are regulated. Current government guidance points to pharmacy settings for therapeutic purposes, not ordinary non-pharmacy retail. Alibarbar Australia content is 18+ catalogue information — not a lawful-supply certificate. See /faq/legal and /guides/disposable-vape-laws-in-australia. Not legal advice.",
       },
       {
         question: "How long do Alibarbar vapes last?",

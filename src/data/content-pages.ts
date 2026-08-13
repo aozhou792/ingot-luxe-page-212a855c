@@ -23,7 +23,7 @@ export const contentPages: ContentPage[] = [
     description:
       "Alibarbar Australia is an online store dedicated to authentic Alibarbar Ingot 9000 disposable vapes with fast, local delivery for adult customers.",
     intro:
-      "Alibarbar Australia is an independent online retailer focused on one thing: giving adult Australian vapers a simple, trustworthy way to buy authentic Alibarbar Ingot 9000 devices.",
+      "Alibarbar Australia is an independent online retailer focused on one thing: giving adult Australian vapers clear catalogue facts for authentic Alibarbar Ingot 9000 devices. Catalogue, shipping and checkout copy on this site is not a determination of lawful non-pharmacy supply — verify current TGA and local rules.",
     sections: [
       {
         heading: "Who we are",

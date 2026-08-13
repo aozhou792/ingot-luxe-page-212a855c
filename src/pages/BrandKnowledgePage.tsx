@@ -7,6 +7,7 @@ import { CitationSources } from "@/components/seo/CitationSources";
 import { CiteThis } from "@/components/seo/CiteThis";
 import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
 import { QuickAnswer } from "@/components/seo/QuickAnswer";
+import { RegulatoryNotice } from "@/components/seo/RegulatoryNotice";
 import { Seo, articleJsonLd, type BreadcrumbEntry } from "@/components/Seo";
 import { brandKnowledge } from "@/data/brand-knowledge";
 import { defaultGuideCitations } from "@/data/citations";
@@ -59,6 +60,9 @@ const BrandKnowledgePage = () => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">{brandKnowledge.title}</h1>
             <p className="text-muted-foreground mt-4 text-sm sm:text-base leading-relaxed">{brandKnowledge.intro}</p>
             <QuickAnswer data={brandKnowledge.quickAnswer} />
+            <div className="mt-4">
+              <RegulatoryNotice compact />
+            </div>
             <div className="gold-divider mt-6 max-w-[6rem]" />
           </header>
 

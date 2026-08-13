@@ -9,6 +9,7 @@ import { CitationSources } from "@/components/seo/CitationSources";
 import { CiteThis } from "@/components/seo/CiteThis";
 import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
 import { QuickAnswer } from "@/components/seo/QuickAnswer";
+import { RegulatoryNotice } from "@/components/seo/RegulatoryNotice";
 import { Seo, articleJsonLd, type BreadcrumbEntry } from "@/components/Seo";
 import { defaultGuideCitations } from "@/data/citations";
 import { getGuideBySlug, guides } from "@/data/guides";
@@ -88,6 +89,14 @@ const GuidePage = () => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">{guide.title}</h1>
             <ContentByline datePublished={guide.datePublished} dateModified={guide.dateModified} />
             <QuickAnswer data={quickAnswer} />
+            {(guide.slug === "disposable-vape-laws-in-australia" ||
+              guide.slug === "where-to-buy-alibarbar-australia" ||
+              guide.slug.includes("buying") ||
+              guide.slug.includes("price")) && (
+              <div className="mt-4">
+                <RegulatoryNotice compact />
+              </div>
+            )}
             <div className="gold-divider mt-6 max-w-[6rem]" />
           </header>
 

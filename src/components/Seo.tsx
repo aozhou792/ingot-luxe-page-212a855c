@@ -1,12 +1,8 @@
 import { useEffect } from "react";
 import { getAuthorBySlug, getDefaultAuthor } from "@/data/authors";
-import { products } from "@/data/products";
-import {
-  getVerifiedShowcaseAggregate,
-  getVerifiedShowcaseReviews,
-  toSchemaReviews,
-} from "@/data/product-showcase-reviews";
+import { ENTITY, productSlugFromPath } from "@/data/entity";
 import { faqItems } from "@/data/faq";
+import { products } from "@/data/products";
 import { SITE_LOGO_HEIGHT, SITE_LOGO_PATH, SITE_LOGO_WIDTH, SITE_SAME_AS, SITE_URL } from "@/data/site";
 
 const SITE_NAME = "Alibarbar Australia";
@@ -118,9 +114,21 @@ export function Seo({
   return null;
 }
 
+const brandNode = {
+  "@type": "Brand",
+  "@id": ENTITY.brandId,
+  name: "ALIBARBAR",
+  url: `${SITE_URL}/brands/alibarbar`,
+  description:
+    "ALIBARBAR is the product brand behind the Ingot 9000 disposable vape. Alibarbar Australia is the site entity on this domain, not a second brand name.",
+  hasProduct: products
+    .filter((p) => !p.isPlaceholder)
+    .map((p) => ({ "@id": ENTITY.productId(p.slug) })),
+};
+
 const organizationNode = {
   "@type": "Organization",
-  "@id": `${SITE_URL}/#organization`,
+  "@id": ENTITY.organizationId,
   name: SITE_NAME,
   url: SITE_URL,
   logo: {
@@ -131,8 +139,10 @@ const organizationNode = {
   },
   image: DEFAULT_IMAGE,
   sameAs: SITE_SAME_AS,
+  brand: { "@id": ENTITY.brandId },
+  subOrganization: { "@id": ENTITY.storeId },
   description:
-    "Alibarbar Australia is an online store for authentic Alibarbar Ingot 9000 disposable vapes with fast local delivery.",
+    "Alibarbar Australia is the site entity for ailibarbar.com. It publishes catalogue information, guides and reviews for the Alibarbar Ingot 9000. Lawful supply in Australia must be checked against current TGA and state or territory rules.",
   areaServed: { "@type": "Country", name: "Australia" },
   contactPoint: {
     "@type": "ContactPoint",
@@ -145,11 +155,12 @@ const organizationNode = {
 
 const websiteNode = {
   "@type": "WebSite",
-  "@id": `${SITE_URL}/#website`,
+  "@id": ENTITY.websiteId,
   name: SITE_NAME,
   url: SITE_URL,
   inLanguage: "en-AU",
-  publisher: { "@id": `${SITE_URL}/#organization` },
+  publisher: { "@id": ENTITY.organizationId },
+  about: { "@id": ENTITY.brandId },
 };
 
 function productImageUrl(img: string): string {
@@ -224,7 +235,7 @@ function productOffer(path: string, price: string, inStock: boolean) {
     priceCurrency: "AUD",
     priceValidUntil: priceValidUntil.toISOString().slice(0, 10),
     availability: inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-    seller: { "@id": `${SITE_URL}/#organization` },
+    seller: { "@id": ENTITY.organizationId },
     shippingDetails: offerShippingDetails(),
     hasMerchantReturnPolicy: {
       "@type": "MerchantReturnPolicy",
@@ -256,30 +267,15 @@ function productReviewNodes(reviews: { author: string; rating: number; body: str
 function homepageProductNodes() {
   return products
     .filter((p) => !p.isPlaceholder)
-    .map((p) => {
-      const verifiedReviews = getVerifiedShowcaseReviews(p.slug);
-      const verifiedRating = getVerifiedShowcaseAggregate(p.slug);
-      const node: Record<string, unknown> = {
-        "@type": "Product",
-        "@id": `${SITE_URL}/product/${p.slug}#product`,
-        name: `Alibarbar Ingot 9000 ${p.name}`,
-        description: p.excerpt,
-        image: productImageUrl(p.img),
-        brand: { "@type": "Brand", name: "ALIBARBAR" },
-        offers: productOffer(`/product/${p.slug}`, p.price, p.inStock),
-      };
-      if (verifiedRating.count > 0) {
-        node.aggregateRating = {
-          "@type": "AggregateRating",
-          ratingValue: verifiedRating.average,
-          reviewCount: verifiedRating.count,
-          bestRating: 5,
-          worstRating: 1,
-        };
-        node.review = productReviewNodes(toSchemaReviews(verifiedReviews));
-      }
-      return node;
-    });
+    .map((p) => ({
+      "@type": "Product",
+      "@id": ENTITY.productId(p.slug),
+      name: `Alibarbar Ingot 9000 ${p.name}`,
+      description: p.excerpt,
+      image: productImageUrl(p.img),
+      brand: { "@id": ENTITY.brandId },
+      offers: productOffer(`/product/${p.slug}`, p.price, p.inStock),
+    }));
 }
 
 /** High-intent FAQs only on the homepage — full set lives on /faq to avoid rich-result competition. */
@@ -292,23 +288,25 @@ const HOMEPAGE_FAQ_QUESTIONS = new Set([
   "Are your products authentic?",
   "What nicotine strength is in the Alibarbar Ingot 9000?",
   "Which Alibarbar flavour is best?",
+  "Where can you legally buy vaping products in Australia?",
 ]);
 
 export const siteJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     organizationNode,
+    brandNode,
     websiteNode,
     {
       "@type": "OnlineStore",
-      "@id": `${SITE_URL}/#store`,
+      "@id": ENTITY.storeId,
       name: "Alibarbar Australia",
       url: SITE_URL,
       logo: LOGO_URL,
       image: DEFAULT_IMAGE,
       currenciesAccepted: "AUD",
       paymentAccepted: "Bank Transfer",
-      parentOrganization: { "@id": `${SITE_URL}/#organization` },
+      parentOrganization: { "@id": ENTITY.organizationId },
       areaServed: {
         "@type": "Country",
         name: "Australia",
@@ -319,10 +317,7 @@ export const siteJsonLd = {
         "high puff disposable vapes Australia",
         "vape flavours",
       ],
-      brand: {
-        "@type": "Brand",
-        name: "ALIBARBAR",
-      },
+      brand: { "@id": ENTITY.brandId },
       contactPoint: {
         "@type": "ContactPoint",
         email: "orders@ailibarbar.com",
@@ -351,9 +346,10 @@ export const siteJsonLd = {
 
 export type BreadcrumbEntry = { name: string; path: string };
 
-export function breadcrumbNode(items: BreadcrumbEntry[]) {
+export function breadcrumbNode(items: BreadcrumbEntry[], pagePath?: string) {
   return {
     "@type": "BreadcrumbList",
+    ...(pagePath ? { "@id": ENTITY.breadcrumbId(pagePath) } : {}),
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -375,15 +371,14 @@ export function productJsonLd(product: {
   breadcrumbs?: BreadcrumbEntry[];
   faq?: { question: string; answer: string }[];
 }) {
+  const slug = productSlugFromPath(product.path);
   const productNode: Record<string, unknown> = {
     "@type": "Product",
+    ...(slug ? { "@id": ENTITY.productId(slug) } : {}),
     name: product.name,
     description: product.description,
     image: absoluteUrl(product.image),
-    brand: {
-      "@type": "Brand",
-      name: "ALIBARBAR",
-    },
+    brand: { "@id": ENTITY.brandId },
     offers: productOffer(product.path, product.price, product.inStock),
   };
 
@@ -401,13 +396,14 @@ export function productJsonLd(product: {
     productNode.review = productReviewNodes(product.reviews);
   }
 
-  const graph: Record<string, unknown>[] = [productNode];
+  const graph: Record<string, unknown>[] = [organizationNode, brandNode, websiteNode, productNode];
   if (product.breadcrumbs && product.breadcrumbs.length > 0) {
-    graph.push(breadcrumbNode(product.breadcrumbs));
+    graph.push(breadcrumbNode(product.breadcrumbs, product.path));
   }
   if (product.faq && product.faq.length > 0) {
     graph.push({
       "@type": "FAQPage",
+      "@id": ENTITY.faqId(product.path),
       mainEntity: product.faq.map((item) => ({
         "@type": "Question",
         name: item.question,
@@ -426,18 +422,18 @@ export function personNode(slug: string) {
   const author = getAuthorBySlug(slug) ?? getDefaultAuthor();
   return {
     "@type": "Person",
-    "@id": `${SITE_URL}/author/${author.slug}#person`,
+    "@id": ENTITY.personId(author.slug),
     name: author.name,
     jobTitle: author.title,
     url: `${SITE_URL}/author/${author.slug}`,
-    worksFor: { "@id": `${SITE_URL}/#organization` },
+    worksFor: { "@id": ENTITY.organizationId },
     knowsAbout: author.expertise,
   };
 }
 
 function authorReference(authorSlug?: string) {
   const author = getAuthorBySlug(authorSlug) ?? getDefaultAuthor();
-  return { "@id": `${SITE_URL}/author/${author.slug}#person` };
+  return { "@id": ENTITY.personId(author.slug) };
 }
 
 export function howToJsonLd(howTo: {
@@ -465,7 +461,7 @@ export function howToJsonLd(howTo: {
     },
   ];
   if (howTo.breadcrumbs && howTo.breadcrumbs.length > 0) {
-    graph.push(breadcrumbNode(howTo.breadcrumbs));
+    graph.push(breadcrumbNode(howTo.breadcrumbs, howTo.path));
   }
   return { "@context": "https://schema.org", "@graph": graph };
 }
@@ -487,18 +483,29 @@ export function articleJsonLd(article: {
 }) {
   const graph: Record<string, unknown>[] = [
     organizationNode,
+    brandNode,
+    websiteNode,
     personNode(article.authorSlug ?? getDefaultAuthor().slug),
     {
       "@type": "Article",
+      "@id": ENTITY.articleId(article.path),
       headline: article.title,
       description: article.description,
       image: absoluteUrl(article.image ?? DEFAULT_IMAGE),
-      mainEntityOfPage: absoluteUrl(article.path),
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": ENTITY.webpageId(article.path),
+        url: absoluteUrl(article.path),
+      },
+      isPartOf: { "@id": ENTITY.websiteId },
       inLanguage: "en-AU",
       datePublished: article.datePublished ?? "2026-01-01",
       dateModified: article.dateModified ?? article.datePublished ?? "2026-01-01",
       author: authorReference(article.authorSlug),
-      publisher: { "@id": `${SITE_URL}/#organization` },
+      publisher: { "@id": ENTITY.organizationId },
+      ...(article.breadcrumbs && article.breadcrumbs.length > 0
+        ? { breadcrumb: { "@id": ENTITY.breadcrumbId(article.path) } }
+        : {}),
     },
   ];
 
@@ -536,12 +543,13 @@ export function articleJsonLd(article: {
   }
 
   if (article.breadcrumbs && article.breadcrumbs.length > 0) {
-    graph.push(breadcrumbNode(article.breadcrumbs));
+    graph.push(breadcrumbNode(article.breadcrumbs, article.path));
   }
 
   if (article.faq && article.faq.length > 0) {
     graph.push({
       "@type": "FAQPage",
+      "@id": ENTITY.faqId(article.path),
       mainEntity: article.faq.map((item) => ({
         "@type": "Question",
         name: item.question,
@@ -577,10 +585,11 @@ export function reviewJsonLd(review: {
 }) {
   const itemReviewed: Record<string, unknown> = {
     "@type": "Product",
+    "@id": ENTITY.productId(productSlugFromPath(review.productPath) ?? "quadruple-berry"),
     name: review.productName,
     description: review.productDescription,
     url: absoluteUrl(review.productPath),
-    brand: { "@type": "Brand", name: "ALIBARBAR" },
+    brand: { "@id": ENTITY.brandId },
     // Google Product snippets require offers, review, or aggregateRating.
     offers: productOffer(review.productPath, review.price, review.inStock ?? true),
   };
@@ -590,33 +599,39 @@ export function reviewJsonLd(review: {
 
   const graph: Record<string, unknown>[] = [
     organizationNode,
+    brandNode,
+    websiteNode,
     personNode(review.authorSlug ?? getDefaultAuthor().slug),
     {
-      "@type": "Review",
+      "@type": ["Review", "CriticReview"],
+      "@id": ENTITY.reviewId(review.path),
+      name: "Editorial review",
       headline: review.title,
-      description: review.description,
+      description: `${review.description} Editorial dimension score — not a customer aggregate rating.`,
       image: absoluteUrl(review.image ?? DEFAULT_IMAGE),
       datePublished: review.datePublished ?? "2026-01-01",
       dateModified: review.dateModified ?? review.datePublished ?? "2026-01-01",
       author: authorReference(review.authorSlug),
-      publisher: { "@id": `${SITE_URL}/#organization` },
+      publisher: { "@id": ENTITY.organizationId },
       reviewRating: {
         "@type": "Rating",
         ratingValue: review.ratingValue,
         bestRating: 5,
         worstRating: 1,
+        description: "Editorial tasting-dimension average, not a customer AggregateRating.",
       },
       itemReviewed,
     },
   ];
 
   if (review.breadcrumbs && review.breadcrumbs.length > 0) {
-    graph.push(breadcrumbNode(review.breadcrumbs));
+    graph.push(breadcrumbNode(review.breadcrumbs, review.path));
   }
 
   if (review.faq && review.faq.length > 0) {
     graph.push({
       "@type": "FAQPage",
+      "@id": ENTITY.faqId(review.path),
       mainEntity: review.faq.map((item) => ({
         "@type": "Question",
         name: item.question,
@@ -635,12 +650,13 @@ export function authorPageJsonLd(authorSlug: string) {
   const author = getAuthorBySlug(authorSlug) ?? getDefaultAuthor();
   return {
     "@context": "https://schema.org",
-    "@graph": [
+        "@graph": [
       organizationNode,
+      brandNode,
       personNode(author.slug),
       {
         "@type": "ProfilePage",
-        mainEntity: { "@id": `${SITE_URL}/author/${author.slug}#person` },
+        mainEntity: { "@id": ENTITY.personId(author.slug) },
         name: `${author.name} | ${SITE_NAME}`,
         url: `${SITE_URL}/author/${author.slug}`,
         inLanguage: "en-AU",
@@ -649,10 +665,11 @@ export function authorPageJsonLd(authorSlug: string) {
   };
 }
 
-export function faqPageJsonLd(items: { question: string; answer: string }[], breadcrumbs?: BreadcrumbEntry[]) {
+export function faqPageJsonLd(items: { question: string; answer: string }[], breadcrumbs?: BreadcrumbEntry[], pagePath = "/faq") {
   const graph: Record<string, unknown>[] = [
     {
       "@type": "FAQPage",
+      "@id": ENTITY.faqId(pagePath),
       mainEntity: items.map((item) => ({
         "@type": "Question",
         name: item.question,
@@ -660,6 +677,49 @@ export function faqPageJsonLd(items: { question: string; answer: string }[], bre
       })),
     },
   ];
-  if (breadcrumbs && breadcrumbs.length > 0) graph.push(breadcrumbNode(breadcrumbs));
+  if (breadcrumbs && breadcrumbs.length > 0) graph.push(breadcrumbNode(breadcrumbs, pagePath));
+  return { "@context": "https://schema.org", "@graph": graph };
+}
+
+export function brandEntityJsonLd(brand: {
+  name: string;
+  title: string;
+  description: string;
+  path: string;
+  isOwn?: boolean;
+  breadcrumbs?: BreadcrumbEntry[];
+  faq?: { question: string; answer: string }[];
+}) {
+  const graph: Record<string, unknown>[] = [
+    organizationNode,
+    brandNode,
+    websiteNode,
+    {
+      "@type": "WebPage",
+      "@id": ENTITY.webpageId(brand.path),
+      url: absoluteUrl(brand.path),
+      name: brand.title,
+      description: brand.description,
+      inLanguage: "en-AU",
+      isPartOf: { "@id": ENTITY.websiteId },
+      about: brand.isOwn ? { "@id": ENTITY.brandId } : { "@type": "Brand", name: brand.name },
+      mainEntity: brand.isOwn ? { "@id": ENTITY.brandId } : undefined,
+      publisher: { "@id": ENTITY.organizationId },
+    },
+  ];
+  if (brand.breadcrumbs && brand.breadcrumbs.length > 0) {
+    graph.push(breadcrumbNode(brand.breadcrumbs, brand.path));
+  }
+  if (brand.faq && brand.faq.length > 0) {
+    graph.push({
+      "@type": "FAQPage",
+      "@id": ENTITY.faqId(brand.path),
+      mainEntity: brand.faq.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer },
+      })),
+    });
+  }
   return { "@context": "https://schema.org", "@graph": graph };
 }

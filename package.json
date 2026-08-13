@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "dev:api": "vercel dev",
-    "build": "tsx scripts/generate-sitemap.mts && vite build && tsx scripts/prerender.mts",
+    "build": "tsx scripts/generate-sitemap.mts && tsx scripts/generate-llms.mts && vite build && tsx scripts/prerender.mts",
+    "generate:llms": "tsx scripts/generate-llms.mts",
+    "verify:geo": "tsx scripts/verify-geo.mts",
     "build:no-prerender": "cross-env SKIP_PRERENDER=1 vite build",
     "verify:prerender": "tsx scripts/verify-prerender.mts",
     "generate:authenticity": "node scripts/generate-honeycomb-qrs.mjs",

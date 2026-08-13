@@ -18,7 +18,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "How much is shipping?",
         answer:
-          "Shipping is A$15 for orders of 1–9 devices, A$10 for 10–19 devices, and free for 20 or more devices. The shipping fee is added automatically at checkout so you can see the total before placing your order.",
+          "Catalogue Regular Post is A$15 for 1–9 devices, A$10 for 10–19, and free for 20+. Typical delivery is about 3–7 business days after payment confirmation. Metro areas such as Sydney, Melbourne and Brisbane are often faster; remote postcodes can take longer. These are site-stated values and may change. Confirm the live checkout total before paying.",
       },
       {
         question: "Do you ship Australia-wide?",
@@ -223,7 +223,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "What does the LED display show?",
         answer:
-          "The built-in smart LED display shows the remaining battery level and e-liquid level, so you can see at a glance how much life the device has left before it needs replacing.",
+          "The smart LED shows two remaining-life indicators: battery level and e-liquid level. Low or empty usually means the device is near finished. Flashing can mean empty liquid, a flat battery, or a draw that is too hard — try a gentler puff. Treat exact flash codes as device-specific unless the manufacturer documents them. See /guides/how-to-read-alibarbar-led-when-finished.",
       },
       {
         question: "Which Alibarbar flavour is best?",
@@ -263,7 +263,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "What nicotine strength is in the Alibarbar Ingot 9000?",
         answer:
-          "Nicotine strength varies by batch and region. Check the packaging on your device for the exact mg/ml rating. If you need help identifying your unit, email orders@ailibarbar.com with your order number. Full guide: /guides/alibarbar-nicotine-strength-australia.",
+          "Nicotine strength is not one fixed site-wide number. It can vary by batch and region, so the mg/mL or percentage printed on the pack is the source of truth. If packaging conflicts with a website figure, trust the pack. Full guide: /guides/alibarbar-nicotine-strength-australia.",
       },
       {
         question: "Is there a warranty on disposable vapes?",
@@ -293,7 +293,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "Are your products authentic?",
         answer:
-          "Yes. We only sell genuine ALIBARBAR Ingot 9000 devices with the built-in smart LED display, 22ml e-liquid capacity, and up to 9000 puffs per device.",
+          "Check packaging and ALIBARBAR branding, a working smart LED, and specs that match up to 9000 puffs, 22ml and 2350mAh. Inconsistent labelling is a warning sign. See /guides/how-to-spot-fake-alibarbar-ingot.",
       },
       {
         question: "How can I tell if my Alibarbar Ingot is genuine?",
@@ -323,7 +323,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "Where can I buy authentic Alibarbar in Australia?",
         answer:
-          "You can order authentic Alibarbar Ingot 9000 devices directly from Alibarbar Australia at ailibarbar.com. We ship Australia-wide to NSW, VIC, QLD, WA, SA, TAS, ACT and NT.",
+          "You can compare listed Ingot 9000 specifications on ailibarbar.com. That catalogue is not proof the product may lawfully be supplied outside Australia’s pharmacy/therapeutic framework. Check TGA and local rules. See /guides/disposable-vape-laws-in-australia.",
       },
       {
         question: "Does the LED display work on fakes?",
@@ -373,7 +373,12 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "Are disposable vapes legal in Australia?",
         answer:
-          "Vaping regulation in Australia varies by state and territory and changes over time. Products are strictly 18+ and intended for existing adult smokers or vapers only. See our overview at /guides/disposable-vape-laws-in-australia — it is general information, not legal advice.",
+          "Current TGA guidance frames vapes as pharmacy-setting supply for therapeutic purposes, with extra conditions by nicotine strength and jurisdiction. Adults 18+ still apply. This site’s catalogue is not a lawful-supply determination. See /guides/disposable-vape-laws-in-australia — general information, not legal advice.",
+      },
+      {
+        question: "Where can you legally buy vaping products in Australia?",
+        answer:
+          "Government guidance currently points to pharmacy settings for therapeutic purposes, not ordinary non-pharmacy retail. Extra conditions apply by nicotine strength and state or territory. Do not treat ailibarbar.com catalogue pages as proof of lawful supply. Not legal advice.",
       },
       {
         question: "How do I dispose of a used device?",
@@ -388,7 +393,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "Is nicotine legal in disposable vapes in Australia?",
         answer:
-          "Nicotine regulation in Australia is complex and changes over time. Check the packaging on your device for nicotine content and consult official state or territory guidance. This FAQ is general information, not legal advice.",
+          "Nicotine in vapes is tightly regulated. Strengths above 20 mg/mL typically sit under extra prescription-style controls. The Ingot 9000’s exact strength is not a single site-wide figure — read the pack. Confirm current TGA rules. Not legal advice.",
       },
       {
         question: "What is your age verification policy?",

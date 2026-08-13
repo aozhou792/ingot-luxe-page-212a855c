@@ -36,7 +36,7 @@ export const bestAlibarbarPage = {
   quickAnswer: {
     question: "What is the best Alibarbar in Australia?",
     answer:
-      "For most adult buyers in Australia, the best Alibarbar overall is Quadruple Berry on the Ingot 9000 — balanced fruit, almost no ice, and easy all-day use. Prefer ice? Start with Peach Ice (moderate) or Blackberry Ice (stronger chill). Want tropical? Mango Magic. Unsure — build a 5 Flavour Custom Pack.",
+      "For most adult readers in Australia, our 2026 editorial ranking currently places Quadruple Berry as the overall pick — balanced fruit, almost no ice, and easy all-day use. Prefer ice? Start with Peach Ice (moderate) or Blackberry Ice (stronger chill). Want tropical? Mango Magic. These are editorial preferences, not lab scores. Unsure — a 5 Flavour Custom Pack is listed in the catalogue.",
   },
   keyTakeaways: [
     "Best overall 2026: Quadruple Berry (Ingot 9000)",

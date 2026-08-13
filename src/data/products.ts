@@ -10,7 +10,7 @@ import strawberryWatermelon from "@/assets/flavor-strawberry-watermelon.png";
 import strawberryIce from "@/assets/flavor-strawberry-ice.png";
 import custom5Pack from "@/assets/custom-5-pack.png";
 import custom10Pack from "@/assets/Alibarbar-10-pcs_1800x.webp";
-import custom20Pack from "@/assets/custom-20-pack.png";
+import { NICOTINE, PRODUCT_FAMILY } from "@/data/canonical-facts";
 
 export type Product = {
   slug: string;
@@ -361,13 +361,14 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
 
 /** Technical specs shared by every single-device Alibarbar Ingot listing. */
 export const deviceSpecifications: { label: string; value: string }[] = [
-  { label: "Puff count", value: "Up to 9000 puffs" },
-  { label: "E-liquid capacity", value: "22ml (pre-filled)" },
-  { label: "Battery", value: "2350mAh (non-rechargeable)" },
+  { label: "Puff count", value: PRODUCT_FAMILY.puffRating },
+  { label: "E-liquid capacity", value: `${PRODUCT_FAMILY.eLiquidMl}ml (pre-filled)` },
+  { label: "Battery", value: `${PRODUCT_FAMILY.batteryMah}mAh (non-rechargeable)` },
   { label: "Activation", value: "Inhale-activated, no buttons" },
   { label: "Display", value: "Smart LED battery & e-liquid indicator" },
   { label: "Coil", value: "Mesh coil for consistent flavour" },
-  { label: "Net weight", value: "Approx. 90g" },
+  { label: "Net weight", value: `Approx. ${PRODUCT_FAMILY.netWeightG}g` },
+  { label: "Nicotine", value: NICOTINE.short },
 ];
 
 /** How-to-use steps shown on every product page. */
@@ -423,7 +424,11 @@ export function getProductFaq(product: Product): { question: string; answer: str
     {
       question: "Is this a genuine Alibarbar device?",
       answer:
-        "Yes. We only sell authentic ALIBARBAR Ingot 9000 devices with the built-in smart LED display, 22ml capacity and up to 9000 puffs.",
+        "Check ALIBARBAR branding, a working smart LED, and specs that match up to 9000 puffs, 22ml and 2350mAh. See /guides/how-to-spot-fake-alibarbar-ingot.",
+    },
+    {
+      question: "What nicotine strength is in this device?",
+      answer: NICOTINE.statement,
     },
   ];
 }

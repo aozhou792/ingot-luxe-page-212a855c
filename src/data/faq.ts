@@ -11,7 +11,7 @@ export const faqItems: FaqItem[] = [
     category: "Ordering & Shipping",
     question: "How much is shipping in Australia?",
     answer:
-      "Regular Post shipping is A$15 for orders of 1–9 devices, A$10 for 10–19 devices, and free for 20 or more devices, calculated automatically at checkout.",
+      "Catalogue Regular Post is A$15 for 1–9 devices, A$10 for 10–19 devices, and free for 20 or more, calculated at checkout. Typical delivery is about 3–7 business days after payment confirmation (metro NSW/VIC/QLD often faster; remote postcodes slower). These are site-stated values and may change. Lawful supply of vapes in Australia must still be checked against current TGA rules.",
   },
   {
     category: "Ordering & Shipping",
@@ -101,13 +101,13 @@ export const faqItems: FaqItem[] = [
     category: "Product & Usage",
     question: "What does the LED display show?",
     answer:
-      "The built-in smart LED display shows the remaining battery level and e-liquid level, so you can see at a glance how much life the device has left before it needs replacing.",
+      "The smart LED shows two remaining-life indicators: battery level and e-liquid level. A low or empty reading usually means the device is near the end of its usable life. Flashing can mean empty e-liquid, a depleted battery, or a draw that is too hard — try a gentler puff first. Exact flash patterns should be treated as device-specific unless confirmed by current manufacturer documentation. Full guide: /guides/how-to-read-alibarbar-led-when-finished.",
   },
   {
     category: "Product & Usage",
     question: "Which Alibarbar flavour is best?",
     answer:
-      "It depends on your taste. Fruit lovers tend to choose Quadruple Berry, Mango Magic or Strawberry Watermelon, while those who prefer a cool finish go for Peach Ice, Grape Ice, Blackberry Ice or Strawberry Ice. Fanta is popular for a soda-style change-up.",
+      "The site’s 2026 editorial ranking currently places Quadruple Berry as the overall pick. Peach Ice is the more moderate iced option, Blackberry Ice a stronger cooling berry, and Mango Magic a tropical choice. These are editorial preferences, not objective lab scores. See /best-alibarbar-australia.",
   },
   {
     category: "Product & Usage",
@@ -149,13 +149,13 @@ export const faqItems: FaqItem[] = [
     category: "Product & Usage",
     question: "Are your products authentic?",
     answer:
-      "Yes. We only sell genuine ALIBARBAR Ingot 9000 devices with the built-in smart LED display, 22ml e-liquid capacity, and up to 9000 puffs per device.",
+      "Check that packaging and ALIBARBAR branding are consistent, the device has the expected smart LED, and specs match the known Ingot 9000 profile: up to 9000 puffs, 22ml e-liquid and a 2350mAh built-in battery. Missing or inconsistent specifications are warning signs. See /guides/how-to-spot-fake-alibarbar-ingot.",
   },
   {
     category: "Ordering & Shipping",
     question: "What is your warranty and returns policy?",
     answer:
-      "Opened devices cannot be returned for change of mind. Faulty or damaged items reported within 7 days may qualify for a replacement or refund under the Australian Consumer Law. Full details are on our Returns & Refunds page at /returns.",
+      "Opened devices cannot be returned for change of mind. Faulty or damaged goods reported within seven days may qualify for a replacement or refund under the Australian Consumer Law. Keep your order number and photos of the issue. Full details: /returns.",
   },
   {
     category: "Legal & Safety",
@@ -179,7 +179,7 @@ export const faqItems: FaqItem[] = [
     category: "Product & Usage",
     question: "What nicotine strength is in the Alibarbar Ingot 9000?",
     answer:
-      "Nicotine strength varies by batch and region. Check the packaging on your device for the exact mg/ml rating. If you need help identifying your unit, email orders@ailibarbar.com with your order number. Full guide: /guides/alibarbar-nicotine-strength-australia.",
+      "Nicotine strength varies by batch and region and is not one fixed site-wide number. Use the mg/mL or percentage printed on the packaging for that unit as the source of truth. If the pack conflicts with a website figure, trust the pack. Full guide: /guides/alibarbar-nicotine-strength-australia.",
   },
   {
     category: "Product & Usage",
@@ -191,7 +191,7 @@ export const faqItems: FaqItem[] = [
     category: "Product & Usage",
     question: "How can I tell if my Alibarbar Ingot is genuine?",
     answer:
-      "Genuine Alibarbar Ingot 9000 devices have the smart LED display showing battery and e-liquid levels, up to 9000 puffs, 22ml capacity and the ALIBARBAR branding on packaging. Buying from Alibarbar Australia ensures authentic stock — avoid unusually cheap listings on unofficial marketplaces (see /guides/alibarbar-ingot-9000-price-guide-australia and /guides/how-to-spot-fake-alibarbar-ingot).",
+      "Check packaging, a working smart LED (battery + e-liquid), and specs that match up to 9000 puffs, 22ml and 2350mAh. Unusually cheap marketplace lots that omit the LED are a warning sign. See /guides/how-to-spot-fake-alibarbar-ingot and /guides/alibarbar-ingot-9000-price-guide-australia.",
   },
   {
     category: "Product & Usage",
@@ -203,6 +203,12 @@ export const faqItems: FaqItem[] = [
     category: "Legal & Safety",
     question: "How do I dispose of a used device?",
     answer:
-      "A used disposable vape contains a battery and should not go in general household waste. Take it to an e-waste or battery recycling drop-off point where available in your area.",
+      "Take it to an e-waste or battery recycling drop-off. A used disposable contains a lithium battery and should not go in general household waste.",
+  },
+  {
+    category: "Legal & Safety",
+    question: "Where can you legally buy vaping products in Australia?",
+    answer:
+      "Current Australian government guidance says vaping products are restricted to pharmacy settings for therapeutic purposes, with extra conditions depending on nicotine strength and state or territory law. Adults 18+ still apply. Strengths above 20 mg/mL typically sit under tighter prescription-style controls. This site’s catalogue is not proof of lawful non-pharmacy supply. See /guides/disposable-vape-laws-in-australia — not legal advice.",
   },
 ];

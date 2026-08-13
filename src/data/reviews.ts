@@ -978,7 +978,7 @@ export function getReviewByProductSlug(productSlug: string | undefined): ReviewP
   return reviewPosts.find((post) => post.productSlug === productSlug);
 }
 
-/** Average dimension score rounded to one decimal for Review schema. */
+/** Average editorial dimension score (not a customer AggregateRating). */
 export function getReviewRatingValue(review: ReviewPost): number {
   if (review.dimensions.length === 0) return 4;
   const sum = review.dimensions.reduce((acc, d) => acc + d.value, 0);

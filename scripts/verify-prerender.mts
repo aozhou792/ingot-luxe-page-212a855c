@@ -28,7 +28,31 @@ const samples: { route: string; mustInclude: string[]; mustNotInclude?: string[]
   },
   {
     route: "/product/peach-ice",
-    mustInclude: ["<title>", "Peach Ice", "/product/peach-ice", 'rel="canonical"', 'data-seo-ready="true"'],
+    mustInclude: [
+      "<title>",
+      "Peach Ice",
+      "/product/peach-ice",
+      'rel="canonical"',
+      'data-seo-ready="true"',
+      "<h1",
+      "Quick answer",
+      "application/ld+json",
+      "#product",
+    ],
+    mustNotInclude: [`<title>${homeTitleHtml}</title>`],
+  },
+  {
+    route: "/guides/disposable-vape-laws-in-australia",
+    mustInclude: [
+      "<title>",
+      "pharmacy",
+      'rel="canonical"',
+      'data-seo-ready="true"',
+      "<h1",
+      "Quick answer",
+      "application/ld+json",
+      "#article",
+    ],
     mustNotInclude: [`<title>${homeTitleHtml}</title>`],
   },
 ];

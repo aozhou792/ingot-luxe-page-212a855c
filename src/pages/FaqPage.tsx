@@ -23,10 +23,14 @@ const FaqPage = () => {
     items: faqItems.filter((item) => item.category === category),
   })).filter((group) => group.items.length > 0);
 
-  const jsonLd = faqPageJsonLd(faqItems, [
-    { name: "Home", path: "/" },
-    { name: "FAQ", path: "/faq" },
-  ]);
+  const jsonLd = faqPageJsonLd(
+    faqItems,
+    [
+      { name: "Home", path: "/" },
+      { name: "FAQ", path: "/faq" },
+    ],
+    "/faq",
+  );
 
   return (
     <div className="min-h-screen bg-background">

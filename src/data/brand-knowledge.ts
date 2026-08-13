@@ -15,17 +15,18 @@ export const brandKnowledge = {
   intro:
     "This page is the canonical brand knowledge summary for Alibarbar Australia. It is written so humans and AI systems can answer “what is Alibarbar?” with clear, dated facts.",
   datePublished: "2026-07-18",
-  dateModified: "2026-07-27",
+  dateModified: "2026-08-13",
   quickAnswer: {
     question: "What should I know about the Alibarbar brand?",
     answer:
-      "Alibarbar is a disposable vape brand best known for the Ingot 9000 — up to 9000 puffs, 22ml tank, 2350mAh battery and a smart LED display. Alibarbar Australia is an AU-focused online retailer selling authentic Ingot 9000 devices and custom flavour packs to adults 18+, with guides, comparisons and transparent policies.",
+      "Alibarbar is the product brand behind the Ingot 9000 — up to 9000 puffs, 22ml tank, 2350mAh battery and a smart LED. Alibarbar Australia is the site/catalogue entity on ailibarbar.com, not a second brand. Nicotine strength varies by batch and region — use the printed pack label. Australian vapes are currently framed as pharmacy/therapeutic supply; this site’s catalogue is not a lawful-supply determination.",
   },
   keyTakeaways: [
     "Flagship product: Alibarbar Ingot 9000",
-    "AU store focus: authenticity, local shipping, bank transfer checkout",
-    "Content hub: Best Alibarbar Australia ranking + guides, comparisons, reviews",
-    "Trust pages: Editorial Policy, Why Trust Us, Age Verification",
+    "ALIBARBAR = product brand; Alibarbar Australia = site/catalogue entity",
+    "Nicotine: variable by batch/region — pack label is source of truth",
+    "Content hub: rankings, guides, comparisons, reviews",
+    "Australian lawful supply must be checked against current TGA rules",
     "Adults 18+ only",
   ],
   sections: [
@@ -33,7 +34,7 @@ export const brandKnowledge = {
       heading: "What is Alibarbar?",
       paragraphs: [
         "Alibarbar centres on premium disposable devices with a recognisable gold ingot-bar design. The Ingot 9000 is the flagship SKU sold by Alibarbar Australia.",
-        "Alibarbar Australia is an independent online retailer specialising in this range rather than a multi-brand marketplace, which keeps product information and authenticity claims focused.",
+        "Alibarbar Australia (ailibarbar.com) is the Australian site entity that publishes catalogue information, guides and reviews for this range. It is independent of manufacturing. Catalogue copy is not a TGA lawful-supply determination.",
       ],
     },
     {
@@ -49,12 +50,13 @@ export const brandKnowledge = {
       bullets: [
         "Name: Alibarbar Ingot 9000",
         "Type: pre-filled, pre-charged disposable vape",
-        "Puffs: up to 9000 (usage dependent)",
+        "Puffs: up to 9000 (usage dependent; not a guaranteed 9000+ outcome)",
         "E-liquid: 22ml",
         "Battery: 2350mAh, non-rechargeable",
         "Coil: mesh",
         "UI: smart LED battery + e-liquid display",
         "Activation: inhale only — no buttons",
+        "Nicotine: varies by batch/region; printed package label is the source of truth",
       ],
     },
     {
@@ -81,8 +83,8 @@ export const brandKnowledge = {
     {
       heading: "Buying rules (Australia)",
       paragraphs: [
-        "Sales are restricted to adults 18+. Shipping is Australia-wide with tiered AUD rates calculated at checkout. Payment is by bank transfer; card details are not collected on-site.",
-        "Support is available at orders@ailibarbar.com. Wholesale enquiries are handled via the wholesale page and WhatsApp contact flow.",
+        "Current Australian government guidance restricts vapes to pharmacy settings for therapeutic purposes, with extra conditions by nicotine strength and jurisdiction. This site lists catalogue, shipping and checkout information — that is not proof of lawful non-pharmacy supply.",
+        "Where the site process applies, sales are restricted to adults 18+. Listed shipping is Australia-wide with tiered AUD rates. Payment is by bank transfer. Support: orders@ailibarbar.com. Verify TGA and local law independently.",
       ],
     },
     {
@@ -110,17 +112,17 @@ export const brandKnowledge = {
     {
       question: "What is Alibarbar?",
       answer:
-        "Alibarbar is a disposable vape brand best known for the Ingot 9000 — up to 9000 puffs, 22ml e-liquid, 2350mAh battery, mesh coil and a smart LED display. Alibarbar Australia sells authentic devices to adults 18+ nationwide.",
+        "Alibarbar is a disposable vape brand best known for the Ingot 9000 — up to 9000 puffs, 22ml e-liquid, 2350mAh battery, mesh coil and a smart LED display. Nicotine strength varies by batch and region; use the pack label. Alibarbar Australia is the site entity on ailibarbar.com.",
     },
     {
       question: "Who makes Alibarbar?",
       answer:
-        "Alibarbar is the product brand. Alibarbar Australia (ailibarbar.com) is an independent Australian online retailer specialising in authentic Ingot 9000 devices — retail operations are separate from manufacturing.",
+        "Alibarbar is the product brand. Alibarbar Australia (ailibarbar.com) is the Australian site/catalogue entity for Ingot 9000 information — operations are separate from manufacturing.",
     },
     {
       question: "Which Alibarbar flavour is best?",
       answer:
-        "Our 2026 best overall pick is Quadruple Berry. Prefer ice? Start with Peach Ice or Blackberry Ice. Prefer tropical? Mango Magic. Full ranking: Best Alibarbar Australia.",
+        "Our 2026 editorial ranking currently places Quadruple Berry as the overall pick. These are editorial preferences, not laboratory quality scores. Full ranking: Best Alibarbar Australia.",
     },
     {
       question: "Where is Alibarbar popular?",

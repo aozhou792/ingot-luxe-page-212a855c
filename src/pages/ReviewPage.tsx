@@ -159,7 +159,11 @@ const ReviewPage = () => {
           </div>
 
           <section className="mt-12 rounded-2xl border border-gold/20 bg-card/50 p-5 sm:p-6">
-            <h2 className="text-xl sm:text-2xl font-bold mb-5">Review snapshot</h2>
+            <h2 className="text-xl sm:text-2xl font-bold mb-2">Editorial snapshot</h2>
+            <p className="text-sm text-muted-foreground mb-5">
+              Scores below are Jason Smith’s editorial tasting dimensions (flavour, cooling, smoothness and similar),
+              averaged for schema as an editorial rating. They are not a customer star aggregate.
+            </p>
             <div className="grid sm:grid-cols-2 gap-5">
               {review.dimensions.map((dimension) => (
                 <DimensionBar key={dimension.label} {...dimension} />

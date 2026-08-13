@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import { ContentByline } from "@/components/seo/ContentByline";
 import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
 import { QuickAnswer } from "@/components/seo/QuickAnswer";
-import { Seo, articleJsonLd, type BreadcrumbEntry } from "@/components/Seo";
+import { Seo, brandEntityJsonLd, type BreadcrumbEntry } from "@/components/Seo";
 import { getBrandBySlug } from "@/data/brands";
 import { deriveKeyTakeaways, deriveQuickAnswer } from "@/lib/content-geo";
 import { useReveal } from "@/hooks/use-reveal";
@@ -27,12 +27,12 @@ const BrandPage = () => {
   const quickAnswer = deriveQuickAnswer(brand.title, brand.intro, brand.quickAnswer);
   const keyTakeaways = deriveKeyTakeaways(brand.knownFor);
 
-  const jsonLd = articleJsonLd({
+  const jsonLd = brandEntityJsonLd({
+    name: brand.name,
     title: brand.title,
     description: brand.description,
     path,
-    datePublished: brand.datePublished,
-    dateModified: brand.dateModified,
+    isOwn: brand.isOwn,
     breadcrumbs,
     faq: brand.faq,
   });

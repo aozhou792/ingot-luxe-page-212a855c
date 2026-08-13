@@ -631,60 +631,89 @@ export const guides: Guide[] = [
     slug: "disposable-vape-laws-in-australia",
     title: "Disposable Vape Laws in Australia: What Adults Should Know",
     description:
-      "A general overview of vaping rules in Australia, including the 18+ age requirement and responsible-use guidance. Not legal advice.",
+      "Current Australian vaping framework: pharmacy-only therapeutic supply, 18+, nicotine-strength conditions, and state or territory add-ons. General information, not legal advice. Last reviewed 13 August 2026.",
     category: "Australia Guide",
-    readTime: "5 min read",
+    readTime: "8 min read",
     datePublished: "2026-02-20",
-    dateModified: "2026-07-14",
+    dateModified: "2026-08-13",
     intro:
-      "Vaping regulation in Australia changes over time and can vary by state and territory. This is a general, plain-English overview for adult consumers — it is not legal advice, so always check the current rules that apply to you.",
+      "This page summarises the national Australian framework for vaping products as publicly described by the Therapeutic Goods Administration, then notes that states and territories can add extra rules. It is general information for adults — not legal advice — and must be checked against official sources before anyone buys, sells, advertises or ships a vape.",
     quickAnswer: {
       question: "Are disposable vapes legal in Australia?",
       answer:
-        "Nicotine vaping products are regulated and rules differ by state and territory. Alibarbar Australia sells only to adults 18+. This page is general information only — not legal advice. Always check the current laws where you live before buying or using vapes.",
+        "The current national framework restricts vapes to pharmacy settings for therapeutic purposes (for example smoking cessation or nicotine dependence), not ordinary non-pharmacy retail. Adults must still be 18+. Strengths above 20 mg/mL typically sit under tighter prescription-style controls. States and territories may add further limits. This site’s catalogue is not proof of lawful non-pharmacy supply. Last reviewed 13 August 2026. Not legal advice.",
     },
     keyTakeaways: [
-      "Strictly 18+ — no sales to minors",
-      "Intended for existing adult smokers and vapers only",
-      "Store away from children, pets and heat",
-      "Dispose of used devices via e-waste / battery recycling",
-      "State and territory rules can change — verify locally",
+      "National framework: pharmacy settings, therapeutic purpose — not general retail",
+      "Strictly 18+",
+      "Nicotine above 20 mg/mL typically has extra prescription-style conditions",
+      "State and territory law can add restrictions on top of the federal rules",
+      "Advertising and promotion of vapes is tightly limited",
+      "Catalogue or shipping copy on this site is not a lawful-supply determination",
+      "Last reviewed 13 August 2026 — verify current TGA guidance",
     ],
     faq: [
       {
+        question: "Where can you legally buy a vape in Australia?",
+        answer:
+          "Current Australian government guidance says vaping products are restricted to pharmacy settings for therapeutic purposes, with extra conditions depending on nicotine strength and state or territory law. Do not treat an ordinary website catalogue as proof of lawful supply. Check the TGA and your jurisdiction.",
+      },
+      {
         question: "Who can buy disposable vapes in Australia?",
         answer:
-          "Alibarbar Australia only sells to adults aged 18 and over. First-time visitors see an age gate; checkout requires an explicit 18+ confirmation. See /age-verification.",
+          "Products are for adults aged 18 and over. Alibarbar Australia also requires an age gate and an 18+ checkout confirmation. That site process does not replace pharmacy-supply or prescription rules that may apply. See /age-verification.",
       },
       {
         question: "Is this page legal advice?",
         answer:
-          "No. It is a general overview for adult consumers. Regulations change and vary by jurisdiction — check the current rules that apply to you.",
+          "No. It is a general overview. Regulations change. Confirm current TGA and state or territory rules before acting.",
       },
     ],
     sections: [
       {
-        heading: "Strictly 18+",
+        heading: "1. National framework (TGA)",
         paragraphs: [
-          "Vaping products in Australia are for adults aged 18 and over. Alibarbar Australia requires age confirmation on first visit (entry age gate) and an explicit 18+ tick at checkout. We do not sell to minors under any circumstances. See /guides/alibarbar-18-plus-age-verification-australia and /age-verification.",
+          "The Therapeutic Goods Administration describes vapes as restricted goods. Under the current public framework, vaping products are supplied in pharmacy / pharmacy settings for therapeutic purposes — not through ordinary non-pharmacy retail channels. Advertising and promotion are also tightly limited.",
+          "Treat official TGA pages as the source of truth if this summary and a government page ever disagree. Last reviewed 13 August 2026.",
         ],
       },
       {
-        heading: "For existing smokers and vapers",
+        heading: "2. Pharmacy-only / therapeutic purpose",
         paragraphs: [
-          "Vaping products are intended to be used only by adults who already smoke or vape. They are not suitable for non-smokers, young people, or anyone who is pregnant or breastfeeding.",
+          "The intended lawful pathway described by government sources is a pharmacy setting, for a therapeutic purpose such as smoking cessation or management of nicotine dependence — not recreational general retail.",
+          "If a website lists flavours, packs, shipping or checkout, that is catalogue or content information. It is not, by itself, a determination that non-pharmacy supply is lawful.",
+        ],
+      },
+      {
+        heading: "3. Adults 18+",
+        paragraphs: [
+          "Vaping products in Australia are for adults aged 18 and over. Alibarbar Australia requires age confirmation on first visit and an explicit 18+ tick at checkout. We do not sell to minors. See /guides/alibarbar-18-plus-age-verification-australia and /age-verification.",
+        ],
+      },
+      {
+        heading: "4. Nicotine strength above 20 mg/mL",
+        paragraphs: [
+          "Public TGA materials describe additional controls that typically apply to higher nicotine concentrations, commonly discussed around the 20 mg/mL threshold, including prescription-style requirements in some cases.",
+          "The exact nicotine strength of an Alibarbar Ingot 9000 unit is not treated as one site-wide number. Check the printed pack label. See /guides/alibarbar-nicotine-strength-australia.",
+        ],
+      },
+      {
+        heading: "5. State and territory add-ons",
+        paragraphs: [
+          "Federal rules set the national frame. States and territories can add extra restrictions (for example possession, display, or local enforcement). Always check the rules where you live, not only a national summary.",
+        ],
+      },
+      {
+        heading: "6. This site’s catalogue vs lawful supply",
+        paragraphs: [
+          "ailibarbar.com publishes product facts, guides and a listed catalogue, including shipping and checkout flows in the codebase. That content must not be quoted as proof that a vape may lawfully be sold or supplied outside the pharmacy/therapeutic framework.",
+          "Independently verify current TGA and local requirements before stating that a product is legal to buy, sell, advertise or ship in Australia.",
         ],
       },
       {
         heading: "Use and store responsibly",
         paragraphs: [
-          "Keep devices away from children and pets, store them out of direct heat, and dispose of used devices responsibly at an e-waste or battery recycling point rather than in general rubbish.",
-        ],
-      },
-      {
-        heading: "Rules can change",
-        paragraphs: [
-          "Because regulations are updated periodically and differ across jurisdictions, we encourage customers to stay informed about the current requirements in their own state or territory. This page is provided for general information only.",
+          "Keep devices away from children and pets, store them out of direct heat, and dispose of used devices at an e-waste or battery recycling point rather than in general rubbish.",
         ],
       },
     ],
@@ -738,7 +767,7 @@ export const guides: Guide[] = [
       {
         question: "Is this legal advice?",
         answer:
-          "No. Age and nicotine rules can vary by state and territory and change over time. Check official guidance where you live. See also /guides/disposable-vape-laws-in-australia.",
+          "No. Age, pharmacy-supply and nicotine rules are set by Australian law and can change. Check official TGA and local guidance. See also /guides/disposable-vape-laws-in-australia.",
       },
     ],
     sections: [
@@ -914,13 +943,13 @@ export const guides: Guide[] = [
     category: "Buying Guide",
     readTime: "7 min read",
     datePublished: "2026-07-27",
-    dateModified: "2026-07-27",
+    dateModified: "2026-08-13",
     intro:
-      "Searching where to buy Alibarbar Australia usually means one thing: find authentic Ingot 9000 stock without grey-market surprises. This guide is the checklist we recommend before you pay.",
+      "Searching where to buy Alibarbar Australia usually means two questions: what the current lawful supply framework is, and how to recognise genuine Ingot 9000 specifications. Start with the TGA rules, then use the authenticity checklist. Catalogue pages on this site are not proof of lawful non-pharmacy supply.",
     quickAnswer: {
       question: "Where can I buy genuine Alibarbar in Australia?",
       answer:
-        "Buy from a specialist Australian retailer that lists accurate Ingot 9000 specs (up to 9000 puffs, 22ml, LED display), sells to adults 18+ only, and publishes clear shipping and authenticity guidance. Avoid unusually low prices and listings that omit the smart LED.",
+        "Lawful supply of vapes in Australia is currently described as pharmacy settings for therapeutic purposes — not ordinary non-pharmacy retail. Separately, genuine Ingot 9000 units match up to 9000 puffs, 22ml, 2350mAh and a smart LED. Treat ailibarbar.com catalogue copy as product information, not a legal determination. Verify TGA and local rules. Last reviewed 13 August 2026.",
     },
     keyTakeaways: [
       "Prefer specialist Alibarbar / Ingot 9000 retailers over mystery marketplaces",
@@ -933,7 +962,7 @@ export const guides: Guide[] = [
       {
         question: "Where to buy Alibarbar Ingot 9000 in Australia?",
         answer:
-          "Order from an Australia-focused specialist store that stocks authentic Ingot 9000 devices, shows AUD pricing, and ships Australia-wide. Alibarbar Australia at ailibarbar.com is one such option.",
+          "First check current TGA and state or territory rules: vapes are framed as pharmacy / therapeutic supply, not general retail. For product identification, look for accurate Ingot 9000 specs (up to 9000 puffs, 22ml, LED). ailibarbar.com lists a catalogue — that is not a lawful-supply certificate.",
       },
       {
         question: "How do I know Alibarbar stock is genuine?",
@@ -947,6 +976,13 @@ export const guides: Guide[] = [
       },
     ],
     sections: [
+      {
+        heading: "Lawful supply first, then authenticity",
+        paragraphs: [
+          "Before asking which website to click, check whether a vaping product can lawfully be supplied in your situation. Current Australian government guidance points to pharmacy settings for therapeutic purposes, with extra conditions by nicotine strength and jurisdiction.",
+          "The rest of this page is an authenticity and specification checklist for the Ingot 9000. It does not override TGA or state law.",
+        ],
+      },
       {
         heading: "Best place to buy: specialist vs general marketplace",
         paragraphs: [

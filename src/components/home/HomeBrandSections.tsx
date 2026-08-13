@@ -17,10 +17,10 @@ export const HomeIntroduction = () => (
           Australia&apos;s dedicated Alibarbar Ingot 9000 store
         </h2>
         <p>
-          Alibarbar Australia is an independent online retailer built around one product family: the{" "}
-          <strong className="text-foreground font-semibold">Alibarbar Ingot 9000</strong> disposable vape. Rather than
-          listing dozens of unrelated brands, we focus on authentic Ingot devices, accurate specifications, and clear
-          guidance so adult Australian customers can buy with confidence.
+          Alibarbar Australia is the site entity on ailibarbar.com, built around one product family: the{" "}
+          <strong className="text-foreground font-semibold">Alibarbar Ingot 9000</strong> disposable vape. We publish
+          specifications, flavour notes and catalogue information for adult readers (18+). Australian lawful supply of
+          vapes must be checked against current TGA and state or territory rules — this site is not a pharmacy.
         </p>
         <p>
           Every device we sell is a genuine Alibarbar Ingot 9000 with the signature gold ingot design, built-in smart LED

@@ -15,11 +15,15 @@ const FaqTopicPage = () => {
   if (!topic) return <Navigate to="/faq" replace />;
 
   const path = `/faq/${topic.slug}`;
-  const jsonLd = faqPageJsonLd(topic.items, [
-    { name: "Home", path: "/" },
-    { name: "FAQ", path: "/faq" },
-    { name: topic.title, path },
-  ]);
+  const jsonLd = faqPageJsonLd(
+    topic.items,
+    [
+      { name: "Home", path: "/" },
+      { name: "FAQ", path: "/faq" },
+      { name: topic.title, path },
+    ],
+    path,
+  );
 
   return (
     <div className="min-h-screen bg-background">

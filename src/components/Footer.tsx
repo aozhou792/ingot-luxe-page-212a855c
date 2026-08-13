@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Instagram, Twitter, Facebook, Youtube } from "lucide-react";
 import { guides } from "@/data/guides";
 import { SITE_SOCIAL } from "@/data/site";
+import { RegulatoryNotice } from "@/components/seo/RegulatoryNotice";
 import logoHeader from "@/assets/logo-header.png";
 
 const shopLinks = [
@@ -165,6 +166,7 @@ export const Footer = () => (
             PodPick Guide
           </a>
         </p>
+        <RegulatoryNotice compact />
       </div>
     </div>
   </footer>
