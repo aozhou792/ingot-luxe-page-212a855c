@@ -10,6 +10,7 @@ import strawberryWatermelon from "@/assets/flavor-strawberry-watermelon.png";
 import strawberryIce from "@/assets/flavor-strawberry-ice.png";
 import custom5Pack from "@/assets/custom-5-pack.png";
 import custom10Pack from "@/assets/Alibarbar-10-pcs_1800x.webp";
+import custom20Pack from "@/assets/custom-20-pack.png";
 import { NICOTINE, PRODUCT_FAMILY } from "@/data/canonical-facts";
 
 export type Product = {
