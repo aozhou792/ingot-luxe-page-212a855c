@@ -68,11 +68,11 @@ async function launchBrowser() {
   if (onVercel) {
     const chromium = (await import("@sparticuz/chromium")).default;
     const puppeteer = (await import("puppeteer-core")).default;
-    // New-headless (`headless: true`) leaves a blank document in @sparticuz/chromium.
-    // Official serverless launch is old-headless shell + graphics disabled.
+    // Chromium args already include `--headless='shell'`. `headless: true` adds
+    // `--headless=new`, which paints a blank document so every route times out on h1.
     chromium.setGraphicsMode = false;
     return puppeteer.launch({
-      args: puppeteer.defaultArgs({ args: chromium.args, headless: "shell" }),
+      args: chromium.args,
       defaultViewport: { width: 1280, height: 720, deviceScaleFactor: 1 },
       executablePath: await chromium.executablePath(),
       headless: "shell",
