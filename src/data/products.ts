@@ -35,127 +35,56 @@ export type Product = {
   customPackSize?: number;
 };
 
-const sharedBody = `The Alibarbar Ingot 9000 Puffs is a high-quality disposable vape designed for users who want reliability, flavour, and extended use in one sleek device. Offering up to 9000 puffs per unit, this disposable vape is ideal for adult users seeking a long-lasting option without the hassle of refilling or charging.
-
-With a generous 22ml e-liquid capacity and a strong 2350mAh built-in battery, the Alibarbar Ingot provides consistent vapour production from start to finish. This non-rechargeable disposable vape is inhale-activated, making it simple and convenient to use straight out of the box. Its advanced internal design ensures smooth draws and rich flavour delivery throughout the life of the device.
-
-Perfect for those searching for high puff disposable vapes or a dependable everyday device, the Alibarbar Ingot 9000 Puffs combines performance with a clean, modern design.`;
+const DEVICE_NOTE = `Hardware is the same across single-flavour Ingot 9000 units: ${PRODUCT_FAMILY.puffSpec}, ${PRODUCT_FAMILY.eLiquidMl}ml pre-filled tank, ${PRODUCT_FAMILY.batteryMah}mAh non-rechargeable battery, mesh coil, inhale activation and a smart LED for battery and e-liquid. ${PRODUCT_FAMILY.puffNote}`;
 
 const sharedSpecs = [
-  "1 × ALIBARBAR Ingot disposable vape device",
-  "Net weight: 90g",
-  "Pre-charged and inhale-activated — ready to use out of the box",
-  "Delivers up to 9000+ puffs per device",
-  "Built-in LED display for monitoring battery level and e-liquid usage",
+  "1 × ALIBARBAR Ingot 9000 sealed disposable",
+  `Net weight: approx. ${PRODUCT_FAMILY.netWeightG}g`,
+  "Pre-charged, inhale-activated — no buttons, filling or charging",
+  PRODUCT_FAMILY.puffSpec,
+  `${PRODUCT_FAMILY.eLiquidMl}ml tank · ${PRODUCT_FAMILY.batteryMah}mAh battery · ${PRODUCT_FAMILY.coil} coil`,
+  "Smart LED for remaining battery and e-liquid",
 ];
 
-const mangoMagicDescription = `The Alibarbar Ingot 9000 Puffs is a high-quality disposable vape designed for users who want reliability, flavour, and extended use in one sleek device. Offering up to 9000 puffs per unit, this disposable vape is ideal for adult users seeking a long-lasting option without the hassle of refilling or charging.
+const mangoMagicDescription = `${DEVICE_NOTE}
 
-With a generous 22ml e-liquid capacity and a strong 2350mAh built-in battery, the Alibarbar Ingot provides consistent vapour production from start to finish. This non-rechargeable disposable vape is inhale-activated, making it simple and convenient to use straight out of the box. Its advanced internal design ensures smooth draws and rich flavour delivery throughout the life of the device.
+Mango Magic is ripe mango flesh — tropical, dense and almost ice-free. It sits warmer and sweeter than Lychee, and thicker than Strawberry Watermelon. Use it as a non-menthol daily fruit SKU; pair it with Peach Ice or Grape Ice in a custom pack if you want contrast.`;
 
-Perfect for those searching for high puff disposable vapes, Alibarbar Ingot flavours, or a dependable disposable vape in Australia, the Alibarbar Ingot 9000 Puffs combines performance with a clean, modern design. Whether for everyday use or as a reliable backup device, it delivers a premium vaping experience with no complications.`;
+const strawberryCoconutWatermelonDescription = `${DEVICE_NOTE}
 
-const mangoMagicSpecs = [
-  "1 × ALIBARBAR Ingot disposable vape device",
-  "Net weight: 90g",
-  "Pre-charged and inhale-activated — ready to use out of the box",
-  "Delivers up to 9000+ puffs per device",
-  "Built-in LED display for monitoring battery level and e-liquid usage",
-];
+Strawberry Coconut Watermelon stacks jammy strawberry, a coconut-cream middle and watermelon on the exhale. The coconut is what separates it from Strawberry Watermelon: creamier, slower, less “splashy”. Skip it if you want a single-note fruit or a strong ice finish.`;
 
-const strawberryCoconutWatermelonDescription = `The Alibarbar Ingot 9000 Puffs is a high-quality disposable vape designed for users who want reliability, flavour, and extended use in one sleek device. Offering up to 9000 puffs per unit, this disposable vape is ideal for adult users seeking a long-lasting option without the hassle of refilling or charging.
+const grapeIceDescription = `${DEVICE_NOTE}
 
-With a generous 22ml e-liquid capacity and a strong 2350mAh built-in battery, the Alibarbar Ingot provides consistent vapour production from start to finish. This non-rechargeable disposable vape is inhale-activated, making it simple and convenient to use straight out of the box. Its advanced internal design ensures smooth draws and rich flavour delivery throughout the life of the device.
+Grape Ice is candy grape with a clear menthol finish. It is colder and more linear than Peach Ice, and less tart than Blackberry Ice. If you want grape without ice, this SKU is not that — cooling is part of the profile from the first draw.`;
 
-Perfect for those searching for high puff disposable vapes, Alibarbar Ingot flavours, or a dependable disposable vape in Australia, the Alibarbar Ingot 9000 Puffs combines performance with a clean, modern design. Whether for everyday use or as a reliable backup device, it delivers a premium vaping experience with no complications.
+const strawberryWatermelonOnlyDescription = `${DEVICE_NOTE}
 
-Strawberry Coconut Watermelon layers jammy ripened strawberry with creamy coconut and chilled watermelon — tropical, bright, and lush from the first puff to the last.`;
+Strawberry Watermelon is strawberry body plus watery watermelon, with no menthol. It is simpler and lighter than Quadruple Berry and has none of the coconut in Strawberry Coconut Watermelon. Choose Strawberry Ice instead if you want the same fruit family with a frosty finish.`;
 
-const strawberryCoconutWatermelonSpecs = [
-  "1 × ALIBARBAR Ingot disposable vape device",
-  "Net weight: 90g",
-  "Pre-charged and inhale-activated — ready to use out of the box",
-  "Delivers up to 9000+ puffs per device",
-  "Built-in LED display for monitoring battery level and e-liquid usage",
-];
+const strawberryIceDescription = `${DEVICE_NOTE}
 
-const grapeIceDescription = `The Alibarbar Ingot 9000 Puffs is a high-quality disposable vape designed for users who want reliability, flavour, and extended use in one sleek device. Offering up to 9000 puffs per unit, this disposable vape is ideal for adult users seeking a long-lasting option without the hassle of refilling or charging.
+Strawberry Ice is candy strawberry with a strong icy exhale. It is colder than Peach Ice and more straightforward than Blackberry Ice (no dark-berry tartness). It is not the same SKU as Strawberry Watermelon — that listing has no menthol.`;
 
-With a generous 22ml e-liquid capacity and a strong 2350mAh built-in battery, the Alibarbar Ingot provides consistent vapour production from start to finish. This non-rechargeable disposable vape is inhale-activated, making it simple and convenient to use straight out of the box. Its advanced internal design ensures smooth draws and rich flavour delivery throughout the life of the device.
+const quadrupleBerryDescription = `${DEVICE_NOTE}
 
-Perfect for those searching for high puff disposable vapes, Alibarbar Ingot flavours, or a dependable disposable vape in Australia, the Alibarbar Ingot 9000 Puffs combines performance with a clean, modern design. Whether for everyday use or as a reliable backup device, it delivers a premium vaping experience with no complications.`;
+Quadruple Berry is strawberry, raspberry, blackberry and blueberry in one mixed-berry profile — jammy, low ice. It is the default non-menthol fruit SKU if you do not already have a favourite. It is not blueberry-only; for ice, use Peach Ice, Grape Ice, Blackberry Ice or Strawberry Ice.`;
 
-const grapeIceSpecs = [
-  "1 × ALIBARBAR Ingot disposable vape device",
-  "Net weight: 90g",
-  "Pre-charged and inhale-activated — ready to use out of the box",
-  "Delivers up to 9000+ puffs per device",
-  "Built-in LED display for monitoring battery level and e-liquid usage",
-];
+const fantaDescription = `${DEVICE_NOTE}
 
-const strawberryWatermelonOnlyDescription = `The Alibarbar Ingot 9000 Puffs is a high-quality disposable vape designed for users who want reliability, flavour, and extended use in one sleek device. Offering up to 9000 puffs per unit, this disposable vape is ideal for adult users seeking a long-lasting option without the hassle of refilling or charging.
+Fanta is orange-soda citrus — bright, sweet and fizzy-coded rather than fresh-squeezed orange. It is the only soda-style SKU in the current range. If you want fruit without the soft-drink note, Quadruple Berry or Mango Magic is a closer match.`;
 
-With a generous 22ml e-liquid capacity and a strong 2350mAh built-in battery, the Alibarbar Ingot provides consistent vapour production from start to finish. This non-rechargeable disposable vape is inhale-activated, making it simple and convenient to use straight out of the box. Its advanced internal design ensures smooth draws and rich flavour delivery throughout the life of the device.
+const lycheeDescription = `${DEVICE_NOTE}
 
-Perfect for those searching for high puff disposable vapes, Alibarbar Ingot flavours, or a dependable disposable vape in Australia, the Alibarbar Ingot 9000 Puffs combines performance with a clean, modern design. Whether for everyday use or as a reliable backup device, it delivers a premium vaping experience with no complications.
+Lychee is light floral fruit, not candy. Sweetness sits below Quadruple Berry and Fanta; cooling is near zero. It is the contrast SKU in a mixed pack: use it when berry or ice flavours start to feel heavy.`;
 
-Strawberry Watermelon pairs jam-packed berry sweetness with chilled, juicy watermelon — refreshing, splashy, and smooth from the first puff to the last.`;
+const peachIceDescription = `${DEVICE_NOTE}
 
-const strawberryWatermelonOnlySpecs = [
-  "1 × ALIBARBAR Ingot disposable vape device",
-  "Net weight: 90g",
-  "Pre-charged and inhale-activated — ready to use out of the box",
-  "Delivers up to 9000+ puffs per device",
-  "Built-in LED display for monitoring battery level and e-liquid usage",
-];
+Peach Ice is orchard peach with a moderate icy finish — sweeter and less tart than Blackberry Ice, and less candy-cold than Strawberry Ice. Hardware is identical to other single-flavour Ingot 9000 units; the difference is the e-liquid, not the battery or tank.`;
 
-const strawberryIceDescription = `The Alibarbar Ingot 9000 Puffs is a high-quality disposable vape designed for users who want reliability, flavour, and extended use in one sleek device. Offering up to 9000 puffs per unit, this disposable vape is ideal for adult users seeking a long-lasting option without the hassle of refilling or charging.
+const blackberryIceDescription = `${DEVICE_NOTE}
 
-With a generous 22ml e-liquid capacity and a strong 2350mAh built-in battery, the Alibarbar Ingot provides consistent vapour production from start to finish. This non-rechargeable disposable vape is inhale-activated, making it simple and convenient to use straight out of the box. Its advanced internal design ensures smooth draws and rich flavour delivery throughout the life of the device.
-
-Perfect for those searching for high puff disposable vapes, Alibarbar Ingot flavours, or a dependable disposable vape in Australia, the Alibarbar Ingot 9000 Puffs combines performance with a clean, modern design. Whether for everyday use or as a reliable backup device, it delivers a premium vaping experience with no complications.
-
-Strawberry Ice wraps candy-sweet strawberry in a frosty menthol breeze — bright fruit up front, clean chill on the finish.`;
-
-const quadrupleBerryDescription = `The Alibarbar Ingot 9000 Puffs is a high-quality disposable vape designed for users who want reliability, flavour, and extended use in one sleek device. Offering up to 9000 puffs per unit, this disposable vape is ideal for adult users seeking a long-lasting option without the hassle of refilling or charging.
-
-With a generous 22ml e-liquid capacity and a strong 2350mAh built-in battery, the Alibarbar Ingot provides consistent vapour production from start to finish. This non-rechargeable disposable vape is inhale-activated, making it simple and convenient to use straight out of the box. Its advanced internal design ensures smooth draws and rich flavour delivery throughout the life of the device.
-
-Perfect for those searching for high puff disposable vapes, Alibarbar Ingot flavours, or a dependable disposable vape in Australia, the Alibarbar Ingot 9000 Puffs combines performance with a clean, modern design. Whether for everyday use or as a reliable backup device, it delivers a premium vaping experience with no complications.
-
-Quadruple Berry layers ripe strawberry, raspberry, blackberry, and blueberry into one lush berry medley — juicy, vibrant, and refreshingly smooth from the first puff to the last.`;
-
-const fantaDescription = `The Alibarbar Ingot 9000 Puffs is a high-quality disposable vape designed for users who want reliability, flavour, and extended use in one sleek device. Offering up to 9000 puffs per unit, this disposable vape is ideal for adult users seeking a long-lasting option without the hassle of refilling or charging.
-
-With a generous 22ml e-liquid capacity and a strong 2350mAh built-in battery, the Alibarbar Ingot provides consistent vapour production from start to finish. This non-rechargeable disposable vape is inhale-activated, making it simple and convenient to use straight out of the box. Its advanced internal design ensures smooth draws and rich flavour delivery throughout the life of the device.
-
-Perfect for those searching for high puff disposable vapes, Alibarbar Ingot flavours, or a dependable disposable vape in Australia, the Alibarbar Ingot 9000 Puffs combines performance with a clean, modern design. Whether for everyday use or as a reliable backup device, it delivers a premium vaping experience with no complications.
-
-Fanta Orange delivers a burst of bright citrus fizz with sweet orange soda notes — bold, refreshing, and unmistakably fizzy from the first draw to the last.`;
-
-const lycheeDescription = `The Alibarbar Ingot 9000 Puffs is a high-quality disposable vape designed for users who want reliability, flavour, and extended use in one sleek device. Offering up to 9000 puffs per unit, this disposable vape is ideal for adult users seeking a long-lasting option without the hassle of refilling or charging.
-
-With a generous 22ml e-liquid capacity and a strong 2350mAh built-in battery, the Alibarbar Ingot provides consistent vapour production from start to finish. This non-rechargeable disposable vape is inhale-activated, making it simple and convenient to use straight out of the box. Its advanced internal design ensures smooth draws and rich flavour delivery throughout the life of the device.
-
-Perfect for those searching for high puff disposable vapes, Alibarbar Ingot flavours, or a dependable disposable vape in Australia, the Alibarbar Ingot 9000 Puffs combines performance with a clean, modern design. Whether for everyday use or as a reliable backup device, it delivers a premium vaping experience with no complications.
-
-Lychee captures the delicate sweetness of ripe lychee fruit with a light floral lift — juicy, fragrant, and refreshingly smooth from the first puff to the last.`;
-
-const peachIceDescription = `The Alibarbar Ingot 9000 Puffs is a high-quality disposable vape designed for users who want reliability, flavour, and extended use in one sleek device. Offering up to 9000 puffs per unit, this disposable vape is ideal for adult users seeking a long-lasting option without the hassle of refilling or charging.
-
-With a generous 22ml e-liquid capacity and a strong 2350mAh built-in battery, the Alibarbar Ingot provides consistent vapour production from start to finish. This non-rechargeable disposable vape is inhale-activated, making it simple and convenient to use straight out of the box. Its advanced internal design ensures smooth draws and rich flavour delivery throughout the life of the device.
-
-Perfect for those searching for high puff disposable vapes, Alibarbar Ingot flavours, or a dependable disposable vape in Australia, the Alibarbar Ingot 9000 Puffs combines performance with a clean, modern design. Whether for everyday use or as a reliable backup device, it delivers a premium vaping experience with no complications.
-
-Peach Ice pairs lush orchard peach with a crisp icy finish — sweet, juicy, and refreshingly cool from the first puff to the last.`;
-
-const strawberryIceSpecs = [
-  "1 × ALIBARBAR Ingot disposable vape device",
-  "Net weight: 90g",
-  "Pre-charged and inhale-activated — ready to use out of the box",
-  "Delivers up to 9000+ puffs per device",
-  "Built-in LED display for monitoring battery level and e-liquid usage",
-];
+Blackberry Ice is dark blackberry with a strong icy finish — tart where Peach Ice is sweet, and darker than Grape Ice. Menthol is part of the SKU, not an optional layer. If you want mixed berry without ice, use Quadruple Berry.`;
 
 export const products: Product[] = [
   {
@@ -171,11 +100,11 @@ export const products: Product[] = [
 
 Each pack includes five Alibarbar Ingot 9000 Puffs devices. Select your preferred flavour for each slot before adding the pack to cart, and your choices will be saved into the order for fulfilment.`,
     specs: [
-      "5 × ALIBARBAR Ingot disposable vape devices",
+      "5 × ALIBARBAR Ingot 9000 sealed disposables",
       "Choose any 5 flavours from the current collection",
-      "Pre-charged and inhale-activated — ready to use out of the box",
-      "Delivers up to 9000+ puffs per device",
-      "Built-in LED display for monitoring battery level and e-liquid usage",
+      "Pre-charged and inhale-activated — no buttons, filling or charging",
+      PRODUCT_FAMILY.puffSpec,
+      "Smart LED for remaining battery and e-liquid",
     ],
     inStock: true,
     isCustomPack: true,
@@ -194,11 +123,11 @@ Each pack includes five Alibarbar Ingot 9000 Puffs devices. Select your preferre
 
 Each pack includes ten Alibarbar Ingot 9000 Puffs devices. Select your preferred flavour for each slot before adding the pack to cart, and your choices will be saved into the order for fulfilment.`,
     specs: [
-      "10 × ALIBARBAR Ingot disposable vape devices",
+      "10 × ALIBARBAR Ingot 9000 sealed disposables",
       "Choose any 10 flavours from the current collection",
-      "Pre-charged and inhale-activated — ready to use out of the box",
-      "Delivers up to 9000+ puffs per device",
-      "Built-in LED display for monitoring battery level and e-liquid usage",
+      "Pre-charged and inhale-activated — no buttons, filling or charging",
+      PRODUCT_FAMILY.puffSpec,
+      "Smart LED for remaining battery and e-liquid",
     ],
     inStock: true,
     isCustomPack: true,
@@ -217,12 +146,12 @@ Each pack includes ten Alibarbar Ingot 9000 Puffs devices. Select your preferred
 
 Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your preferred flavour for each slot before adding the pack to cart, and your choices will be saved into the order for fulfilment. Orders of 20 or more devices ship free via Regular Post.`,
     specs: [
-      "20 × ALIBARBAR Ingot disposable vape devices",
+      "20 × ALIBARBAR Ingot 9000 sealed disposables",
       "Choose any 20 flavours from the current collection",
       "Free Regular Post shipping on this pack (20+ devices)",
-      "Pre-charged and inhale-activated — ready to use out of the box",
-      "Delivers up to 9000+ puffs per device",
-      "Built-in LED display for monitoring battery level and e-liquid usage",
+      "Pre-charged and inhale-activated — no buttons, filling or charging",
+      PRODUCT_FAMILY.puffSpec,
+      "Smart LED for remaining battery and e-liquid",
     ],
     inStock: true,
     isCustomPack: true,
@@ -289,7 +218,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
     tag: "Iced",
     excerpt:
       "The Alibarbar Ingot 9000 Blackberry Ice combines the rich, juicy taste of ripe blackberries with a crisp icy twist. This refreshing fusion delivers a smooth, cooling sensation, making it an ideal choice for anyone who enjoys fruity flavours with a cool menthol edge.",
-    description: `${sharedBody}`,
+    description: blackberryIceDescription,
     specs: sharedSpecs,
     inStock: true,
   },
@@ -303,7 +232,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
     excerpt:
       "The Alibarbar Ingot Mango Magic delivers ripe, juicy mango sweetness with a smooth, luscious finish, creating a bold and tropical vape experience you'll love.",
     description: mangoMagicDescription,
-    specs: mangoMagicSpecs,
+    specs: sharedSpecs,
     inStock: true,
   },
   {
@@ -316,7 +245,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
     excerpt:
       "The Alibarbar Ingot Strawberry Coconut Watermelon blends ripe strawberry, silky coconut cream, and juicy watermelon — lush, tropical, and refreshingly smooth from start to finish.",
     description: strawberryCoconutWatermelonDescription,
-    specs: strawberryCoconutWatermelonSpecs,
+    specs: sharedSpecs,
     inStock: true,
   },
   {
@@ -329,7 +258,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
     excerpt:
       "The Alibarbar Ingot Grape Ice delivers bold, juicy grape flavour with a crisp icy finish — vibrant, smooth, and refreshingly cool.",
     description: grapeIceDescription,
-    specs: grapeIceSpecs,
+    specs: sharedSpecs,
     inStock: true,
   },
   {
@@ -342,7 +271,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
     excerpt:
       "The Alibarbar Ingot Strawberry Watermelon combines ripe strawberry punch with chilled watermelon juice — splashy, sweet, and refreshingly smooth.",
     description: strawberryWatermelonOnlyDescription,
-    specs: strawberryWatermelonOnlySpecs,
+    specs: sharedSpecs,
     inStock: true,
   },
   {
@@ -355,14 +284,14 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
     excerpt:
       "The Alibarbar Ingot Strawberry Ice pairs sweet ripe strawberry with an icy-cool exhale — juicy, crisp, and refreshingly smooth from start to finish.",
     description: strawberryIceDescription,
-    specs: strawberryIceSpecs,
+    specs: sharedSpecs,
     inStock: true,
   },
 ];
 
 /** Technical specs shared by every single-device Alibarbar Ingot listing. */
 export const deviceSpecifications: { label: string; value: string }[] = [
-  { label: "Puff count", value: PRODUCT_FAMILY.puffRating },
+  { label: "Puff count", value: PRODUCT_FAMILY.puffSpec },
   { label: "E-liquid capacity", value: `${PRODUCT_FAMILY.eLiquidMl}ml (pre-filled)` },
   { label: "Battery", value: `${PRODUCT_FAMILY.batteryMah}mAh (non-rechargeable)` },
   { label: "Activation", value: "Inhale-activated, no buttons" },
@@ -410,7 +339,7 @@ export function getProductFaq(product: Product): { question: string; answer: str
     {
       question: `How many puffs does the ${product.name} give?`,
       answer:
-        "Each Alibarbar Ingot device is rated for up to 9000 puffs. The exact number depends on your puff length and draw style.",
+        `Each Alibarbar Ingot device is ${PRODUCT_FAMILY.puffSpec.toLowerCase()}. ${PRODUCT_FAMILY.puffNote}`,
     },
     {
       question: `Is the ${product.name} rechargeable?`,

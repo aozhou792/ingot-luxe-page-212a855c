@@ -31,7 +31,7 @@ export const brands: Brand[] = [
     intro:
       "Alibarbar is the brand behind the Ingot 9000, a high-capacity disposable vape designed for adult users who want longevity and simplicity in one device.",
     overview: [
-      "Alibarbar focuses on premium disposable vapes, with the Ingot 9000 as its flagship. The device is defined by a large 22ml e-liquid capacity, a 2350mAh battery and a built-in smart LED display that shows remaining battery and e-liquid.",
+      "Alibarbar’s current catalogue centres on the Ingot 9000, a sealed disposable with a 22ml e-liquid tank, a 2350mAh non-rechargeable battery and a smart LED that shows remaining battery and e-liquid.",
       "The range is built around a curated set of flavours plus a build-your-own 5 Flavour Custom Pack, so customers can find or mix the profiles they like.",
     ],
     knownFor: [
@@ -53,7 +53,7 @@ export const brands: Brand[] = [
       {
         question: "What is Alibarbar?",
         answer:
-          "Alibarbar is a premium disposable vape brand. Its flagship product is the Ingot 9000, designed for up to 9000 puffs per device with a smart LED display showing battery and e-liquid levels.",
+          "Alibarbar is the product brand behind the Ingot 9000, a sealed disposable rated for up to 9000 puffs with a smart LED that shows battery and e-liquid levels.",
       },
       {
         question: "Is Alibarbar legal in Australia?",

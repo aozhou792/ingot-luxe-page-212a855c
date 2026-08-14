@@ -38,7 +38,7 @@ export const topicHubs: TopicHub[] = [
       "A mesh coil uses a perforated metal sheet instead of a traditional wire coil, heating e-liquid over a larger surface area. The result is usually smoother vapour, more consistent flavour and fewer dry hits across the life of a disposable device.",
     stats: [
       "Larger heated surface than wire coils",
-      "Common in premium 9000-puff class devices",
+      "Common in high-capacity 9000-puff class devices",
       "Alibarbar Ingot 9000 uses mesh coil technology",
       "Pairs with 22ml e-liquid capacity for even flavour delivery",
     ],
@@ -241,7 +241,7 @@ export const topicHubs: TopicHub[] = [
     intro:
       "Every important page about the Alibarbar Ingot 9000 in one network — for customers searching brand and model terms together.",
     definition:
-      "The Alibarbar Ingot 9000 is a premium disposable vape rated for up to 9000 puffs, with 22ml e-liquid, a 2350mAh battery, mesh coil and a smart LED display showing battery and e-liquid levels.",
+      "The Alibarbar Ingot 9000 is a sealed disposable rated for up to 9000 puffs (usage dependent), with 22ml e-liquid, a 2350mAh battery, mesh coil and a smart LED display showing battery and e-liquid levels.",
     stats: [
       "Up to 9000 puffs",
       "22ml pre-filled capacity",

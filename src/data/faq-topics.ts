@@ -188,12 +188,12 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "What is the Alibarbar Ingot 9000?",
         answer:
-          "The Alibarbar Ingot 9000 is a pre-filled, pre-charged disposable vape that delivers up to 9000 puffs per device. It features a 22ml e-liquid capacity, a 2350mAh battery, and a built-in LED display that shows remaining battery and e-liquid.",
+          "The Alibarbar Ingot 9000 is a pre-filled, pre-charged sealed disposable rated for up to 9000 puffs (usage dependent). It has a 22ml e-liquid tank, a 2350mAh non-rechargeable battery, and a built-in LED that shows remaining battery and e-liquid.",
       },
       {
         question: "How many puffs does the Alibarbar Ingot 9000 have?",
         answer:
-          "Each Alibarbar Ingot device is rated for up to 9000 puffs. Actual puff count varies with puff length and draw style, but most adult users get many days of use from a single device.",
+          "Each Alibarbar Ingot device is rated for up to 9000 puffs (usage dependent). Actual puff count varies with puff length and draw style. It is not a guaranteed 9000-puff outcome.",
       },
       {
         question: "How long does one Alibarbar Ingot last?",

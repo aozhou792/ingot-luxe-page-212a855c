@@ -15,7 +15,7 @@ const CompareIndexPage = () => {
       {
         "@type": "CollectionPage",
         name: "Alibarbar Vape Comparisons",
-        description: "Compare the Alibarbar Ingot 9000 with other disposable vape brands in Australia.",
+        description: "SKU-vs-SKU comparisons: Alibarbar Ingot 9000 against named competitor devices, plus flavour-vs-flavour pages.",
         url: "https://www.ailibarbar.com/compare",
       },
       breadcrumbNode([
@@ -28,8 +28,8 @@ const CompareIndexPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Alibarbar vs Other Vapes | Disposable Vape Comparisons"
-        description="Honest comparisons of the Alibarbar Ingot 9000 against IGET, HQD, Gunnpod, KUZ and RELX — puffs, battery, capacity and value in Australia."
+        title="Alibarbar SKU Comparisons | Ingot 9000 vs Named Devices"
+        description="Side-by-side SKU comparisons: Ingot 9000 vs IGET Bar, HQD Cuvie Plus, Gunnpod 2000, KUZ x10000, Geek Bar Pulse and RELX Infinity — plus Peach Ice vs Blackberry Ice and other flavour pages."
         path="/compare"
         jsonLd={jsonLd}
       />
@@ -45,11 +45,10 @@ const CompareIndexPage = () => {
           <header className="mb-10 sm:mb-14 max-w-2xl">
             <p className="text-xs uppercase tracking-[0.25em] text-primary mb-3 font-semibold">Compare</p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
-              Alibarbar vs <span className="text-gold">the rest</span>
+              Alibarbar vs <span className="text-gold">named SKUs</span>
             </h1>
             <p className="text-muted-foreground mt-4 text-sm sm:text-base leading-relaxed">
-              Fair, side-by-side comparisons of the Alibarbar Ingot 9000 against other popular disposable vape brands in
-              Australia — so you can decide what actually fits your needs.
+              Side-by-side tables for the Alibarbar Ingot 9000 against a named competitor device — not a whole brand catalogue — plus flavour SKU vs SKU pages on the same hardware.
             </p>
           </header>
 
@@ -62,7 +61,7 @@ const CompareIndexPage = () => {
               >
                 <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-primary">
                   <GitCompare className="w-4 h-4" />
-                  Alibarbar vs {c.competitor}
+                  {c.leftLabel ?? "Alibarbar Ingot 9000"} vs {c.rightLabel ?? c.competitor}
                 </div>
                 <h2 className="text-lg font-bold leading-snug group-hover:text-primary transition-colors">{c.title}</h2>
                 <p className="text-sm text-muted-foreground leading-relaxed flex-1">{c.description}</p>

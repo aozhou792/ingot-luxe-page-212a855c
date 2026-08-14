@@ -219,7 +219,7 @@ export const bestAlibarbarPage = {
     {
       question: "Is Alibarbar Ingot 9000 worth buying?",
       answer:
-        "Yes if you want a long-lasting disposable with up to 9000 puffs, a 22ml tank, 2350mAh battery and a smart LED for battery and e-liquid. Skip it if you prefer a tiny low-capacity device or a rechargeable open system.",
+        "Yes if you want a sealed disposable rated for up to 9000 puffs (usage dependent), with a 22ml tank, 2350mAh battery and a smart LED for battery and e-liquid. Skip it if you prefer a tiny low-capacity device or a rechargeable open system.",
     },
     {
       question: "Where can I buy genuine Alibarbar in Australia?",

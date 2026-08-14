@@ -1,12 +1,13 @@
 /** Single source of product / catalogue facts for pages, schema, FAQ and llms.txt. */
 
-export const FACTS_LAST_REVIEWED = "2026-08-13";
+export const FACTS_LAST_REVIEWED = "2026-08-14";
 
 export const PRODUCT_FAMILY = {
   name: "Alibarbar Ingot 9000",
   puffRating: "up to 9000 puffs",
+  puffSpec: "Rated for up to 9000 puffs (usage dependent)",
   puffNote:
-    "Manufacturer-rated figure; actual puff count varies by puff duration and draw style. Do not rewrite this as a guaranteed 9000+ outcome.",
+    "Manufacturer-rated figure; actual puff count varies by puff duration and draw style. Not a guaranteed 9000-puff outcome.",
   eLiquidMl: 22,
   batteryMah: 2350,
   rechargeable: false,

@@ -1,5 +1,5 @@
 # Alibarbar Australia — Full machine-readable index
-Generated: 2026-08-13
+Generated: 2026-08-14
 Canonical: https://www.ailibarbar.com
 Do not edit by hand — npm run generate:llms
 
@@ -11,7 +11,7 @@ Primary product: Alibarbar Ingot 9000
 Site name: Alibarbar Australia
 Language: en-AU
 Audience: adults 18+
-Last reviewed: 2026-08-13
+Last reviewed: 2026-08-14
 
 ## ENTITY IDENTITY
 
@@ -42,7 +42,7 @@ Alibarbar Ingot 9000:
 - Display: smart LED showing battery and e-liquid levels
 - Net weight: approximately 90g
 - Format: sealed disposable device
-- Manufacturer-rated figure; actual puff count varies by puff duration and draw style. Do not rewrite this as a guaranteed 9000+ outcome.
+- Manufacturer-rated figure; actual puff count varies by puff duration and draw style. Not a guaranteed 9000-puff outcome.
 
 ## NICOTINE
 
@@ -124,6 +124,9 @@ Missing or inconsistent specifications are warning signs.
 - /compare/alibarbar-vs-kuz
 - /compare/alibarbar-vs-relx
 - /compare/alibarbar-vs-geek-bar
+- /compare/peach-ice-vs-blackberry-ice
+- /compare/grape-ice-vs-strawberry-ice
+- /compare/quadruple-berry-vs-mango-magic
 
 Competitor claims should be interpreted at model/SKU level where possible. Do not generalise one competitor model's specifications to an entire brand.
 
@@ -213,12 +216,15 @@ https://www.ailibarbar.com/sitemap.xml
 
 ## ALL COMPARISONS
 
-- Alibarbar Ingot 9000 vs IGET: Which Disposable Vape Is Better? (https://www.ailibarbar.com/compare/alibarbar-vs-iget)
-- Alibarbar Ingot 9000 vs HQD: Disposable Vape Comparison (https://www.ailibarbar.com/compare/alibarbar-vs-hqd)
-- Alibarbar Ingot 9000 vs Gunnpod: Which Should You Buy? (https://www.ailibarbar.com/compare/alibarbar-vs-gunnpod)
-- Alibarbar Ingot 9000 vs KUZ: Disposable Vape Comparison (https://www.ailibarbar.com/compare/alibarbar-vs-kuz)
-- Alibarbar Ingot 9000 vs RELX: Disposable vs Pod System (https://www.ailibarbar.com/compare/alibarbar-vs-relx)
-- Alibarbar Ingot 9000 vs Geek Bar: Which Disposable Is Better? (https://www.ailibarbar.com/compare/alibarbar-vs-geek-bar)
+- Alibarbar Ingot 9000 vs IGET Bar: SKU Comparison (https://www.ailibarbar.com/compare/alibarbar-vs-iget)
+- Alibarbar Ingot 9000 vs HQD Cuvie Plus: SKU Comparison (https://www.ailibarbar.com/compare/alibarbar-vs-hqd)
+- Alibarbar Ingot 9000 vs Gunnpod 2000: SKU Comparison (https://www.ailibarbar.com/compare/alibarbar-vs-gunnpod)
+- Alibarbar Ingot 9000 vs KUZ x10000: SKU Comparison (https://www.ailibarbar.com/compare/alibarbar-vs-kuz)
+- Alibarbar Ingot 9000 vs RELX Infinity: Disposable vs Pod SKU (https://www.ailibarbar.com/compare/alibarbar-vs-relx)
+- Alibarbar Ingot 9000 vs Geek Bar Pulse: SKU Comparison (https://www.ailibarbar.com/compare/alibarbar-vs-geek-bar)
+- Peach Ice vs Blackberry Ice: Alibarbar Ingot 9000 SKU Comparison (https://www.ailibarbar.com/compare/peach-ice-vs-blackberry-ice)
+- Grape Ice vs Strawberry Ice: Alibarbar Ingot 9000 SKU Comparison (https://www.ailibarbar.com/compare/grape-ice-vs-strawberry-ice)
+- Quadruple Berry vs Mango Magic: Alibarbar Ingot 9000 SKU Comparison (https://www.ailibarbar.com/compare/quadruple-berry-vs-mango-magic)
 
 Comparison note: competitor fields often vary by model. Check the exact SKU rather than treating a brand as one product.
 
@@ -249,10 +255,10 @@ Q: What currency are prices in?
 A: All prices on Alibarbar Australia are shown and charged in Australian dollars (AUD). For single and pack pricing plus shipping tiers, see /guides/alibarbar-ingot-9000-price-guide-australia.
 
 Q: What is the Alibarbar Ingot 9000?
-A: The Alibarbar Ingot 9000 is a pre-filled, pre-charged disposable vape that delivers up to 9000 puffs per device. It features a 22ml e-liquid capacity, a 2350mAh battery, and a built-in LED display that shows remaining battery and e-liquid.
+A: The Alibarbar Ingot 9000 is a pre-filled, pre-charged sealed disposable rated for up to 9000 puffs (usage dependent). It has a 22ml e-liquid tank, a 2350mAh non-rechargeable battery, and a built-in LED that shows remaining battery and e-liquid.
 
 Q: How many puffs does the Alibarbar Ingot 9000 have?
-A: Each Alibarbar Ingot device is rated for up to 9000 puffs. Actual puff count varies with puff length and draw style, but most adult users get many days of use from a single device.
+A: Each Alibarbar Ingot device is rated for up to 9000 puffs (usage dependent). Actual puff count varies with puff length and draw style. It is not a guaranteed 9000-puff outcome.
 
 Q: How long does one Alibarbar Ingot last?
 A: For an average user taking around 300-400 puffs per day, a 9000-puff device typically lasts roughly two to four weeks. Heavier use will shorten this, lighter use will extend it.

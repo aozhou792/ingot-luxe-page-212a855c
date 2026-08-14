@@ -3,18 +3,18 @@ import { Battery, Gauge, Gem } from "lucide-react";
 const features = [
   {
     icon: Battery,
-    title: "9000 Puffs",
-    desc: "Long-lasting capacity engineered for days of uninterrupted indulgence.",
+    title: "Up to 9000 puffs",
+    desc: "Manufacturer-rated capacity; actual puff count varies with puff length and draw style.",
   },
   {
     icon: Gauge,
     title: "Smart Display",
-    desc: "Real-time e-liquid and battery tracking with a precision digital readout.",
+    desc: "LED readout for remaining battery and e-liquid so you can see when a swap is due.",
   },
   {
     icon: Gem,
-    title: "Premium Ingot Design",
-    desc: "Solid gold-bar silhouette crafted for an ergonomic, luxurious grip.",
+    title: "Ingot bar shape",
+    desc: "Gold ingot-bar silhouette with an inhale-activated draw and no buttons.",
   },
 ];
 
@@ -24,10 +24,10 @@ export const Features = () => {
       <div className="container">
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16 reveal px-1">
           <p className="text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] text-primary mb-3 sm:mb-4">
-            Engineered for excellence
+            Ingot 9000 specs
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
-            Crafted to be <span className="text-gold">extraordinary</span>
+            What the device <span className="text-gold">actually includes</span>
           </h2>
           <div className="gold-divider mt-6 sm:mt-8 max-w-xs mx-auto" />
         </div>

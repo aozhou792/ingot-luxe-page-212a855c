@@ -158,7 +158,7 @@ export const reviewPosts: ReviewPost[] = [
     category: "Flavour Review",
     readTime: "7 min read",
     datePublished: "2026-04-20",
-    dateModified: "2026-07-14",
+    dateModified: "2026-08-14",
     intro:
       "Quadruple Berry is the closest match to the classic berry and blueberry-style searches people make for Alibarbar. Instead of a single-note blueberry, it blends strawberry, raspberry, blackberry and blueberry into one fuller berry profile.",
     quickAnswer: {
@@ -191,24 +191,24 @@ export const reviewPosts: ReviewPost[] = [
     ],
     sections: [
       {
-        heading: "Flavour profile",
+        heading: "What you actually taste, in order",
         paragraphs: [
-          "Quadruple Berry opens with a bright strawberry and raspberry sweetness, then settles into darker blackberry and blueberry notes on the finish. The extra berry layers make it more interesting than a simple single-fruit vape.",
-          "The most important thing is balance. It is sweet, but the darker berry notes keep it from tasting like straight candy. There is also no strong menthol, so the flavour stays rounded rather than sharp.",
+          "First draw is strawberry-raspberry brightness. After a few puffs the darker blackberry and blueberry notes take the finish, so it does not stay as a single candy note.",
+          "There is almost no menthol. If the last disposable you liked was icy grape or peach, this SKU will feel warmer and rounder — that is the point of the mix, not a missing feature.",
         ],
       },
       {
-        heading: "Who will like it?",
+        heading: "Quadruple Berry vs Mango Magic vs Blackberry Ice",
         paragraphs: [
-          "This is the safest recommendation for adult vapers who want a fruit flavour but are not sure where to start. It has enough sweetness to feel satisfying and enough depth to avoid getting boring quickly.",
-          "If you normally like blueberry, mixed berry, raspberry or grape-style profiles, Quadruple Berry should feel familiar while still offering more layers.",
+          "Against Mango Magic it is jam-berry rather than tropical flesh. Against Blackberry Ice it drops the strong chill and the tart skin note — same fruit family, different job.",
+          "Use Quadruple Berry as the non-ice fruit slot in a custom pack. Put Blackberry Ice or Peach Ice in a second slot if you want cold later in the day.",
         ],
       },
       {
-        heading: "Performance in the Ingot 9000 device",
+        heading: "How the mix holds as the tank drops",
         paragraphs: [
-          "Because the Ingot 9000 has a large 22ml capacity and a 2350mAh built-in battery, the flavour remains relatively consistent across the device life. The smart LED display also helps you track e-liquid level so the flavour drop-off does not come as a surprise.",
-          "The draw is smooth and inhale-activated, which suits the berry profile well. It does not need a hard pull to produce flavour.",
+          "The brighter strawberry edge is loudest when the device is new. As the 22ml tank runs down, the darker berry finish stays longer than the raspberry pop — typical for mixed-fruit fills, not a coil fault.",
+          "When the LED shows e-liquid getting low, the profile can taste a little flatter and sweeter. That is the swap point, not a reason to keep pulling until it scorches.",
         ],
       },
     ],
@@ -376,7 +376,7 @@ export const reviewPosts: ReviewPost[] = [
         ],
       },
       {
-        heading: "Who will like it?",
+        heading: "A soda SKU, not a fruit SKU",
         paragraphs: [
           "Fanta suits adult vapers who want something playful and different. If you are bored of berry, mango or menthol, it gives the range a clear change of pace.",
           "It is also a useful flavour in a 5 Flavour Custom Pack because it breaks up the heavier fruit profiles.",
@@ -425,7 +425,7 @@ export const reviewPosts: ReviewPost[] = [
     category: "Flavour Review",
     readTime: "6 min read",
     datePublished: "2026-07-18",
-    dateModified: "2026-07-18",
+    dateModified: "2026-08-14",
     intro:
       "Lychee is the lightest, most floral option in the Alibarbar Ingot 9000 range. It suits adult vapers who want fragrance and softness rather than candy sweetness or heavy ice.",
     quickAnswer: {
@@ -457,22 +457,24 @@ export const reviewPosts: ReviewPost[] = [
     ],
     sections: [
       {
-        heading: "Flavour profile",
+        heading: "Floral fruit, not candy lychee",
         paragraphs: [
-          "Lychee opens with a soft floral fruit note and finishes clean. It is closer to fresh lychee perfume than syrupy candy, which makes it stand out from Quadruple Berry and Strawberry Watermelon.",
-          "Because sweetness sits mid-range, the flavour does not fatigue as quickly as louder candy profiles — useful on a high-capacity Ingot 9000.",
+          "The inhale is perfume-light lychee, not syrup. Aftertaste is short and clean — it does not leave the jam residue Quadruple Berry does.",
+          "If your last device was Fanta or mixed berry, Lychee will feel quieter. That is useful on a high-capacity tank: loud SKUs fatigue; this one is a reset.",
         ],
       },
       {
-        heading: "Who will like it?",
+        heading: "When it belongs in a mixed pack",
         paragraphs: [
-          "Choose Lychee if you want something elegant and different. It pairs well in a custom pack beside louder fruit or ice flavours as a palate reset.",
+          "Put Lychee next to Quadruple Berry or Grape Ice, not next to another light floral. One contrast slot is enough. It is a poor first Alibarbar purchase if you only like candy or ice.",
+          "Hardware is the same Ingot 9000 as every other single-flavour SKU. You are choosing e-liquid character, not a different battery or coil.",
         ],
       },
       {
-        heading: "Performance in the Ingot 9000 device",
+        heading: "When the floral note thins",
         paragraphs: [
-          "The mesh coil keeps the floral note clear across the device life. With up to 9000 puffs and a 22ml tank, a lighter profile like Lychee is a smart all-day option that will not overwhelm.",
+          "Lychee stays readable longer than candy SKUs because there is less sugar-forward density to flatten. Near empty, the floral edge fades first and you are left with a generic sweet vapour — that is the LED-swap cue.",
+          "A hard, long draw does not bring the perfume back; it just warms the coil. Short sips keep the light profile intact.",
         ],
       },
     ],
@@ -582,7 +584,7 @@ export const reviewPosts: ReviewPost[] = [
     category: "Flavour Review",
     readTime: "6 min read",
     datePublished: "2026-07-18",
-    dateModified: "2026-07-18",
+    dateModified: "2026-08-14",
     intro:
       "Mango Magic is the tropical all-day fruit pick in the Alibarbar Ingot 9000 range — ripe mango sweetness with low cooling and a smooth draw.",
     quickAnswer: {
@@ -614,22 +616,24 @@ export const reviewPosts: ReviewPost[] = [
     ],
     sections: [
       {
-        heading: "Flavour profile",
+        heading: "Ripe mango, then a sticky-sweet aftertaste",
         paragraphs: [
-          "Mango Magic tastes like ripe mango flesh — sweet, tropical and rounded. It is denser than watermelon blends and warmer than iced fruit options.",
-          "There is little menthol, so the mango stays front and centre across the full Ingot 9000 capacity.",
+          "The first half of the draw is mango flesh. The aftertaste is denser and sweeter than Lychee or Strawberry Watermelon — it hangs for a beat instead of washing off.",
+          "There is almost no menthol, so nothing cuts that sweetness. If mango candy disposables have tired you before, this SKU will do the same after a long session.",
         ],
       },
       {
-        heading: "Who will like it?",
+        heading: "Mango Magic vs Quadruple Berry vs Lychee",
         paragraphs: [
-          "Choose Mango Magic if you want a non-berry fruit daily driver. It is also a natural partner to Peach Ice or Grape Ice in a five-flavour pack.",
+          "Quadruple Berry is jam and mixed skins; Mango Magic is one tropical note. Lychee is lighter and floral. Same 22ml / 2350mAh hardware — pick by fruit, not by “which lasts longer”.",
+          "In a five-pack, mango works beside an iced SKU (Peach Ice or Grape Ice). Two tropical non-ice slots in the same pack is usually too much of the same weight.",
         ],
       },
       {
-        heading: "Performance in the Ingot 9000 device",
+        heading: "Sweetness as the tank runs down",
         paragraphs: [
-          "On a 22ml / up-to-9000-puff device, a consistent tropical note matters. Mango Magic holds its profile well and benefits from the LED e-liquid readout so you can swap before flavour thins.",
+          "Early tank: ripe and distinct. Mid tank: still mango, a little rounder. Late tank: the fruit thins and the remaining vapour tastes generically sweet — swap when the LED shows e-liquid low rather than chasing the last mango note.",
+          "Long, hot draws push it toward syrup faster than short sips. That is usage, not a different coil from other Ingot 9000 flavours.",
         ],
       },
     ],
@@ -700,7 +704,7 @@ export const reviewPosts: ReviewPost[] = [
         ],
       },
       {
-        heading: "Who will like it?",
+        heading: "Coconut is the deciding factor",
         paragraphs: [
           "Pick this if Strawberry Watermelon felt too simple, or if you want a dessert-leaning fruit profile without going full candy soda like Fanta.",
         ],
@@ -818,7 +822,7 @@ export const reviewPosts: ReviewPost[] = [
     category: "Flavour Review",
     readTime: "6 min read",
     datePublished: "2026-07-18",
-    dateModified: "2026-07-18",
+    dateModified: "2026-08-14",
     intro:
       "Strawberry Watermelon is the bright, no-ice summer blend in the Alibarbar Ingot 9000 line — ripe strawberry plus juicy watermelon.",
     quickAnswer: {
@@ -850,22 +854,24 @@ export const reviewPosts: ReviewPost[] = [
     ],
     sections: [
       {
-        heading: "Flavour profile",
+        heading: "Splashy strawberry, then watery watermelon",
         paragraphs: [
-          "Strawberry brings the body; watermelon adds watery juiciness so the blend feels light rather than jam-heavy. There is no ice, so it stays warm and smooth.",
-          "Compared with Quadruple Berry, it is simpler and more summery. Compared with Strawberry Ice, it drops the menthol entirely.",
+          "Strawberry carries the body; watermelon adds a watery, almost dilute juiciness so it never gets as jammy as Quadruple Berry. Aftertaste is short — it does not cling like Mango Magic.",
+          "There is no menthol. If you expected “chilled watermelon”, that is Strawberry Ice (strawberry + ice, no watermelon) or a different SKU entirely.",
         ],
       },
       {
-        heading: "Who will like it?",
+        heading: "Same hardware, three different strawberry SKUs",
         paragraphs: [
-          "This is a safe first Alibarbar fruit pick if you do not want berry complexity or coconut. It also works well as a daily driver on the high-capacity Ingot 9000.",
+          "Strawberry Watermelon: strawberry + watermelon, no ice. Strawberry Ice: candy strawberry + menthol, no watermelon. Strawberry Coconut Watermelon: adds coconut cream to the fruit pair.",
+          "Buyers searching “strawberry” often land on the wrong listing. The Ingot 9000 body is identical; only the fill changes. Pick the SKU by ice and coconut, not by the word strawberry.",
         ],
       },
       {
-        heading: "Performance in the Ingot 9000 device",
+        heading: "When the watermelon note disappears",
         paragraphs: [
-          "Light fruit profiles stay pleasant across long device life. The smart LED helps you track e-liquid so you can replace before the strawberry note thins.",
+          "Watermelon is the first layer to fade as e-liquid drops. Late tank tastes more like generic sweet strawberry. That is expected on a blended fill — swap on the LED rather than waiting for a burnt hit.",
+          "It stays pleasant for all-day use while both notes are present. Once watermelon is gone, it is a weaker version of a strawberry vape, not a new flavour.",
         ],
       },
     ],

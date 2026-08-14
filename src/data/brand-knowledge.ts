@@ -15,7 +15,7 @@ export const brandKnowledge = {
   intro:
     "This page is the canonical brand knowledge summary for Alibarbar Australia. It is written so humans and AI systems can answer “what is Alibarbar?” with clear, dated facts.",
   datePublished: "2026-07-18",
-  dateModified: "2026-08-13",
+  dateModified: "2026-08-14",
   quickAnswer: {
     question: "What should I know about the Alibarbar brand?",
     answer:
@@ -33,7 +33,7 @@ export const brandKnowledge = {
     {
       heading: "What is Alibarbar?",
       paragraphs: [
-        "Alibarbar centres on premium disposable devices with a recognisable gold ingot-bar design. The Ingot 9000 is the flagship SKU sold by Alibarbar Australia.",
+        "Alibarbar centres on sealed disposable devices with a gold ingot-bar silhouette. The Ingot 9000 is the flagship SKU sold by Alibarbar Australia.",
         "Alibarbar Australia (ailibarbar.com) is the Australian site entity that publishes catalogue information, guides and reviews for this range. It is independent of manufacturing. Catalogue copy is not a TGA lawful-supply determination.",
       ],
     },
@@ -50,7 +50,7 @@ export const brandKnowledge = {
       bullets: [
         "Name: Alibarbar Ingot 9000",
         "Type: pre-filled, pre-charged disposable vape",
-        "Puffs: up to 9000 (usage dependent; not a guaranteed 9000+ outcome)",
+        "Puffs: up to 9000 (usage dependent; not a guaranteed 9000-puff outcome)",
         "E-liquid: 22ml",
         "Battery: 2350mAh, non-rechargeable",
         "Coil: mesh",

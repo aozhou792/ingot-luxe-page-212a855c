@@ -32,14 +32,14 @@ export function deriveProductQuickAnswer(product: Product, flavour?: FlavourProf
     const size = product.customPackSize ?? 5;
     return {
       question: `What is the Alibarbar ${size} Flavour Custom Pack?`,
-      answer: `${product.excerpt} Each device delivers up to 9000 puffs with a 22ml tank, mesh coil and smart LED display — pick any ${size} flavours from the current range before checkout.`,
+      answer: `${product.excerpt} Each device is rated for up to 9000 puffs (usage dependent) with a 22ml tank, mesh coil and smart LED display — pick any ${size} flavours from the current range before checkout.`,
     };
   }
 
   const flavourDetail = flavour ? ` ${flavour.tagline}` : ` ${product.excerpt}`;
   return {
     question: `What is the Alibarbar Ingot 9000 ${product.name}?`,
-    answer: `The Alibarbar Ingot 9000 ${product.name} is a premium disposable vape rated for up to 9000 puffs, with a 22ml pre-filled tank, 2350mAh built-in battery and mesh coil.${flavourDetail} It includes a smart LED display for battery and e-liquid levels and is ready to use straight out of the box.`,
+    answer: `The Alibarbar Ingot 9000 ${product.name} is a sealed disposable rated for up to 9000 puffs, with a 22ml pre-filled tank, 2350mAh built-in battery and mesh coil.${flavourDetail} It includes a smart LED display for battery and e-liquid levels and is ready to use out of the box.`,
   };
 }
 

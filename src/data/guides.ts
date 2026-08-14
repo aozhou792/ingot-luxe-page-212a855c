@@ -42,7 +42,7 @@ export const guides: Guide[] = [
     datePublished: "2026-02-01",
     dateModified: "2026-07-14",
     intro:
-      "The Alibarbar Ingot 9000 is a premium disposable vape built for adult users who want a long-lasting, no-fuss device. This guide explains exactly what it is, how it performs, and how to decide if it is right for you.",
+      "The Alibarbar Ingot 9000 is a sealed disposable rated for up to 9000 puffs (usage dependent), with a 22ml tank, 2350mAh non-rechargeable battery and a smart LED. This guide covers what the device is, how the rating works, and who it suits.",
     quickAnswer: {
       question: "What is the Alibarbar Ingot 9000?",
       answer:

@@ -23,8 +23,8 @@ export const HomeIntroduction = () => (
           vapes must be checked against current TGA and state or territory rules — this site is not a pharmacy.
         </p>
         <p>
-          Every device we sell is a genuine Alibarbar Ingot 9000 with the signature gold ingot design, built-in smart LED
-          display, 22ml pre-filled e-liquid capacity and up to 9000 puffs per unit. We ship Australia-wide with tiered
+          Every device we sell is a genuine Alibarbar Ingot 9000 with the gold ingot-bar silhouette, built-in smart LED
+          display, 22ml pre-filled tank and a manufacturer rating of up to 9000 puffs (usage dependent). We ship Australia-wide with tiered
           Regular Post rates — A$15 for 1–9 devices, A$10 for 10–19, and free for twenty or more — and accept payment by
           secure bank transfer.
         </p>

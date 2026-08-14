@@ -24,10 +24,13 @@ const ComparePage = () => {
   if (!comparison) return <Navigate to="/compare" replace />;
 
   const path = `/compare/${comparison.slug}`;
+  const leftLabel = comparison.leftLabel ?? "Alibarbar Ingot 9000";
+  const rightLabel = comparison.rightLabel ?? comparison.competitor;
+
   const breadcrumbs: BreadcrumbEntry[] = [
     { name: "Home", path: "/" },
     { name: "Compare", path: "/compare" },
-    { name: `Alibarbar vs ${comparison.competitor}`, path },
+    { name: `${leftLabel} vs ${rightLabel}`, path },
   ];
 
   const jsonLd = articleJsonLd({
@@ -55,7 +58,7 @@ const ComparePage = () => {
             <span className="mx-2">/</span>
             <Link to="/compare" className="hover:text-primary">Compare</Link>
             <span className="mx-2">/</span>
-            <span className="text-foreground">vs {comparison.competitor}</span>
+            <span className="text-foreground">vs {rightLabel}</span>
           </nav>
 
           <header className="mb-8">
@@ -65,6 +68,8 @@ const ComparePage = () => {
             <div className="mt-6 space-y-6">
               <CompareShortAnswer
                 competitor={comparison.competitor}
+                leftLabel={leftLabel}
+                rightLabel={rightLabel}
                 alibarbar={shortAnswer.alibarbar}
                 competitorPick={shortAnswer.competitor}
               />
@@ -78,7 +83,7 @@ const ComparePage = () => {
           </div>
 
           <section className="mb-10">
-            <h2 className="text-xl sm:text-2xl font-bold mb-3">About {comparison.competitor}</h2>
+            <h2 className="text-xl sm:text-2xl font-bold mb-3">About {rightLabel}</h2>
             <div className="space-y-3 text-muted-foreground leading-[1.75] text-sm sm:text-base">
               {comparison.competitorOverview.map((p, i) => (
                 <p key={i}>{p}</p>
@@ -95,12 +100,12 @@ const ComparePage = () => {
                   <p className="font-semibold text-sm">{row.feature}</p>
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     <div className="min-w-0">
-                      <p className="text-[10px] uppercase tracking-wide text-gold mb-1 font-semibold">Alibarbar</p>
+                      <p className="text-[10px] uppercase tracking-wide text-gold mb-1 font-semibold">{leftLabel}</p>
                       <p className="leading-snug">{row.alibarbar}</p>
                     </div>
                     <div className="min-w-0">
                       <p className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1 font-semibold">
-                        {comparison.competitor}
+                        {rightLabel}
                       </p>
                       <p className="text-muted-foreground leading-snug">{row.competitor}</p>
                     </div>
@@ -114,8 +119,8 @@ const ComparePage = () => {
                 <thead>
                   <tr className="bg-card/70 text-left">
                     <th className="p-3 font-semibold">Feature</th>
-                    <th className="p-3 font-semibold text-gold">Alibarbar Ingot 9000</th>
-                    <th className="p-3 font-semibold">{comparison.competitor}</th>
+                    <th className="p-3 font-semibold text-gold">{leftLabel}</th>
+                    <th className="p-3 font-semibold">{rightLabel}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -133,7 +138,7 @@ const ComparePage = () => {
 
           <section className="mb-10 grid sm:grid-cols-2 gap-4">
             <div className="rounded-2xl border border-gold/25 bg-card/50 p-5">
-              <h2 className="text-base font-bold mb-3 text-gold">Alibarbar Ingot 9000 strengths</h2>
+              <h2 className="text-base font-bold mb-3 text-gold">{leftLabel} strengths</h2>
               <ul className="space-y-2">
                 {comparison.alibarbarStrengths.map((s) => (
                   <li key={s} className="flex gap-2 text-sm text-muted-foreground">
@@ -144,7 +149,7 @@ const ComparePage = () => {
               </ul>
             </div>
             <div className="rounded-2xl border border-gold/20 bg-card/40 p-5">
-              <h2 className="text-base font-bold mb-3">{comparison.competitor} strengths</h2>
+              <h2 className="text-base font-bold mb-3">{rightLabel} strengths</h2>
               <ul className="space-y-2">
                 {comparison.competitorStrengths.map((s) => (
                   <li key={s} className="flex gap-2 text-sm text-muted-foreground">
@@ -180,20 +185,43 @@ const ComparePage = () => {
           ) : null}
 
           <div className="rounded-2xl border border-gold/25 bg-card/60 p-6 text-center">
-            <p className="text-sm text-muted-foreground mb-4">Ready to try the Alibarbar Ingot 9000 for yourself?</p>
+            <p className="text-sm text-muted-foreground mb-4">
+              {comparison.flavourCompare
+                ? "Both SKUs use the same Ingot 9000 hardware — choose the fill."
+                : "Ready to try the Alibarbar Ingot 9000 for yourself?"}
+            </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
-              <Link
-                to="/shop"
-                className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-full bg-gold text-primary-foreground font-bold uppercase tracking-widest text-xs shadow-gold hover:opacity-95 transition"
-              >
-                Shop Ingot 9000
-              </Link>
-              <Link
-                to="/flavours"
-                className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-full border border-gold text-primary font-bold uppercase tracking-widest text-xs hover:bg-primary/10 transition"
-              >
-                Explore flavours
-              </Link>
+              {comparison.flavourCompare && comparison.leftProductSlug && comparison.rightProductSlug ? (
+                <>
+                  <Link
+                    to={`/product/${comparison.leftProductSlug}`}
+                    className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-full bg-gold text-primary-foreground font-bold uppercase tracking-widest text-xs shadow-gold hover:opacity-95 transition"
+                  >
+                    Shop {leftLabel}
+                  </Link>
+                  <Link
+                    to={`/product/${comparison.rightProductSlug}`}
+                    className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-full border border-gold text-primary font-bold uppercase tracking-widest text-xs hover:bg-primary/10 transition"
+                  >
+                    Shop {rightLabel}
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/shop"
+                    className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-full bg-gold text-primary-foreground font-bold uppercase tracking-widest text-xs shadow-gold hover:opacity-95 transition"
+                  >
+                    Shop Ingot 9000
+                  </Link>
+                  <Link
+                    to="/flavours"
+                    className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-full border border-gold text-primary font-bold uppercase tracking-widest text-xs hover:bg-primary/10 transition"
+                  >
+                    Explore flavours
+                  </Link>
+                </>
+              )}
             </div>
           </div>
 

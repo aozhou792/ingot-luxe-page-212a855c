@@ -106,8 +106,8 @@ export const Hero = () => {
           </h1>
 
           <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed px-1 sm:px-0">
-            Australia&apos;s dedicated Alibarbar Ingot 9000 store — authentic devices, full local compliance, and
-            masterfully crafted flavours with fast Australia-wide delivery and secure checkout.
+            Australia&apos;s dedicated Alibarbar Ingot 9000 catalogue — authentic devices, 18+ only, and
+            flavour notes with Australia-wide Regular Post after payment confirmation.
           </p>
 
           <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center justify-center lg:justify-start">
