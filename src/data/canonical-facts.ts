@@ -45,6 +45,33 @@ export const AGE_REQUIREMENT = "18+";
 
 export const SUPPORT_EMAIL = "orders@ailibarbar.com";
 
+export const STORE_ADDRESS = {
+  street: "480 Queen St",
+  locality: "Brisbane City",
+  region: "QLD",
+  postalCode: "4000",
+  country: "Australia",
+  countryCode: "AU",
+  note: "On Queen Street in Brisbane CBD.",
+  mapsUrl:
+    "https://maps.google.com/?q=480+Queen+St,+Brisbane+City+QLD+4000,+Australia",
+} as const;
+
+export function storeAddressOneLine(): string {
+  return `${STORE_ADDRESS.street}, ${STORE_ADDRESS.locality} ${STORE_ADDRESS.region} ${STORE_ADDRESS.postalCode}, ${STORE_ADDRESS.country}`;
+}
+
+export function storePostalAddressJsonLd() {
+  return {
+    "@type": "PostalAddress" as const,
+    streetAddress: STORE_ADDRESS.street,
+    addressLocality: STORE_ADDRESS.locality,
+    addressRegion: STORE_ADDRESS.region,
+    postalCode: STORE_ADDRESS.postalCode,
+    addressCountry: STORE_ADDRESS.countryCode,
+  };
+}
+
 export const FLAVOUR_SLUGS = [
   "quadruple-berry",
   "fanta",

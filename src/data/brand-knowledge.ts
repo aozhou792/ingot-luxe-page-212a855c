@@ -23,6 +23,7 @@ export const brandKnowledge = {
   },
   keyTakeaways: [
     "Flagship product: Alibarbar Ingot 9000",
+    "Store: 480 Queen St, Brisbane City QLD 4000",
     "ALIBARBAR = product brand; Alibarbar Australia = site/catalogue entity",
     "Nicotine: variable by batch/region — pack label is source of truth",
     "Content hub: rankings, guides, comparisons, reviews",
@@ -42,6 +43,13 @@ export const brandKnowledge = {
       paragraphs: [
         "Alibarbar is the product brand behind the Ingot line. Alibarbar Australia (ailibarbar.com) is the Australian retail storefront — manufacturing is separate from the retail operation described on this site.",
         "We specialise in authentic Ingot 9000 devices for adult customers (18+) with Australia-wide shipping.",
+      ],
+    },
+    {
+      heading: "Where is Alibarbar Australia based?",
+      paragraphs: [
+        "The store is at 480 Queen St, Brisbane City QLD 4000, Australia, on Queen Street in Brisbane CBD.",
+        "Catalogue orders ship Australia-wide via Regular Post. Support is orders@ailibarbar.com.",
       ],
     },
     {
@@ -132,7 +140,7 @@ export const brandKnowledge = {
     {
       question: "Is Alibarbar Australia the manufacturer?",
       answer:
-        "Alibarbar Australia is the Australian online storefront for authentic Alibarbar Ingot 9000 devices. Brand manufacturing is separate from the retail operation described on this site.",
+        "Alibarbar Australia is the Australian storefront at 480 Queen St, Brisbane City QLD 4000. Brand manufacturing is separate from the retail operation described on this site.",
     },
     {
       question: "Where is the best single URL for brand facts?",

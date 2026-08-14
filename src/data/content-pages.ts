@@ -1,3 +1,5 @@
+import { storeAddressOneLine, SUPPORT_EMAIL } from "@/data/canonical-facts";
+
 export type ContentSection = {
   heading: string;
   paragraphs: string[];
@@ -14,22 +16,20 @@ export type ContentPage = {
   updated: string;
 };
 
-const SUPPORT_EMAIL = "orders@ailibarbar.com";
-
 export const contentPages: ContentPage[] = [
   {
     slug: "about",
     title: "About Alibarbar Australia",
     description:
-      "Alibarbar Australia is an online store dedicated to authentic Alibarbar Ingot 9000 disposable vapes with fast, local delivery for adult customers.",
+      "Alibarbar Australia is based at 480 Queen St, Brisbane City QLD 4000, and sells authentic Alibarbar Ingot 9000 devices with Australia-wide Regular Post for adult customers.",
     intro:
-      "Alibarbar Australia is an independent online retailer focused on one thing: giving adult Australian vapers clear catalogue facts for authentic Alibarbar Ingot 9000 devices. Catalogue, shipping and checkout copy on this site is not a determination of lawful non-pharmacy supply — verify current TGA and local rules.",
+      "Alibarbar Australia is an independent retailer based in Brisbane CBD, focused on authentic Alibarbar Ingot 9000 devices. Catalogue, shipping and checkout copy on this site is not a determination of lawful non-pharmacy supply — verify current TGA and local rules.",
     sections: [
       {
         heading: "Who we are",
         paragraphs: [
-          "We are an Australia-based online store specialising in the Alibarbar Ingot 9000 disposable vape range. Rather than stocking dozens of unrelated brands, we concentrate on the Alibarbar line so we can guarantee authenticity and give clear, accurate product information.",
-          "Every device we sell is a genuine Alibarbar Ingot 9000 with the built-in smart LED display, 22ml e-liquid capacity and up to 9000 puffs.",
+          `We are an Australia-based store at ${storeAddressOneLine()}, specialising in the Alibarbar Ingot 9000 disposable vape range. Rather than stocking dozens of unrelated brands, we concentrate on the Alibarbar line so we can guarantee authenticity and give clear, accurate product information.`,
+          "Every device we sell is a genuine Alibarbar Ingot 9000 with the built-in smart LED display, 22ml e-liquid capacity and a rating of up to 9000 puffs (usage dependent).",
         ],
       },
       {
@@ -77,11 +77,11 @@ export const contentPages: ContentPage[] = [
       {
         heading: "Contact us",
         paragraphs: [
-          `The fastest way to reach us is by email at ${SUPPORT_EMAIL}. We're happy to help with product questions, order status, and delivery enquiries.`,
+          `Our store is at ${storeAddressOneLine()}, on Queen Street in Brisbane CBD. The fastest way to reach us is by email at ${SUPPORT_EMAIL}. We're happy to help with product questions, order status, and delivery enquiries.`,
         ],
       },
     ],
-    updated: "2026-07-01",
+    updated: "2026-08-14",
   },
   {
     slug: "shipping",

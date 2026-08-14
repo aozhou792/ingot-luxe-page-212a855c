@@ -3,6 +3,7 @@ import { getAuthorBySlug, getDefaultAuthor } from "@/data/authors";
 import { ENTITY, productSlugFromPath } from "@/data/entity";
 import { faqItems } from "@/data/faq";
 import { products } from "@/data/products";
+import { storePostalAddressJsonLd, SUPPORT_EMAIL } from "@/data/canonical-facts";
 import { SITE_LOGO_HEIGHT, SITE_LOGO_PATH, SITE_LOGO_WIDTH, SITE_SAME_AS, SITE_URL } from "@/data/site";
 
 const SITE_NAME = "Alibarbar Australia";
@@ -144,9 +145,10 @@ const organizationNode = {
   description:
     "Alibarbar Australia is the site entity for ailibarbar.com. It publishes catalogue information, guides and reviews for the Alibarbar Ingot 9000. Lawful supply in Australia must be checked against current TGA and state or territory rules.",
   areaServed: { "@type": "Country", name: "Australia" },
+  address: storePostalAddressJsonLd(),
   contactPoint: {
     "@type": "ContactPoint",
-    email: "orders@ailibarbar.com",
+    email: SUPPORT_EMAIL,
     contactType: "customer support",
     areaServed: "AU",
     availableLanguage: ["en"],
@@ -318,9 +320,10 @@ export const siteJsonLd = {
         "vape flavours",
       ],
       brand: { "@id": ENTITY.brandId },
+      address: storePostalAddressJsonLd(),
       contactPoint: {
         "@type": "ContactPoint",
-        email: "orders@ailibarbar.com",
+        email: SUPPORT_EMAIL,
         contactType: "customer support",
         areaServed: "AU",
         availableLanguage: ["en"],

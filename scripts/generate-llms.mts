@@ -14,6 +14,7 @@ import {
   PRODUCT_FAMILY,
   SHIPPING,
   SUPPORT_EMAIL,
+  storeAddressOneLine,
   priceSummary,
   shippingSummary,
 } from "../src/data/canonical-facts.ts";
@@ -188,7 +189,10 @@ Regulatory facts last reviewed: ${REGULATORY_LAST_REVIEWED}
 
 ## CONTACT
 
-${SUPPORT_EMAIL}
+- Email: ${SUPPORT_EMAIL}
+- Store address: ${storeAddressOneLine()}
+- Location note: On Queen Street in Brisbane CBD
+- Contact page: ${SITE_URL}/contact
 
 ## SITEMAP
 

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Instagram, Twitter, Facebook, Youtube } from "lucide-react";
 import { guides } from "@/data/guides";
 import { SITE_SOCIAL } from "@/data/site";
+import { storeAddressOneLine, STORE_ADDRESS } from "@/data/canonical-facts";
 import { RegulatoryNotice } from "@/components/seo/RegulatoryNotice";
 import logoHeader from "@/assets/logo-header.png";
 
@@ -70,8 +71,15 @@ export const Footer = () => (
           />
         </Link>
         <p className="text-muted-foreground max-w-md mx-auto md:mx-0 text-sm sm:text-base">
-          Australia's destination for authentic Alibarbar Ingot 9000 disposable vapes. Premium flavours, fast local
-          delivery, and secure checkout for adults 18+.
+          Australia's destination for authentic Alibarbar Ingot 9000 disposable vapes. Local delivery and secure
+          checkout for adults 18+.
+        </p>
+        <p className="text-muted-foreground max-w-md mx-auto md:mx-0 text-sm">
+          <span className="text-foreground font-medium">Store: </span>
+          {storeAddressOneLine()}
+        </p>
+        <p className="text-muted-foreground max-w-md mx-auto md:mx-0 text-xs">
+          {STORE_ADDRESS.note}
         </p>
         <div className="flex gap-3 pt-2 justify-center md:justify-start">
           {(

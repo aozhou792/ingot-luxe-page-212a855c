@@ -26,6 +26,11 @@ export const faqTopics: FaqTopic[] = [
           "Yes. We ship to Australian states and territories including NSW, VIC, QLD, WA, SA, TAS, ACT and NT. Regional and remote areas may take longer than metro areas.",
       },
       {
+        question: "Where is the store?",
+        answer:
+          "Alibarbar Australia is at 480 Queen St, Brisbane City QLD 4000, Australia, on Queen Street in Brisbane CBD. Catalogue orders still ship Australia-wide via Regular Post.",
+      },
+      {
         question: "How long does delivery take?",
         answer:
           "After your bank transfer has been confirmed, delivery usually takes 3-7 business days depending on your state and postcode.",

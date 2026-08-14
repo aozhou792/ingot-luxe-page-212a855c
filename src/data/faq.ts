@@ -27,6 +27,12 @@ export const faqItems: FaqItem[] = [
   },
   {
     category: "Ordering & Shipping",
+    question: "Where is Alibarbar Australia based?",
+    answer:
+      "The store address is 480 Queen St, Brisbane City QLD 4000, Australia, on Queen Street in Brisbane CBD. Catalogue orders still ship Australia-wide via Regular Post. For order help, email orders@ailibarbar.com.",
+  },
+  {
+    category: "Ordering & Shipping",
     question: "How do I know my order went through?",
     answer:
       "After you upload your payment screenshot, our team verifies the transfer and confirms your order. Keep your order number handy if you need to contact us at orders@ailibarbar.com.",
