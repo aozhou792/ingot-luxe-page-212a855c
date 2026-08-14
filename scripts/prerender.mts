@@ -201,7 +201,7 @@ async function runPool(browser: import("puppeteer").Browser, routes: string[]) {
 /** Spot-check that crawlers will not see homepage title on deep URLs. */
 function verifyPrerenderArtifacts(_routes: string[]) {
   // Puppeteer serializes `&` in titles as `&amp;` — match the HTML entity form.
-  const homeTitleHtml = "Alibarbar Ingot 9000 Australia | Flavours &amp; Authentic Store";
+  const homeTitleHtml = "Alibarbar Australia | Online Vape Store";
   const samples: { route: string; mustInclude: string[]; mustNotInclude?: string[] }[] = [
     {
       route: "/",
