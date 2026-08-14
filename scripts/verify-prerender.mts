@@ -14,7 +14,7 @@ function routeToFile(route: string): string {
   return join(DIST, route.replace(/^\//, ""), "index.html");
 }
 
-const homeTitleHtml = "Alibarbar Ingot 9000 Australia | Flavours &amp; Authentic Store";
+const homeTitleHtml = "Alibarbar Australia | Online Vape Store";
 
 const samples: { route: string; mustInclude: string[]; mustNotInclude?: string[] }[] = [
   {
