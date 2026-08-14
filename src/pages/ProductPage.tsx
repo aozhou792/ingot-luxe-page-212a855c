@@ -71,6 +71,26 @@ const ProductPage = () => {
 
   const related = useMemo(() => (product ? getRelatedProducts(product.slug) : []), [product]);
   const selectableFlavors = useMemo(() => getSelectableFlavorProducts(), []);
+  const livePhotoReviews = useMemo(
+    () => liveSchemaReviews.filter(hasReviewPhotos),
+    [liveSchemaReviews],
+  );
+  const livePhotoAggregate = useMemo(
+    () => aggregateFromReviews(livePhotoReviews),
+    [livePhotoReviews],
+  );
+  const schemaReviews = useMemo(
+    () =>
+      toSchemaReviews(
+        livePhotoReviews.map((r) => ({
+          author: r.author,
+          rating: r.rating,
+          body: r.body,
+          createdAt: r.createdAt,
+        })),
+      ),
+    [livePhotoReviews],
+  );
 
   /** Instant jump to top (no smooth scroll). Global `html { scroll-behavior: smooth }` would otherwise animate scrollTo. */
   useLayoutEffect(() => {
@@ -119,26 +139,6 @@ const ProductPage = () => {
   const productKeyTakeaways = deriveProductKeyTakeaways(product, flavourProfile);
   const productBestFor = deriveProductBestFor(product, flavourProfile);
   const productAvoid = deriveProductAvoid(product, flavourProfile);
-  const livePhotoReviews = useMemo(
-    () => liveSchemaReviews.filter(hasReviewPhotos),
-    [liveSchemaReviews],
-  );
-  const livePhotoAggregate = useMemo(
-    () => aggregateFromReviews(livePhotoReviews),
-    [livePhotoReviews],
-  );
-  const schemaReviews = useMemo(
-    () =>
-      toSchemaReviews(
-        livePhotoReviews.map((r) => ({
-          author: r.author,
-          rating: r.rating,
-          body: r.body,
-          createdAt: r.createdAt,
-        })),
-      ),
-    [livePhotoReviews],
-  );
   const schemaRating = livePhotoAggregate;
   const breadcrumbs: BreadcrumbEntry[] = [
     { name: "Home", path: "/" },

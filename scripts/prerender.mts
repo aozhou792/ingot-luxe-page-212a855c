@@ -17,9 +17,11 @@ import { getPrerenderRoutes } from "./prerender-routes.ts";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = resolve(__dirname, "../dist");
 const PORT = 4173;
-const CONCURRENCY = 3;
-const SEO_READY_TIMEOUT_MS = 45_000;
-const NAV_TIMEOUT_MS = 90_000;
+const CONCURRENCY = process.env.VERCEL === "1" ? 1 : 3;
+const SEO_READY_TIMEOUT_MS = 20_000;
+const NAV_TIMEOUT_MS = 30_000;
+const H1_TIMEOUT_MS = 20_000;
+const FAIL_FAST_AFTER = 3;
 let spaShell = "";
 
 function routeToFile(route: string): string {
@@ -64,12 +66,16 @@ async function launchBrowser() {
   const onVercel = process.env.VERCEL === "1";
 
   if (onVercel) {
-    const chromium = await import("@sparticuz/chromium");
-    const puppeteer = await import("puppeteer-core");
-    return puppeteer.default.launch({
-      args: chromium.default.args,
-      executablePath: await chromium.default.executablePath(),
-      headless: true,
+    const chromium = (await import("@sparticuz/chromium")).default;
+    const puppeteer = (await import("puppeteer-core")).default;
+    // New-headless (`headless: true`) leaves a blank document in @sparticuz/chromium.
+    // Official serverless launch is old-headless shell + graphics disabled.
+    chromium.setGraphicsMode = false;
+    return puppeteer.launch({
+      args: puppeteer.defaultArgs({ args: chromium.args, headless: "shell" }),
+      defaultViewport: { width: 1280, height: 720, deviceScaleFactor: 1 },
+      executablePath: await chromium.executablePath(),
+      headless: "shell",
     });
   }
 
@@ -77,6 +83,36 @@ async function launchBrowser() {
   return puppeteer.default.launch({
     headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
+}
+
+function isLocalUrl(url: string) {
+  return (
+    url.startsWith(`http://127.0.0.1:${PORT}`) ||
+    url.startsWith("http://localhost:") ||
+    url.startsWith("data:") ||
+    url.startsWith("blob:")
+  );
+}
+
+async function preparePage(page: import("puppeteer").Page, notes: string[]) {
+  page.on("pageerror", (error) => notes.push(`pageerror: ${error.message}`));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") notes.push(`console: ${msg.text()}`);
+  });
+  page.on("requestfailed", (req) => {
+    const url = req.url();
+    if (url.includes(".js") || url.includes(".mjs") || url.includes(".css")) {
+      notes.push(`requestfailed: ${url} ${req.failure()?.errorText ?? ""}`);
+    }
+  });
+  await page.setRequestInterception(true);
+  page.on("request", (req) => {
+    if (isLocalUrl(req.url())) {
+      void req.continue();
+      return;
+    }
+    void req.abort();
   });
 }
 
@@ -106,10 +142,18 @@ async function waitForSeoReady(page: import("puppeteer").Page) {
   }
 }
 
-async function prerenderRoute(page: import("puppeteer").Page, route: string) {
+async function prerenderRoute(page: import("puppeteer").Page, route: string, notes: string[]) {
+  notes.length = 0;
   const url = `http://127.0.0.1:${PORT}${route}`;
-  await page.goto(url, { waitUntil: "load", timeout: NAV_TIMEOUT_MS });
-  await page.waitForSelector("h1", { timeout: NAV_TIMEOUT_MS });
+  await page.goto(url, { waitUntil: "domcontentloaded", timeout: NAV_TIMEOUT_MS });
+  try {
+    await page.waitForSelector("h1", { timeout: H1_TIMEOUT_MS });
+  } catch (error) {
+    const snippet = (await page.content()).replace(/\s+/g, " ").slice(0, 400);
+    const extra = notes.length > 0 ? ` | ${notes.join(" | ")}` : "";
+    const reason = error instanceof Error ? error.message : String(error);
+    throw new Error(`${reason} html="${snippet}"${extra}`);
+  }
   await waitForSeoReady(page);
   const html = await page.content();
   if (!html.includes('data-seo-ready="true"') && !html.includes("data-seo-ready='true'")) {
@@ -126,12 +170,15 @@ async function runPool(browser: import("puppeteer").Browser, routes: string[]) {
 
   async function worker() {
     const page = await browser.newPage();
+    const notes: string[] = [];
+    await preparePage(page, notes);
     try {
       while (index < routes.length) {
+        if (failures.length >= FAIL_FAST_AFTER) return;
         const route = routes[index++];
         process.stdout.write(`prerender ${route}\n`);
         try {
-          await prerenderRoute(page, route);
+          await prerenderRoute(page, route, notes);
         } catch (error) {
           const message = error instanceof Error ? error.message : String(error);
           console.error(`[${route}] ${message}`);
