@@ -100,14 +100,13 @@ export const Hero = () => {
           </div>
 
           <h1 className="text-[1.75rem] min-[400px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] sm:leading-[1.05] px-1 sm:px-0">
-            Buy Alibarbar <br />
-            <span className="text-gold">Ingot 9000</span> <br />
-            in Australia
+            Alibarbar <br />
+            <span className="text-gold">Australia</span>
           </h1>
 
           <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed px-1 sm:px-0">
-            Australia&apos;s dedicated Alibarbar Ingot 9000 catalogue — authentic devices, 18+ only, and
-            flavour notes with Australia-wide Regular Post after payment confirmation.
+            Australia&apos;s Alibarbar online vape store — authentic Ingot 9000 flavours, custom packs,
+            18+ only, and Australia-wide Regular Post after payment confirmation.
           </p>
 
           <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center justify-center lg:justify-start">

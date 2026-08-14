@@ -106,7 +106,101 @@ export const guides: Guide[] = [
       "how-many-puffs-does-alibarbar-ingot-9000-have",
       "how-to-open-alibarbar-vape",
       "how-long-does-alibarbar-ingot-9000-last",
+      "alibarbar-ingot-9000-vs-ingot-20000",
       "alibarbar-nicotine-strength-australia",
+      "alibarbar-ingot-9000-price-guide-australia",
+    ],
+  },
+  {
+    slug: "alibarbar-ingot-9000-vs-ingot-20000",
+    title: "Alibarbar Ingot 9000 vs Ingot 20000 (Australia)",
+    description:
+      "Alibarbar Ingot 9000 vs Ingot 20000 for Australian buyers — what this store stocks, how the SKUs differ, and how to avoid mixing up Ingot models.",
+    category: "Product Guide",
+    readTime: "6 min read",
+    datePublished: "2026-08-14",
+    dateModified: "2026-08-14",
+    intro:
+      "Searches for Alibarbar Ingot Australia often mix two SKUs: Ingot 9000 and Ingot 20000. This page states what ailibarbar.com currently catalogues, then explains the difference so you do not treat them as the same device.",
+    quickAnswer: {
+      question: "Does Alibarbar Australia sell the Ingot 20000?",
+      answer:
+        "No. Alibarbar Australia currently catalogues the Ingot 9000 only — up to 9000 puffs, 22ml, 2350mAh, non-rechargeable, smart LED. Ingot 20000 is a different Alibarbar SKU commonly listed elsewhere with a higher puff rating and (typically) USB-C recharge. Those third-party figures are not independently verified here. Last reviewed 14 August 2026.",
+    },
+    keyTakeaways: [
+      "This store currently stocks Alibarbar Ingot 9000, not Ingot 20000",
+      "Ingot 9000: up to 9000 puffs, 22ml, 2350mAh, non-rechargeable, LED",
+      "Ingot 20000 is a separate SKU — do not assume the same battery or tank",
+      "If a listing says 20000 puffs plus USB-C, it is not the Ingot 9000 we sell",
+      "Shop the live catalogue at /shop; authenticity guide at /guides/where-to-buy-alibarbar-australia",
+    ],
+    faq: [
+      {
+        question: "Do you sell Alibarbar Ingot 20000 in Australia?",
+        answer:
+          "Not on this site. ailibarbar.com currently lists the Ingot 9000 only. If you need Ingot 20000 specifically, this catalogue will not match that SKU.",
+      },
+      {
+        question: "What is the difference between Alibarbar Ingot 9000 and Ingot 20000?",
+        answer:
+          "Ingot 9000 is the sealed, non-rechargeable device this store catalogues (up to 9000 puffs, 22ml, 2350mAh, smart LED). Ingot 20000 is a different Alibarbar model name used on other listings, usually with a higher puff claim and recharge. Treat them as separate products.",
+      },
+      {
+        question: "Which Alibarbar Ingot can I buy on this site?",
+        answer:
+          "The Alibarbar Ingot 9000 — single flavours and 5/10/20 custom packs. See /shop.",
+      },
+    ],
+    sections: [
+      {
+        heading: "What this Australian store actually sells",
+        paragraphs: [
+          "Alibarbar Australia is an online store for Alibarbar vapes. The live catalogue is the Ingot 9000 family: single flavours and custom packs. We do not currently list Ingot 20000, Upload, or other Alibarbar model names.",
+          "If you searched “Alibarbar Ingot Australia” or “Alibarbar Ingot 20000”, use this page to confirm the SKU before you compare prices.",
+        ],
+      },
+      {
+        heading: "Alibarbar Ingot 9000 (this catalogue)",
+        paragraphs: ["Facts we publish for the Ingot 9000 on this site:"],
+        bullets: [
+          "Rated up to 9000 puffs (usage dependent; not a guaranteed 9000-puff outcome)",
+          "22ml pre-filled e-liquid",
+          "2350mAh built-in battery — not rechargeable",
+          "Smart LED for battery and e-liquid",
+          "Mesh coil, inhale-activated, sealed disposable",
+        ],
+      },
+      {
+        heading: "Alibarbar Ingot 20000 (not in this catalogue)",
+        paragraphs: [
+          "Alibarbar also uses the Ingot name on a higher puff-count SKU commonly listed as Ingot 20000. Other Australian retailers describe it as a rechargeable Ingot with a larger tank. Those listings do not always agree on battery size or accessories.",
+          "This site has not independently verified Ingot 20000 specifications. Do not copy a 20000 listing onto an Ingot 9000 product page, or the other way around.",
+        ],
+      },
+      {
+        heading: "How to tell the SKUs apart",
+        paragraphs: ["Before you pay, match the product name and the spec block:"],
+        bullets: [
+          "Name says Ingot 9000 — should list ~22ml, 2350mAh, no charging port",
+          "Name says Ingot 20000 — typically a higher puff claim and USB-C recharge on other sites",
+          "If the page mixes 9000 puff copy with a 20000 title, treat it as inconsistent",
+          "This store’s product URLs and flavour pages refer to Ingot 9000 only",
+        ],
+      },
+      {
+        heading: "If you wanted Ingot 20000",
+        paragraphs: [
+          "You will not find it in /shop. The closest device we sell is the Ingot 9000. Read the product guide and flavour ranking, then decide whether a non-rechargeable 9000-puff Ingot suits you.",
+          "For where to buy genuine Alibarbar in Australia — including authenticity checks — use the where-to-buy guide. Catalogue copy is not a TGA lawful-supply determination.",
+        ],
+      },
+    ],
+    relatedProducts: ["custom-5-pack", "quadruple-berry", "peach-ice"],
+    relatedGuides: [
+      "what-is-alibarbar-ingot-9000",
+      "where-to-buy-alibarbar-australia",
+      "how-many-puffs-does-alibarbar-ingot-9000-have",
+      "can-you-recharge-alibarbar-ingot-9000",
       "alibarbar-ingot-9000-price-guide-australia",
     ],
   },
@@ -830,6 +924,7 @@ export const guides: Guide[] = [
       "disposable-vape-laws-in-australia",
       "alibarbar-buying-guide-australia",
       "where-to-buy-alibarbar-australia",
+      "alibarbar-ingot-9000-vs-ingot-20000",
       "alibarbar-nicotine-strength-australia",
       "how-to-spot-fake-alibarbar-ingot",
     ],
@@ -931,28 +1026,29 @@ export const guides: Guide[] = [
       "where-to-buy-alibarbar-australia",
       "disposable-vape-laws-in-australia",
       "alibarbar-18-plus-age-verification-australia",
+      "alibarbar-ingot-9000-vs-ingot-20000",
       "alibarbar-nicotine-strength-australia",
       "alibarbar-ingot-9000-price-guide-australia",
     ],
   },
   {
     slug: "where-to-buy-alibarbar-australia",
-    title: "Where to Buy Alibarbar in Australia (Genuine Ingot 9000)",
+    title: "Where to Buy Alibarbar in Australia",
     description:
-      "Where to buy genuine Alibarbar Ingot 9000 in Australia — authenticity checklist, red flags, shipping expectations and how to avoid counterfeits.",
+      "Where to buy Alibarbar in Australia — genuine Ingot 9000 from an online store, authenticity checklist, red flags, AU shipping and how to avoid counterfeits.",
     category: "Buying Guide",
     readTime: "7 min read",
     datePublished: "2026-07-27",
-    dateModified: "2026-08-13",
+    dateModified: "2026-08-14",
     intro:
-      "Searching where to buy Alibarbar Australia usually means two questions: what the current lawful supply framework is, and how to recognise genuine Ingot 9000 specifications. Start with the TGA rules, then use the authenticity checklist. Catalogue pages on this site are not proof of lawful non-pharmacy supply.",
+      "Where to buy Alibarbar in Australia usually means two questions: what the current lawful supply framework is, and how to recognise genuine Ingot stock. Start with the TGA rules, then use the authenticity checklist. Alibarbar Australia is an online store at ailibarbar.com — catalogue pages are not proof of lawful non-pharmacy supply.",
     quickAnswer: {
       question: "Where can I buy genuine Alibarbar in Australia?",
       answer:
-        "Lawful supply of vapes in Australia is currently described as pharmacy settings for therapeutic purposes — not ordinary non-pharmacy retail. Separately, genuine Ingot 9000 units match up to 9000 puffs, 22ml, 2350mAh and a smart LED. Treat ailibarbar.com catalogue copy as product information, not a legal determination. Verify TGA and local rules. Last reviewed 13 August 2026.",
+        "Lawful supply of vapes in Australia is currently described as pharmacy settings for therapeutic purposes — not ordinary non-pharmacy retail. Separately, genuine Ingot 9000 units match up to 9000 puffs, 22ml, 2350mAh and a smart LED. Treat ailibarbar.com catalogue copy as product information, not a legal determination. Verify TGA and local rules. Last reviewed 14 August 2026.",
     },
     keyTakeaways: [
-      "Prefer specialist Alibarbar / Ingot 9000 retailers over mystery marketplaces",
+      "Prefer a specialist Alibarbar online store or vape shop over mystery marketplaces",
       "Verify 22ml + LED + 9000-puff specs on the product page",
       "18+ age gate and AU shipping details should be explicit",
       "Counterfeits often cut corners on packaging and display",
@@ -960,9 +1056,9 @@ export const guides: Guide[] = [
     ],
     faq: [
       {
-        question: "Where to buy Alibarbar Ingot 9000 in Australia?",
+        question: "Where to buy Alibarbar in Australia?",
         answer:
-          "First check current TGA and state or territory rules: vapes are framed as pharmacy / therapeutic supply, not general retail. For product identification, look for accurate Ingot 9000 specs (up to 9000 puffs, 22ml, LED). ailibarbar.com lists a catalogue — that is not a lawful-supply certificate.",
+          "Alibarbar Australia is an online store at ailibarbar.com with Australia-wide shipping. First check current TGA and state or territory rules: vapes are framed as pharmacy / therapeutic supply, not general retail. For product identification, look for accurate Ingot 9000 specs (up to 9000 puffs, 22ml, LED). Catalogue copy is not a lawful-supply certificate.",
       },
       {
         question: "How do I know Alibarbar stock is genuine?",
@@ -976,6 +1072,13 @@ export const guides: Guide[] = [
       },
     ],
     sections: [
+      {
+        heading: "Alibarbar online store vs a local vape shop",
+        paragraphs: [
+          "Most “where to buy Alibarbar in Australia” searches are looking for an online store that ships nationally, not a single high-street counter. Alibarbar Australia is that online vape shop: flavours and packs are listed at /shop, with Regular Post after payment confirmation.",
+          "A local shop can still be useful if you can inspect packaging in person. Online, you rely on published specs, an 18+ age gate, AUD pricing and a real Australian contact path.",
+        ],
+      },
       {
         heading: "Lawful supply first, then authenticity",
         paragraphs: [
@@ -1026,6 +1129,7 @@ export const guides: Guide[] = [
       "how-to-spot-fake-alibarbar-ingot",
       "alibarbar-buying-guide-australia",
       "best-alibarbar-flavours-australia",
+      "alibarbar-ingot-9000-vs-ingot-20000",
       "alibarbar-ingot-9000-price-guide-australia",
       "alibarbar-nicotine-strength-australia",
     ],

@@ -121,7 +121,7 @@ const brandNode = {
   name: "ALIBARBAR",
   url: `${SITE_URL}/brands/alibarbar`,
   description:
-    "ALIBARBAR is the product brand behind the Ingot 9000 disposable vape. Alibarbar Australia is the site entity on this domain, not a second brand name.",
+    "ALIBARBAR is the product brand behind the Ingot line. Alibarbar Australia is the online store and site entity on this domain, currently cataloguing the Ingot 9000.",
   hasProduct: products
     .filter((p) => !p.isPlaceholder)
     .map((p) => ({ "@id": ENTITY.productId(p.slug) })),
@@ -143,7 +143,7 @@ const organizationNode = {
   brand: { "@id": ENTITY.brandId },
   subOrganization: { "@id": ENTITY.storeId },
   description:
-    "Alibarbar Australia is the site entity for ailibarbar.com. It publishes catalogue information, guides and reviews for the Alibarbar Ingot 9000. Lawful supply in Australia must be checked against current TGA and state or territory rules.",
+    "Alibarbar Australia is the online store and site entity for ailibarbar.com. It publishes catalogue information, guides and reviews for Alibarbar Ingot devices, currently the Ingot 9000. Lawful supply in Australia must be checked against current TGA and state or territory rules.",
   areaServed: { "@type": "Country", name: "Australia" },
   address: storePostalAddressJsonLd(),
   contactPoint: {
@@ -285,6 +285,7 @@ const HOMEPAGE_FAQ_QUESTIONS = new Set([
   "How much is shipping in Australia?",
   "How do I pay for my order?",
   "Do I need to be over 18 to order?",
+  "Where can I buy Alibarbar in Australia?",
   "What is the Alibarbar Ingot 9000?",
   "How many puffs does the Alibarbar Ingot 9000 have?",
   "Are your products authentic?",
@@ -314,9 +315,14 @@ export const siteJsonLd = {
         name: "Australia",
       },
       knowsAbout: [
-        "disposable vapes",
+        "Alibarbar Australia",
+        "Alibarbar vape Australia",
+        "Alibarbar online store",
+        "Alibarbar vape shop Australia",
+        "where to buy Alibarbar in Australia",
+        "Alibarbar Ingot",
         "Alibarbar Ingot 9000",
-        "high puff disposable vapes Australia",
+        "disposable vapes",
         "vape flavours",
       ],
       brand: { "@id": ENTITY.brandId },

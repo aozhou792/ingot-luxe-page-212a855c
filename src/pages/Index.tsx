@@ -34,8 +34,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Alibarbar Ingot 9000 Australia | Flavours & Authentic Store"
-        description="Shop Alibarbar Ingot 9000 flavours in Australia. Authentic disposable vapes, custom packs, AU shipping and secure bank-transfer checkout for adults 18+."
+        title="Alibarbar Australia | Online Vape Store"
+        description="Shop Alibarbar vapes online in Australia. Authentic Ingot 9000 from an Australian online store — flavours, custom packs and AU shipping. Adults 18+."
         path="/"
         jsonLd={siteJsonLd}
       />

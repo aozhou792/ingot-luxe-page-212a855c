@@ -33,6 +33,18 @@ export const faqItems: FaqItem[] = [
   },
   {
     category: "Ordering & Shipping",
+    question: "Where can I buy Alibarbar in Australia?",
+    answer:
+      "Alibarbar Australia is an online store at ailibarbar.com. Catalogue orders ship Australia-wide. Lawful supply of vapes in Australia is currently described as pharmacy settings for therapeutic purposes — this site’s catalogue is not a lawful-supply determination. For authenticity checks, see /guides/where-to-buy-alibarbar-australia.",
+  },
+  {
+    category: "Ordering & Shipping",
+    question: "Is ailibarbar.com an Alibarbar vape shop?",
+    answer:
+      "Yes. Alibarbar Australia is an Australian online vape store for authentic Alibarbar Ingot devices. The live catalogue currently lists the Ingot 9000 (single flavours and custom packs), not every Alibarbar SKU. Shop at /shop.",
+  },
+  {
+    category: "Ordering & Shipping",
     question: "How do I know my order went through?",
     answer:
       "After you upload your payment screenshot, our team verifies the transfer and confirms your order. Keep your order number handy if you need to contact us at orders@ailibarbar.com.",
@@ -66,6 +78,12 @@ export const faqItems: FaqItem[] = [
     question: "What is the Alibarbar Ingot 9000?",
     answer:
       "The Alibarbar Ingot 9000 is a pre-filled, pre-charged sealed disposable rated for up to 9000 puffs (usage dependent). It has a 22ml e-liquid tank, a 2350mAh non-rechargeable battery, and a built-in LED that shows remaining battery and e-liquid.",
+  },
+  {
+    category: "Product & Usage",
+    question: "Do you sell the Alibarbar Ingot 20000?",
+    answer:
+      "No. This catalogue currently lists the Alibarbar Ingot 9000 only. Ingot 20000 is a different Alibarbar SKU commonly listed elsewhere with a higher puff rating. See /guides/alibarbar-ingot-9000-vs-ingot-20000 for the difference.",
   },
   {
     category: "Product & Usage",

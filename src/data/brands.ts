@@ -31,7 +31,7 @@ export const brands: Brand[] = [
     intro:
       "Alibarbar is the brand behind the Ingot 9000, a high-capacity disposable vape designed for adult users who want longevity and simplicity in one device.",
     overview: [
-      "Alibarbar’s current catalogue centres on the Ingot 9000, a sealed disposable with a 22ml e-liquid tank, a 2350mAh non-rechargeable battery and a smart LED that shows remaining battery and e-liquid.",
+      "Alibarbar’s current catalogue on this site centres on the Ingot 9000, a sealed disposable with a 22ml e-liquid tank, a 2350mAh non-rechargeable battery and a smart LED that shows remaining battery and e-liquid. Other Ingot SKUs such as Ingot 20000 are not listed here.",
       "The range is built around a curated set of flavours plus a build-your-own 5 Flavour Custom Pack, so customers can find or mix the profiles they like.",
     ],
     knownFor: [

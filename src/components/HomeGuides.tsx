@@ -6,7 +6,7 @@ import { guides } from "@/data/guides";
 const FEATURED_GUIDE_SLUGS = [
   "best-alibarbar-flavours-australia",
   "where-to-buy-alibarbar-australia",
-  "how-many-puffs-does-alibarbar-ingot-9000-have",
+  "alibarbar-ingot-9000-vs-ingot-20000",
 ] as const;
 
 /** Surfaces the knowledge centre on the homepage for internal linking + GEO. */
@@ -27,7 +27,7 @@ export const HomeGuides = () => {
               Alibarbar <span className="text-gold">guides</span>
             </h2>
             <p className="text-muted-foreground mt-3 text-sm sm:text-base">
-              Ranked flavours, where to buy genuine stock, and Ingot 9000 specs for adult buyers in Australia.
+              Ranked flavours, where to buy Alibarbar in Australia, and Ingot 9000 vs 20000 for adult buyers.
             </p>
             <Link
               to="/best-alibarbar-australia"

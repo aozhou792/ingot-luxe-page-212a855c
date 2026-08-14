@@ -19,16 +19,16 @@ const ShopPage = () => {
       {
         "@type": "CollectionPage",
         "@id": `${SITE_URL}/shop#webpage`,
-        name: "Shop Alibarbar Ingot 9000 Australia",
+        name: "Alibarbar Australia Online Store",
         description:
-          "Browse authentic Alibarbar Ingot 9000 flavours and custom packs for sale in Australia with clear pricing, stock status and local shipping.",
+          "Shop Alibarbar vapes online in Australia — authentic Ingot 9000 flavours and custom packs with clear pricing, stock status and local shipping.",
         url: `${SITE_URL}/shop`,
         isPartOf: { "@id": `${SITE_URL}/#website` },
         inLanguage: "en-AU",
       },
       {
         "@type": "ItemList",
-        name: "Alibarbar Ingot 9000 products for sale",
+        name: "Alibarbar vape shop Australia — products for sale",
         numberOfItems: shopProducts.length,
         itemListElement: shopProducts.map((product, index) => ({
           "@type": "ListItem",
@@ -47,8 +47,8 @@ const ShopPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="Shop Alibarbar Ingot 9000 Australia | Buy Flavours & Packs"
-        description="Buy authentic Alibarbar Ingot 9000 disposable vapes in Australia. Browse in-stock flavours and 5/10/20 custom packs with AU shipping and secure bank-transfer checkout for adults 18+."
+        title="Alibarbar Australia Online Store | Vape Shop"
+        description="Alibarbar online Australia — shop authentic Ingot 9000 flavours and custom packs from a dedicated vape shop. AU shipping, bank-transfer checkout, adults 18+."
         path="/shop"
         jsonLd={jsonLd}
       />
@@ -64,18 +64,26 @@ const ShopPage = () => {
           </nav>
 
           <header className="mb-10 sm:mb-14 max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.25em] text-primary mb-3 font-semibold">Shop</p>
+            <p className="text-xs uppercase tracking-[0.25em] text-primary mb-3 font-semibold">Alibarbar vape shop</p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
-              Buy Alibarbar Ingot 9000 <span className="text-gold">in Australia</span>
+              Alibarbar Australia <span className="text-gold">online store</span>
             </h1>
             <p className="text-muted-foreground mt-4 text-sm sm:text-base leading-relaxed">
-              Authentic Ingot 9000 flavours and custom packs from an independent Australian retailer. Check stock,
-              compare prices, then check out with secure bank transfer. Adults 18+ only.
+              Shop Alibarbar vapes online in Australia. This vape shop catalogues authentic Ingot 9000 flavours and
+              custom packs — check stock, compare prices, then check out with secure bank transfer. Adults 18+ only.
             </p>
             <p className="mt-3 text-sm text-muted-foreground">
               Looking for taste notes first?{" "}
               <Link to="/flavours" className="text-primary font-semibold hover:text-gold">
                 Browse the flavour guide
+              </Link>
+              . Not sure this is the right Ingot SKU?{" "}
+              <Link to="/guides/alibarbar-ingot-9000-vs-ingot-20000" className="text-primary font-semibold hover:text-gold">
+                Ingot 9000 vs 20000
+              </Link>
+              {" "}or{" "}
+              <Link to="/guides/where-to-buy-alibarbar-australia" className="text-primary font-semibold hover:text-gold">
+                where to buy Alibarbar in Australia
               </Link>
               .
             </p>

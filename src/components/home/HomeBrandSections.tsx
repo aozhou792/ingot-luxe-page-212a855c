@@ -14,10 +14,10 @@ export const HomeIntroduction = () => (
       <div className="reveal space-y-5 text-muted-foreground leading-[1.8] text-sm sm:text-base">
         <p className="text-xs uppercase tracking-[0.25em] text-primary font-semibold">Alibarbar Australia</p>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-foreground leading-tight">
-          Australia&apos;s dedicated Alibarbar Ingot 9000 store
+          Australia&apos;s Alibarbar online vape store
         </h2>
         <p>
-          Alibarbar Australia is the site entity on ailibarbar.com, built around one product family: the{" "}
+          Alibarbar Australia is the site entity on ailibarbar.com — an online store and knowledge hub for the{" "}
           <strong className="text-foreground font-semibold">Alibarbar Ingot 9000</strong> disposable vape. We publish
           specifications, flavour notes and catalogue information for adult readers (18+). Australian lawful supply of
           vapes must be checked against current TGA and state or territory rules — this site is not a pharmacy.

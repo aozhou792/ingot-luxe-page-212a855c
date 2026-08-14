@@ -15,7 +15,7 @@ const GuidesIndexPage = () => {
       {
         "@type": "CollectionPage",
         name: "Alibarbar Vape Guides",
-        description: "Guides and resources for Alibarbar Ingot 9000 disposable vapes in Australia.",
+        description: "Guides and resources for Alibarbar vapes in Australia — Ingot specs, where to buy and flavour picks.",
         url: "https://www.ailibarbar.com/guides",
       },
       {
@@ -32,7 +32,7 @@ const GuidesIndexPage = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="Vape Guides & Resources | Alibarbar Australia"
-        description="Read Alibarbar Ingot 9000 guides — how disposable vapes work, how long they last, puff counts, flavour picks and Australian vaping basics."
+        description="Read Alibarbar vape guides for Australia — where to buy, Ingot 9000 vs 20000, puff counts, flavour picks and buying basics."
         path="/guides"
         jsonLd={jsonLd}
       />

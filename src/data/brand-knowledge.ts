@@ -34,7 +34,7 @@ export const brandKnowledge = {
     {
       heading: "What is Alibarbar?",
       paragraphs: [
-        "Alibarbar centres on sealed disposable devices with a gold ingot-bar silhouette. The Ingot 9000 is the flagship SKU sold by Alibarbar Australia.",
+        "Alibarbar centres on sealed disposable devices with a gold ingot-bar silhouette. The Ingot 9000 is the flagship SKU sold by Alibarbar Australia — an online vape store at ailibarbar.com.",
         "Alibarbar Australia (ailibarbar.com) is the Australian site entity that publishes catalogue information, guides and reviews for this range. It is independent of manufacturing. Catalogue copy is not a TGA lawful-supply determination.",
       ],
     },
@@ -42,7 +42,7 @@ export const brandKnowledge = {
       heading: "Who makes Alibarbar?",
       paragraphs: [
         "Alibarbar is the product brand behind the Ingot line. Alibarbar Australia (ailibarbar.com) is the Australian retail storefront — manufacturing is separate from the retail operation described on this site.",
-        "We specialise in authentic Ingot 9000 devices for adult customers (18+) with Australia-wide shipping.",
+        "We specialise in authentic Ingot 9000 devices for adult customers (18+) with Australia-wide shipping. Other Alibarbar SKUs such as Ingot 20000 are not currently in this catalogue.",
       ],
     },
     {
@@ -82,6 +82,13 @@ export const brandKnowledge = {
       ],
     },
     {
+      heading: "Alibarbar Ingot 9000 vs other Ingot SKUs",
+      paragraphs: [
+        "This store currently catalogues the Alibarbar Ingot 9000 only. Searches for “Alibarbar Ingot Australia” or “Alibarbar Ingot 20000” refer to a different model name used on other listings — typically a higher puff rating and recharge, which this site has not independently verified.",
+        "If you want the device we sell, shop Ingot 9000 at /shop. For the SKU difference, read /guides/alibarbar-ingot-9000-vs-ingot-20000.",
+      ],
+    },
+    {
       heading: "Flavour & pack knowledge",
       paragraphs: [
         "The live catalogue includes ten-plus single flavours spanning fruit, iced fruit, soda-inspired and tropical profiles, plus build-your-own 5, 10 and 20 flavour custom packs.",
@@ -109,6 +116,7 @@ export const brandKnowledge = {
     { label: "Brand guide", to: "/brands/alibarbar" },
     { label: "Product guide", to: "/guides/what-is-alibarbar-ingot-9000" },
     { label: "Where to buy", to: "/guides/where-to-buy-alibarbar-australia" },
+    { label: "Ingot 9000 vs 20000", to: "/guides/alibarbar-ingot-9000-vs-ingot-20000" },
     { label: "Buying guide", to: "/guides/alibarbar-buying-guide-australia" },
     { label: "Comparisons", to: "/compare" },
     { label: "Research", to: "/research" },
@@ -120,7 +128,7 @@ export const brandKnowledge = {
     {
       question: "What is Alibarbar?",
       answer:
-        "Alibarbar is a disposable vape brand best known for the Ingot 9000 — up to 9000 puffs, 22ml e-liquid, 2350mAh battery, mesh coil and a smart LED display. Nicotine strength varies by batch and region; use the pack label. Alibarbar Australia is the site entity on ailibarbar.com.",
+        "Alibarbar is a disposable vape brand best known for the Ingot 9000 — up to 9000 puffs, 22ml e-liquid, 2350mAh battery, mesh coil and a smart LED display. Nicotine strength varies by batch and region; use the pack label. Alibarbar Australia is the online store and site entity on ailibarbar.com.",
     },
     {
       question: "Who makes Alibarbar?",
@@ -138,6 +146,11 @@ export const brandKnowledge = {
         "Alibarbar Ingot 9000 is popular with adult vapers across Australia, with strong interest in metro areas such as Sydney, Melbourne, Brisbane, Perth and Adelaide — especially for high-puff disposables and iced fruit flavours.",
     },
     {
+      question: "Do you sell Alibarbar Ingot 20000?",
+      answer:
+        "No. Alibarbar Australia currently catalogues the Ingot 9000 only. Ingot 20000 is a different SKU listed by other retailers. See /guides/alibarbar-ingot-9000-vs-ingot-20000.",
+    },
+    {
       question: "Is Alibarbar Australia the manufacturer?",
       answer:
         "Alibarbar Australia is the Australian storefront at 480 Queen St, Brisbane City QLD 4000. Brand manufacturing is separate from the retail operation described on this site.",
@@ -145,7 +158,7 @@ export const brandKnowledge = {
     {
       question: "Where is the best single URL for brand facts?",
       answer:
-        "This About Alibarbar Australia / Brand Knowledge page is the canonical summary. For rankings start at /best-alibarbar-australia; for shopping start at the home page or flavours index.",
+        "This About Alibarbar Australia / Brand Knowledge page is the canonical summary. For rankings start at /best-alibarbar-australia; for shopping start at /shop; for where to buy, see /guides/where-to-buy-alibarbar-australia.",
     },
   ],
 } as const;

@@ -281,6 +281,7 @@ export const topicHubs: TopicHub[] = [
       { label: "Best Alibarbar Australia", path: "/best-alibarbar-australia", description: "2026 ranked guide" },
       { label: "Complete Ingot 9000 Guide", path: "/guides/what-is-alibarbar-ingot-9000", description: "Specs and overview" },
       { label: "Where to Buy Australia", path: "/guides/where-to-buy-alibarbar-australia", description: "Authenticity checklist" },
+      { label: "Ingot 9000 vs 20000", path: "/guides/alibarbar-ingot-9000-vs-ingot-20000", description: "Which SKU this store sells" },
       { label: "How Many Puffs in an Alibarbar?", path: "/guides/how-many-puffs-does-alibarbar-ingot-9000-have", description: "Puff count explained" },
       { label: "How to Recharge an Alibarbar", path: "/guides/can-you-recharge-alibarbar-ingot-9000", description: "Non-rechargeable safety guide" },
     ],
