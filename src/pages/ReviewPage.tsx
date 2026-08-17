@@ -13,6 +13,7 @@ import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
 import { QuickAnswer } from "@/components/seo/QuickAnswer";
 import { Seo, reviewJsonLd, type BreadcrumbEntry } from "@/components/Seo";
 import { defaultGuideCitations } from "@/data/citations";
+import { CATALOGUE_PRICES_AUD } from "@/data/canonical-facts";
 import { getProductBySlug } from "@/data/products";
 import { getReviewBySlug, getReviewRatingValue, reviewPosts } from "@/data/reviews";
 import { SITE_URL } from "@/data/site";
@@ -79,7 +80,7 @@ const ReviewPage = () => {
     productName: schemaProductName,
     productPath: schemaProductPath,
     productDescription: schemaProductDescription,
-    price: offerProduct?.price ?? "40",
+    price: offerProduct?.price ?? String(CATALOGUE_PRICES_AUD.single),
     inStock: offerProduct?.inStock ?? true,
     ratingValue: getReviewRatingValue(review),
     breadcrumbs,

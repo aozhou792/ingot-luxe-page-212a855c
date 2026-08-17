@@ -1665,17 +1665,17 @@ export const guides: Guide[] = [
     category: "Buying Guide",
     readTime: "14 min read",
     datePublished: "2026-07-31",
-    dateModified: "2026-08-04",
+    dateModified: "2026-08-17",
     intro:
       "If you are comparing Alibarbar Ingot 9000 prices in Australia, you need more than a headline dollar figure. This 2026 guide breaks down single-device and custom-pack pricing at Alibarbar Australia, adds shipping into the true cost, and explains why unusually low marketplace deals are often a risk — not a bargain.",
     quickAnswer: {
       question: "How much does the Alibarbar Ingot 9000 cost in Australia?",
       answer:
-        "At Alibarbar Australia, single Ingot 9000 flavours are typically A$40 each (promotional vs a higher compare-at price). Custom packs are A$190 for 5, A$350 for 10 and A$600 for 20 devices. Regular Post is A$15 for 1–9 devices, A$10 for 10–19, and free for 20+. Prices are AUD and can change — confirm at checkout.",
+        "At Alibarbar Australia, single Ingot 9000 flavours are typically A$35 each (promotional vs a higher compare-at price). Custom packs are A$165 for 5, A$300 for 10 and A$500 for 20 devices. Regular Post is A$15 for 1–9 devices, A$10 for 10–19, and free for 20+. Prices are AUD and can change — confirm at checkout.",
     },
     keyTakeaways: [
-      "Singles typically A$40 AUD at Alibarbar Australia (confirm live cart)",
-      "Custom packs: A$190 / A$350 / A$600 for 5 / 10 / 20 devices",
+      "Singles typically A$35 AUD at Alibarbar Australia (confirm live cart)",
+      "Custom packs: A$165 / A$300 / A$500 for 5 / 10 / 20 devices",
       "Shipping: A$15 (1–9), A$10 (10–19), free (20+)",
       "Packs usually beat buying the same count as singles",
       "Extreme underpricing is a common counterfeit or grey-market signal",
@@ -1685,7 +1685,7 @@ export const guides: Guide[] = [
       {
         heading: "Current single-device price",
         paragraphs: [
-          "Individual Alibarbar Ingot 9000 flavours on Alibarbar Australia are listed at A$40, with a higher compare-at / original price shown when a promotion is active (commonly A$55 struck through). That unit price applies across the current flavour range unless a product page states otherwise.",
+          "Individual Alibarbar Ingot 9000 flavours on Alibarbar Australia are listed at A$35, with a higher compare-at / original price shown when a promotion is active (commonly A$55 struck through). That unit price applies across the current flavour range unless a product page states otherwise.",
           "Prices can change with stock and promotions. Always treat the amount in your cart and bank-transfer instructions as final — not a screenshot from an older article.",
         ],
       },
@@ -1695,17 +1695,17 @@ export const guides: Guide[] = [
           "Custom packs lower the effective price per device when you want variety or volume:",
         ],
         bullets: [
-          "5 Flavour Custom Pack — A$190 (A$38 per device vs A$40 singles)",
-          "10 Flavour Custom Pack — A$350 (A$35 per device)",
-          "20 Flavour Custom Pack — A$600 (A$30 per device) with free Regular Post",
+          "5 Flavour Custom Pack — A$165 (A$33 per device vs A$35 singles)",
+          "10 Flavour Custom Pack — A$300 (A$30 per device)",
+          "20 Flavour Custom Pack — A$500 (A$25 per device) with free Regular Post",
           "Compare-at pack prices are higher — the live promotional price is what you pay at checkout",
         ],
       },
       {
         heading: "How shipping changes the true cost",
         paragraphs: [
-          "Alibarbar Australia uses tiered Regular Post by device count: A$15 for orders of 1–9 devices, A$10 for 10–19 devices, and free shipping for 20 or more. A single A$40 device with A$15 shipping is A$55 landed before you think about future reorders.",
-          "A 10-pack at A$350 plus A$10 shipping, or a 20-pack at A$600 with free shipping, usually wins on cost per device for adults who already know they will use the stock. Light triallers often start with a 5-pack despite a slightly higher per-unit figure than the largest packs.",
+          "Alibarbar Australia uses tiered Regular Post by device count: A$15 for orders of 1–9 devices, A$10 for 10–19 devices, and free shipping for 20 or more. A single A$35 device with A$15 shipping is A$50 landed before you think about future reorders.",
+          "A 10-pack at A$300 plus A$10 shipping, or a 20-pack at A$500 with free shipping, usually wins on cost per device for adults who already know they will use the stock. Light triallers often start with a 5-pack despite a slightly higher per-unit figure than the largest packs.",
         ],
       },
       {
@@ -1747,12 +1747,12 @@ export const guides: Guide[] = [
       {
         question: "How much is one Alibarbar Ingot 9000 in Australia?",
         answer:
-          "Single flavours at Alibarbar Australia are typically A$40 each during current promotions. Confirm the live product page and cart total before you transfer payment.",
+          "Single flavours at Alibarbar Australia are typically A$35 each during current promotions. Confirm the live product page and cart total before you transfer payment.",
       },
       {
         question: "How much are the 5, 10 and 20 custom packs?",
         answer:
-          "The 5 Flavour Custom Pack is A$190, the 10-pack is A$350, and the 20-pack is A$600. Larger packs reduce the price per device; the 20-pack includes free Regular Post shipping.",
+          "The 5 Flavour Custom Pack is A$165, the 10-pack is A$300, and the 20-pack is A$500. Larger packs reduce the price per device; the 20-pack includes free Regular Post shipping.",
       },
       {
         question: "How much is shipping?",

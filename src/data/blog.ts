@@ -495,7 +495,7 @@ export const blogPosts: BlogPost[] = [
       {
         question: "Where does Alibarbar Ingot 9000 fit?",
         answer:
-          "It targets high capacity with aligned specs and an LED to reduce waste from surprise empty devices. Packs at A$190 / A$350 / A$600 further lower per-device cost.",
+          "It targets high capacity with aligned specs and an LED to reduce waste from surprise empty devices. Packs at A$165 / A$300 / A$500 further lower per-device cost.",
       },
     ],
     sections: [
@@ -529,7 +529,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Alibarbar Australia pricing in the formula",
         paragraphs: [
-          "Singles are typically A$40. Custom packs are A$190 (5), A$350 (10) and A$600 (20). Shipping is A$15 for 1–9 devices, A$10 for 10–19, and free for 20+.",
+          "Singles are typically A$35. Custom packs are A$165 (5), A$300 (10) and A$500 (20). Shipping is A$15 for 1–9 devices, A$10 for 10–19, and free for 20+.",
           "A solo single with shipping has a higher landed cost than a 10- or 20-pack for adults who already know they will go through stock. See the full price guide for pack maths.",
         ],
       },

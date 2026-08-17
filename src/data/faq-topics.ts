@@ -243,17 +243,17 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "What is the 5 Flavour Custom Pack?",
         answer:
-          "The 5 Flavour Custom Pack lets you pick any five flavours from our current Alibarbar Ingot 9000 collection for A$190. Repeats are allowed, and your choices are saved with your order.",
+          "The 5 Flavour Custom Pack lets you pick any five flavours from our current Alibarbar Ingot 9000 collection for A$165. Repeats are allowed, and your choices are saved with your order.",
       },
       {
         question: "What is the 10 Flavour Custom Pack?",
         answer:
-          "The 10 Flavour Custom Pack lets you choose any ten flavours from the current line-up for A$350.",
+          "The 10 Flavour Custom Pack lets you choose any ten flavours from the current line-up for A$300.",
       },
       {
         question: "What is the 20 Flavour Custom Pack?",
         answer:
-          "The 20 Flavour Custom Pack lets you pick any twenty flavours from our current Alibarbar Ingot 9000 collection for A$600, with free Regular Post shipping (20+ devices).",
+          "The 20 Flavour Custom Pack lets you pick any twenty flavours from our current Alibarbar Ingot 9000 collection for A$500, with free Regular Post shipping (20+ devices).",
       },
       {
         question: "How should I store my Alibarbar Ingot?",

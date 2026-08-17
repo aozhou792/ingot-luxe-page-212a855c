@@ -11,7 +11,7 @@ import strawberryIce from "@/assets/flavor-strawberry-ice.png";
 import custom5Pack from "@/assets/custom-5-pack.png";
 import custom10Pack from "@/assets/Alibarbar-10-pcs_1800x.webp";
 import custom20Pack from "@/assets/custom-20-pack.png";
-import { NICOTINE, PRODUCT_FAMILY } from "@/data/canonical-facts";
+import { CATALOGUE_PRICES_AUD, NICOTINE, PRODUCT_FAMILY } from "@/data/canonical-facts";
 
 export type Product = {
   slug: string;
@@ -90,7 +90,7 @@ export const products: Product[] = [
   {
     slug: "custom-5-pack",
     name: "5 Flavour Custom Pack",
-    price: "190",
+    price: String(CATALOGUE_PRICES_AUD.pack5),
     originalPrice: "200",
     img: custom5Pack,
     tag: "Best Value",
@@ -113,7 +113,7 @@ Each pack includes five Alibarbar Ingot 9000 Puffs devices. Select your preferre
   {
     slug: "custom-10-pack",
     name: "10 Flavour Custom Pack",
-    price: "350",
+    price: String(CATALOGUE_PRICES_AUD.pack10),
     originalPrice: "550",
     img: custom10Pack,
     tag: "Bulk Pack",
@@ -136,7 +136,7 @@ Each pack includes ten Alibarbar Ingot 9000 Puffs devices. Select your preferred
   {
     slug: "custom-20-pack",
     name: "20 Flavour Custom Pack",
-    price: "600",
+    price: String(CATALOGUE_PRICES_AUD.pack20),
     originalPrice: "1100",
     img: custom20Pack,
     tag: "Free Shipping",
@@ -160,7 +160,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "quadruple-berry",
     name: "Quadruple Berry",
-    price: "40",
+    price: String(CATALOGUE_PRICES_AUD.single),
     originalPrice: "55",
     img: quadrupleBerry,
     tag: "Fruity",
@@ -173,7 +173,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "fanta",
     name: "Fanta",
-    price: "40",
+    price: String(CATALOGUE_PRICES_AUD.single),
     originalPrice: "55",
     img: fanta,
     tag: "Citrus",
@@ -186,7 +186,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "lychee",
     name: "Lychee",
-    price: "40",
+    price: String(CATALOGUE_PRICES_AUD.single),
     originalPrice: "55",
     img: lychee,
     tag: "Fruity",
@@ -199,7 +199,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "peach-ice",
     name: "Peach Ice",
-    price: "40",
+    price: String(CATALOGUE_PRICES_AUD.single),
     originalPrice: "55",
     img: peachIce,
     tag: "Iced",
@@ -212,7 +212,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "blackberry-ice",
     name: "Blackberry Ice",
-    price: "40",
+    price: String(CATALOGUE_PRICES_AUD.single),
     originalPrice: "55",
     img: blackberry,
     tag: "Iced",
@@ -225,7 +225,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "mango-magic",
     name: "Mango Magic",
-    price: "40",
+    price: String(CATALOGUE_PRICES_AUD.single),
     originalPrice: "55",
     img: mango,
     tag: "Tropical",
@@ -238,7 +238,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "strawberry-coconut-watermelon",
     name: "Strawberry Coconut Watermelon",
-    price: "40",
+    price: String(CATALOGUE_PRICES_AUD.single),
     originalPrice: "55",
     img: strawberryCoconutWatermelon,
     tag: "Tropical",
@@ -251,7 +251,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "grape-ice",
     name: "Grape Ice",
-    price: "40",
+    price: String(CATALOGUE_PRICES_AUD.single),
     originalPrice: "55",
     img: grape,
     tag: "Iced",
@@ -264,7 +264,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "strawberry-watermelon",
     name: "Strawberry Watermelon",
-    price: "40",
+    price: String(CATALOGUE_PRICES_AUD.single),
     originalPrice: "55",
     img: strawberryWatermelon,
     tag: "Fruity",
@@ -277,7 +277,7 @@ Each pack includes twenty Alibarbar Ingot 9000 Puffs devices. Select your prefer
   {
     slug: "strawberry-ice",
     name: "Strawberry Ice",
-    price: "40",
+    price: String(CATALOGUE_PRICES_AUD.single),
     originalPrice: "55",
     img: strawberryIce,
     tag: "Iced",

@@ -1,5 +1,5 @@
 # Alibarbar Australia — Full machine-readable index
-Generated: 2026-08-14
+Generated: 2026-08-17
 Canonical: https://www.ailibarbar.com
 Do not edit by hand — npm run generate:llms
 
@@ -11,7 +11,7 @@ Primary product: Alibarbar Ingot 9000
 Site name: Alibarbar Australia
 Language: en-AU
 Audience: adults 18+
-Last reviewed: 2026-08-14
+Last reviewed: 2026-08-17
 
 ## ENTITY IDENTITY
 
@@ -68,12 +68,12 @@ Alibarbar Ingot 9000:
 
 These are catalogue values in the codebase and may change:
 
-- Single flavour device: A$40
-- 5 Flavour Custom Pack: A$190
-- 10 Flavour Custom Pack: A$350
-- 20 Flavour Custom Pack: A$600
+- Single flavour device: A$35
+- 5 Flavour Custom Pack: A$165
+- 10 Flavour Custom Pack: A$300
+- 20 Flavour Custom Pack: A$500
 
-Catalogue prices currently list a single Ingot 9000 flavour at A$40, with custom packs at A$190 for 5, A$350 for 10 and A$600 for 20. Confirm live pricing on the product page before relying on these figures.
+Catalogue prices currently list a single Ingot 9000 flavour at A$35, with custom packs at A$165 for 5, A$300 for 10 and A$500 for 20. Confirm live pricing on the product page before relying on these figures.
 
 ## SHIPPING VALUES IN CODE
 
@@ -233,7 +233,7 @@ https://www.ailibarbar.com/sitemap.xml
 - Blackberry Ice vs Peach Ice: Which Alibarbar Flavour Is Better? (https://www.ailibarbar.com/guides/blackberry-ice-vs-peach-ice) — updated 2026-07-22
 - How to Read the Alibarbar LED (When Is It Finished?) (https://www.ailibarbar.com/guides/how-to-read-alibarbar-led-when-finished) — updated 2026-07-22
 - Alibarbar Ingot 9000 Nicotine Content & Strength (Australia) (https://www.ailibarbar.com/guides/alibarbar-nicotine-strength-australia) — updated 2026-08-04
-- Alibarbar Ingot 9000 Price in Australia (2026 Guide) (https://www.ailibarbar.com/guides/alibarbar-ingot-9000-price-guide-australia) — updated 2026-08-04
+- Alibarbar Ingot 9000 Price in Australia (2026 Guide) (https://www.ailibarbar.com/guides/alibarbar-ingot-9000-price-guide-australia) — updated 2026-08-17
 
 ## ALL COMPARISONS
 
@@ -318,13 +318,13 @@ Q: Which flavours are available?
 A: The current line-up includes Quadruple Berry, Fanta, Peach Ice, Blackberry Ice, Mango Magic, Strawberry Coconut Watermelon, Grape Ice, Strawberry Watermelon, and Strawberry Ice.
 
 Q: What is the 5 Flavour Custom Pack?
-A: The 5 Flavour Custom Pack lets you pick any five flavours from our current Alibarbar Ingot 9000 collection for A$190. Repeats are allowed, and your choices are saved with your order.
+A: The 5 Flavour Custom Pack lets you pick any five flavours from our current Alibarbar Ingot 9000 collection for A$165. Repeats are allowed, and your choices are saved with your order.
 
 Q: What is the 10 Flavour Custom Pack?
-A: The 10 Flavour Custom Pack lets you choose any ten flavours from the current line-up for A$350. It is ideal for stocking up with variety.
+A: The 10 Flavour Custom Pack lets you choose any ten flavours from the current line-up for A$300. It is ideal for stocking up with variety.
 
 Q: What is the 20 Flavour Custom Pack?
-A: The 20 Flavour Custom Pack lets you pick any twenty flavours from our current Alibarbar Ingot 9000 collection for A$600, with free Regular Post shipping included (20+ devices).
+A: The 20 Flavour Custom Pack lets you pick any twenty flavours from our current Alibarbar Ingot 9000 collection for A$500, with free Regular Post shipping included (20+ devices).
 
 Q: How should I store my Alibarbar Ingot?
 A: Store your device in a cool, dry place away from direct sunlight and extreme heat. Avoid leaving it in a hot car, as high temperatures can affect the battery and e-liquid.

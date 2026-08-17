@@ -6,7 +6,7 @@ Primary product: Alibarbar Ingot 9000
 Site name: Alibarbar Australia
 Language: en-AU
 Audience: adults 18+
-Last reviewed: 2026-08-14
+Last reviewed: 2026-08-17
 
 ## ENTITY IDENTITY
 
@@ -63,12 +63,12 @@ Alibarbar Ingot 9000:
 
 These are catalogue values in the codebase and may change:
 
-- Single flavour device: A$40
-- 5 Flavour Custom Pack: A$190
-- 10 Flavour Custom Pack: A$350
-- 20 Flavour Custom Pack: A$600
+- Single flavour device: A$35
+- 5 Flavour Custom Pack: A$165
+- 10 Flavour Custom Pack: A$300
+- 20 Flavour Custom Pack: A$500
 
-Catalogue prices currently list a single Ingot 9000 flavour at A$40, with custom packs at A$190 for 5, A$350 for 10 and A$600 for 20. Confirm live pricing on the product page before relying on these figures.
+Catalogue prices currently list a single Ingot 9000 flavour at A$35, with custom packs at A$165 for 5, A$300 for 10 and A$500 for 20. Confirm live pricing on the product page before relying on these figures.
 
 ## SHIPPING VALUES IN CODE
 

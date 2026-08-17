@@ -1,6 +1,6 @@
 /** Single source of product / catalogue facts for pages, schema, FAQ and llms.txt. */
 
-export const FACTS_LAST_REVIEWED = "2026-08-14";
+export const FACTS_LAST_REVIEWED = "2026-08-17";
 
 export const PRODUCT_FAMILY = {
   name: "Alibarbar Ingot 9000",
@@ -27,10 +27,10 @@ export const NICOTINE = {
 };
 
 export const CATALOGUE_PRICES_AUD = {
-  single: 40,
-  pack5: 190,
-  pack10: 350,
-  pack20: 600,
+  single: 35,
+  pack5: 165,
+  pack10: 300,
+  pack20: 500,
 } as const;
 
 export const SHIPPING = {
