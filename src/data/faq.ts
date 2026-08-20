@@ -235,4 +235,22 @@ export const faqItems: FaqItem[] = [
     answer:
       "Current Australian government guidance says vaping products are restricted to pharmacy settings for therapeutic purposes, with extra conditions depending on nicotine strength and state or territory law. Adults 18+ still apply. Strengths above 20 mg/mL typically sit under tighter prescription-style controls. This site’s catalogue is not proof of lawful non-pharmacy supply. See /guides/disposable-vape-laws-in-australia — not legal advice.",
   },
+  {
+    category: "Product & Usage",
+    question: "How do Alibarbar custom packs work?",
+    answer:
+      "Choose any mix of 5, 10 or 20 Ingot 9000 flavours on the custom pack product page before checkout — repeats allowed. Current catalogue prices are A$165 (5-pack), A$300 (10-pack) and A$500 (20-pack). Full guide: /guides/alibarbar-custom-pack-guide-australia.",
+  },
+  {
+    category: "Product & Usage",
+    question: "Can I verify my Alibarbar device online?",
+    answer:
+      "Yes. Visit /verify and photograph the circular honeycomb anti-counterfeit seal on your packaging. The tool compares your image against official templates. Combine with LED and packaging checks in /guides/how-to-spot-fake-alibarbar-ingot.",
+  },
+  {
+    category: "Ordering & Shipping",
+    question: "How much does an Alibarbar Ingot 9000 cost in Australia?",
+    answer:
+      "Catalogue pricing lists singles at A$35, the 5 Flavour Custom Pack at A$165, 10-pack at A$300 and 20-pack at A$500, all in AUD. Shipping is tiered: A$15 (1–9 devices), A$10 (10–19), free at 20+. See /guides/alibarbar-ingot-9000-price-guide-australia.",
+  },
 ];

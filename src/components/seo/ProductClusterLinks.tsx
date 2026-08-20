@@ -10,6 +10,7 @@ type ProductClusterLinksProps = {
 
 const TRUST_LINKS = [
   { label: "Shipping & delivery", to: "/shipping" },
+  { label: "Verify authenticity seal", to: "/verify" },
   { label: "How to spot fakes", to: "/guides/how-to-spot-fake-alibarbar-ingot" },
   { label: "Why trust us", to: "/why-trust-us" },
   { label: "Price guide (AU)", to: "/guides/alibarbar-ingot-9000-price-guide-australia" },

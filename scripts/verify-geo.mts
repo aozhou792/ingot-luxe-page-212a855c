@@ -32,6 +32,7 @@ const pages: { path: string; checks: Check[] }[] = [
       { name: "product-id", test: (h) => h.includes("/product/peach-ice#product") },
       { name: "brand-id", test: (h) => h.includes("#brand") },
       { name: "nicotine-variable", test: (h) => /batch and region/i.test(h) || /package label/i.test(h) },
+      { name: "flavour-faq", test: (h) => /taste like/i.test(h) },
     ],
   },
   {
@@ -46,9 +47,10 @@ const pages: { path: string; checks: Check[] }[] = [
   {
     path: "/llms.txt",
     checks: [
-      { name: "last-reviewed-2026-08-13", test: (h) => h.includes("Last reviewed: 2026-08-13") },
+      { name: "last-reviewed", test: (h) => /Last reviewed: 2026-08-20/.test(h) },
       { name: "nicotine-variable", test: (h) => /not treated as one fixed/i.test(h) },
       { name: "regulatory-warning", test: (h) => /pharmacy settings/i.test(h) },
+      { name: "custom-pack-intent", test: (h) => /custom-pack-guide/i.test(h) || /custom pack/i.test(h) },
     ],
   },
 ];

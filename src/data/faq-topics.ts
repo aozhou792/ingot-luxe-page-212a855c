@@ -343,7 +343,7 @@ export const faqTopics: FaqTopic[] = [
       {
         question: "Can I verify my device online?",
         answer:
-          "The best way to confirm authenticity is to buy from Alibarbar Australia. Check for a working LED display, ALIBARBAR branding on packaging, and consistent vapour quality. See our guide at /guides/how-to-spot-fake-alibarbar-ingot for the full checklist.",
+          "Yes. Use the free honeycomb seal checker at /verify — photograph or upload the circular anti-counterfeit mark on your packaging. Also confirm a working smart LED, ALIBARBAR branding and consistent vapour. Full checklist: /guides/how-to-spot-fake-alibarbar-ingot.",
       },
       {
         question: "Are custom packs also genuine?",

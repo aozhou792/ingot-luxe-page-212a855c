@@ -1,6 +1,6 @@
 /** Single source of product / catalogue facts for pages, schema, FAQ and llms.txt. */
 
-export const FACTS_LAST_REVIEWED = "2026-08-17";
+export const FACTS_LAST_REVIEWED = "2026-08-20";
 
 export const PRODUCT_FAMILY = {
   name: "Alibarbar Ingot 9000",

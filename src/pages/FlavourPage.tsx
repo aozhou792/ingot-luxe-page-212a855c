@@ -9,6 +9,7 @@ import { KeyTakeaways } from "@/components/seo/KeyTakeaways";
 import { QuickAnswer } from "@/components/seo/QuickAnswer";
 import { Seo, articleJsonLd, type BreadcrumbEntry } from "@/components/Seo";
 import { flavourProfiles, getFlavourBySlug, getFlavourProduct } from "@/data/flavours";
+import { comparisons } from "@/data/comparisons";
 import { getReviewByProductSlug } from "@/data/reviews";
 import { deriveKeyTakeaways, deriveQuickAnswer } from "@/lib/content-geo";
 import { useReveal } from "@/hooks/use-reveal";
@@ -47,6 +48,12 @@ const FlavourPage = () => {
   const similar = flavour.similar
     .map((s) => flavourProfiles.find((f) => f.slug === s))
     .filter((f): f is NonNullable<typeof f> => Boolean(f));
+
+  const flavourCompares = comparisons.filter(
+    (c) =>
+      c.flavourCompare &&
+      (c.leftProductSlug === flavour.slug || c.rightProductSlug === flavour.slug),
+  );
 
   const jsonLd = articleJsonLd({
     title: `Alibarbar Ingot 9000 ${flavour.name} Flavour`,
@@ -167,6 +174,20 @@ const FlavourPage = () => {
                 ))}
               </div>
             </section>
+          ) : null}
+
+          {flavourCompares.length > 0 ? (
+            <p className="mt-6 text-sm text-muted-foreground">
+              SKU comparison:{" "}
+              {flavourCompares.map((c, i) => (
+                <span key={c.slug}>
+                  {i > 0 ? " · " : null}
+                  <Link to={`/compare/${c.slug}`} className="text-primary font-semibold hover:text-gold">
+                    {c.leftLabel} vs {c.rightLabel}
+                  </Link>
+                </span>
+              ))}
+            </p>
           ) : null}
 
           {similar.length > 0 ? (

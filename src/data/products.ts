@@ -12,6 +12,7 @@ import custom5Pack from "@/assets/custom-5-pack.png";
 import custom10Pack from "@/assets/Alibarbar-10-pcs_1800x.webp";
 import custom20Pack from "@/assets/custom-20-pack.png";
 import { CATALOGUE_PRICES_AUD, NICOTINE, PRODUCT_FAMILY } from "@/data/canonical-facts";
+import { getFlavourBySlug } from "@/data/flavours";
 
 export type Product = {
   slug: string;
@@ -335,12 +336,32 @@ export function getProductFaq(product: Product): { question: string; answer: str
     ];
   }
 
-  return [
+  const flavour = getFlavourBySlug(product.slug);
+  const faq: { question: string; answer: string }[] = [
     {
       question: `How many puffs does the ${product.name} give?`,
       answer:
         `Each Alibarbar Ingot device is ${PRODUCT_FAMILY.puffSpec.toLowerCase()}. ${PRODUCT_FAMILY.puffNote}`,
     },
+  ];
+
+  if (flavour) {
+    const cooling =
+      flavour.coolness >= 3
+        ? " It has a noticeable iced finish."
+        : flavour.coolness <= 1
+          ? " It is a low-menthol, smooth fruit profile."
+          : "";
+    faq.push({
+      question: `What does ${product.name} taste like?`,
+      answer: `${flavour.tastingNotes[0]}${cooling} See the full taste profile at /flavours/${product.slug}.`,
+    });
+    if (flavour.faq[0]) {
+      faq.push(flavour.faq[0]);
+    }
+  }
+
+  faq.push(
     {
       question: `Is the ${product.name} rechargeable?`,
       answer:
@@ -354,13 +375,15 @@ export function getProductFaq(product: Product): { question: string; answer: str
     {
       question: "Is this a genuine Alibarbar device?",
       answer:
-        "Check ALIBARBAR branding, a working smart LED, and specs that match up to 9000 puffs, 22ml and 2350mAh. See /guides/how-to-spot-fake-alibarbar-ingot.",
+        "Check ALIBARBAR branding, a working smart LED, and specs that match up to 9000 puffs, 22ml and 2350mAh. You can also photograph the honeycomb seal at /verify. See /guides/how-to-spot-fake-alibarbar-ingot for the full checklist.",
     },
     {
       question: "What nicotine strength is in this device?",
       answer: NICOTINE.statement,
     },
-  ];
+  );
+
+  return faq;
 }
 
 export function getProductBySlug(slug: string | undefined): Product | undefined {

@@ -715,6 +715,83 @@ export const comparisons: Comparison[] = [
     datePublished: "2026-08-14",
     dateModified: "2026-08-14",
   },
+  {
+    slug: "fanta-vs-lychee",
+    competitor: "Lychee",
+    leftLabel: "Fanta",
+    rightLabel: "Lychee",
+    flavourCompare: true,
+    leftProductSlug: "fanta",
+    rightProductSlug: "lychee",
+    title: "Fanta vs Lychee: Alibarbar Ingot 9000 SKU Comparison",
+    description:
+      "Two low-ice Ingot 9000 SKUs: orange-soda Fanta versus light floral Lychee. Same hardware — pick candy citrus or delicate fruit.",
+    intro:
+      "Hardware is identical: up to 9000 puffs (usage dependent), 22ml, 2350mAh, mesh coil and smart LED. Neither SKU is iced. This page is Fanta versus Lychee — not versus Peach Ice, and not versus Mango Magic.",
+    competitorOverview: [
+      "Lychee is the lightest fruit in the current range: floral, fragrant and lower sweetness than Fanta or Quadruple Berry. Cooling is near zero.",
+      "Fanta is the only soda-style SKU: sweet orange-soda citrus with a fizzy-coded exhale. It is brighter and candy-sweeter than Lychee, not fresh-squeezed orange juice.",
+    ],
+    rows: [
+      { feature: "SKU", alibarbar: "Ingot 9000 Fanta", competitor: "Ingot 9000 Lychee" },
+      { feature: "Hardware", alibarbar: "Same 22ml / 2350mAh / LED platform", competitor: "Same 22ml / 2350mAh / LED platform" },
+      { feature: "Fruit / profile", alibarbar: "Orange soda — sweet citrus, fizzy-coded", competitor: "Ripe lychee — floral, light fruit" },
+      { feature: "Sweetness", alibarbar: "High (soda candy)", competitor: "Medium-low (fragrant, not cloying)" },
+      { feature: "Cooling", alibarbar: "Almost none", competitor: "Almost none" },
+      { feature: "Best as", alibarbar: "Change-up / mixed-pack contrast SKU", competitor: "All-day light fruit if berry feels heavy" },
+    ],
+    alibarbarStrengths: [
+      "Only soda-orange note in the live catalogue",
+      "Clear break from berry and ice SKUs",
+      "Works as one slot in a 5-pack rather than five identical sticks",
+    ],
+    competitorStrengths: [
+      "Lighter, more aromatic daily fruit",
+      "Less candy-sweet on long sessions",
+      "Better contrast next to Fanta or mixed berry",
+    ],
+    shortAnswer: {
+      alibarbar:
+        "Pick Fanta if you want orange-soda citrus and a fizzy-coded finish, not juice orange.",
+      competitor:
+        "Pick Lychee if you want a light floral fruit with almost no ice and lower sweetness.",
+    },
+    quickAnswer: {
+      question: "Fanta or Lychee on the Alibarbar Ingot 9000?",
+      answer:
+        "Same sealed Ingot 9000 hardware and almost no ice on either. Fanta is sweet orange-soda citrus. Lychee is lighter, floral fruit. Choose Fanta for a soda change-up; choose Lychee if berry or candy profiles feel heavy. For ice, use Peach Ice instead of either.",
+    },
+    keyTakeaways: [
+      "Identical Ingot 9000 hardware — flavour fill only",
+      "Fanta = soda orange, not juice orange and not Peach Ice",
+      "Lychee = floral light fruit, not candy lychee ice",
+      "Both are low-menthol; add Peach Ice if you want a chill slot",
+      "A mixed 5-pack often runs one Fanta + one Lychee + one ice + two fruit",
+    ],
+    verdict: [
+      "Buy Fanta when you specifically want a soda-citrus break from berry and ice.",
+      "Buy Lychee when you want a soft daily fruit that will not fatigue as fast as candy-sweet SKUs.",
+    ],
+    faq: [
+      {
+        question: "Is Fanta an iced flavour?",
+        answer:
+          "No. Cooling is near zero. If you want peach with ice, that is the Peach Ice SKU — a different fill on the same hardware.",
+      },
+      {
+        question: "Is Lychee sweeter than Fanta?",
+        answer:
+          "No. Fanta sits higher on sweetness (soda candy). Lychee is lighter and more floral.",
+      },
+      {
+        question: "Should I put both in a custom pack?",
+        answer:
+          "Yes — they contrast well (soda citrus vs floral fruit). Add one iced SKU if you also want menthol in the same order.",
+      },
+    ],
+    datePublished: "2026-08-20",
+    dateModified: "2026-08-20",
+  },
 ];
 
 export function getComparisonBySlug(slug: string | undefined): Comparison | undefined {

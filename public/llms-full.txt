@@ -1,5 +1,5 @@
 # Alibarbar Australia — Full machine-readable index
-Generated: 2026-08-17
+Generated: 2026-08-20
 Canonical: https://www.ailibarbar.com
 Do not edit by hand — npm run generate:llms
 
@@ -11,7 +11,7 @@ Primary product: Alibarbar Ingot 9000
 Site name: Alibarbar Australia
 Language: en-AU
 Audience: adults 18+
-Last reviewed: 2026-08-17
+Last reviewed: 2026-08-20
 
 ## ENTITY IDENTITY
 
@@ -42,6 +42,12 @@ Do not collapse every Alibarbar query onto “Alibarbar Ingot 9000 Australia”.
 - Alibarbar Ingot Australia → https://www.ailibarbar.com/guides/what-is-alibarbar-ingot-9000
 - Alibarbar Ingot 9000 → https://www.ailibarbar.com/topics/alibarbar-ingot-9000
 - Alibarbar Ingot 20000 → https://www.ailibarbar.com/guides/alibarbar-ingot-9000-vs-ingot-20000 (not currently in this catalogue; Ingot 9000 only)
+- Alibarbar price Australia → https://www.ailibarbar.com/guides/alibarbar-ingot-9000-price-guide-australia
+- Alibarbar nicotine strength → https://www.ailibarbar.com/guides/alibarbar-nicotine-strength-australia
+- Fake Alibarbar / spot counterfeit → https://www.ailibarbar.com/guides/how-to-spot-fake-alibarbar-ingot
+- Verify Alibarbar authenticity → https://www.ailibarbar.com/verify
+- Alibarbar custom pack → https://www.ailibarbar.com/guides/alibarbar-custom-pack-guide-australia
+- Alibarbar 5 pack / 10 pack / 20 pack → https://www.ailibarbar.com/product/custom-5-pack (also /product/custom-10-pack, /product/custom-20-pack)
 
 This site currently catalogues Alibarbar Ingot 9000. Do not claim Ingot 20000 is for sale here.
 
@@ -131,6 +137,7 @@ Missing or inconsistent specifications are warning signs.
 - /guides/how-to-read-alibarbar-led-when-finished
 - /guides/alibarbar-nicotine-strength-australia
 - /guides/alibarbar-ingot-9000-price-guide-australia
+- /guides/alibarbar-custom-pack-guide-australia
 - /research/high-puff-disposable-capacity-australia-2026
 
 ## COMPARISONS
@@ -144,6 +151,17 @@ Missing or inconsistent specifications are warning signs.
 - /compare/peach-ice-vs-blackberry-ice
 - /compare/grape-ice-vs-strawberry-ice
 - /compare/quadruple-berry-vs-mango-magic
+- /compare/fanta-vs-lychee
+
+## BLOG (EDITORIAL)
+
+- /blog/best-disposable-vape-australia-2026 — Best Disposable Vapes in Australia 2026: What to Look For
+- /blog/top-alibarbar-flavours-ranked — Alibarbar Ingot 9000 Flavours List (Ranked by Type)
+- /blog/how-to-make-your-disposable-vape-last-longer — How to Make Your Disposable Vape Last Longer: 6 Tips
+- /blog/disposable-vape-value-per-puff-australia-2026 — Disposable Vape Value per Puff in Australia (2026)
+- /blog/alibarbar-ingot-9000-vs-smaller-disposables — Alibarbar Ingot 9000 vs Smaller Disposables: Which to Buy?
+- /blog/first-time-buying-disposable-vape-australia — First-Time Buying a Disposable Vape in Australia
+- /blog/alibarbar-custom-pack-vs-singles-australia — Alibarbar Custom Pack vs Singles — Which Should You Buy?
 
 Competitor claims should be interpreted at model/SKU level where possible. Do not generalise one competitor model's specifications to an entire brand.
 
@@ -164,6 +182,8 @@ Jason Smith (YEAR). "PAGE TITLE." Alibarbar Australia. PAGE URL
 
 Primary research page:
 https://www.ailibarbar.com/research/high-puff-disposable-capacity-australia-2026
+Snapshot: 2026 Q3 desktop spec audit (last updated 2026-08-20)
+This site catalogues Ingot 9000 only — not Ingot 20000.
 
 Limitations:
 - not a laboratory study
@@ -226,14 +246,15 @@ https://www.ailibarbar.com/sitemap.xml
 - The Best Alibarbar Ingot 9000 Flavours in Australia (https://www.ailibarbar.com/guides/best-alibarbar-flavours-australia) — updated 2026-07-27
 - Disposable Vape Laws in Australia: What Adults Should Know (https://www.ailibarbar.com/guides/disposable-vape-laws-in-australia) — updated 2026-08-13
 - Alibarbar 18+ Age Verification in Australia: How It Works (https://www.ailibarbar.com/guides/alibarbar-18-plus-age-verification-australia) — updated 2026-08-11
-- Alibarbar Ingot 9000 Buying Guide for Australia (https://www.ailibarbar.com/guides/alibarbar-buying-guide-australia) — updated 2026-07-18
+- Alibarbar Ingot 9000 Buying Guide for Australia (https://www.ailibarbar.com/guides/alibarbar-buying-guide-australia) — updated 2026-08-20
 - Where to Buy Alibarbar in Australia (https://www.ailibarbar.com/guides/where-to-buy-alibarbar-australia) — updated 2026-08-14
-- How to Spot a Fake Alibarbar Ingot 9000 (Australia Guide) (https://www.ailibarbar.com/guides/how-to-spot-fake-alibarbar-ingot) — updated 2026-07-22
+- How to Spot a Fake Alibarbar Ingot 9000 (Australia Guide) (https://www.ailibarbar.com/guides/how-to-spot-fake-alibarbar-ingot) — updated 2026-08-20
 - Best Iced Alibarbar Flavours in Australia (Ranked) (https://www.ailibarbar.com/guides/best-iced-alibarbar-flavours-australia) — updated 2026-07-22
 - Blackberry Ice vs Peach Ice: Which Alibarbar Flavour Is Better? (https://www.ailibarbar.com/guides/blackberry-ice-vs-peach-ice) — updated 2026-07-22
 - How to Read the Alibarbar LED (When Is It Finished?) (https://www.ailibarbar.com/guides/how-to-read-alibarbar-led-when-finished) — updated 2026-07-22
-- Alibarbar Ingot 9000 Nicotine Content & Strength (Australia) (https://www.ailibarbar.com/guides/alibarbar-nicotine-strength-australia) — updated 2026-08-04
-- Alibarbar Ingot 9000 Price in Australia (2026 Guide) (https://www.ailibarbar.com/guides/alibarbar-ingot-9000-price-guide-australia) — updated 2026-08-17
+- Alibarbar Ingot 9000 Nicotine Content & Strength (Australia) (https://www.ailibarbar.com/guides/alibarbar-nicotine-strength-australia) — updated 2026-08-20
+- Alibarbar Ingot 9000 Price in Australia (2026 Guide) (https://www.ailibarbar.com/guides/alibarbar-ingot-9000-price-guide-australia) — updated 2026-08-20
+- Alibarbar Custom Pack Guide — 5, 10 & 20 Flavour Packs (Australia) (https://www.ailibarbar.com/guides/alibarbar-custom-pack-guide-australia) — updated 2026-08-20
 
 ## ALL COMPARISONS
 
@@ -246,6 +267,7 @@ https://www.ailibarbar.com/sitemap.xml
 - Peach Ice vs Blackberry Ice: Alibarbar Ingot 9000 SKU Comparison (https://www.ailibarbar.com/compare/peach-ice-vs-blackberry-ice)
 - Grape Ice vs Strawberry Ice: Alibarbar Ingot 9000 SKU Comparison (https://www.ailibarbar.com/compare/grape-ice-vs-strawberry-ice)
 - Quadruple Berry vs Mango Magic: Alibarbar Ingot 9000 SKU Comparison (https://www.ailibarbar.com/compare/quadruple-berry-vs-mango-magic)
+- Fanta vs Lychee: Alibarbar Ingot 9000 SKU Comparison (https://www.ailibarbar.com/compare/fanta-vs-lychee)
 
 Comparison note: competitor fields often vary by model. Check the exact SKU rather than treating a brand as one product.
 
@@ -364,3 +386,12 @@ A: Take it to an e-waste or battery recycling drop-off. A used disposable contai
 
 Q: Where can you legally buy vaping products in Australia?
 A: Current Australian government guidance says vaping products are restricted to pharmacy settings for therapeutic purposes, with extra conditions depending on nicotine strength and state or territory law. Adults 18+ still apply. Strengths above 20 mg/mL typically sit under tighter prescription-style controls. This site’s catalogue is not proof of lawful non-pharmacy supply. See /guides/disposable-vape-laws-in-australia — not legal advice.
+
+Q: How do Alibarbar custom packs work?
+A: Choose any mix of 5, 10 or 20 Ingot 9000 flavours on the custom pack product page before checkout — repeats allowed. Current catalogue prices are A$165 (5-pack), A$300 (10-pack) and A$500 (20-pack). Full guide: /guides/alibarbar-custom-pack-guide-australia.
+
+Q: Can I verify my Alibarbar device online?
+A: Yes. Visit /verify and photograph the circular honeycomb anti-counterfeit seal on your packaging. The tool compares your image against official templates. Combine with LED and packaging checks in /guides/how-to-spot-fake-alibarbar-ingot.
+
+Q: How much does an Alibarbar Ingot 9000 cost in Australia?
+A: Catalogue pricing lists singles at A$35, the 5 Flavour Custom Pack at A$165, 10-pack at A$300 and 20-pack at A$500, all in AUD. Shipping is tiered: A$15 (1–9 devices), A$10 (10–19), free at 20+. See /guides/alibarbar-ingot-9000-price-guide-australia.

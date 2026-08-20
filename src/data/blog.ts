@@ -783,6 +783,86 @@ export const blogPosts: BlogPost[] = [
       "how-to-spot-fake-alibarbar-ingot",
     ],
   },
+  {
+    slug: "alibarbar-custom-pack-vs-singles-australia",
+    title: "Alibarbar Custom Pack vs Singles — Which Should You Buy?",
+    description:
+      "Custom pack vs single Alibarbar Ingot 9000 in Australia — per-device pricing, shipping tiers, flavour sampling strategy and when each format makes sense for adult buyers.",
+    category: "Buying Guide",
+    readTime: "10 min read",
+    datePublished: "2026-08-20",
+    dateModified: "2026-08-20",
+    intro:
+      "Singles and custom packs use the same Ingot 9000 hardware — the decision is really about price per device, shipping, and how confident you are about flavour. This post compares both paths for adult Australian buyers.",
+    quickAnswer: {
+      question: "Should I buy Alibarbar singles or a custom pack?",
+      answer:
+        "Buy singles (A$35) if you already know one daily flavour and want the smallest order. Buy a 5-pack (A$165) to sample, a 10-pack (A$300) for rotation at lower per-device cost, or a 20-pack (A$500) for the best bundle price plus free Regular Post. All formats use identical Ingot 9000 devices.",
+    },
+    keyTakeaways: [
+      "Same hardware — only quantity and flavour mix differ",
+      "Singles: A$35 · 5-pack: ~A$33/device · 10-pack: ~A$30 · 20-pack: ~A$25",
+      "Free shipping kicks in at 20 total devices",
+      "Custom packs suit first-time flavour discovery",
+      "Verify authenticity once before bulk orders",
+    ],
+    faq: [
+      {
+        question: "Is a custom pack cheaper than singles?",
+        answer:
+          "Yes. All three pack sizes reduce the per-device catalogue price compared with A$35 singles, with the 20-pack offering the largest saving.",
+      },
+      {
+        question: "Can I mix iced and non-iced flavours in one pack?",
+        answer:
+          "Absolutely. That is one of the main reasons to choose a custom pack — build contrast instead of committing to five identical iced sticks.",
+      },
+    ],
+    sections: [
+      {
+        heading: "Same device, different order format",
+        paragraphs: [
+          "Every single and every slot in a custom pack is a sealed Alibarbar Ingot 9000: up to 9000 puffs (usage dependent), 22ml, 2350mAh, mesh coil, smart LED. The pack format only changes how many you buy and which e-liquid variants ship.",
+        ],
+      },
+      {
+        heading: "Price comparison (catalogue)",
+        paragraphs: ["Current AUD catalogue values:"],
+        bullets: [
+          "1 single: A$35 (A$35.00 per device)",
+          "5-pack: A$165 (A$33.00 per device)",
+          "10-pack: A$300 (A$30.00 per device)",
+          "20-pack: A$500 (A$25.00 per device)",
+        ],
+      },
+      {
+        heading: "Shipping changes the maths",
+        paragraphs: [
+          "Regular Post is A$15 for 1–9 devices, A$10 for 10–19, and free at 20+. A lone single pays A$15 shipping; a 20-pack ships free. Factor shipping when comparing a handful of singles against one bundle.",
+        ],
+      },
+      {
+        heading: "When singles win",
+        paragraphs: [
+          "You already vape Peach Ice daily and only need one replacement. You want to test checkout with minimum spend. You are gifting one flavour to someone who chose it explicitly.",
+        ],
+      },
+      {
+        heading: "When custom packs win",
+        paragraphs: [
+          "You are new to Alibarbar and cannot rank ten flavours from photos alone. You want household variety. You reorder often enough that per-device savings on a 10 or 20-pack matter over a quarter.",
+          "Read the full pack guide at /guides/alibarbar-custom-pack-guide-australia for suggested starter mixes.",
+        ],
+      },
+    ],
+    relatedProducts: ["custom-5-pack", "custom-10-pack", "peach-ice"],
+    relatedGuides: [
+      "alibarbar-custom-pack-guide-australia",
+      "alibarbar-buying-guide-australia",
+      "alibarbar-ingot-9000-price-guide-australia",
+      "best-alibarbar-flavours-australia",
+    ],
+  },
 ];
 
 export function getBlogPostBySlug(slug: string | undefined): BlogPost | undefined {

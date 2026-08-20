@@ -62,7 +62,7 @@ export const flavourProfiles: FlavourProfile[] = [
       "Because it is distinctive, it works well as a change-up flavour in a mixed pack rather than something everyone vapes non-stop.",
     ],
     bestFor: ["Soda and citrus lovers", "Vapers wanting a non-berry option", "Mixed-pack variety"],
-    similar: ["mango-magic", "peach-ice"],
+    similar: ["lychee", "mango-magic", "peach-ice"],
     faq: [
       {
         question: "Does Fanta taste like real orange soda?",

@@ -937,7 +937,7 @@ export const guides: Guide[] = [
     category: "Buying Guide",
     readTime: "9 min read",
     datePublished: "2026-07-18",
-    dateModified: "2026-07-18",
+    dateModified: "2026-08-20",
     intro:
       "This buying guide is the practical decision page for adult Australians considering the Alibarbar Ingot 9000. It answers who the device is for, which flavour format to buy, and what to verify before you pay.",
     quickAnswer: {
@@ -1029,6 +1029,7 @@ export const guides: Guide[] = [
       "alibarbar-ingot-9000-vs-ingot-20000",
       "alibarbar-nicotine-strength-australia",
       "alibarbar-ingot-9000-price-guide-australia",
+      "alibarbar-custom-pack-guide-australia",
     ],
   },
   {
@@ -1142,9 +1143,9 @@ export const guides: Guide[] = [
     category: "Authenticity Guide",
     readTime: "7 min read",
     datePublished: "2026-07-22",
-    dateModified: "2026-07-22",
+    dateModified: "2026-08-20",
     intro:
-      "Counterfeit disposables are a real risk in any high-demand category. This guide shows adult Australian buyers how to spot a fake Alibarbar Ingot 9000 using practical checks — packaging, branding, LED behaviour and vapour quality — and how to reduce risk before you order.",
+      "Counterfeit disposables are a real risk in any high-demand category. This guide shows adult Australian buyers how to spot a fake Alibarbar Ingot 9000 using practical checks — packaging, branding, LED behaviour, honeycomb seal verification and vapour quality — and how to reduce risk before you order.",
     quickAnswer: {
       question: "How do you spot a fake Alibarbar Ingot 9000?",
       answer:
@@ -1199,6 +1200,13 @@ export const guides: Guide[] = [
         paragraphs: [
           "A brand-new authentic device should produce consistent vapour on gentle draws without an immediate burnt taste. Early harsh burnt notes, heavy leaking, or flavour that collapses within the first day are common complaints with low-grade clones.",
           "One bad unit can be a manufacturing fault — repeated issues from the same seller pattern toward supply-chain problems.",
+        ],
+      },
+      {
+        heading: "Honeycomb seal verification (online)",
+        paragraphs: [
+          "Some genuine Alibarbar packaging includes a circular honeycomb anti-counterfeit seal. Alibarbar Australia runs a free online checker at /verify — photograph the seal with your phone camera or upload a clear image. The tool compares your photo against official seal templates.",
+          "A failed match is not always proof of a fake (lighting, blur and partial crops can fail), but a pass adds confidence when combined with the LED and packaging checks above.",
         ],
       },
       {
@@ -1528,7 +1536,7 @@ export const guides: Guide[] = [
     category: "Product Guide",
     readTime: "12 min read",
     datePublished: "2026-07-31",
-    dateModified: "2026-08-04",
+    dateModified: "2026-08-20",
     intro:
       "How much nicotine is in an Alibarbar, and what is the Alibarbar Ingot 9000 nicotine content in Australia? Nicotine strength is one of the most searched questions about this device. This guide explains how to find the exact rating on your pack, why numbers can differ by batch and region, and how to decide whether a sealed disposable fits your existing nicotine habits — for adults 18+ only.",
     quickAnswer: {
@@ -1665,7 +1673,7 @@ export const guides: Guide[] = [
     category: "Buying Guide",
     readTime: "14 min read",
     datePublished: "2026-07-31",
-    dateModified: "2026-08-17",
+    dateModified: "2026-08-20",
     intro:
       "If you are comparing Alibarbar Ingot 9000 prices in Australia, you need more than a headline dollar figure. This 2026 guide breaks down single-device and custom-pack pricing at Alibarbar Australia, adds shipping into the true cost, and explains why unusually low marketplace deals are often a risk — not a bargain.",
     quickAnswer: {
@@ -1780,8 +1788,114 @@ export const guides: Guide[] = [
       "where-to-buy-alibarbar-australia",
       "how-to-spot-fake-alibarbar-ingot",
       "alibarbar-buying-guide-australia",
+      "alibarbar-custom-pack-guide-australia",
       "what-is-alibarbar-ingot-9000",
       "alibarbar-nicotine-strength-australia",
+    ],
+  },
+  {
+    slug: "alibarbar-custom-pack-guide-australia",
+    title: "Alibarbar Custom Pack Guide — 5, 10 & 20 Flavour Packs (Australia)",
+    description:
+      "How Alibarbar 5, 10 and 20 Flavour Custom Packs work in Australia — pricing vs singles, who each pack suits, shipping tiers and how to pick flavours before checkout.",
+    category: "Buying Guide",
+    readTime: "8 min read",
+    datePublished: "2026-08-20",
+    dateModified: "2026-08-20",
+    intro:
+      "Not sure which Alibarbar Ingot 9000 flavour to commit to? Custom packs let adult Australian buyers choose any mix of 5, 10 or 20 flavours before checkout — usually at a lower per-device price than singles, with shipping discounts at higher counts.",
+    quickAnswer: {
+      question: "Which Alibarbar custom pack should I buy in Australia?",
+      answer:
+        "Choose the 5 Flavour Custom Pack (A$165) to sample without overbuying, the 10-pack (A$300) for variety at a lower per-unit cost, or the 20-pack (A$500) for the best bundle price plus free Regular Post shipping. Each slot picks any current Ingot 9000 flavour — repeats allowed.",
+    },
+    keyTakeaways: [
+      "Three pack sizes: 5 (A$165), 10 (A$300), 20 (A$500)",
+      "Lower per-device cost than buying singles at A$35 each",
+      "20+ devices ship free Regular Post Australia-wide",
+      "Pick any current flavour per slot — repeats OK",
+      "Best for first-time buyers unsure on taste",
+      "Singles still suit buyers who already know one favourite",
+    ],
+    sections: [
+      {
+        heading: "How custom packs work",
+        paragraphs: [
+          "Each custom pack is a bundle of sealed Alibarbar Ingot 9000 disposables. On the product page you assign a flavour to every slot from the live catalogue before adding to cart. Your selections travel with the order for fulfilment — you are not sent random flavours.",
+          "Hardware is identical across flavours: up to 9000 puffs (usage dependent), 22ml tank, 2350mAh battery, mesh coil and smart LED. The pack only changes how many devices you buy and which e-liquid fills you receive.",
+        ],
+      },
+      {
+        heading: "Pack sizes and catalogue pricing",
+        paragraphs: ["Current catalogue prices on Alibarbar Australia:"],
+        bullets: [
+          "Single flavour device: A$35",
+          "5 Flavour Custom Pack: A$165 (~A$33 per device vs A$35 singles)",
+          "10 Flavour Custom Pack: A$300 (~A$30 per device)",
+          "20 Flavour Custom Pack: A$500 (~A$25 per device)",
+        ],
+      },
+      {
+        heading: "Shipping tiers by device count",
+        paragraphs: [
+          "Shipping is calculated on total device count in your order, not just pack type. Regular Post is A$15 for 1–9 devices, A$10 for 10–19 devices, and free for 20 or more. A 20-pack therefore hits both the lowest per-device bundle price and free shipping.",
+          "Typical delivery is about 3–7 business days Australia-wide after bank-transfer payment is confirmed. See /shipping for the full policy.",
+        ],
+      },
+      {
+        heading: "Who should buy each pack size",
+        paragraphs: ["Match pack size to how certain you are about flavour:"],
+        bullets: [
+          "5-pack — first order, trying iced vs fruit, or sharing with a partner",
+          "10-pack — you know the range but want rotation without reordering weekly",
+          "20-pack — heavy adult users, households, or buyers who already validated authenticity",
+        ],
+      },
+      {
+        heading: "Suggested flavour mixes (starting points)",
+        paragraphs: [
+          "If you have no preference yet, build a balanced 5-pack: one non-iced fruit (Quadruple Berry or Strawberry Watermelon), one mild ice (Peach Ice), one strong ice (Blackberry Ice), one tropical (Mango Magic) and one contrast (Lychee or Fanta).",
+          "Avoid five identical iced sticks on a first order — palate fatigue is common on high-capacity devices. Read /guides/best-alibarbar-flavours-australia or /best-alibarbar-australia for ranked picks.",
+        ],
+      },
+      {
+        heading: "Custom pack vs singles",
+        paragraphs: [
+          "Singles win when you already know one daily flavour and want the smallest possible order. Custom packs win on value and discovery — especially the 10 and 20 sizes where per-device savings add up.",
+          "For a full price breakdown including competitor context, see /guides/alibarbar-ingot-9000-price-guide-australia.",
+        ],
+      },
+      {
+        heading: "Authenticity before you bulk-buy",
+        paragraphs: [
+          "Larger orders make authenticity more important. Before a 10 or 20-pack, read /guides/how-to-spot-fake-alibarbar-ingot and use the free honeycomb seal checker at /verify on your first unit. Bulk grey-market bargains rarely survive LED and spec checks.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Can I pick the same flavour twice in a custom pack?",
+        answer:
+          "Yes. Repeats are allowed in any slot — useful if you already know Peach Ice is your daily flavour but want a smaller pack than 10 identical singles.",
+      },
+      {
+        question: "Is the 20-pack worth it?",
+        answer:
+          "If you will use 20 devices before they age out and you have verified authenticity once, the 20-pack offers the lowest per-device catalogue price (A$500) plus free Regular Post shipping.",
+      },
+      {
+        question: "Do custom packs ship faster?",
+        answer:
+          "Dispatch timing is the same as singles — after payment confirmation. Larger orders do not get express lanes, but 20+ devices qualify for free Regular Post.",
+      },
+    ],
+    relatedProducts: ["custom-5-pack", "custom-10-pack", "custom-20-pack"],
+    relatedGuides: [
+      "alibarbar-buying-guide-australia",
+      "alibarbar-ingot-9000-price-guide-australia",
+      "best-alibarbar-flavours-australia",
+      "where-to-buy-alibarbar-australia",
+      "how-to-spot-fake-alibarbar-ingot",
     ],
   },
 ];

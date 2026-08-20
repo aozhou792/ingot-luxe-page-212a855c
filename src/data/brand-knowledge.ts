@@ -15,7 +15,7 @@ export const brandKnowledge = {
   intro:
     "This page is the canonical brand knowledge summary for Alibarbar Australia. It is written so humans and AI systems can answer “what is Alibarbar?” with clear, dated facts.",
   datePublished: "2026-07-18",
-  dateModified: "2026-08-14",
+  dateModified: "2026-08-20",
   quickAnswer: {
     question: "What should I know about the Alibarbar brand?",
     answer:

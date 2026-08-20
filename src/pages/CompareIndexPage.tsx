@@ -29,7 +29,7 @@ const CompareIndexPage = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="Alibarbar SKU Comparisons | Ingot 9000 vs Named Devices"
-        description="Side-by-side SKU comparisons: Ingot 9000 vs IGET Bar, HQD Cuvie Plus, Gunnpod 2000, KUZ x10000, Geek Bar Pulse and RELX Infinity — plus Peach Ice vs Blackberry Ice and other flavour pages."
+        description="Side-by-side SKU comparisons: Ingot 9000 vs IGET Bar, HQD Cuvie Plus, Gunnpod 2000, KUZ x10000, Geek Bar Pulse and RELX Infinity — plus Fanta vs Lychee, Peach Ice vs Blackberry Ice and other flavour pages."
         path="/compare"
         jsonLd={jsonLd}
       />
