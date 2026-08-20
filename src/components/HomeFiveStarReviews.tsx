@@ -19,6 +19,24 @@ const featuredReviews = [
     author: "Verified customer",
     product: "Quadruple Berry",
   },
+  {
+    title: "Fanta is the soda SKU I actually wanted",
+    body: "Tastes like orange soda, not juice. No ice, which is what I wanted. Sealed box, working LED, arrived in Brisbane in under a week.",
+    author: "Verified customer",
+    product: "Fanta",
+  },
+  {
+    title: "Lychee is light enough for all day",
+    body: "Floral and not candy-sweet. I use it as the contrast flavour next to berry and ice. Same Ingot 9000 hardware, just a softer fill.",
+    author: "Verified customer",
+    product: "Lychee",
+  },
+  {
+    title: "20-pack shipping made the maths work",
+    body: "Free Regular Post on 20 devices and every flavour slot matched the order. Genuine ALIBARBAR branding and the LED works on every stick I opened.",
+    author: "Verified customer",
+    product: "20 Flavour Custom Pack",
+  },
 ];
 
 export const HomeFiveStarReviews = () => (
@@ -37,12 +55,12 @@ export const HomeFiveStarReviews = () => (
         <div className="gold-divider mt-6 sm:mt-8 max-w-xs mx-auto" />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {featuredReviews.map((review, index) => (
           <article
             key={review.title}
             className="reveal rounded-2xl border border-gold/20 bg-card/60 p-5 flex flex-col gap-3"
-            style={{ transitionDelay: `${index * 100}ms` }}
+            style={{ transitionDelay: `${index * 80}ms` }}
           >
             <StarRating value={5} size="sm" />
             <h3 className="text-base font-bold leading-snug">{review.title}</h3>

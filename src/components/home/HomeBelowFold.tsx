@@ -1,5 +1,6 @@
 import { Features } from "@/components/Features";
 import { HowItWorks } from "@/components/HowItWorks";
+import { HomeFiveStarReviews } from "@/components/HomeFiveStarReviews";
 import { CustomerReviews } from "@/components/CustomerReviews";
 import { HomeGuides } from "@/components/HomeGuides";
 import { Faq } from "@/components/Faq";
@@ -18,6 +19,7 @@ import {
 const mobileSection = {
   howItWorks: "order-1 md:order-none",
   features: "order-2 md:order-none",
+  fiveStar: "order-3 md:order-none",
   faq: "order-4 md:order-none",
   whyChoose: "order-5 md:order-none",
   compare: "order-6 md:order-none",
@@ -40,6 +42,9 @@ export default function HomeBelowFold() {
       </div>
       <div className={mobileSection.features}>
         <Features />
+      </div>
+      <div className={mobileSection.fiveStar}>
+        <HomeFiveStarReviews />
       </div>
       <div className={mobileSection.whyChoose}>
         <HomeWhyChoose />

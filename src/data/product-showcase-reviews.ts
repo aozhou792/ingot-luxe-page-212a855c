@@ -164,6 +164,62 @@ const reviewPool: ReviewTemplate[] = [
     photos: [`${R}/review-18.png`],
     createdAt: "2026-07-12",
   },
+  {
+    author: "E**a",
+    rating: 5,
+    body: "Fanta vs Lychee was the right first compare for me — Fanta is soda-orange, Lychee is light and floral. Ordered both in a 5-pack and the slots matched. LED works, boxes sealed.",
+    photos: [],
+    createdAt: "2026-08-18",
+  },
+  {
+    author: "J**k",
+    rating: 5,
+    body: "Peach Ice is still the easiest iced SKU. Moderate chill, peach stays readable. Dispatched after the transfer cleared and landed in Perth in the 3–7 day window they list.",
+    photos: [],
+    createdAt: "2026-08-16",
+  },
+  {
+    author: "M**l",
+    rating: 5,
+    body: "Quadruple Berry as a daily no-ice fruit, Blackberry Ice when it is hot. Same Ingot 9000 hardware — 22ml, LED, no charging. Third order from this store.",
+    photos: [],
+    createdAt: "2026-08-15",
+  },
+  {
+    author: "T**i",
+    rating: 5,
+    body: "Used the honeycomb seal checker after the parcel arrived — matched. Packaging, ALIBARBAR branding and the battery/e-liquid LED all lined up with the how-to-spot-fake guide.",
+    photos: [],
+    createdAt: "2026-08-14",
+  },
+  {
+    author: "R**n",
+    rating: 5,
+    body: "10 Flavour Custom Pack came out cheaper per device than singles. Repeats allowed, so I doubled Peach Ice and still sampled Lychee and Grape Ice. Invoice listed every slot.",
+    photos: [],
+    createdAt: "2026-08-12",
+  },
+  {
+    author: "A**y",
+    rating: 5,
+    body: "Mango Magic is dense tropical mango with almost no menthol. Lasts like the other 9000-rated sticks. Support replied on orders@ailibarbar.com the same day I asked about tracking.",
+    photos: [],
+    createdAt: "2026-08-10",
+  },
+  {
+    author: "C**s",
+    rating: 5,
+    body: "Strawberry Ice is candy strawberry plus strong ice — not the same as Strawberry Watermelon. Glad the flavour page spelled that out. Device feels genuine, gold bar shape, working display.",
+    photos: [],
+    createdAt: "2026-08-08",
+  },
+  {
+    author: "L**u",
+    rating: 5,
+    body: "Bank transfer checkout was clear, age gate at entry, 18+ box at checkout. Parcel was discreet. Grape Ice batch is bold grape with a cold finish — Melbourne metro in four business days.",
+    photos: [],
+    createdAt: "2026-08-06",
+  },
 ];
 
 const homeProductLabels = [
@@ -185,6 +241,14 @@ const homeProductLabels = [
   "Chuppa Chupps Strawberry",
   "Grape Ice",
   "10 Flavour Custom Pack",
+  "5 Flavour Custom Pack",
+  "Peach Ice",
+  "Quadruple Berry",
+  "Ingot 9000",
+  "10 Flavour Custom Pack",
+  "Mango Magic",
+  "Strawberry Ice",
+  "Grape Ice",
 ] as const;
 
 export const homeShowcaseReviews: ShowcaseReview[] = sortReviewsForDisplay(
@@ -242,6 +306,7 @@ function pickReviewsForSlug(slug: string): ShowcaseReview[] {
   const offset = index >= 0 ? index : 0;
   const first = reviewPool[offset % reviewPool.length];
   const second = reviewPool[(offset + 5) % reviewPool.length];
+  const third = reviewPool[(offset + 11) % reviewPool.length];
   const note = flavourNotes[slug];
 
   const withNote = (template: ReviewTemplate, suffix: string): ShowcaseReview => ({
@@ -252,7 +317,7 @@ function pickReviewsForSlug(slug: string): ShowcaseReview[] {
     qualified: hasReviewPhotos(template),
   });
 
-  return sortReviewsForDisplay([withNote(first, "a"), withNote(second, "b")]);
+  return sortReviewsForDisplay([withNote(first, "a"), withNote(second, "b"), withNote(third, "c")]);
 }
 
 export function getShowcaseReviews(slug: string): ShowcaseReview[] {
